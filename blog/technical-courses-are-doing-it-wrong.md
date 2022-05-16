@@ -9,3 +9,28 @@ tags: post
 # {{title}}
 
 Welcome!
+
+```js
+function myFunction() {
+  return true;
+}
+```
+
+...and then some comments
+
+```html
+<section>
+    <p>Hello</p>
+</section>
+```
+
+and some more comments
+
+```css
+.greet {
+    margin-inline: 1rem;
+    display: flex;
+}
+```
+
+and last comments

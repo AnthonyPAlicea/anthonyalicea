@@ -1,19 +1,19 @@
 {% for post in posts %}
         {% if not post.data.draft %}
-            <h2>
+            <h2 class="posts__title">
                 <a href="{{ post.url | url }}">{{ post.data.title }}</a>
             </h2>
 
-            <p class="excerpt">{{ post.data.excerpt }}</p>
+            <p class="posts__date" datetime="{{ post.data.date }}">
+                Posted on {{ post.data.date | dateDisplay }}
+            </p>
+
+            <p class="posts__excerpt">{{ post.data.excerpt }}</p>
 
             {% for tag in post.data.tags %}
                 {%- if tag !== "post" -%}
                     <a class="tag {{ tag | replace('.', '') }}" href="{{ site.baseUrl }}tag/{{ tag }}">{{ tag }}</a>
                 {%- endif -%}
             {% endfor %}
-
-            <span datetime="{{ post.data.date }}">
-                {{ post.data.date | dateDisplay }}
-            </span>
         {% endif %}
     {% endfor %}

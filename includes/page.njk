@@ -34,6 +34,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
+    <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ site.baseUrl }}assets/main.css">
 
     {% block head %}{% endblock %}
@@ -42,9 +44,9 @@
     <nav>
       <a href="{{ site.baseUrl }}"><img src="/assets/tonyalicea.png" /></a>
       <ul>
-        <li>Courses</li>
-        <li>Projects</li>
-        <li>Blog</li>
+        <a href="{{ site.baseUrl }}courses"><li>Courses</li></a>
+        <a href="{{ site.baseUrl }}projects"><li>Projects</li></a>
+        <a href="{{ site.baseUrl }}blog"><li>Blog</li></a>
       </ul>
     </nav>
     <main>

@@ -1,0 +1,56 @@
+﻿body
+{
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    padding: 25px;
+    width: 980px;
+    margin: 0 auto;
+}
+
+.well-note {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.well-note-label {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #7a7e83;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
+
+.interfacenotes blockquote
+{
+    background-color: #f8f8f8;
+    border-top: solid 1px #efefef;
+    border-right: solid 1px #efefef;
+    border-bottom: solid 1px #efefef;
+}
+
+.interfacenotes blockquote small
+{
+    color: #000;
+}
+
+.centertext {
+    text-align: center;
+}
+
+/* for now, no interface notes */
+.interfacenotes
+{
+    display: none !important;
+}
