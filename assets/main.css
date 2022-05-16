@@ -120,7 +120,12 @@ article.post h1 {
 }
 
 article.post h2 {
+    margin-block-start: 2rem;
     font-size: 1.625rem;
+}
+
+article.post hr {
+    border-top-width: 1px;
 }
 
 p {
