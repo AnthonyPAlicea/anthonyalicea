@@ -29,10 +29,23 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     margin-inline: 0;
   }
 
+  .course-list a, .course-list a:hover, .course-list a:visited {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
   .course-list h2 {
     font-weight: 400;
     margin-block-start: 2rem;
     margin-block-end: 0;
+  }
+
+  .course-list__title {
+    margin-block-end: 0;
+  }
+
+  .course-list__desc {
+    font-size: 0.9rem;
   }
 
 
@@ -60,21 +73,41 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   {% include "posts.njk" %}
   <section class="course-list">
     <h2>Courses</h2>
-    <figure>
-      <img src="assets/course_jsweirdparts.jpg" />
-      <figcaption>JavaScript: Understanding the Weird Parts</figcaption>
-    </figure>
-    <figure>
-      <img src="assets/course_htmlcss.jpg" />
-      <figcaption>Understanding HTML and CSS</figcaption>
-    </figure>
-    <figure>
-      <img src="assets/course_nodejs.jpg" />
-      <figcaption>Learn and Understand NodeJS</figcaption>
-    </figure>
-    <figure>
-      <img src="assets/course_angularjs.jpg" />
-      <figcaption>Learn and Understand AngularJS</figcaption>
-    </figure>
+    <a href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">
+      <figure>
+        <img src="assets/course_jsweirdparts.jpg" />
+        <figcaption>
+          <p class="course-list__title">JavaScript: Understanding the Weird Parts</p>
+          <p class="course-list__desc">174,000 Students | 12 Hours</p>
+        </figcaption>
+      </figure>
+    </a>
+    <a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">
+      <figure>
+        <img src="assets/course_htmlcss.jpg" />
+        <figcaption>
+          <p class="course-list__title">Understanding HTML and CSS</p>
+          <p class="course-list__desc">2,800 Students | 14 Hours (NEW!)</p>
+        </figcaption>
+      </figure>
+    </a>
+    <a href="https://www.udemy.com/course/understand-nodejs/?referralCode=E4D3B311F7B1344C3CCB">
+      <figure>
+        <img src="assets/course_nodejs.jpg" />
+        <figcaption>
+          <p class="course-list__title">Learn and Understand NodeJS</p>
+          <p class="course-list__desc">118,000 Students | 13 Hours</p>
+        </figcaption>
+      </figure>
+    </a>
+    <a href="https://www.udemy.com/course/learn-angularjs/?referralCode=24B7E651C14D3D3ED6A7">
+      <figure>
+        <img src="assets/course_angularjs.jpg" />
+        <figcaption>
+          <p class="course-list__title">Learn and Understand AngularJS</p>
+          <p class="course-list__desc">92,000 Students | 7 Hours</p>
+        </figcaption>
+      </figure>
+    </a>
   </section>
 {% endblock %}
