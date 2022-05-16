@@ -1,0 +1,24 @@
+{
+    "name": "Tony Alicea",
+    "description": "JavaScript, HTML, CSS, NodeJS",
+    "url": "https://anthonyalicea.com",
+    "baseUrl": "/",
+    "author": {
+      "handle": "@anthonypalicea",
+      "name": "Tony Alicea"
+    },
+    "images": {
+      "twitter": "twitter.jpg",
+      "og": "og.jpg"
+    },
+    "feed": {
+      "filename": "feed.xml",
+      "path": "/feed/feed.xml",
+      "id": "https://anthonyalicea.com/"
+    },
+    "jsonfeed": {
+      "filename": "feed.json",
+      "path": "/feed/feed.json",
+      "url": "https://anthonyalicea.com/feed/feed.json"
+    }
+  }

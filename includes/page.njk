@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {# Google Schema #}
+    <meta itemprop="name" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta itemprop="description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+
+    {# Twitter #}
+    <meta name="twitter:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:site" content="{{ site.author.handle }}">
+    <meta name="twitter:creator" content="{{ site.author.handle }}">
+    <meta name="twitter:image:src" content="{{ site.url }}{{ site.baseUrl }}{{ site.images.twitter }}">
+
+    {# Open Graph #}
+    <meta name="og:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta name="og:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="og:image" content="{{ site.url }}{{ site.baseUrl }}{{ site.images.og }}">
+    <meta name="og:url" content="{{ site.url }}{{ site.baseUrl }}">
+    <meta name="og:site_name" content="{{ site.name }}">
+    <meta name="og:locale" content="en_GB">
+    <meta name="og:type" content="website">
+
+    <link rel="icon" type="image/x-icon" href="{{ site.baseUrl }}favicon.ico" />
+
+    <title>{% if metaTitle %}{{ metaTitle }}{% else %}{{ title }}{% endif %}{% if metaTitle or title %} | {% endif %}{{ site.name }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ site.baseUrl }}assets/main.css">
+
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <nav>
+      <img src="/assets/tonyalicea.png" />
+      <p>Tony Alicea</p>
+      <ul>
+        <li>Courses</li>
+        <li>Blog</li>
+        <li>Useful Things</li>
+      </ul>
+    </nav>
+    <main>
+      {% block body %}{% endblock %}
+    </main>
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="{{ site.baseUrl }}assets/main.js"></script>
+  </body>
+</html>

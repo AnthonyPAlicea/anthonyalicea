@@ -1,0 +1,19 @@
+{% for post in posts %}
+        {% if not post.data.draft %}
+            <h2>
+                <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+            </h2>
+
+            <p class="excerpt">{{ post.data.excerpt }}</p>
+
+            {% for tag in post.data.tags %}
+                {%- if tag !== "post" -%}
+                    <a class="tag {{ tag | replace('.', '') }}" href="{{ site.baseUrl }}tag/{{ tag }}">{{ tag }}</a>
+                {%- endif -%}
+            {% endfor %}
+
+            <span datetime="{{ post.data.date }}">
+                {{ post.data.date }}
+            </span>
+        {% endif %}
+    {% endfor %}
