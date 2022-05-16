@@ -5,6 +5,5 @@ permalink: "{% if path %}{{ path | slug }}{% else %}{{'/blog/'}}{{ title | slug 
 {% extends 'page.njk' %}
 
 {% block body %}
-<a href="{{ site.baseUrl }}">Home</a>
 <article class="post">{{ content | safe }}</article>
 {% endblock %}

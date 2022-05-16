@@ -13,7 +13,7 @@
             {% endfor %}
 
             <span datetime="{{ post.data.date }}">
-                {{ post.data.date }}
+                {{ post.data.date | dateDisplay }}
             </span>
         {% endif %}
     {% endfor %}

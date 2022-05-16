@@ -1,6 +1,8 @@
 ---
 layout: post.njk
 title: How To Write Email People Will Read
+excerpt: Email is a part of everyday life. So how do you write an email that clients and co-workers will read?
+date: 2018-05-16
 tags: post
 ---
 

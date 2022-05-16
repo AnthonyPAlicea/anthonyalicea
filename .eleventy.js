@@ -2,6 +2,8 @@ module.exports = config => {
   
     config.addPassthroughCopy("assets");
 
+    config.addFilter('dateDisplay', require('./filters/date-display.js'));
+
     config.addCollection('postsWithoutDrafts', (collection) =>
       [...collection.getFilteredByGlob('./blog/*.md')].filter(
         (post) => !post.data.draft

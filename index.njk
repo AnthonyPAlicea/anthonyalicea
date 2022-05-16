@@ -9,7 +9,30 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 
 {% extends 'page.njk' %}
 
+{% block head %}
+<style>
+  .courselist {
+    display: flex;
+    overflow: scroll;
+  }
+
+  @media screen and (min-width: 768px) {
+    .courselist {
+      justify-content: center;
+    }
+  }
+</style>
+{% endblock %}
+
 {% block body %}
-  <h1>Anthony Alicea</h1>
+  <h1>Tony Alicea</h1>
+  <p>Udemy and Pluralsight Instructor</p>
+  <p>JavaScript, HTML, CSS, UX, and more.
+  <section class="courselist full-bleed">
+    <img src="assets/course_jsweirdparts.jpg" />
+    <img src="assets/course_htmlcss.jpg" />
+    <img src="assets/course_nodejs.jpg" />
+    <img src="assets/course_angularjs.jpg" />
+  </section>
   {% include "posts.njk" %}
 {% endblock %}

@@ -1,7 +1,8 @@
 :root {
     font-size: 16px;
     --color-background: #fff;
-    --color-text: #000; 
+    --color-text: #000;
+    --color-nav-background: #ddd;
 }
 
 * {
@@ -12,6 +13,7 @@
     :root {
         --color-background: #222222;
         --color-text: #f8f9fa;
+        --color-nav-background: #303136;
     }
 }*/
 
@@ -20,26 +22,39 @@ body {
     background-color: var(--color-background);
     color: var(--color-text);
     margin: 0;
+    padding-block-end: 2rem;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 25px 1fr 25px;
+    row-gap: 10px;
+}
+
+main > * {
+    grid-column: 2;
+}
+
+.full-bleed {
+   grid-column: 1 / span 3;
 }
 
 nav {
     display: flex;
-    width: 100%;
-    font-size: 1.25rem;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: 1 / span 3;
+    padding-block: .5rem;
     font-family: 'Raleway', sans-serif;
+    background-color: var(--color-nav-background);
 }
 
 nav * {
-    flex-grow: 1;
-}
-
-nav p {
-    display: none;
+    flex-grow: 0;
 }
 
 nav img {
     height: 64px;
-    flex-grow: 0;
     margin-inline: 1rem;
 }
 
@@ -47,19 +62,26 @@ nav ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+}
+
+nav ul li {
+    margin-inline: 1rem;
 }
 
 article.post {
     max-width: 700px;
     font-size: 1.25rem;
     line-height: 1.875rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
 }
 
-article.post h1, article.post h2 {
+h1, article.post h2 {
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
+}
+
+h1, h2 {
     margin-block-end: .8rem;
 }
 
@@ -71,17 +93,19 @@ article.post h2 {
     font-size: 1.625rem;
 }
 
-article.post p {
+p {
     margin-block-start: 0;
 }
 
 /* mobile-first breakpoint */
 @media screen and (min-width: 768px) {
-    nav p {
-        display: inline;
+    main {
+        grid-template-columns: 1fr 700px 1fr;
     }
+}
 
-    article.post {
-        margin: 0 auto;
+@media screen and (min-width: 1150px) {
+    nav {
+        justify-content: space-around;
     }
 }
