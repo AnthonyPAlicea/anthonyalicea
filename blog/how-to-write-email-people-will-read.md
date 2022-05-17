@@ -2,7 +2,7 @@
 layout: post.njk
 title: How To Write Email People Will Read
 excerpt: We are inundated with email. So how do you write an email that clients and co-workers will read?
-date: 2018-05-16
+date: 2014-23-09
 tags: post
 ---
 
@@ -84,7 +84,7 @@ The lesson: Don't use color in your emails.*
 
 If you can't properly emphasize and call the reader to action with plain text, bold, and italics, you need to rewrite your email.
 
-*exception: your email client may use color when replying to an email inline to distinguish your words from the original email - this is ok, if consistent
+<small>*exception: your email client may use color when replying to an email inline to distinguish your words from the original email - this is ok, if consistent</small>
 
 ## Structure, Consistency, and Units of Information
 **UX Principle: Gestalt**

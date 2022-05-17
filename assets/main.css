@@ -106,13 +106,23 @@ article.post {
     line-height: 1.875rem;
 }
 
-h1, article.post h2 {
+.post-separator {
+    border-block-end: dashed 1px #a5befd;
+    padding-block: 1rem;
+    margin-block-end: 1rem;
+}
+
+h1, article h2 {
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
 }
 
 h1, h2 {
     margin-block-end: .8rem;
+}
+
+.header-compressed {
+    margin-block-end: 0;
 }
 
 article.post h1 {
@@ -128,6 +138,16 @@ article.post hr {
     border-top-width: 1px;
 }
 
+article.post img {
+    max-width: 100%;
+}
+
+article.post blockquote {
+    border-inline-start: solid 3px #ccc;
+    padding-inline-start: 1rem;
+    font-style: italic;
+}
+
 p {
     margin-block-start: 0;
 }
@@ -136,6 +156,10 @@ p {
 @media screen and (min-width: 768px) {
     main {
         grid-template-columns: 1fr 700px 1fr;
+    }
+
+    article.post img {
+        max-width: 700px;
     }
 }
 

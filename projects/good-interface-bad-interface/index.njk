@@ -1,0 +1,20 @@
+---
+pagination:
+  data: collections.gibi
+  size: 12
+  alias: gibis
+  reverse: true
+permalink: "/projects/good-interface-bad-interface/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+---
+{% extends 'page.njk' %}
+
+{% block body %}
+<h1>Good Interface, Bad Interface</h1>
+{% for gibi in gibis %}
+<article class="post post-separator">
+    <img src="{{ site.baseUrl }}assets/gibiimages/{{ gibi.data.entry }}.jpg" />
+    {{ gibi.templateContent | safe }}
+</article>
+{% endfor %}
+{% include "nav.njk" %}
+{% endblock %}
