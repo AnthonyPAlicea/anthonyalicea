@@ -1,7 +1,7 @@
 ---
 layout: post.njk
-title: Understanding Is Better Than Learning By Doing
-excerpt: In my years as an instructor I've heard a lot of people say "I learn by doing". What they don't realize is how bad they end up at debugging.
+title: Author Your Templates. You Can Do Better Than div and span.
+excerpt: JS framework (React, Angular, Vue, etc.) devs overuse div and span. That has consequences for both devs and users.
 date: 2022-05-16
 tags: post
 ---
