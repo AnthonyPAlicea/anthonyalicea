@@ -1,6 +1,6 @@
 {
     "name": "Tony Alicea",
-    "description": "JavaScript, HTML, CSS, NodeJS",
+    "description": "JavaScript, HTML, CSS, NodeJS, UX",
     "url": "https://anthonyalicea.com",
     "baseUrl": "/",
     "author": {
@@ -9,7 +9,7 @@
     },
     "images": {
       "twitter": "assets/tonyalicea.png",
-      "og": "og.jpg"
+      "og": "assets/tonyalicea.png"
     },
     "feed": {
       "filename": "feed.xml",
