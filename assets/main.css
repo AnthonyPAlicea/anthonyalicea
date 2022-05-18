@@ -85,6 +85,12 @@ nav a {
     text-decoration: none;
 }
 
+.social_logo {
+    inline-size: 1rem;
+    margin-inline-end: .25rem;
+    fill: var(--color-text);
+}
+
 .posts__title {
     margin-block-end: 0;
     font-family: 'Raleway', sans-serif;

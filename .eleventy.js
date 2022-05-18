@@ -14,7 +14,7 @@ module.exports = config => {
     config.addPlugin(pluginRss);
 
     config.addCollection('postsWithoutDrafts', (collection) =>
-      [...collection.getFilteredByGlob('./blog/*.md')].filter(
+      [...collection.getFilteredByTags("post")].filter(
         (post) => !post.data.draft
       )
     );

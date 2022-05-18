@@ -18,7 +18,7 @@ eleventyExcludeFromCollections: true
 	{%- for post in collections['postsWithoutDrafts'] | reverse %}
 	{% set absolutePostUrl %}{{ post.url | url | absoluteUrl(site.url) }}{% endset %}
 	<entry>
-		<title>{{ post.data.title }}</title>
+		<title>{%- if post.data.isGiBi -%}Good Interface, Bad Interface #{{ post.data.entry }}{%- else -%}{{ post.data.title }}{%- endif -%}</title>
 		<link href="{{ absolutePostUrl }}"/>
 		<updated>{{ post.date | rssDate }}</updated>
 		<id>{{ absolutePostUrl }}</id>
