@@ -10,9 +10,9 @@ permalink: "/projects/good-interface-bad-interface/{% if pagination.pageNumber >
 
 {% block body %}
 <h1>Good Interface, Bad Interface</h1>
+<p>UX lessons learned from everyday products and experiences. These posts are also included in my blog.</p>
 {% for gibi in gibis %}
 <article class="post post-separator">
-    <img src="{{ site.baseUrl }}assets/gibiimages/{{ gibi.data.entry }}.jpg" />
     {{ gibi.templateContent | safe }}
 </article>
 {% endfor %}

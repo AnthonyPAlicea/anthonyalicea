@@ -1,7 +1,7 @@
 ---
 pagination:
-  data: collections.post
-  size: 5
+  data: collections.front-page
+  size: 50
   alias: posts
   reverse: true
 permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
@@ -71,6 +71,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     <a href="{{ site.baseUrl }}feed/feed.json">RSS</a>
   </p>
   {% include "posts.njk" %}
+  <a href="/blog">More...</a>
   <section class="course-list">
     <h2>Courses</h2>
     <a href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">

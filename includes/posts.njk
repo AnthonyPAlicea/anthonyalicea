@@ -1,7 +1,13 @@
 {% for post in posts %}
         {% if not post.data.draft %}
             <h2 class="posts__title">
-                <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+                <a href="{{ post.url | url }}">
+                    {%- if post.data.isGiBi -%}
+                        Good Interface, Bad Interface #{{ post.data.entry }}
+                    {%- else -%}
+                        {{ post.data.title }}
+                    {%- endif -%}
+                </a>
             </h2>
 
             <p class="posts__date" datetime="{{ post.data.date }}">
@@ -12,7 +18,11 @@
 
             {% for tag in post.data.tags %}
                 {%- if tag !== "post" -%}
+                {%- if tag !== "gibi" -%}
+                {%- if tag !== "front-page" -%}
                     <a class="tag {{ tag | replace('.', '') }}" href="{{ site.baseUrl }}tag/{{ tag }}">{{ tag }}</a>
+                {%- endif -%}
+                {%- endif -%}
                 {%- endif -%}
             {% endfor %}
         {% endif %}

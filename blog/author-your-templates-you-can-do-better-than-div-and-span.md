@@ -3,7 +3,7 @@ layout: post.njk
 title: Author Your Templates. You Can Do Better Than div and span.
 excerpt: JS framework (React, Angular, Vue, etc.) devs overuse div and span. That has consequences for both devs and users.
 date: 2022-05-16
-tags: post
+tags: ['post','front-page']
 ---
 
 # {{title}}

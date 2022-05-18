@@ -3,6 +3,7 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 module.exports = config => {
   
+    config.markdownTemplateEngine = "njk";
     config.addPassthroughCopy("assets");
     config.addPassthroughCopy("projects/interface-normalization");
 
