@@ -72,7 +72,7 @@ The DOTW principle doesn't just apply to software. On my everyday UX Tumblr I us
 
 ![Toaster oven controls](/assets/gibiimages/4.jpg)
 
-<small>A toaster oven is neither a toaster nor an oven. Nor both. The product designers can't figure out how to deal with that.I have never seen an easy-to-use toaster oven design. Most toaster oven interfaces look like the above. Many dials, many settings, much confusion.</small>
+<small>A toaster oven is neither a toaster nor an oven. Nor both. The product designers can't figure out how to deal with that. I have never seen an easy-to-use toaster oven design. Most toaster oven interfaces look like the above. Many dials, many settings, much confusion.</small>
 
 Why are toaster oven controls so often confusing or unclear? Because you are asking the product designer to design for something that does two different things. One dial tries to do multiple things, with no clear feedback. I have burnt more toast than I care to admit.
 
