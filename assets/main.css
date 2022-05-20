@@ -15,8 +15,8 @@
         --color-text: #f8f9fa;
         --color-nav-background: #303136;
         --color-link: #9da2ff;
-        --color-small-background: rgba(0, 56, 109, 0.3);
-        --color-small-border: rgba(212, 224, 255, 0.3);
+        --color-small-background: rgba(0, 56, 109, 0.8);
+        --color-small-border: rgba(212, 224, 255, 0.8);
         --color-article-h2: #FFE53E;
     }
 }
@@ -161,6 +161,10 @@ article.post blockquote {
     padding-inline-start: 1rem;
     font-style: italic;
     font-weight: bold;
+}
+
+ol li::marker {
+    color: var(--color-article-h2);
 }
 
 small {
