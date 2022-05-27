@@ -1,0 +1,6 @@
+{% extends 'page.njk' %}
+
+{% block body %}
+<a href="{{ site.baseUrl }}projects/html-recipes"> &laquo; Recipes</a>
+<article class="post recipe">{{ content | safe }}</article>
+{% endblock %}

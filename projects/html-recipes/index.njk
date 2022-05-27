@@ -1,0 +1,15 @@
+---
+pagination:
+  data: collections.recipe
+  size: 40
+  alias: recipes
+permalink: "/projects/html-recipes/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+---
+
+{% extends 'page.njk' %}
+
+{% block body %}
+<h1>HTML Recipes</h1>
+<p>Semantic HTML markup for common UI patterns, whether Angular, React, Vue, or any other template.</p>
+{% include "recipes.njk" %}
+{% endblock %}

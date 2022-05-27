@@ -1,0 +1,15 @@
+{% for recipe in recipes %}
+    {% if not recipe.data.draft %}
+    <article class="card">
+        <h2 class="card__title">
+            <a href="{{ recipe.url | url }}">
+                {{ recipe.data.title }}
+            </a>
+        </h2>
+
+        <p class="card__body">
+            {{ recipe.data.desc | safe }}
+        </p>
+    </article>
+    {% endif %}
+{% endfor %}

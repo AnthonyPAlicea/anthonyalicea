@@ -1,3 +1,4 @@
+const { EleventyRenderPlugin } = require("@11ty/eleventy");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
@@ -8,6 +9,8 @@ module.exports = config => {
     config.addPassthroughCopy("projects/interface-normalization");
 
     config.addFilter('dateDisplay', require('./filters/date-display.js'));
+
+    config.addPlugin(EleventyRenderPlugin);
 
     config.addPlugin(syntaxHighlight);
 

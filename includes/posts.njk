@@ -20,7 +20,9 @@
                 {%- if tag !== "post" -%}
                 {%- if tag !== "gibi" -%}
                 {%- if tag !== "front-page" -%}
+                {%- if tag !== "recipe" -%}
                     <a class="tag {{ tag | replace('.', '') }}" href="{{ site.baseUrl }}tag/{{ tag }}">{{ tag }}</a>
+                {%- endif -%}
                 {%- endif -%}
                 {%- endif -%}
                 {%- endif -%}

@@ -7,6 +7,7 @@
     --color-small-background: rgba(0, 56, 109, 0.8);
     --color-small-border: rgba(212, 224, 255, 0.3);
     --color-article-h2: #7D6F00;
+    --color-inline-code: #7D6F00;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +19,7 @@
         --color-small-background: rgba(0, 56, 109, 0.5);
         --color-small-border: rgba(212, 224, 255, 0.5);
         --color-article-h2: #FFE53E;
+        --color-inline-code: #FFE53E;
     }
 }
 
@@ -96,6 +98,32 @@ nav a {
     fill: var(--color-text);
 }
 
+.card {
+    padding: 1rem;
+    border: solid 3px var(--color-article-h2);
+    border-radius: 12px;
+}
+
+.card + .card {
+    margin-block-start: 1rem;
+}
+
+.card__title {
+    margin-block: 0;
+}
+
+.card__title a {
+    text-decoration: none;
+}
+
+.card__title a:hover {
+    text-decoration: underline;
+}
+
+.card__body {
+    margin-block: 0;
+}
+
 .posts__title {
     margin-block-end: 0;
     font-family: 'Raleway', sans-serif;
@@ -163,6 +191,14 @@ article.post blockquote {
     font-weight: bold;
 }
 
+code {
+    color: var(--color-inline-code);
+}
+
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+    max-width: 90vw;
+}
+
 ol li::marker {
     color: var(--color-article-h2);
 }
@@ -173,6 +209,11 @@ small {
     background-color: var(--color-small-background);
     color: #fff;
     border-inline-start: solid 3px var(--color-small-border);
+}
+
+article.post small h2 {
+    font-size: 1rem;
+    margin-block: 0;
 }
 
 p {
