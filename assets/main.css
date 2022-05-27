@@ -114,11 +114,11 @@ nav a {
     margin-block: 0;
 }
 
-.card__title a {
+.card__title a, a.breadcrumb {
     text-decoration: none;
 }
 
-.card__title a:hover {
+.card__title a:hover, a.breadcrumb:hover {
     text-decoration: underline;
 }
 
