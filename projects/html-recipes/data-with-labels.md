@@ -1,7 +1,7 @@
 ---
 layout: recipe.njk
 title: "Data With Labels"
-desc: "Using <code>dl</code>, <code>dd</code> and <code>dt</code> for labeled read-only data."
+desc: "<code>dl</code>, <code>dd</code> and <code>dt</code> for labeled read-only data."
 recipe: 1
 tags: ['recipe', 'html-recipe']
 isRecipe: true

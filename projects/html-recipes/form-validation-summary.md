@@ -1,7 +1,7 @@
 ---
 layout: recipe.njk
 title: "Form (Validation Summary)"
-desc: "Using <code>ul</code>, <code>li</code>, and <code>a</code> for listing and linking validation errors."
+desc: "<code>ul</code>, <code>li</code>, and <code>a</code> for listing and linking validation errors."
 recipe: 1
 tags: ['recipe', 'html-recipe']
 isRecipe: true

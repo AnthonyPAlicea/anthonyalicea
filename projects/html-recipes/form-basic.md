@@ -1,7 +1,7 @@
 ---
 layout: recipe.njk
 title: "Form (Basic)"
-desc: "Using <code>p</code> and <code>label</code> for wrapping and labeling form inputs."
+desc: "<code>p</code> and <code>label</code> for wrapping and labeling form inputs."
 recipe: 1
 tags: ['recipe', 'html-recipe']
 isRecipe: true

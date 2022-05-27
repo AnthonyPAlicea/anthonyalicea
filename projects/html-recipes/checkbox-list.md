@@ -1,7 +1,7 @@
 ---
 layout: recipe.njk
 title: "Checkbox List"
-desc: "Using <code>fieldset</code> and <code>legend</code> to label a related collection of checkboxes."
+desc: "<code>fieldset</code> and <code>legend</code> to label a related collection of checkboxes."
 recipe: 1
 tags: ['recipe', 'html-recipe']
 isRecipe: true

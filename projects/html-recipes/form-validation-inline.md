@@ -1,7 +1,7 @@
 ---
 layout: recipe.njk
 title: "Form (Validation Inline)"
-desc: "Using <code>span</code> for inline errors."
+desc: "<code>span</code> for inline errors."
 recipe: 1
 tags: ['recipe', 'html-recipe']
 isRecipe: true
