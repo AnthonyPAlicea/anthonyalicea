@@ -102,12 +102,12 @@ nav a {
 
 .card {
     padding: 1rem;
-    border: solid 3px var(--color-article-h2);
+    border: solid 1px var(--color-article-h2);
     border-radius: 12px;
 }
 
 .card + .card {
-    margin-block-start: 1rem;
+    margin-block-start: 1.5rem;
 }
 
 .card__title {
