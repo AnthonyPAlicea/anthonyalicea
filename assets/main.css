@@ -5,6 +5,7 @@
     --color-nav-background: #eee;
     --color-link: #193ed2;
     --color-small-background: rgba(0, 56, 109, 0.8);
+    --color-recipe-reference-background: #F0F4FF;
     --color-small-border: rgba(212, 224, 255, 0.3);
     --color-article-h2: #7D6F00;
     --color-inline-code: #7D6F00;
@@ -17,6 +18,7 @@
         --color-nav-background: #303136;
         --color-link: #9da2ff;
         --color-small-background: rgba(0, 56, 109, 0.5);
+        --color-recipe-reference-background: rgba(0, 56, 109, 0.5);
         --color-small-border: rgba(212, 224, 255, 0.5);
         --color-article-h2: #FFE53E;
         --color-inline-code: #FFE53E;
@@ -209,6 +211,11 @@ small {
     background-color: var(--color-small-background);
     color: #fff;
     border-inline-start: solid 3px var(--color-small-border);
+}
+
+article.recipe small {
+    background-color: var(--color-recipe-reference-background);
+    color: var(--color-text);
 }
 
 article.post small h2 {
