@@ -29,7 +29,7 @@ Form fields are properly labeled using the ```label``` element. As the ```p``` e
 <small>
     <h2>References</h2>
     <a href="https://html.spec.whatwg.org/multipage/forms.html#the-form-element">The form element</a>&nbsp;|&nbsp;
-    <a href="https://html.spec.whatwg.org/multipage/forms.html#the-label-elementt">The label element</a>
+    <a href="https://html.spec.whatwg.org/multipage/forms.html#the-label-element">The label element</a>
     &nbsp;|&nbsp;
     <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-p-element">The p element</a>
 </small>
