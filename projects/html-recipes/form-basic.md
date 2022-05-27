@@ -12,6 +12,8 @@ isRecipe: true
 
 Form fields are properly labeled using the ```label``` element. As the ```p``` element creates a thematic grouping of <a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">phrasing content</a> it is appropriate to wrap the label and field pairs.
 
+You can also wrap a form field in a ```label``` element, however having a separate ```label``` element may allow for easier styling.
+
 ```html
 <h2>Order Your Pizza</h2>
 <form>
