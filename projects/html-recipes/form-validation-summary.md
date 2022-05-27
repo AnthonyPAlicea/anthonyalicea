@@ -41,7 +41,7 @@ The list of errors are marked up with ```ul``` and ```li``` elements, and they l
     &nbsp;|&nbsp;
     <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element">The ul element</a>
     &nbsp;|&nbsp;
-    <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element">The ul element</a>
+    <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element">The li element</a>
     &nbsp;|&nbsp;
     <a href="https://www.w3.org/WAI/tutorials/forms/notifications/">WAI Form Notifications</a>
 </small>
