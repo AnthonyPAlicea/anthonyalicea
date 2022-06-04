@@ -21,6 +21,12 @@ module.exports = config => {
         (post) => !post.data.draft
       )
     );
+
+    config.addCollection("sortedRecipes", function(collectionApi) {
+      return collectionApi.getFilteredByTags("html-recipe").sort((a, b) => {
+        return a.data.title.localeCompare(b.data.title);
+      });
+    });
   
     return {
       pathPrefix: require('./globals/site.json').baseUrl,
