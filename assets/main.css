@@ -189,7 +189,6 @@ article.post img {
 article.post blockquote {
     border-inline-start: solid 3px #463D00;
     padding-inline-start: 1rem;
-    font-style: italic;
     font-weight: bold;
 }
 
@@ -199,6 +198,7 @@ code {
 
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
     max-width: 90vw;
+    font-size: 0.95em;
 }
 
 ol li::marker {

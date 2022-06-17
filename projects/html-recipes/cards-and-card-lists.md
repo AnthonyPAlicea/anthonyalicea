@@ -29,18 +29,18 @@ We use ```header``` and ```footer``` for header and footer areas of the card.
 Lists of cards, such as in search results, are marked up as either ```ol``` or ```ul``` depending on if the order of the list matters. For example, if the list is sortable then use ```ol```.
 
 ```html
-  <ol>
-    <li>
-      <article>
-        ...
-      </article>
-    </li>
-    <li>
-      <article>
-        ...
-      </article>
-    </li>
-  </ol>
+<ol>
+  <li>
+    <article>
+      ...
+    </article>
+  </li>
+  <li>
+    <article>
+      ...
+    </article>
+  </li>
+</ol>
 ```
 
 <small>
