@@ -216,6 +216,7 @@ small {
     background-color: var(--color-small-background);
     color: #fff;
     border-inline-start: solid 3px var(--color-small-border);
+    font-size: 0.875rem;
 }
 
 article.recipe small {
