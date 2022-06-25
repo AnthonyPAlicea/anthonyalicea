@@ -54,6 +54,10 @@ main > * {
     grid-column: 2;
 }
 
+main header {
+    text-align: center;
+}
+
 .full-bleed {
    grid-column: 1 / span 3;
 }
@@ -114,7 +118,7 @@ nav a {
     margin-block: 0;
 }
 
-.card__title a, a.breadcrumb {
+.card__title a, a.breadcrumb, .posts__title a {
     text-decoration: none;
 }
 
@@ -129,6 +133,7 @@ nav a {
 .posts__title {
     margin-block-end: 0;
     font-family: 'Raleway', sans-serif;
+    font-weight: normal;
 }
 
 .posts__excerpt {
@@ -143,8 +148,8 @@ nav a {
 
 article.post {
     max-width: 700px;
-    font-size: 1.25rem;
-    line-height: 1.875rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
 }
 
 .post-separator {
