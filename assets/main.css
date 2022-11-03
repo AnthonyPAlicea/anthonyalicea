@@ -277,3 +277,6 @@ p {
         justify-content: space-around;
     }
 }
+
+/* form stack forms */
+.fsForm { margin: 0 !important };
