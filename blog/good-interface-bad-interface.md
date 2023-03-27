@@ -3,7 +3,7 @@ layout: post.njk
 title: Good Interface, Bad Interface
 excerpt: Lessons From Everyday UX.
 date: 2013-05-12
-tags: ['post','front-page']
+tags: ['post']
 ---
 ![Light switch](/assets/blogimages/lightswitch1.jpeg)
 # {{ title }}

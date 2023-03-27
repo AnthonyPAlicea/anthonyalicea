@@ -1,5 +1,5 @@
 :root {
-    font-size: 16px;
+    font-size: 20px;
     --color-background: #fff;
     --color-text: #000;
     --color-nav-background: #eee;
@@ -7,7 +7,7 @@
     --color-small-background: rgba(0, 56, 109, 0.8);
     --color-recipe-reference-background: #F0F4FF;
     --color-small-border: rgba(212, 224, 255, 0.3);
-    --color-article-h2: #7D6F00;
+    --color-article-h2: #000;
     --color-inline-code: #7D6F00;
 }
 
@@ -137,11 +137,12 @@ nav a {
 }
 
 .posts__excerpt {
+    font-size: 0.9rem;
     margin-block: 0;
 }
 
 .posts__date {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     margin-block: 0;
     font-family: 'Raleway', sans-serif;
 }
@@ -187,6 +188,7 @@ article.post h1 {
 article.post h2 {
     margin-block-start: 2rem;
     font-size: 1.75rem;
+    font-weight: bold;
     color: var(--color-article-h2);
 }
 
