@@ -177,4 +177,4 @@ A welcoming table is one that sees every seat as a potential source of solutions
 
 You will find you have a more unified, happy group of people, who happen to build great software on the why down.
 
-<small>To discuss, find me on <a href="https://twitter.com/anthonypalicea">Twitter</a> and <a href="https://www.linkedin.com/in/tonyalicea">LinkedIn</a>.</small>
+<small>To discuss, find me on <a href="https://twitter.com/AnthonyPAlicea/status/1640367729210163202?s=20">Twitter</a> and <a href="https://www.linkedin.com/posts/tonyalicea_softwaredevelopment-activity-7046170757718040576-pzWx?utm_source=share&utm_medium=member_desktop">LinkedIn</a>.</small>
