@@ -2,7 +2,7 @@
 layout: post.njk
 title: On The Why Down
 excerpt: Software Development that Brings Everyone to the Table
-date: 2023-04-01
+date: 2023-03-27
 tags: ['post','front-page']
 ---
 # {{ title }}
