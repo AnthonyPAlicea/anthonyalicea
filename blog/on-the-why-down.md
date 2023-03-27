@@ -100,7 +100,7 @@ At the bottom of a correct "why down" you arrive at a statement that expresses t
 
 A "why down" might look like this:
 
-- "Provide a way to download the report as a Word doc."" *(Why?)*
+- "Provide a way to download the report as a Word doc." *(Why?)*
 - ...so I can edit the report before I send it. *(Why?)*
 - ...because managers need more information than is in the generated report. *(Why?)* 
 - ...because managers make presentations in higher-level meetings and don't have the information to answer questions. *(Why?)* 
