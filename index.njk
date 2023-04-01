@@ -29,41 +29,12 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     margin-block-end: .75rem;
   }
 
-  .course-list {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .course-list figure {
-    margin-inline: 0;
-  }
-
-  .course-list a, .course-list a:hover, .course-list a:visited {
-    color: var(--color-text);
-    text-decoration: none;
-  }
-
-  .course-list h2 {
-    font-weight: 400;
-    margin-block-start: 2rem;
-    margin-block-end: 0;
-  }
-
-  .course-list__title {
-    margin-block-end: 0;
-  }
-
-  .course-list__desc {
-    font-size: 0.9rem;
-  }
-
-
   @media screen and (min-width: 768px) {
     .course-list {
       grid-template-columns: 1fr 1fr;
     }
 
-    .course-list h2 {
+    .course-list article {
       grid-area: 1 / 1 / 1 / 3;
     }
   }
@@ -84,60 +55,48 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   {% include "posts.njk" %}
   <a class="margin-block-start-large" href="/blog">More...</a>
   <section class="course-list">
-    <h2>Courses</h2>
-    <a href="http://understandingreact.com">
-      <figure>
-        <img src="assets/course_react.jpg" />
-        <figcaption>
-          <p class="course-list__title">Understanding React</p>
-          <p class="course-list__desc">NOW IN EARLY ACCESS!</p>
-        </figcaption>
-      </figure>
-    </a>
-    <a href="https://www.udemy.com/course/javascript-understanding-es6-and-beyond/?referralCode=4C76A312761FF4720DC8">
-      <figure>
-        <img src="assets/course_es6.jpg" />
-        <figcaption>
-          <p class="course-list__title">JavaScript: Understanding ES6 and Beyond</p>
-          <p class="course-list__desc">NEW!</p>
-        </figcaption>
-      </figure>
-    </a>
-    <a href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">
-      <figure>
-        <img src="assets/course_jsweirdparts.jpg" />
-        <figcaption>
-          <p class="course-list__title">JavaScript: Understanding the Weird Parts</p>
-          <p class="course-list__desc">174,000 Students | 12 Hours</p>
-        </figcaption>
-      </figure>
-    </a>
-    <a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">
-      <figure>
-        <img src="assets/course_htmlcss.jpg" />
-        <figcaption>
-          <p class="course-list__title">Understanding HTML and CSS</p>
-          <p class="course-list__desc">4,000 Students | 14 Hours (NEW!)</p>
-        </figcaption>
-      </figure>
-    </a>
-    <a href="https://www.udemy.com/course/understand-nodejs/?referralCode=E4D3B311F7B1344C3CCB">
-      <figure>
-        <img src="assets/course_nodejs.jpg" />
-        <figcaption>
-          <p class="course-list__title">Learn and Understand NodeJS</p>
-          <p class="course-list__desc">118,000 Students | 13 Hours</p>
-        </figcaption>
-      </figure>
-    </a>
-    <a href="https://www.udemy.com/course/learn-angularjs/?referralCode=24B7E651C14D3D3ED6A7">
-      <figure>
-        <img src="assets/course_angularjs.jpg" />
-        <figcaption>
-          <p class="course-list__title">Learn and Understand AngularJS</p>
-          <p class="course-list__desc">92,000 Students | 7 Hours</p>
-        </figcaption>
-      </figure>
-    </a>
+    <h2 class="margin-block-start-xlarge">Courses</h2>
+    <article class="course">
+        <a class="course__link" href="http://understandingreact.com">
+            <img class="course__image" src="/assets/course_react.jpg" />
+            <h2 class="margin-block-0 posts__title">Understanding React</h2>
+        </a>
+        <p>Now in early-access! Content has been released with more being dropped regularly! Price will increase soon.</p>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/javascript-understanding-es6-and-beyond/?referralCode=4C76A312761FF4720DC8">
+            <img src="/assets/course_es6.jpg" />
+            <h2 class="margin-block-0 posts__title">JavaScript: Understanding ES6 and Beyond</h2>
+        </a>
+        <p>NEW! 3,300 Students</p>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">
+            <img src="/assets/course_jsweirdparts.jpg" />
+            <h2 class="margin-block-0 posts__title">JavaScript: Understanding the Weird Parts</h2>
+        </a>
+        <p>174,000 Students | 12 Hours</p>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">
+            <img src="/assets/course_htmlcss.jpg" />
+            <h2 class="margin-block-0 posts__title">Understanding HTML and CSS</h2>
+        </a>
+        <p>8,000 Students | 14 Hours</p>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/understand-nodejs/?referralCode=E4D3B311F7B1344C3CCB">
+            <img src="/assets/course_nodejs.jpg" />
+            <h2 class="margin-block-0 posts__title">Learn and Understand NodeJS</h2>
+        </a>
+        <p>118,000 Students | 13 Hours</p>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/learn-angularjs/?referralCode=24B7E651C14D3D3ED6A7">
+            <img src="/assets/course_angularjs.jpg" />
+            <h2 class="margin-block-0 posts__title">Learn and Understand AngularJS</h2>
+        </a>
+        <p>92,000 Students | 7 Hours</p>
+    </article>
   </section>
 {% endblock %}

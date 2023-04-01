@@ -18,7 +18,7 @@ MVP has two major flaws:
 - The fog of "viability": Who decides what is "viable"? This term is subjective, and highly susceptible to organizational politics and human bias.
 - The undefined "minimum": Minimum is a moving target, and often incorrect. It's susceptible to siloed organizational structures and communication breakdowns.
 
-MVP isn't the only issue. Companies have adopted Scrum and Agile. These too are meant to approach software in a minimal, iterative, and unifying way. But Agile produces results as good as the "defining what needs to be built" stage is.
+MVP isn't the only issue. Companies have adopted Scrum and Agile. These too are meant to approach software in a minimal, iterative, and unifying way. But Agile only produces results as good as the "defining what needs to be built" stage is.
 
 Scopes creep, expectations go unrealized, intended iterations never happen, and people we should have asked are never talked to. While differing in degrees, these are problems that every team, organization, and company I have ever worked for or with have struggled to control. These remained true no matter what software development practices and processes they were using.
 
@@ -177,4 +177,4 @@ A welcoming table is one that sees every seat as a potential source of solutions
 
 You will find you have a more unified, happy group of people, who happen to build great software on the why down.
 
-<small>To discuss, find me on <a href="https://twitter.com/AnthonyPAlicea/status/1640367729210163202?s=20">Twitter</a> and <a href="https://www.linkedin.com/posts/tonyalicea_softwaredevelopment-activity-7046170757718040576-pzWx?utm_source=share&utm_medium=member_desktop">LinkedIn</a>.</small>
+<small>Discuss this with me on <a href="https://twitter.com/AnthonyPAlicea/status/1640367729210163202?s=20">Twitter</a> and <a href="https://www.linkedin.com/posts/tonyalicea_softwaredevelopment-activity-7046170757718040576-pzWx?utm_source=share&utm_medium=member_desktop">LinkedIn</a>.</small>
