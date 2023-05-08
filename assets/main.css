@@ -1,6 +1,7 @@
 :root {
     font-size: 20px;
     --color-background: #fff;
+    --color-course-background: #eee;
     --color-text: #000;
     --color-nav-background: #eee;
     --color-link: #193ed2;
@@ -15,6 +16,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --color-background: #222222;
+        --color-course-background: #303136;
         --color-text: #f8f9fa;
         --color-nav-background: #303136;
         --color-link: #9da2ff;
@@ -174,7 +176,7 @@ h1, h2 {
 }
 
 .course {
-    background-color: #303136;
+    background-color: var(--color-course-background);
     border-radius: 12px;
     padding: 1.25rem;
 }
