@@ -237,7 +237,7 @@ ol li::marker {
     color: var(--color-article-h2);
 }
 
-small {
+small, aside {
     display: block;
     padding: 0.5rem 0.75rem;
     background-color: var(--color-small-background);
@@ -246,7 +246,17 @@ small {
     font-size: 0.875rem;
 }
 
-small a, small a:visited {
+aside {
+    font-size: 1rem;
+    border-inline-start: none;
+}
+
+aside p {
+    margin: 0rem;
+    padding: 0.5rem;
+}
+
+small a, small a:visited, aside p a, aside p a:visited {
     color: var(--color-small-link);
 }
 
