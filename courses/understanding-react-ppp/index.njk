@@ -2,8 +2,44 @@
 ---
 {% extends 'page.njk' %}
 
+{% block head %}
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
+
+<style>
+#fd-form-65610bd430d102c5d7f9f392 form {
+    padding: .5rem;
+}
+</style>
+{% endblock %}
+
 {% block body %}
 <h1>Understanding React PPP Request</h1>
 <p>If you would like to be considered for Purchasing Power Parity for my course 'Understanding React', please fill out the below form. If approved, you will be e-mailed a one-time use coupon. Please be honest, thank you!</p>
-<script type="text/javascript" src="https://dontimitateunderstand.formstack.com/forms/js.php/understanding_react"></script><noscript><a href="https://dontimitateunderstand.formstack.com/forms/understanding_react" title="Online Form">Online Form - Understanding React</a></noscript><div style="text-align:right; font-size:x-small;"><a href="http://www.formstack.com?utm_source=jsembed&utm_medium=product&utm_campaign=product+branding&fa=h,5034662" title="Powered by Formstack">Powered by Formstack</a></div>
+<div id="fd-form-65610bd430d102c5d7f9f392"></div>
+<script>
+  window.fd('form', {
+    formId: '65610bd430d102c5d7f9f392',
+    containerEl: '#fd-form-65610bd430d102c5d7f9f392'
+  });
+</script>
 {% endblock %}
