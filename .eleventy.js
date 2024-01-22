@@ -7,6 +7,7 @@ module.exports = config => {
     config.markdownTemplateEngine = "njk";
     config.addPassthroughCopy("assets");
     config.addPassthroughCopy("projects/interface-normalization");
+    config.addPassthroughCopy('_redirects');
 
     config.addFilter('dateDisplay', require('./filters/date-display.js'));
 
