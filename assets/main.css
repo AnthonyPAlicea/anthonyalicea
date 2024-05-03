@@ -1,6 +1,6 @@
 :root {
     font-size: 20px;
-    --color-background: #fff;
+    /*--color-background: #fff;
     --color-course-background: #eee;
     --color-text: #000;
     --color-nav-background: #eee;
@@ -10,22 +10,24 @@
     --color-small-border: rgba(212, 224, 255, 0.3);
     --color-small-link: #fff;
     --color-article-h2: #000;
-    --color-inline-code: #7D6F00;
+    --color-inline-code: #7D6F00;*/
+}
+
+:root {
+    --color-background: #222222;
+    --color-course-background: #303136;
+    --color-text: #f8f9fa;
+    --color-nav-background: #303136;
+    --color-link: #9da2ff;
+    --color-small-background: rgba(0, 56, 109, 0.5);
+    --color-recipe-reference-background: rgba(0, 56, 109, 0.5);
+    --color-small-border: rgba(212, 224, 255, 0.5);
+    --color-article-h2: #FFE53E;
+    --color-inline-code: #FFE53E;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --color-background: #222222;
-        --color-course-background: #303136;
-        --color-text: #f8f9fa;
-        --color-nav-background: #303136;
-        --color-link: #9da2ff;
-        --color-small-background: rgba(0, 56, 109, 0.5);
-        --color-recipe-reference-background: rgba(0, 56, 109, 0.5);
-        --color-small-border: rgba(212, 224, 255, 0.5);
-        --color-article-h2: #FFE53E;
-        --color-inline-code: #FFE53E;
-    }
+   /* make dark mode only for now */ 
 }
 
 * {
