@@ -274,7 +274,7 @@ code {
 
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
     max-width: 90vw;
-    font-size: 0.95em;
+    font-size: 0.875em;
 }
 
 ol li::marker {
