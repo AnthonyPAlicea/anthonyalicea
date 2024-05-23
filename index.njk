@@ -74,7 +74,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 {% block body %}
 <header>
   <h1 class="tony-card__title">Tony Alicea</h1>
-  <p class="tony-card__caption1">Udemy and Pluralsight Instructor. 300,000 students and counting.</p>
+  <p class="tony-card__caption1">Udemy and Pluralsight Instructor. 349,000 students and counting.</p>
   <p class="tony-card__caption2">JavaScript, HTML, CSS, UX, and more.</p>
   <p class="tony-card__caption3">
     <a href="https://twitter.com/anthonypalicea"><svg class="social_logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>&nbsp;&nbsp;&nbsp;
@@ -83,7 +83,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   </p>
 </header>
   <aside>
-    <p><strong>New course!</strong> <a href="https://dontimitateunderstand.com/p/understanding-react?coupon_code=ALICEAHOME&product_id=4876170">Understanding React</a> dives into React internals to give you a proper mental model and deep understanding of React.</p>
+    <p><strong>News</strong><br />New course: <a href="https://understandingreact.com?coupon_code=ALICEAHOME&product_id=4876170">Understanding React</a> dives into React internals to give you a proper mental model and deep understanding of React.<br /><br />New course: <a href="https://teamdynamics.dev">Team Dynamics and Soft Skills for Developers</a> explores how to communicate and interact with your dev team members.<br /><br />Course update: <a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">Understanding HTML and CSS</a> gets a major update with modern CSS like container queries, @layer, :has, and more.</p>
   </aside>
   <article class="mailing-list">
   <div id="fd-form-654c34a2f58f74816ab58ded"></div>
@@ -104,41 +104,52 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
             <h2 class="margin-block-0 posts__title">Understanding React</h2>
         </a>
         <p>Deeply understand React by diving under-the-hood of React's source code and understand React internals.</p>
-    </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/javascript-understanding-es6-and-beyond/?referralCode=4C76A312761FF4720DC8">
-            <img src="/assets/course_es6.jpg" />
-            <h2 class="margin-block-0 posts__title">JavaScript: Understanding ES6 and Beyond</h2>
-        </a>
-        <p>NEW! 3,900 Students</p>
-    </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">
-            <img src="/assets/course_jsweirdparts.jpg" />
-            <h2 class="margin-block-0 posts__title">JavaScript: Understanding the Weird Parts</h2>
-        </a>
-        <p>186,000 Students | 12 Hours</p>
+        <aside class="course-banner">NEW</aside>
     </article>
     <article class="course">
         <a class="course__link" href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">
             <img src="/assets/course_htmlcss.jpg" />
             <h2 class="margin-block-0 posts__title">Understanding HTML and CSS</h2>
         </a>
-        <p>9,700 Students | 14 Hours</p>
+        <p>NEWLY UPDATED! 12,000 Students | 16 Hours</p>
+        <aside class="course-banner">UPDATED</aside>
+    </article>
+    <article class="course">
+        <a class="course__link" href="http://teamdynamics.dev">
+            <img class="course__image" src="/assets/course_teamdynamics.jpeg" />
+            <h2 class="margin-block-0 posts__title">Team Dynamics and Soft Skills for Developers</h2>
+        </a>
+        <p>The missing dev education. How to communicate and interact with your dev team members.</p>
+        <aside class="course-banner">NEW</aside>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/javascript-understanding-es6-and-beyond/?referralCode=4C76A312761FF4720DC8">
+            <img src="/assets/course_es6.jpg" />
+            <h2 class="margin-block-0 posts__title">JavaScript: Understanding ES6 and Beyond</h2>
+        </a>
+        <p>5,000 Students</p>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">
+            <img src="/assets/course_jsweirdparts.jpg" />
+            <h2 class="margin-block-0 posts__title">JavaScript: Understanding the Weird Parts</h2>
+            <aside class="course-banner">POPULAR</aside>
+        </a>
+        <p>191,000 Students | 12 Hours</p>
     </article>
     <article class="course">
         <a class="course__link" href="https://www.udemy.com/course/understand-nodejs/?referralCode=E4D3B311F7B1344C3CCB">
             <img src="/assets/course_nodejs.jpg" />
             <h2 class="margin-block-0 posts__title">Learn and Understand NodeJS</h2>
         </a>
-        <p>125,000 Students | 13 Hours</p>
+        <p>130,000 Students | 13 Hours</p>
     </article>
     <article class="course">
         <a class="course__link" href="https://www.udemy.com/course/learn-angularjs/?referralCode=24B7E651C14D3D3ED6A7">
             <img src="/assets/course_angularjs.jpg" />
             <h2 class="margin-block-0 posts__title">Learn and Understand AngularJS</h2>
         </a>
-        <p>97,000 Students | 7 Hours</p>
+        <p>99,000 Students | 7 Hours</p>
     </article>
   </section>
 {% endblock %}
