@@ -12,6 +12,30 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 
 {% block head %}
 <style>
+  .news {
+    margin-block-start: 1rem;  
+  }
+
+  .news-header {
+    color: #FFE53E;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0.5rem;
+  }
+
+  .news-label {
+    background-color: #FFE53E;
+    color: #000;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .news-detail {
+    padding-block-start: 0rem;
+    margin-block-end: 1rem;
+  }
+
   .tony-card__title {
     margin-block-end: .375rem;
   }
@@ -75,15 +99,21 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 <header>
   <h1 class="tony-card__title">Tony Alicea</h1>
   <p class="tony-card__caption1">Udemy and Pluralsight Instructor. 349,000 students and counting.</p>
-  <p class="tony-card__caption2">JavaScript, HTML, CSS, UX, and more.</p>
+  <p class="tony-card__caption2">JavaScript, HTML, CSS, UX, Conference Speaker, Podcast Interviews.</p>
   <p class="tony-card__caption3">
     <a href="https://twitter.com/anthonypalicea"><svg class="social_logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>&nbsp;&nbsp;&nbsp;
     <a href="https://youtube.com/tonyalicea"><svg class="social_logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>&nbsp;&nbsp;&nbsp;
     <a href="{{ site.baseUrl }}feed/feed.xml"><svg class="social_logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z"/></svg></a>
   </p>
 </header>
-  <aside>
-    <p><strong>News</strong><br />New course: <a href="https://understandingreact.com?coupon_code=ALICEAHOME&product_id=4876170">Understanding React</a> dives into React internals to give you a proper mental model and deep understanding of React.<br /><br />New course: <a href="https://teamdynamics.dev">Team Dynamics and Soft Skills for Developers</a> explores how to communicate and interact with your dev team members.<br /><br />Course update: <a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">Understanding HTML and CSS</a> gets a major update with modern CSS like container queries, @layer, :has, and more.</p>
+  <aside class="news">
+    <h2 class="news-header">News</h2>
+    <p><strong class="news-label">New course</strong></p>
+    <p class="news-detail"><a href="https://understandingreact.com?coupon_code=ALICEAHOME&product_id=4876170">Understanding React</a> dives into React internals to give you a proper mental model and deep understanding of React.<br />
+    <p><strong class="news-label">New course</strong></p>
+    <p class="news-detail"><a href="https://teamdynamics.dev">Team Dynamics and Soft Skills for Developers</a> explores how to communicate and interact with your dev team members.<br />
+    <p><strong class="news-label">Course update</strong></p>
+    <p class="news-detail"><a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">Understanding HTML and CSS</a> gets a major update with modern CSS like container queries, @layer, :has, and more.</p>
   </aside>
   <article class="mailing-list">
   <div id="fd-form-654c34a2f58f74816ab58ded"></div>
@@ -98,6 +128,8 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   <a class="margin-block-start-large" href="/blog">More...</a>
   <section class="course-list">
     <h2 class="margin-block-start-xlarge">Courses</h2>
+    <p>With all my courses, taken by over 349,000 students, you get <strong>lifetime access</strong>, <strong>all source code</strong>, and <strong>a certificate of completion</strong>.</p>
+    <p>Most courses out there focus on the student copying what the teacher is doing. This means students fail in the real world when faced with new situations or errors. My courses focus on <strong>deep understanding</strong> that stands the test of time, makes you a better debugger, and allows you to face new challenges confidently.</p>
     <article class="course">
         <a class="course__link" href="http://understandingreact.com">
             <img class="course__image" src="/assets/course_react.jpg" />
@@ -111,7 +143,8 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
             <img src="/assets/course_htmlcss.jpg" />
             <h2 class="margin-block-0 posts__title">Understanding HTML and CSS</h2>
         </a>
-        <p>NEWLY UPDATED! 12,000 Students | 16 Hours</p>
+        <p>12,000 Students | 16 Hours</p>
+        <p><br />Most web developers don't know HTML or CSS very well, hurting the SEO, accessibility, and maintainability of their websites and apps. Learn semantic HTML and CSS at the browser-rendering engine level. Future-proof your skills by learning to read the HTML and CSS specifications.</p>
         <aside class="course-banner">UPDATED</aside>
     </article>
     <article class="course">
@@ -123,19 +156,21 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
         <aside class="course-banner">NEW</aside>
     </article>
     <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/javascript-understanding-es6-and-beyond/?referralCode=4C76A312761FF4720DC8">
-            <img src="/assets/course_es6.jpg" />
-            <h2 class="margin-block-0 posts__title">JavaScript: Understanding ES6 and Beyond</h2>
-        </a>
-        <p>5,000 Students</p>
-    </article>
-    <article class="course">
         <a class="course__link" href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">
             <img src="/assets/course_jsweirdparts.jpg" />
             <h2 class="margin-block-0 posts__title">JavaScript: Understanding the Weird Parts</h2>
             <aside class="course-banner">POPULAR</aside>
         </a>
         <p>191,000 Students | 12 Hours</p>
+        <p><br />Thousands of students credit this course with changing the course of their development career. Learn how JavaScript works under-the-hood at the JavaScript engine level.</p>
+    </article>
+    <article class="course">
+        <a class="course__link" href="https://www.udemy.com/course/javascript-understanding-es6-and-beyond/?referralCode=4C76A312761FF4720DC8">
+            <img src="/assets/course_es6.jpg" />
+            <h2 class="margin-block-0 posts__title">JavaScript: Understanding ES6 and Beyond</h2>
+        </a>
+        <p>5,000 Students</p>
+        <p><br />The sequel to Understanding the Weird Parts, building on the things we learn there, we dive into the latest features in the JavaScript language.</p>
     </article>
     <article class="course">
         <a class="course__link" href="https://www.udemy.com/course/understand-nodejs/?referralCode=E4D3B311F7B1344C3CCB">
@@ -143,6 +178,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
             <h2 class="margin-block-0 posts__title">Learn and Understand NodeJS</h2>
         </a>
         <p>130,000 Students | 13 Hours</p>
+        <p><br />Learn how to use NodeJS by learning how it (and other JavaScript runtimes) really work.</p>
     </article>
     <article class="course">
         <a class="course__link" href="https://www.udemy.com/course/learn-angularjs/?referralCode=24B7E651C14D3D3ED6A7">

@@ -93,6 +93,7 @@ nav ul {
     flex-wrap: wrap;
     gap: .5rem;
     align-items: center;
+    justify-content: space-between;
 }
 
 nav ul li {
@@ -155,8 +156,8 @@ nav a {
 
 article.post {
     max-width: 700px;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
 }
 
 .post-separator {
@@ -247,8 +248,8 @@ article.post h1 {
 }
 
 article.post h2 {
-    margin-block-start: 2rem;
-    font-size: 1.675rem;
+    margin-block-start: 1.75rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-article-h2);
 }
