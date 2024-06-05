@@ -3,7 +3,7 @@ layout: post.njk
 title: Key and Lock
 excerpt: Learn from interfaces that have endured.
 date: 2014-03-14
-tags: ['post','front-page']
+tags: ['post']
 ---
 ![Key and lock](/assets/blogimages/keylock.jpeg)
 # {{ title }}

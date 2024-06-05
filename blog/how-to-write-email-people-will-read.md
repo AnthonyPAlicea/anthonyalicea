@@ -126,3 +126,6 @@ Email is an interface. Your reader is the user. Give them a good user experience
 Make reading your emails a pleasant experience for your readers. They will be more likely to respond to your emails in a positive, forgiving, and appreciative way.
 
 Remember the UX of email. You just might get read.
+
+## One Last Note
+If you liked this article, you might like my new course <a href="https://teamdynamics.dev">Team Dynamics and Soft Skills for Developers</a>. In it we cover how to communicate with members of your dev team, manage developers, and more.
