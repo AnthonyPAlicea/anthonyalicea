@@ -3,6 +3,7 @@ layout: post.njk
 title: "Understanding React Compiler"
 excerpt: Memoize All The Things
 date: 2024-06-01
+og_image: 'assets/react-compiler.png'
 ---
 # {{ title }}
 

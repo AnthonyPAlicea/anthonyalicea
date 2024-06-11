@@ -37,6 +37,6 @@ module.exports = config => {
         includes: 'includes',
         layouts: 'includes/layouts',
         data: 'globals',
-      },
+      }
     };
   };
