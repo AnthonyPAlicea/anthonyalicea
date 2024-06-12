@@ -395,5 +395,12 @@ p {
     }
 }
 
-/* form stack forms */
-.fsForm { margin: 0 !important };
+/* 3rd party forms */
+
+.mailing-list {
+    margin-top: 1rem;
+}
+
+.mailing-list form {
+    padding: 1rem !important;
+}
