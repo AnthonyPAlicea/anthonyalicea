@@ -22,6 +22,8 @@ What does React Compiler do to your code? How does it work under-the-hood? Shoul
 ## Hook Storage
 React stores state on the client's device. How? Let's take a simplistic React app:
 
+<div class="video"><video controls loop autoplay muted playsinline aria-labelledby="video-label" src="/assets/blogvideos/ReactCompiler_Hooks.mp4"></video></div>
+
 ```js
 function Counter() {
     let clicks = useState(0);
@@ -44,7 +46,7 @@ What is really happening here when the ```useState``` line is executed by the Ja
 ## Compilation in React
 
 
-## Wait, There's Transpilation Too!
+## There's Always Been Transpilation
 
 
 ## Trading Processor Cycles for Device Memory

@@ -395,6 +395,10 @@ p {
     }
 }
 
+video {
+    max-width: 100%;
+}
+
 /* 3rd party forms */
 
 .mailing-list {
