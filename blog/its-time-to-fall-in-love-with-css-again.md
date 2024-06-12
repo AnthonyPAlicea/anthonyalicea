@@ -38,14 +38,16 @@ If you, the dev, spend most of your CSS time fighting to make something look lik
 
 ## Modern CSS
 
-## Fall In Love With: Nesting
+## Fall For: Nesting
 
-## Fall In Love With: @layer
+## Fall For: @layer
 
-## Fall In Love With: Container Queries
+## Fall For: Container Queries
 
-## Fall In Love With: :has
+## Fall For: :has
 
-## Fall In Love With: @scope
+## Fall For: @scope and :scope
+
+## Fall For: Custom Properties and Style Queries
 
 ## Falling In Love With CSS Again
