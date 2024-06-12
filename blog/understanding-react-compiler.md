@@ -7,9 +7,10 @@ og_image: 'assets/react-compiler.png'
 ---
 # {{ title }}
 
-Removing pain points is the goal of any software designer. 
+React's core architecture means it calls the functions you give it (i.e. your components) over and over. This fact both contributed to its popularity by simplifying its mental model, and caused a performance inflection point. In general, if your functions do expensive things, then your app will be slow.
 
-## What React Does At Its Core
+
+## React's Core
 
 ## Memoization and Caching
 

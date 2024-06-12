@@ -203,6 +203,12 @@ h3 {
     max-width: 240px;
 }
 
+.course__image {
+    border-radius: 8px;
+    border: solid 1px var(--color-background);
+    margin-bottom: 0.875rem;
+}
+
 .course .course__link {
     text-decoration: none;
 }
@@ -308,6 +314,26 @@ aside p {
 
 small a, small a:visited, aside p a, aside p a:visited {
     color: var(--color-small-link);
+}
+
+.news-header {
+    color: #FFE53E;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0.5rem;
+}
+
+.news-label, .aside-label {
+    background-color: #FFE53E;
+    color: #000;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.news-detail, .aside-detail {
+    padding-block-start: 0rem;
+    margin-block-end: 1rem;
 }
 
 article.recipe small {
