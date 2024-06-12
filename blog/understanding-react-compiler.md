@@ -11,9 +11,10 @@ React's core architecture calls the functions you give it (i.e. your components)
 
 Performance tuning, therefore, became a pain point for devs, as they had to manually tell React which functions should be re-run and when. The React team has now provided a tool called the React Compiler to do that manual work performance tuning for devs, by rewriting their code.
 
-What does React Compiler do to your code? How does it work under-the-hood? Let's dive in.
+What does React Compiler do to your code? How does it work under-the-hood? Should you use it? Let's dive in.
 
-## React's Core
+## React's Core Architecture
+
 
 ## Memoization and Caching
 
@@ -47,6 +48,9 @@ What is really happening here when the ```useState``` line is executed by the Ja
 
 
 ## Trading Processor Cycles for Device Memory
+
+
+## Abstractions and Debugging
 
 
 ## Dive Deeper
