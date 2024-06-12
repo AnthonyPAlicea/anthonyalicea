@@ -13,6 +13,8 @@ Performance tuning, therefore, became a pain point for devs, as they had to manu
 
 What does React Compiler do to your code? How does it work under-the-hood? Should you use it? Let's dive in.
 
+<small>For a deep dive through *all* the features of React, check out my new course <a href="https://understandingreact.com">Understanding React</a> where we dig into React's source code.</small>
+
 ## React's Core Architecture
 
 
@@ -20,22 +22,32 @@ What does React Compiler do to your code? How does it work under-the-hood? Shoul
 
 
 ## Hook Storage
-React stores state on the client's device. How? Let's take a simplistic React app:
-
-<div class="video"><video controls loop autoplay muted playsinline aria-labelledby="video-label" src="/assets/blogvideos/ReactCompiler_Hooks.mp4"></video></div>
+React stores state on the client's device. How? Let's take the beginnings of a React app that will render and interact with a list of items. Suppose we will eventually store a selected item, process the items client side for rendering, handle events, and sort the list. Our app might start to look something like this:
 
 ```js
-function Counter() {
-    let clicks = useState(0);
-
-    return <CounterView clicks={clicks} />;
+function App() {
+    return <List items={items} />;
 }
 
-function CounterView(clicks) {
-    return <p>{ clicks }</p>;
+function List(items) {
+    const [selItem, setSelItem] = useState(...);
+    const [itemEvent, dispatcher] = useReducer(...);
+    const [sort, setSort] = useState(...);
+
+    const pItems = processItems(items);
+    const listItems = pItems.map((item) => <li>{ item }</li>);
+    return (
+        <ul>{ listItems }</ul>
+    )
 }
 ```
-What is really happening here when the ```useState``` line is executed by the JavaScript engine?
+What is really happening here when the ```useState``` and ```useReducer``` lines are executed by the JavaScript engine? The node of the Fiber tree created from our ```List``` component has some more JavaScript objects attached to it to store our data. Each of those objects is connected to each other in a data structure called a linked list.
+
+<small>By the way, a lot of devs think ```useState``` is the core unit of state management in React. But it isn't! It's actually a wrapper for a simple call to ```useReducer```.</small>
+
+<div class="video"><video loop autoplay muted playsinline aria-labelledby="video-label" src="/assets/blogvideos/ReactCompiler_Hooks.mp4"></video></div>
+
+So, when you call ```useState``` and ```useReducer```, React will attach the state to the Fiber tree that sits around while our app runs. Thus state remains available as our functions keep re-running.
 
 ## Memoization in React
 
@@ -56,12 +68,12 @@ What is really happening here when the ```useState``` line is executed by the Ja
 
 
 ## Dive Deeper
+If you found this blog post helpful, you might be interested in doing a similar deep dive across all of React's features in my 16.5 hour course **<a href="https://understandingreact.com">Understanding React</a>**. You get lifetime access, all source code, and a certificate of completion.
+
 I read every line of React's source code, and then every line of React Compiler's source code. Why? So I could explain React from the internals level, under-the-hood.
 
 I find that most devs using React have an inaccurate mental model of how it works, which greatly impacts how they build and debug React-based applications. But you <em>can</em> understand React deeply.
 
-If you found this blog post helpful, you might be interested in doing a similar deep dive across all of React's features in my 16.5 course <a href="https://understandingreact.com">Understanding React</a>. You get lifetime access, all source code, and a certificate of completion.
-
-New content on React 19 features and React Compiler is coming to the course, free to students who are already enrolled. I invite you to <a href="https://understandingreact.com">enroll now</a> and join me on a journey of, not imitating, but understanding.
+New content on React 19 features and React Compiler is coming to the course, free to students who are already enrolled. I invite you to **<a href="https://understandingreact.com">enroll now</a>** and join me on a journey of, not imitating, but understanding.
 
 -- Tony
