@@ -1,12 +1,9 @@
 {% for post in posts %}
         {% if not post.data.draft %}
+        {%- if not post.data.isGiBi -%}
             <h2 class="posts__title">
                 <a href="{{ post.url | url }}">
-                    {%- if post.data.isGiBi -%}
-                        Good Interface, Bad Interface #{{ post.data.entry }}
-                    {%- else -%}
-                        {{ post.data.title }}
-                    {%- endif -%}
+                    {{ post.data.title }}
                 </a>
             </h2>
 
@@ -27,5 +24,6 @@
                 {%- endif -%}
                 {%- endif -%}
             {% endfor %}
+        {%- endif -%}
         {% endif %}
     {% endfor %}
