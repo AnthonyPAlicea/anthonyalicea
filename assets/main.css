@@ -289,6 +289,10 @@ code {
     font-size: 0.85rem;
 }
 
+pre[class*="language-"] {
+    margin: 1em 0;
+}
+
 ol li::marker {
     color: var(--color-article-h2);
 }

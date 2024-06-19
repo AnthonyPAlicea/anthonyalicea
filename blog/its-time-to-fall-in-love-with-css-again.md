@@ -55,8 +55,8 @@ If you, the dev, spend most of your CSS time fighting to make something look lik
 ## Dive Deeper
 Most modern JavaScript developers have very poor HTML and CSS authoring skills. That isn't a criticism: it's a consequence of the environment and culture of years of front-end web dev. But it hurts the performance, accessibility, SEO, readability and maintainability of your websites and apps, whether you build them in Wordpress or a JavaScript framework.
 
-You can dive deep with me into semantic HTML authoring and modern CSS in my Udemy course <a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">Understanding HTML and CSS</a>. It's continually updated as the latest features become available cross-browser, has plenty of hands-on coding exercises, dives deep into the browser rendering engine, and provides fundamental web platform skills that will improve your dev life no matter what stack you use.
+You can dive deep with me into semantic HTML authoring and modern CSS in my Udemy course <b><a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">Understanding HTML and CSS</a></b>. It's continually updated as the latest features become available cross-browser, has plenty of hands-on coding exercises, dives deep into the browser rendering engine, and provides fundamental web platform skills that will improve your dev life no matter what stack you use.
 
-If you found this blog post helpful, I invite you to <a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">enroll and join me on a journey</a> of, not imitating, but understanding.
+If you found this blog post helpful, I invite you to <b><a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">enroll and join me on a journey</a></b> of, not imitating, but understanding.
 
 --Tony
