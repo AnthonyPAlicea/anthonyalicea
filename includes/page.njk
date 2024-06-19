@@ -15,7 +15,7 @@
     <meta name="twitter:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
     <meta name="twitter:site" content="{{ site.author.handle }}">
     <meta name="twitter:creator" content="{{ site.author.handle }}">
-    <meta name="twitter:image:src" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.twitter }}{% endif %}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.twitter }}{% endif %}">
 
     {# Open Graph #}
     <meta name="og:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
