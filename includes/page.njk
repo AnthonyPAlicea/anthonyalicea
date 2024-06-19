@@ -21,9 +21,9 @@
     <meta name="og:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
     <meta name="og:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
     <meta name="og:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.og }}{% endif %}">
-    <meta name="og:url" content="{{ site.url }}{{ site.baseUrl }}">
+    <meta name="og:url" content="{{ site.url }}{{ page.url }}">
     <meta name="og:site_name" content="{{ site.name }}">
-    <meta name="og:locale" content="en_GB">
+    <meta name="og:locale" content="en_US">
     <meta name="og:type" content="website">
 
     <link rel="icon" type="image/x-icon" href="{{ site.baseUrl }}assets/favicon.ico" />
