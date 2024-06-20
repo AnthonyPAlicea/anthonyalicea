@@ -14,7 +14,7 @@ Performance tuning, therefore, became a pain point for devs, as they had to manu
 
 What does React Compiler do to your code? How does it work under-the-hood? Should you use it? Let's dive in.
 
-<small>For a deep dive through *all* the features of React, check out my new course <b><a href="https://understandingreact.com?coupon_code=COMPILER">Understanding React</a></b> where we dig into React's source code.</small>
+<small>For a deep dive through *all* the features of React, check out my new course <b><a href="https://understandingreact.com?coupon_code=COMPILER">Understanding React</a></b> where we dig into React's source code. <a href="https://understandingreact.com?coupon_code=COMPILER">It's 33% off this week!</a></small>
 
 ## Compilers, Transpiler, and Optimizers
 
@@ -451,7 +451,7 @@ There is a downside to adding layers of abstraction to our code. They can make o
 What makes a real difference in your ability to debug code generated from an abstraction layer, is to have an accurate mental model of the abstraction. Fully understanding how React Compiler works will give you the ability to debug the code it writes, improving your dev experience and lowering the stress your dev life.
 
 ## Dive Deeper
-If you found this blog post helpful, you might be interested in doing a similar deep dive across all of React's features in my 16.5 hour course **<a href="https://understandingreact.com?coupon_code=COMPILER">Understanding React</a>**. You get lifetime access, all source code, and a certificate of completion.
+If you found this blog post helpful, you might be interested in doing a similar deep dive across all of React's features in my 16.5 hour course **<a href="https://understandingreact.com?coupon_code=COMPILER">Understanding React</a>**. You get lifetime access, all source code, and a certificate of completion. <a href="https://understandingreact.com?coupon_code=COMPILER">It's 33% off this week</a>.
 
 I read every line of React's source code, and then every line of React Compiler's source code. Why? So I could explain React from the internals level, under-the-hood.
 
