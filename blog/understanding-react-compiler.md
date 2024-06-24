@@ -155,9 +155,13 @@ Ultimately, React will build a tree from all these objects called the Fiber tree
 
 ![React Fiber Tree](/assets/blogimages/ReactCompiler_FiberTree.png)
 
-React will compare the results of this tree to the real DOM in the browser, and decide how to update the DOM so that the DOM matches the tree created from what our functions return. This process is called "reconciliation".
+React actually keeps two branches that can fork out from each node of the tree. One branch is called is of the "current" state of that branch of the tree (which matches the DOM), and the other the "work-in-progress" state of that branch of the tree which matches the tree created from what our functions returned when they were re-run.
 
-Then, depending on what other functionality we add to our app, React may choose to call our <code>List</code> function over and over, whenever it thinks the UI might need to be updated. This makes our mental model fairly straightforward. Whenever the UI might need to be updated (for example, in response to a user action like clicking a button), the functions that define the UI will be called again, and React will figure out how to update the actual DOM in the browser to match how our functions say the UI should look.
+![Reconciliation](/assets/blogimages/ReactCompiler_Reconciliation.png)
+
+React will then compare those two trees to decide what changes need to made to the actual DOM, so that the DOM matches the work-in-progress side of the tree. This process is called "reconciliation".
+
+Thus, depending on what other functionality we add to our app, React may choose to call our <code>List</code> function over and over, whenever it thinks the UI might need to be updated. This makes our mental model fairly straightforward. Whenever the UI might need to be updated (for example, in response to a user action like clicking a button), the functions that define the UI will be called again, and React will figure out how to update the actual DOM in the browser to match how our functions say the UI should look.
 
 But if the <code>processItems</code> function is slow, then every call to <code>List</code> will be slow, and our whole app will be slow as we interact with it!
 
@@ -434,7 +438,7 @@ function List(t0) {
 React Compiler added an array for caching values, and all the needed if-statements to do so. The JSX transpiler converted the JSX into nested function calls. There is a not-insignificant difference between what you wrote and what the JavaScript engine runs. We are trusting other people's code to produce something that matches our original intent.
 
 ## Trading Processor Cycles for Device Memory
-Memoization and caching in general means trading processing for memory. You save on the processor having to execute expensive operations, but you avoid that by using up space in to store things in memory.
+Memoization and caching in general means trading processing for memory. You save on the processor having to execute expensive operations, but you avoid that by using up space to store things in memory.
 
 If you use React Compiler, that means you are saying "store as much as you can" in the device's memory. If the code is running on the user's device in the browser, that's an architectural consideration to keep in mind.
 
