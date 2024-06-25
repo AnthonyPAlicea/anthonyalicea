@@ -455,7 +455,7 @@ There is a downside to adding layers of abstraction to our code. They can make o
 What makes a real difference in your ability to debug code generated from an abstraction layer, is to have an accurate mental model of the abstraction. Fully understanding how React Compiler works will give you the ability to debug the code it writes, improving your dev experience and lowering the stress your dev life.
 
 ## Dive Deeper
-If you found this blog post helpful, you might be interested in doing a similar deep dive across all of React's features in my 16.5 hour course **<a href="https://understandingreact.com?coupon_code=COMPILER">Understanding React</a>**. You get lifetime access, all source code, and a certificate of completion. <a href="https://understandingreact.com?coupon_code=COMPILER">It's 33% off today (June 24) only!</a>.
+If you found this blog post helpful, you might be interested in doing a similar deep dive across all of React's features in my 16.5 hour course **<a href="https://understandingreact.com">Understanding React</a>**. You get lifetime access, all source code, and a certificate of completion.
 
 I read every line of React's source code, and then every line of React Compiler's source code. Why? So I could explain React from the internals level, under-the-hood.
 
