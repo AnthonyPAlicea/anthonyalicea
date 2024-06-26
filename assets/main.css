@@ -106,6 +106,25 @@ nav a {
     font-weight: bold;
 }
 
+.breadcrumbs {
+    font-size: 0.875rem;
+    margin: 1rem 0 0 0;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.breadcrumbs a:not(:last-child):after {
+    content: ">";
+    display: inline-block;
+    text-align: center;
+    margin: 0 .5rem;
+    width: .25rem;
+    color: #888;
+}
+
 .social_logo {
     inline-size: 1rem;
     margin-inline-end: .25rem;
@@ -256,6 +275,7 @@ h3 {
 article.post h1 {
     font-size: 2.25rem;
     line-height: 2.625rem;
+    margin-block-start: 0.75rem;
 }
 
 article.post h2 {

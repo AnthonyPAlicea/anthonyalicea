@@ -25,7 +25,13 @@
 {% endblock %}
 
 {% block body %}
-<article class="post">{{ content | safe }}</article>
+<article class="post">
+  <p class="breadcrumbs">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+  </p>
+  {{ content | safe }}
+</article>
 <article class="mailing-list">
   <div id="fd-form-654c34a2f58f74816ab58ded"></div>
   <script>
