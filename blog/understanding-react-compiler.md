@@ -14,7 +14,7 @@ Performance tuning, therefore, became a pain point for devs, as they had to manu
 
 What does React Compiler do to your code? How does it work under-the-hood? Should you use it? Let's dive in.
 
-<small>For a deep dive through *all* the features of React, check out my new course <b><a href="https://understandingreact.com">Understanding React</a></b> where we dig into React's source code.</small>
+<small>For a deep dive through *all* the features of React, check out my new course <b><a href="https://understandingreact.com?coupon_code=COMPILER1">Understanding React</a></b> where we dig into React's source code. <a href="https://understandingreact.com?coupon_code=COMPILER1">It's 33% off today only!</a></small>
 
 ## Compilers, Transpiler, and Optimizers
 
@@ -461,6 +461,6 @@ I read every line of React's source code, and then every line of React Compiler'
 
 React itself is a massive abstraction layer on top of web fundamentals. As is the case with so many abstractions, I find that most devs using React have an inaccurate mental model of how it works, which greatly impacts how they build and debug React-based applications. But you <em>can</em> understand React deeply.
 
-New content on React 19 features and React Compiler is coming to the course, free to students who are already enrolled. **<a href="https://understandingreact.com">Check the course out</a>**, you can watch a lot for free. I hope you'll join me on a journey of, not just imitating someone else writing code, but truly understanding what you're doing.
+New content on React 19 features and React Compiler is coming to the course, free to students who are already enrolled. **<a href="https://understandingreact.com?coupon_code=COMPILER1">Check the course out</a>**, you can watch a lot for free. It's <a href="https://understandingreact.com?coupon_code=COMPILER1">33% off today only!</a> I hope you'll join me on a journey of, not just imitating someone else writing code, but truly understanding what you're doing.
 
 -- Tony
