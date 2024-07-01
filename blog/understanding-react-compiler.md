@@ -342,7 +342,7 @@ const $ = _c(6);
 ```
 That <code>_c</code> function (think "c" for "cache") creates an array that's stored using a hook. React Compiler analyzed our <code>Link</code> function and decided, to maximize performance, we need to store six things. When our function is first called, it stores the results of each of those six things in that array.
 
-It's the subsequent calls to our function where we the cache in action. For example, just looking at the area where we call <code>processItems</code>:
+It's the subsequent calls to our function where we see the cache in action. For example, just looking at the area where we call <code>processItems</code>:
 
 ```js
 if ($[1] !== items) {
