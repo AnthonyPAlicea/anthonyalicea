@@ -1,6 +1,6 @@
 ---
 layout: post.njk
-title: "You Are Not a Robot Parrot"
+title: "Why Code Tutorials Are Failing You"
 excerpt: Most coding tutorials aren't teaching you properly.
 date: 2024-06-19
 ---

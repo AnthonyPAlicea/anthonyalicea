@@ -419,8 +419,13 @@ p {
     }
 }
 
-video {
+video, iframe, .video {
     max-width: 100%;
+    text-align: center;
+}
+
+iframe {
+    
 }
 
 /* 3rd party forms */
