@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {# Google Schema #}
+    <meta itemprop="name" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta itemprop="description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+
+    {# Twitter #}
+    <meta name="twitter:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary{% endif %}">
+    <meta name="twitter:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:site" content="{{ site.author.handle }}">
+    <meta name="twitter:creator" content="{{ site.author.handle }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.twitter }}{% endif %}">
+
+    {# Open Graph #}
+    <meta property="og:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta property="og:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.og }}{% endif %}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" type="image/x-icon" href="{{ site.baseUrl }}assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseUrl }}assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseUrl }}assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseUrl }}assets/favicon-16x16.png">
+    <link rel="mask-icon" href="{{ site.baseUrl }}assets/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>{% if metaTitle %}{{ metaTitle }}{% else %}{{ title }}{% endif %}{% if metaTitle or title %} | {% endif %}{{ site.name }}</title>
+
+    <meta name="color-scheme" content="dark" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.blue.min.css"
+/>
+    <link rel="stylesheet" href="{{ site.baseUrl }}assets/workshop.css">
+
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{{ site.baseUrl }}/rewrite">
+            <svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.92 287.6"><defs><style>.cls-1{fill:#000;}.cls-1,.cls-2{stroke-width:4px; stroke: #fff;}.cls-2{fill:#4682b4;}.cls-3{stroke-width: 2px;stroke:#4682b4;}</style></defs><g id="Layer_2-2"><path class="cls-1" d="M186.13,170.49c-.54,0-1.07-.2-1.48-.61-.82-.82-.82-2.14,0-2.96l54.85-54.85c2.28-2.28,3.54-5.32,3.54-8.56s-1.26-6.27-3.54-8.56l-42.95-42.95c-.82-.82-.82-2.14,0-2.96.82-.82,2.14-.82,2.96,0l42.95,42.95c3.08,3.08,4.77,7.16,4.77,11.52s-1.69,8.44-4.77,11.52l-54.85,54.85c-.41.41-.94.61-1.48.61Z"/><path class="cls-1" d="M88.8,237.12c-1.74,0-3.45-.64-4.74-1.92l-35.35-35.35c-1.33-1.33-2.01-3.13-1.92-5.07.09-1.87.89-3.65,2.25-5.01l53.35-53.35c2.87-2.87,7.4-3.02,10.09-.33l35.35,35.35c2.69,2.69,2.54,7.21-.33,10.09l-1.48-1.48,1.48,1.48-53.35,53.35c-1.5,1.5-3.45,2.26-5.35,2.26ZM107.75,138.33c-.83,0-1.7.35-2.39,1.04l-53.35,53.35c-.63.63-.99,1.43-1.03,2.25-.04.75.21,1.43.7,1.92l35.35,35.35c1.06,1.06,2.93.91,4.17-.33l53.35-53.35c1.24-1.24,1.39-3.11.33-4.17l-35.35-35.35c-.47-.47-1.11-.7-1.78-.7Z"/><path class="cls-1" d="M258.59,42.39c-.54,0-1.07-.2-1.48-.61-.82-.82-.82-2.14,0-2.96l20.12-20.12c1.6-1.6,2.49-3.74,2.49-6.02,0-2.26-.89-4.4-2.49-6-1.61-1.61-3.74-2.49-6.01-2.49s-4.4.88-6.01,2.49l-20.12,20.12c-.82.82-2.14.82-2.96,0-.82-.82-.82-2.14,0-2.96l20.12-20.12c2.4-2.4,5.58-3.72,8.97-3.72s6.57,1.32,8.97,3.72c2.39,2.39,3.71,5.57,3.72,8.96-.01,3.41-1.33,6.59-3.72,8.98l-20.12,20.12c-.41.41-.94.61-1.48.61Z"/><path class="cls-1" d="M2.09,283.61c-.54,0-1.08-.21-1.48-.61-.64-.64-.8-1.62-.39-2.43l7.31-14.33c.1-.2.23-.37.39-.53l5.31-5.31c.82-.82,2.14-.82,2.96,0,.82.82.82,2.14,0,2.96l-5.08,5.08-4.23,8.29,8.29-4.23,5.08-5.08c.82-.82,2.14-.82,2.96,0,.82.82.82,2.14,0,2.96l-5.31,5.31c-.16.15-.33.28-.53.38l-14.33,7.31c-.3.15-.63.23-.95.23Z"/><path class="cls-1" d="M23.71,272.97c-.55,0-1.08-.22-1.48-.61l-10.69-10.69c-.53-.53-.73-1.3-.54-2.02l8.62-32.19c.33-1.27,1.51-2.87,1.87-3.33.05-.07.11-.14.18-.2l27.04-27.04c.82-.82,2.14-.82,2.96,0,.82.82.82,2.14,0,2.96l-26.94,26.94c-.48.65-.98,1.45-1.06,1.74l-8.31,31.03,8.98,8.98,31.02-8.31c.3-.08,1.11-.57,1.76-1.06l26.94-26.94c.82-.82,2.14-.82,2.96,0,.82.82.82,2.14,0,2.96l-27.04,27.04c-.07.07-.14.13-.21.18-.46.35-2.06,1.52-3.34,1.85l-32.18,8.62c-.18.05-.36.07-.54.07Z"/><path class="cls-1" d="M146.36,175c-.54,0-1.07-.2-1.48-.61-.82-.82-.82-2.14,0-2.96l114.29-114.29c3.67-3.67,3.67-9.63,0-13.29l-19.11-19.11c-1.77-1.77-4.13-2.75-6.64-2.75s-4.87.98-6.65,2.76l-114.29,114.29c-.82.82-2.14.82-2.96,0-.82-.82-.82-2.14,0-2.96L223.82,21.79c2.57-2.57,5.98-3.98,9.61-3.98s7.04,1.41,9.6,3.97l19.11,19.11c5.29,5.29,5.29,13.91,0,19.21l-114.29,114.29c-.41.41-.94.61-1.48.61Z"/><path class="cls-1" d="M251.17,70.18c-.54,0-1.07-.2-1.48-.61l-35.35-35.35c-.82-.82-.82-2.14,0-2.96.82-.82,2.14-.82,2.96,0l35.35,35.35c.82.82.82,2.14,0,2.96-.41.41-.94.61-1.48.61Z"/><path class="cls-1" d="M258.2,63.16c-.54,0-1.07-.2-1.48-.61l-35.35-35.35c-.82-.82-.82-2.14,0-2.96.82-.82,2.14-.82,2.96,0l35.35,35.35c.82.82.82,2.14,0,2.96-.41.41-.94.61-1.48.61Z"/><path class="cls-3" d="M35,287.6c-7.29,0-14.84-.08-22.79-.19-1.16-.02-2.08-.97-2.06-2.12.02-1.15.95-2.06,2.09-2.06,0,0,.02,0,.03,0,26.01.36,47.68.45,69.89-1.83,12.04-1.23,26.01-3.34,38.37-9.58,3.75-1.89,7.3-4,10.66-6.32-1.51-1.81-2.83-3.74-3.92-5.78-3.21-5.99-3.11-29.23,5.43-45.27,5.36-10.06,13.27-15.89,22.87-16.86,6.36-.65,9.58,2.08,11.16,4.47,5.98,9.07-1.05,28.22-5.39,36.08-6.11,11.06-14.09,20.4-23.83,27.91,3.04,2.76,6.67,5.07,10.74,6.79,6.69,2.83,14.57,4.13,23.43,3.86,7.24-.22,12.66-1.46,17.06-3.91,4.07-2.27,7.86-5.98,11.6-11.36,4.6-6.62,7.29-13.06,7.99-19.14.83-7.21-1.27-14.19-5.62-18.65-.81-.83-.79-2.15.04-2.96.83-.81,2.15-.79,2.96.04,5.21,5.36,7.75,13.6,6.78,22.05-.78,6.77-3.71,13.86-8.71,21.05-4.11,5.91-8.36,10.04-13,12.63-5,2.79-11.03,4.2-18.97,4.44-9.46.28-17.94-1.13-25.18-4.19-4.78-2.02-9.03-4.79-12.54-8.12-3.66,2.56-7.56,4.89-11.67,6.97-12.97,6.55-27.42,8.74-39.83,10.01-15.61,1.6-30.91,2.04-47.58,2.04ZM157.45,201.68c-.46,0-.94.03-1.45.08-8.26.83-14.86,5.77-19.6,14.66-8.27,15.51-7.83,36.85-5.44,41.33,1,1.86,2.21,3.63,3.62,5.29,9.46-7.22,17.2-16.23,23.1-26.91,4.94-8.94,9.76-25.38,5.56-31.75-1.19-1.8-3.09-2.69-5.8-2.69Z"/></g></svg>
+          </a></li>
+        </ul>
+        <ul>
+          <li><a href="#enroll"><button class="enroll">Enroll Now</button></a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {% block body %}{% endblock %}
+    </main>
+    <footer>
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://tonyalicea.dev">Tony's Site</a></li>
+        <li><a href="https://dontimitateunderstand.com">Workshop Site</a></li>
+        <li><a href="https://twitter.com/anthonypalicea">X/Twitter</a></li>
+      </ul>
+      <p><br />&copy; 2024-present. Anthony P. Alicea. All rights reserved.
+    </footer>
+    <script src="{{ site.baseUrl }}assets/main.js"></script>
+  </body>
+</html>

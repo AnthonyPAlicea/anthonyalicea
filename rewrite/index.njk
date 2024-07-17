@@ -1,0 +1,41 @@
+---
+metaTitle: Rewrite - A Workshop by Tony Alicea
+---
+
+{% extends 'workshoppage.njk' %}
+
+{% block head %}
+<style>
+  
+</style>
+{% endblock %}
+
+{% block body %}
+<hgroup>
+  <h1 class="tony-card__title">REWRITE</h1>
+  <p>The Art of Rewriting Your Web Application</p>
+  <p class="credit">A Live Workshop by Tony Alicea</p>
+</hgroup>
+<hr />
+<section class="container" style="text-align: center;">
+  <p>Coming soon!</p>
+</section>
+
+<script>
+  const targetURL = 'https://dontimitateunderstand.com/purchase';
+  const productID = '4876170';
+  const setPrice = "SET_PRICE";
+  const price = "LIST_PRICE";
+
+  // Set price if coupon code passed
+  if (setPrice === "YesSetPrice") {
+    document.getElementById("price").innerHTML = '$' + price;
+  }
+
+  // Get the current URL's query string parameters
+    const queryString = window.location.search;
+
+  // Redirect to the target URL with the query string parameters
+  document.getElementById("buy-link").href = targetURL + (queryString ? queryString + '&' : '?')+ 'product_id=' + productID; 
+</script> 
+{% endblock %}
