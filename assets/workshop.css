@@ -120,10 +120,7 @@ main {
 .workshop__title {
     font-family: 'Kalam';
     font-size: 2.25rem;
-}
-
-.credit {
-    font-family: 'Kalam';
+    margin-bottom: 0;
 }
 
 .container h3 {
@@ -143,12 +140,15 @@ h2 {
 }
 
 .credit {
+    font-family: 'Kalam';
     font-size: .875rem;
     font-style: italic;
     margin-block-start: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--pico-color-grey-100);
+    margin-top: .25rem;
 }
 
 .headshot {
