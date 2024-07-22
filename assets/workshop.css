@@ -141,7 +141,7 @@ h2 {
 
 .credit {
     font-family: 'Kalam';
-    font-size: .875rem;
+    font-size: 1rem;
     font-style: italic;
     margin-block-start: 0;
     display: flex;
@@ -193,10 +193,14 @@ h2 {
 .aboutme, .imagegrid {
     display: grid;
     grid-template-columns: .25fr 1fr;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
     text-align: left;
-    align-items: stretch;
+}
+
+.imagegrid svg {
+    max-width: 100px;
+    margin: 0 1rem;
 }
 
 .imagegrid--large {
@@ -213,7 +217,7 @@ h2 {
         grid-template-columns: 1fr;
     }
     
-    .headshot, .imagegrid img {
+    .headshot, .imagegrid img, .imagegrid svg {
         margin: 0 auto;
     }
 }
@@ -229,6 +233,11 @@ h2 {
 
 .enroll-container > * {
     flex-basis: 100%;
+}
+
+.enroll-container svg {
+    max-width: 80px;
+    margin: 1rem 0;
 }
 
 .altlogo {
