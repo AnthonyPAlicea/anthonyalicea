@@ -153,6 +153,10 @@ h2 {
     color: var(--pico-color-yellow-100);
 }
 
+.highlight {
+    color: var(--pico-color-yellow-100);
+}
+
 .credit {
     font-family: 'Kalam';
     font-size: 1rem;
@@ -189,6 +193,11 @@ h2 {
     text-align: center;
     padding: 1rem 0;
     max-width: 100%;
+}
+
+.separate {
+    border-color: var(--pico-color-yellow-50);
+    border-style: dashed;
 }
 
 /* About Me */
