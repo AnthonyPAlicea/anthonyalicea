@@ -139,6 +139,20 @@ h2 {
     margin-bottom: 0.25rem;
 }
 
+.list {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.list li {
+    list-style-type: disc;
+    padding: 0;
+    margin: 0;
+}
+
+.list li::marker {
+    color: var(--pico-color-yellow-100);
+}
+
 .credit {
     font-family: 'Kalam';
     font-size: 1rem;
