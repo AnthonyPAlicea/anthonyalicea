@@ -59,6 +59,22 @@ If you and your team are already dealing with a "difficult genius" (i.e. smart j
 Beyond that, you should be interested in <em>prevention</em>. We need to find the right people to work with. Plus we should learn how to best interact with our team members, and ensure that <em>we</em> aren't acting like a jerk!
 
 ### Finding Brilliant People Who Are Nice to Work With
-We all want to work with smart people. They produce good work and we improve as we learn things from them.
+We all want to work with smart people. They produce good work and we improve as we learn things from them. But, for best results, we also need those people to be nice to work with.
+
+Finding those people is not easy. At times, there is a degree of 'taking a chance'. In other cases it's a matter of recommendations from people you trust. There's also the care involved in your organization's hiring practices.
+
+What I can at least do, is give you a recommendation. The folks at <a href="https://thesmythgroup.com">The Smyth Group</a> who made the video referenced earlier are both brilliant *and* nice to work with.
+
+They build custom software, train or bolt on to your existing dev team, and provide an array of useful dev team <a href="https://thesmythgroup.com/services/advisory/">advisory services</a>.
+
+Reach out to me at <a href="mailto:talicea@thesmythgroup.com">talicea@thesmythgroup.com</a> to get in touch. I'm their <a href="https://thesmythgroup.com/people/tony-alicea/">director of education</a>.
 
 ### Not Being a Jerk
+We also need to learn how to improve team dynamics and work with the people around us, but devs generally aren't given that education. We need to avoid being the jerk ourselves, and learn how to best communicate and interact with our team members, within the unique environment that is a dev team.
+
+Since that education is sorely lacking, I made a course. It's <a href="https://teamdynamics.dev">Team Dynamics and Soft Skills for Developers.</a> I put my 25 years of dev, management, tech education, and interpersonal communication training into a it. I think you and your team will find it useful.
+
+## Teams Are People
+Dev teams are a collection of people. People need dignity and respect. Smart jerks injure that basic need within your team dynamic. They hurt your team and your software. Help them or decide they aren't a fit for your team. Either way, don't tolerate them.
+
+They aren't worth it.
