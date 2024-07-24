@@ -63,7 +63,7 @@ No. They're people. They're emotional. The fact that they are inconsiderate of o
 
 If someone is obnoxiously aggressive, they are satisfying some sort of emotional need at the expense of others. Maybe it's rooted in ego. Maybe it's rooted in insecurity.
 
-The myth of the "difficult genius" is root partially in this false notion of logic over emotion. The smart jerk is showing that they are unable to self-regulate their emotions.
+The myth of the "difficult genius" is rooted partially in this false notion of logic over emotion. The smart jerk is showing that they are unable to self-regulate their emotions.
 
 They aren't logical. They're emotionally immature.
 
