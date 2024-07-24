@@ -199,6 +199,10 @@ h3 {
     margin-block-end: 0.25rem;
 }
 
+ul li::marker {
+    color: var(--color-highlight);
+}
+
 .header-compressed {
     margin-block-end: 0;
 }
@@ -422,6 +426,7 @@ p {
 video, iframe, .video {
     max-width: 100%;
     text-align: center;
+    margin-bottom: .5rem;
 }
 
 iframe {
