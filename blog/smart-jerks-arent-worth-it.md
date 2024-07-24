@@ -27,7 +27,7 @@ The important question is: <strong>which one do you want your software team to r
 ## What Is A Jerk?
 Communication styles differ for many reasons: cultural, experiential, and physical. The intent here is not to label every person that we come into conflict with as a "jerk".
 
-However, there is such a thing as toxic behavior. In the "difficult genius" tolerated by a dev team, that behavior can often be labeled as "obnoxiously aggressive". I borrow that term from the video that inspired this blog post, delivered by my friend Jamie Smyth from <a href="https://thesmythgroup.com">The Smyth Group</a>.
+However, there is such a thing as toxic behavior. In the "difficult genius" tolerated by a dev team, that behavior can often be labeled as "obnoxiously aggressive". I borrow that term from the video that inspired this blog post, delivered by my friend Jamie Smyth from The Smyth Group.
 
 You can find the original video below, and <strong>I encourage you to stop right now and watch it</strong>. It's only 2 minutes long, but contains so much truth in such a short amount of time. It also gives good examples of what we're talking about when we say someone is acting like a jerk.
 
