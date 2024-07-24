@@ -90,7 +90,7 @@ Any of these are devastating to a team's output and longevity. Be aware of the c
 ## Can They Be Helped?
 A smart jerk can change their ways. Your team may choose to take whatever steps available to deal with the issue. Whether that's one-on-one with a manager, HR, or some other avenue.
 
-It can also be a matter of training. I have a course on <a href="https://teamdynamics.dev">team dynamics and soft skills</a>, which I'll mention later.
+It can also be a matter of training. I have a course on team dynamics and soft skills, which I'll mention later.
 
 It's up to your team on if or how to help the source of toxicity. Good organizations work to improve their members. However, every healthy safe organization also establishes boundaries that cannot be crossed. 
 
