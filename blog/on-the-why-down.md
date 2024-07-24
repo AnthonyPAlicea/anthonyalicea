@@ -1,12 +1,12 @@
 ---
 layout: post.njk
 title: On The Why Down
-excerpt: Software Development that Brings Everyone to the Table
+excerpt: How To Do Better Than MVP
 date: 2023-03-27
 tags: ['post','front-page']
 ---
 # {{ title }}
-Software Development that Brings Everyone to the Table
+**How To Do Better Than MVP**
 
 How do we build software that solves real problems? How do both software development teams and the organizations that surround and utilize them come together to make good decisions? How do we acknowledge and work with the human factors built into all aspects of software development? How do we know what to build?
 
