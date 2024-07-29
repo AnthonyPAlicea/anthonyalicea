@@ -4,7 +4,7 @@ title: "Smart Jerks Aren't Worth It"
 excerpt: Toxic behavior hurts your team and your software.
 date: 2024-07-24
 og_image: 'assets/smart-jerks.png'
-tags: ['post','front-page']
+tags: ['post']
 ---
 # {{ title }}
 
