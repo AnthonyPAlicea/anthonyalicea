@@ -14,7 +14,7 @@ tags: ['post','front-page']
     }
 
     div + h2 {
-        margin: 0 !important;
+        margin-top: 0 !important;
     }
 
     .svg-holder > svg {
