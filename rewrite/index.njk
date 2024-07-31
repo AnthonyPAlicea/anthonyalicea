@@ -190,13 +190,13 @@ metaTitle: Rewrite - A Workshop by Tony Alicea
     <p class="price" id="price">$900&nbsp;<s>$1200</s></p><!--<label style="display: none;">For Individuals&nbsp;&nbsp;<input name="teams" type="checkbox" role="switch" />For Teams</label>-->
     <p class="lifetime"><b>25% off early bird seats.</b></p>
     <p style="color: #fff; margin-top: 2rem; margin-bottom: 0.5rem;">Get notified when seats go on sale.</p>
-    <div id="fd-form-66a4df4912a2c53b3e92396d" style="margin: 0; padding: 0;"></div>
-<script>
-  window.fd('form', {
-    formId: '66a4df4912a2c53b3e92396d',
-    containerEl: '#fd-form-66a4df4912a2c53b3e92396d'
-  });
-</script>
+  <div id="fd-form-66a4df4912a2c53b3e92396d" style="margin: 0; padding: 0;"></div>
+  <script>
+    window.fd('form', {
+      formId: '66a4df4912a2c53b3e92396d',
+      containerEl: '#fd-form-66a4df4912a2c53b3e92396d'
+    });
+  </script>
     <p>INCLUDES</p>
     <ul class="enroll-list">
       <li>&check; 5-Hour, Live Online Workshop</li>
@@ -243,6 +243,8 @@ metaTitle: Rewrite - A Workshop by Tony Alicea
     const queryString = window.location.search;
 
   // Redirect to the target URL with the query string parameters
-  document.getElementById("buy-link").href = targetURL + (queryString ? queryString + '&' : '?')+ 'product_id=' + productID; 
+  if (document.getElementById("buy-link")) {
+    document.getElementById("buy-link").href = targetURL + (queryString ? queryString + '&' : '?')+ 'product_id=' + productID; 
+  }
 </script> 
 {% endblock %}
