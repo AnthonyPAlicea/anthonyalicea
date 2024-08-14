@@ -122,14 +122,24 @@ main {
     margin-bottom: 0;
 }
 
+.book-cover {
+   text-align: center;
+}
+
+.book-cover img {
+    max-width: 200px;
+}
+
 .container h3 {
     font-size: 1.25rem;
     color: var(--pico-color-yellow-150);
 }
 
+
 hgroup:has(h1) {
     text-align: center;
 }
+
 
 h2 {
     --pico-font-size: 1.5rem;
