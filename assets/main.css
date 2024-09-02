@@ -304,6 +304,13 @@ article.post blockquote {
     font-weight: bold;
 }
 
+figcaption {
+    margin-block-start: 0.5rem;
+    font-size: 0.7rem;
+    line-height: 0.9rem;
+    font-style: italic;
+}
+
 code {
     color: var(--color-inline-code);
 }
