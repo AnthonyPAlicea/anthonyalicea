@@ -60,19 +60,21 @@ But being able to consistently build usable workflows is a skill that must be cu
 I have found, however, that there is a simple framework to make workflow design decisions that consistently improves the usability of web apps. By "improves usability" I don't mean subjectively. I mean when formally tested with real world users, the results improve dramatically.
 
 ## Normalization
-Over the years I found that a useful metaphor for thinking through workflows (I won't use the term "user flow" any more, as in Normal UI I use a specialized simplistic kind of user flow I just call a "workflow") was database normalization.
+Over the years as a dev, I've discovered that a useful metaphor for thinking through workflows (I won't use the term "user flow" any more, since in Normal UI I use a specialized simplistic kind of user flow I just call a "workflow") is database normalization.
 
 A simplistic way to describe the concept of database normalization is that a table (or relation) that is normalized is more *focused* on a particular thing, and a denormalized table was less focused.
 
-A normalized table of orders may contain an order date, but only an ID of the customer. A denormalized table may contain the order date and all the individual customer data. The denormalized table is faster to get information from, but there is greater information density and therefore requires more mental effort to read through.
+A normalized table of orders may contain an order date, but only an ID of the customer. A denormalized table may contain the order date and all the individual customer data. 
 
-The same is true for workflows. A screen (that is a page or modal) has a finite amount of controls and information on it. The more screens you visit from the beginning to the end of the task the more **normalized** that workflow is.
+The denormalized table is faster to get information from, but there is greater information density and therefore requires more mental effort to read through and find what you're looking for.
+
+The same is true for workflows. A screen (that is a page or modal) has a finite amount of controls and information on it. Thus we say the more screens you visit from the beginning to the end of the task the more **normalized** that workflow is.
 
 If you carry out various actions but stay on one or few screens we'll say that workflow is **denormalized**.
 
 This is the core of Normal UI. You take tasks in your software, and decide between designing "normalized" workflows or "denormalized" workflows to accomplish that task. That is, you decide if the user mostly stays on one screen, or if actions take them across various screens.
 
-Normalized workflows reduce cognitive load at each point, meaning how much the user has to take in and think about. Denormalized screens, on the other hand, can be more efficient for practiced users.
+Normalized workflows reduce cognitive load at each point, meaning how much the user has to take in and think about. Denormalized screens, on the other hand, can be more efficient for practiced users to accomplish tasks quickly.
 
 You can draw these workflows. I draw squares to represent screens,  circles to represent states of a screen (which I call "frames"), and arrows to represent actions the user takes. 
 
@@ -140,7 +142,7 @@ We can also make it easier to stop themselves from carrying out the action if th
 
 We also give ourselves room to grow for new features, as software scope tends to grow over time.
 
-That isn't to say normalized interfaces are always better. Sometimes denormalized ones improve the practiced user's experience. 
+But normalized interfaces aren't always better! In some cases denormalized workflows improve the practiced user's experience.
 
 For example, if we were to add complex filtering to the invoices page, we may want a button to open the filters and show the filters on that same page. So filtering would be a denormalized workflow.
 
