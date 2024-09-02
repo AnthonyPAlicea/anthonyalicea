@@ -74,7 +74,7 @@ This is the core of Normal UI. You take tasks in your software, and decide betwe
 
 Normalized workflows reduce cognitive load at each point, meaning how much the user has to take in and think about. Denormalized screens, on the other hand, can be more efficient for practiced users.
 
-You can draw these workflows. I draw squares to represent screens,  circles to represent states of a screen, and arrows to represent actions the user takes. 
+You can draw these workflows. I draw squares to represent screens,  circles to represent states of a screen (which I call "frames"), and arrows to represent actions the user takes. 
 
 When you draw a workflow, if you have few squares and lots of circles it shows the user stays on just a few screens while working, and thus the workflow is denormalized.
 
@@ -109,12 +109,30 @@ For example we might have an invoice screen where you can click a button and sen
 
 Once the user carries out this action it cannot be undone. You might have a confirmation popup after clicking the button, but after awhile users tend to blow through those without reading them.
 
-So we normalize the workflow, spreading the work across multiple screens. For example, at some point after clicking the button they might come to a screen that looks like this:
+If we were to draw the workflow diagram, it might look like this:
+
+<figure style="text-align: center; margin: 2rem 0;">
+    <img style="max-width: 90%;" src="/assets/blogimages/normal_denormalworkflow.png" alt="A square representing the invoices page with an arrow to a circle representing a confirmation popup with another arrow to a circle representing a confirmation toast." />
+    <figcaption>The user stays on one screen, with two states: a confirmation popup and a confirmation toast.</figcaption>
+</figure>
+
+The user stays on one screen during the entire task. The workflow is highly denormalized. But, since it's a dangerous workflow, we normalize it.
+
+We spread the work across multiple screens. For example, after clicking the button they might instead come to a screen that looks like this:
 
 <figure style="text-align: center; margin: 2rem 0;">
     <img style="max-width: 95%;" src="/assets/blogimages/normalui_dangerousworkflow2.png" alt="A user interface showing a table of invoices and a button to send a payment reminder email." />
     <figcaption>By normalizing we give each screen greater focus on a particular action.</figcaption>
 </figure>
+
+If we were to draw the workflow diagram for the normalized version, it might look like this:
+
+<figure style="text-align: center; margin: 2rem 0;">
+    <img style="max-width: 90%;" src="/assets/blogimages/normal_normalworkflow.png" alt="A square representing the invoices page with an arrow to a square representing a sending page with another arrow to a square representing a confirmation page." />
+    <figcaption>The user moves across multiple screens to accomplish the task: the invoices page, a sending page, and a confirmation page.</figcaption>
+</figure>
+
+There are now more circles than squares. More screens than states.
 
 We lower cognitive load and information density by normalizing the workflow onto multiple screens. In this case, on a new screen we can get the user's attention and focus them on the full impact of what they're about to do.
 
@@ -180,7 +198,7 @@ What it does do is give you a foundation that will result in strong usability *i
 
 You'll have a way of talking about and thinking through your software that puts you in the mindset of your user and yields benefits by following a framework, instead of subjective opinion, which is what design discussions sometimes devolve into at dev shops.
 
-## Successful Web Apps Are Useful Web Apps
+## Successful Web Apps Are Usable Web Apps
 I hope this technique helps you build successful, usable web apps.
 
 For myself, it's the culmination of 25 years of working in both dev and UX. The two disciplines are complimentary, more so than most dev shops even realize.
