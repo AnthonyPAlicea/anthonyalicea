@@ -140,7 +140,7 @@ If we were to draw the workflow diagram for the normalized version, it might loo
     <figcaption>The user moves across multiple screens to accomplish the task: the invoices page, a sending page, and a confirmation page.</figcaption>
 </figure>
 
-There are now more circles than squares. More screens than states.
+There are now more squares than circles. More screens than states.
 
 We lower cognitive load and information density by normalizing the workflow onto multiple screens. In this case, on a new screen we can get the user's attention and focus them on the full impact of what they're about to do.
 
@@ -169,7 +169,7 @@ This is because you have the screen space to build straightforward UIs for compl
 
 
 ### Performance
-You workflow diagram also defines what can be lazy loaded in your application.
+Your workflow diagram also defines what can be lazy loaded in your application.
 
 Whatever appears in the circles on your diagram, can be moved onto a lazy-loaded component. Squares are routes that can also be lazy loaded.
 
