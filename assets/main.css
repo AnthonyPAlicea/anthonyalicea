@@ -126,7 +126,7 @@ nav a {
 }
 
 .social_logo {
-    inline-size: 1rem;
+    inline-size: 1.25rem;
     margin-inline-end: .25rem;
     fill: var(--color-text);
 }
