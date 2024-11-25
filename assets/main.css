@@ -208,10 +208,11 @@ ul li::marker {
 }
 
 .course {
-    background-color: var(--color-course-background);
+    /*background-color: var(--color-course-background);*/
     border-radius: 12px;
     padding: 1.25rem;
     position: relative;
+    border: solid 1px #444;
 }
 
 .course p {
@@ -444,7 +445,8 @@ iframe {
 
 .mailing-list {
     margin-top: 1rem;
-    border: solid 1px #fff;
+    border: solid 1px #444;
+    border-radius: 12px;
 }
 
 .mailing-list form {
