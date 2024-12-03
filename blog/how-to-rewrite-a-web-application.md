@@ -146,16 +146,12 @@ When you iteratively release, it's much easier for the designers and devs to han
 
 <div class="svg-holder"><svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 406 406"><defs><style>.workshop-cls-1{fill:none;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:14px;}</style></defs><g id="Preview"><polyline class="workshop-cls-1" points="95.32 125.27 105.16 168.35 109.74 188.59 123.74 249.88"/><polyline class="workshop-cls-1" points="69.18 243.07 57.09 202.35 51.18 182.59 38.61 140.13"/><path class="workshop-cls-1" d="M109.74,188.61c-7.92,4.43-16.44,7.95-25.49,10.24-8.97,2.35-18.17,3.54-27.19,3.47"/><path class="workshop-cls-1" d="M9.69,107.24C-.15,69.44,18.31,24.16,44.19,7.23c12.41,47.35,50.28,37.44,60.12,75.24,4.07,15.52.23,31.17-8.95,42.79-6.35,7.95-15.26,14.07-25.97,16.87-10.71,2.8-21.34,1.8-30.78-2.02-13.75-5.55-24.86-17.36-28.92-32.88Z"/><path class="workshop-cls-1" d="M273.22,249.32l43.32-158.21c0-.07.07-.14.07-.21l.43-1.54c.86-3.28,2.35-6.35,4.46-9.14l26.47-38.47h.07s19.97-28.99,19.97-28.99c7.48-10.1,23.9-5.53,25.23,6.93l2.39,35.06,3.24,46.68c.33,3.43.03,6.86-.83,10.14l-.5,1.75-32.21,117.7"/><polyline class="workshop-cls-1" points="347.99 41.73 371.83 48.26 395.66 54.79"/><path class="workshop-cls-1" d="M317.83,245.38l39.17-143.12c2.07-7.47,12.8-11.05,23.99-7.98s18.55,11.65,16.55,19.05l-32.21,117.7"/><path class="workshop-cls-1" d="M317.83,245.38l39.17-143.12c2.07-7.47-5.3-15.98-16.55-19.05-11.04-3.07-21.7.44-23.84,7.7,0,.07-.07.14-.07.21l-43.32,158.21"/><path class="workshop-cls-1" d="M146.89,221.83l1.14-200.92c.04-7.7,6.31-13.96,14.08-13.91l84,.48c7.77.04,13.96,6.38,13.92,14.07l-1,176.71"/><line class="workshop-cls-1" x1="210.75" y1="70.24" x2="231.75" y2="70.36"/><line class="workshop-cls-1" x1="210.12" y1="182.17" x2="231.12" y2="182.29"/><line class="workshop-cls-1" x1="217.44" y1="126.25" x2="231.44" y2="126.33"/><line class="workshop-cls-1" x1="216.8" y1="238.18" x2="230.8" y2="238.26"/><path class="workshop-cls-1" d="M350,399l14-139.92c-.07,11.59-72.52,21.49-161.44,20.99-88.92-.5-160.63-9.4-160.57-20.99l14,139.92"/></g></svg></div>
 
-## The Workshop
+## The Course
 Everything we've talked about here can be practiced and learned. You just need to adjust your approach and your dev culture when it comes to rewrites.
 
-If you're working on, or about to work on, a rewrite, and you think your team would benefit from training on how to do this, I'm planning a 5-hour live, online workshop on the subject.
+If you're working on, or about to work on, a rewrite, and you think your team would benefit from training on how to do this, I include more on all of this in my Udemy course <a href="https://www.udemy.com/course/right-software-and-right-stack/?referralCode=9467FA3A1CD317951E96">How to Build the Right Software (and Choose the Right Stack)</a>. 
 
-Participants will enjoy lectures, breakout sessions, hands-on exercises, Q&A and more and learn how to rewrite a web app in a way that can save an extraordinary amount of time and money and result in very happy users.
-
-30 seats will be sold. First come, first serve, and you can sign up to be notified when seats go on sale.
-
-Find out more about the <a href="https://rewrite.tonyalicea.dev">Rewrite Workshop</a>.
+It dives into everything we've talked about in this blog post and more. Identify the underlying problems, find the best solutions (for you and your users), and choose the right stack to implement it. It includes quizzes, a free PDF worksheet, and I'm in the forums answering questions.
 
 ## A Rewrite Can Be an Eye-Opening Joy
 A rewrite can be a special kind of software project. You aren't blind to what is needed. The existing users and software are a research treasure.
