@@ -47,6 +47,29 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
       grid-area: 1 / 1 / 1 / 3;
     }
   }
+
+  .talk-pic-container {
+    background-color: #222222;
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .talk-pic-container img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    -webkit-mask-image: 
+    linear-gradient(to top, transparent, #222222 2%, #222222 98%, transparent),
+    linear-gradient(to left, transparent, #222222 2%, #222222 98%, transparent);
+    -webkit-mask-composite: intersect;
+    mask-image: 
+      linear-gradient(to top, transparent, #222222 2%, #222222 98%, transparent),
+      linear-gradient(to left, transparent, #222222 2%, #222222 98%, transparent);
+  }
+
 </style>
 
 <script>
@@ -92,7 +115,9 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   <!--<article class="intro">
     
   </article>-->
-  <img src="/assets/tony_reactsummit.jpg" style="max-width: 100%" />
+  <figure class="talk-pic-container">
+    <img src="/assets/tony_reactsummit.jpg" class="talk-pic" alt="Tony Alicea standing at a podium which says 'React Summit' on the front giving a technical talk on React and JavaScript." />
+  </figure>
   <article class="mailing-list">
   <div id="fd-form-654c34a2f58f74816ab58ded"></div>
   <script>
