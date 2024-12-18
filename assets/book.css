@@ -120,7 +120,12 @@ main {
 
 .book__title {
     font-size: 2.25rem;
-    margin-bottom: 0;
+    font-weight: 900;
+    margin-block-end: .5rem;
+}
+
+.book__subtitle {
+    font-weight: 700;
 }
 
 .book-cover {
