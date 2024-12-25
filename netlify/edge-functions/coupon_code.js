@@ -25,10 +25,11 @@ export default async (request, context) => {
 
   // Coupons
   const coupons = [
-    { code: 'EARLYBIRD', type:'I', newPrice: "900" }
+    { code: 'EARLYBIRD', type:'I', newPrice: "900" },
+    { code: 'NORMAL24', type:'I', newPrice: "19.99" }
 ];
 
-let price = "1200";
+let price = "49.99";
 
 // Check if any coupon code is present in the query parameters and update the price
 let foundCoupon = false;
@@ -41,7 +42,7 @@ coupons.forEach(coupon => {
 
 if (!foundCoupon) return;
 
-price = price + "&nbsp;<s>$1200</s>"
+price = price + "&nbsp;<s>$79.99</s>"
 
 
   // Replace the content

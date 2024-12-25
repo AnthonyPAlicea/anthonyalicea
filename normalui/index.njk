@@ -156,4 +156,23 @@ og_image: 'assets/normalui_card.png'
     Contact me at <a href="mailto:hey@tonyalicea.dev">hey@tonyalicea.dev</a> if you're interested in workshops for your team or consulting.
   </details>
 </section>
+<script>
+  const targetURL = 'https://dontimitateunderstand.com/purchase';
+  const productID = '5715402';
+  const setPrice = "SET_PRICE";
+  const price = "LIST_PRICE";
+
+  // Set price if coupon code passed
+  if (setPrice === "YesSetPrice") {
+    document.getElementById("price").innerHTML = '$' + price;
+  }
+
+  // Get the current URL's query string parameters
+    const queryString = window.location.search;
+
+  // Redirect to the target URL with the query string parameters
+  if (document.getElementById("buy-link")) {
+    document.getElementById("buy-link").href = targetURL + (queryString ? queryString + '&' : '?')+ 'product_id=' + productID; 
+  }
+</script> 
 {% endblock %}
