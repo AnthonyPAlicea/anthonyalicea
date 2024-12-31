@@ -192,7 +192,7 @@ After another decade of successful use of the Normal UI technique, I decided it 
     </figure>
 </a>
 
-You can find the book at <b><a href="https://normalui.com">normalui.com</a></b>. You also can bundle the book with an upcoming video series where I walk through using the technique to improve the usability of common web app features.
+You can find the book at <b><a href="https://normalui.com">normalui.com</a></b>. You also can bundle the book with the video series where I walk through using the technique to improve the usability of common web app features, as well as how to prompt an AI to implement Normal UI.
 
 The book is a fast read, so you can start implementing Normal UI right away.
 
