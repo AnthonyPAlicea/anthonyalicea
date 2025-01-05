@@ -3,7 +3,7 @@ layout: post.njk
 title: Simple Is Not the Opposite of Complex
 excerpt: Complex is Easy, Simple is Hard
 date: 2014-05-22
-tags: ['post','front-page']
+tags: ['post']
 ---
 ![Pool table](/assets/blogimages/billiards1.jpeg)
 # {{title}}
