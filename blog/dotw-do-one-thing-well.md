@@ -3,7 +3,7 @@ layout: post.njk
 title: "DOTW: Do One Thing Well"
 excerpt: The Mantra of the Guessable Interface.
 date: 2014-01-11
-tags: ['post','front-page']
+tags: ['post']
 ---
 ![One way street sign](/assets/blogimages/oneway.jpeg)
 # {{ title }}
