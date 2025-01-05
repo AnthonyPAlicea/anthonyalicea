@@ -220,6 +220,7 @@ ul li::marker {
 
 .course p {
     margin-block-end: 0;
+    font-size: .9rem;
 }
 
 .course + .course {
