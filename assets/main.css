@@ -197,6 +197,7 @@ h1, h2 {
 
 h3 {
     margin-block-end: 0.25rem;
+    font-weight: 700;
 }
 
 ul li::marker {
@@ -286,7 +287,7 @@ article.post h1 {
 article.post h2 {
     margin-block-start: 1.75rem;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 900;
     color: var(--color-article-h2);
 }
 
