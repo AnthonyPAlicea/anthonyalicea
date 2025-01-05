@@ -3,7 +3,7 @@ layout: post.njk
 title: How To Write Email People Will Read
 excerpt: We are inundated with email. So how do you write an email that clients and co-workers will read?
 date: 2014-09-23
-tags: ['post','front-page']
+tags: ['post']
 ---
 
 # {{ title }}
