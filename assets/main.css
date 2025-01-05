@@ -73,9 +73,9 @@ nav {
     justify-content: space-between;
     align-items: center;
     grid-column: 1 / span 3;
-    padding-block: .5rem;
+    padding-block: .25rem;
     font-family: 'Raleway', sans-serif;
-    background-color: var(--color-nav-background);
+    border: solid 1px var(--color-nav-background);
 }
 
 nav * {
