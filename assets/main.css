@@ -75,7 +75,7 @@ nav {
     grid-column: 1 / span 3;
     padding-block: .25rem;
     font-family: 'Raleway', sans-serif;
-    border: solid 1px var(--color-nav-background);
+    border-bottom: solid 1px var(--color-nav-background);
 }
 
 nav * {
