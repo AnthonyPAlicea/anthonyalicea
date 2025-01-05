@@ -161,6 +161,7 @@ nav a {
     margin-block-end: 0;
     font-family: 'Raleway', sans-serif;
     font-weight: 900;
+    line-height: 1.1;
 }
 
 .posts__excerpt {
