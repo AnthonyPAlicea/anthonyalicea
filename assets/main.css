@@ -287,9 +287,10 @@ article.post h1 {
 }
 
 article.post h2 {
-    margin-block-start: 1.75rem;
-    margin-block-end: .3rem;
-    font-size: 1.5rem;
+    margin-block-start: 2.5rem;
+    margin-block-end: 1rem;
+    font-size: 2rem;
+    line-height: 1.1;
     font-weight: 900;
     color: var(--color-article-h2);
 }
