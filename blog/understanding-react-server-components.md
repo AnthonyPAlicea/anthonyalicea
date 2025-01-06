@@ -41,7 +41,7 @@ You don't lose state as you change things or make new requests
 ## Out-of-Order Streaming
 
 ## Hooks and RSCs
-We now turn out attention to the client. That is, the browser.
+Now that we've seen how RSCs are rendered and their content ends up in the browser, how do they fit in with the normal client-side React functionality?
 
 ## To Hydrate or Not to Hydrate
 ### RSCs Are Non-Interactive
