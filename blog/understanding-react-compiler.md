@@ -16,7 +16,7 @@ What does React Compiler do to your code? How does it work under-the-hood? Shoul
 
 <small>To gain a complete, accurate mental model of React by deep diving into its internals, check out my new course <b><a href="https://understandingreact.com">Understanding React</a></b> where we dig into React's source code. I've found a deep understanding of React's internals greatly helps even devs with years of React experience.</small>
 
-## Compilers, Transpiler, and Optimizers
+## Compilers, Transpilers, and Optimizers
 
 We hear the terms compiler, transpiler, and optimizer thrown about the modern JavaScript ecosystem. What are they?
 
@@ -157,7 +157,7 @@ Ultimately, React will build a tree from all these objects called the Fiber tree
 
 React actually keeps two branches that can fork out from each node of the tree. One branch is called is of the "current" state of that branch of the tree (which matches the DOM), and the other the "work-in-progress" state of that branch of the tree which matches the tree created from what our functions returned when they were re-run.
 
-![Reconciliation](/assets/blogimages/ReactCompiler_Reconciliation.png)
+![A representation of the reconciliation process inside React, showing current and work-in-progress branches of the tree which are compared to calculate what updates to make to the real DOM tree.](/assets/blogimages/ReactCompiler_Reconciliation.png)
 
 React will then compare those two trees to decide what changes need to made to the actual DOM, so that the DOM matches the work-in-progress side of the tree. This process is called "reconciliation".
 
