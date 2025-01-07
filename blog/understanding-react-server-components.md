@@ -91,6 +91,11 @@ Remember we said *perceived performance* was an important metric. If you're alre
 
 ## Streaming Flight Data
 
+But where does flight data stream *to* really? It must be somewhere in the React codebase. It turns out the answer to that question adds an important player to the RSC story.
+
+## Bundlers and RSCs
+
+
 ## ServerRoot and React Elements
 
 ## Suspense, async, and await
@@ -130,8 +135,6 @@ function Comments({commentsPromise}) {
 ```
 
 ## Out-of-Order Streaming
-
-## Bundlers and RSCs
 
 ## Hooks and RSCs
 Now that we've seen how RSCs are rendered and their content ends up in the browser, how do they fit in with the normal client-side React functionality?
