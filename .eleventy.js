@@ -29,6 +29,8 @@ module.exports = config => {
         return a.data.title.localeCompare(b.data.title);
       });
     });
+
+    config.addShortcode("year", () => `${new Date().getFullYear()}`);
   
     return {
       pathPrefix: require('./globals/site.json').baseUrl,

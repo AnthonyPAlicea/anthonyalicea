@@ -48,12 +48,15 @@ body {
     background-color: var(--color-background);
     color: var(--color-text);
     margin: 0;
-    padding-block-end: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 main {
     display: grid;
     grid-template-columns: 25px 1fr 25px;
+    margin-bottom: auto;
 }
 
 main > * {
@@ -456,4 +459,35 @@ iframe {
 
 .mailing-list form {
     padding: 1rem !important;
+}
+
+footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid #444;
+    font-size: 0.75rem;
+    font-family: 'Raleway', sans-serif;
+    flex-shrink: 0;
+}
+
+.footer-content {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 25px;
+    text-align: center;
+}
+
+.footer-content p {
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+.footer-content a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.footer-content a:hover {
+    color: var(--color-link);
 }
