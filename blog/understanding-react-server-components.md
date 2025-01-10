@@ -79,6 +79,11 @@ How?
 
 Credit for the excellent <a href="https://github.com/alvarlagerlof/rsc-parser" target="blank">RSC parser</a> from Alvar Lagerlöf.
 
+## Rendering HTML
+Remember we said that initially rendering HTML from RSCs was a "possibility". That's because it's optional - it's up to the meta-framework if it does so or not. But it makes sense to do so.
+
+Remember we said *perceived performance* was an important metric. If you're already executing code on the server, and you can stream back HTML, you should, because the browser will render that HTML quickly, resulting in a faster perceived experience for the user.
+
 ## Streams and Promises
 But there are two kinds of performance: actual performance and perceived performance.
 
@@ -95,6 +100,7 @@ But where does flight data stream *to* really? It must be somewhere in the React
 
 ## Bundlers and RSCs
 
+## Streaming Flight Data
 
 ## ServerRoot and React Elements
 
