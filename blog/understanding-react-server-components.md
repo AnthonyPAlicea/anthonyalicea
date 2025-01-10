@@ -12,7 +12,7 @@ Yet, abstractions always come at a cost. What are those costs? When *can* you us
 
 To answer these questions, let's dive together into how React Server Components really work, under-the-hood. We'll do this by examining two sides of the RSC story: React itself and React meta-frameworks. In particular, we'll look at both React and NextJS internals to form an accurate mental model of how the RSC story comes together.
 
-<small><b>Note:</b> This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like. It's also assumed your familiar with Promises, async, and await in JavaScript.<br /><br />If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.<br /><br />For a deep dive into every aspect of React from scratch, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, components, hooks, forms, and more really work.</small>
+<small><b>Note:</b> This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like. It's also assumed your familiar with Promises, async, and await in JavaScript.<br /><br />If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.<br /><br />For a deep dive into every aspect of React from scratch, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.</small>
 
 ## The DOM and Client Rendering
 You don't lose state as you change things or make new requests.
@@ -141,6 +141,9 @@ function Comments({commentsPromise}) {
 ```
 
 ## Out-of-Order Streaming
+
+## Interleaving
+
 
 ## Hooks and RSCs
 Now that we've seen how RSCs are rendered and their content ends up in the browser, how do they fit in with the normal client-side React functionality?

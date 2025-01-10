@@ -12,6 +12,14 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 
 {% block head %}
 <style>
+  :root {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
   .news {
     margin-block-start: 1rem;  
   }
@@ -48,26 +56,66 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     }
   }
 
-  .talk-pic-container {
-    background-color: #222222;
-    max-width: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
+  .background-image-container {
+    position: relative;
+    width: 100vw;
+    height: 600px;
+    margin: -3rem calc(50% - 50vw);
+    padding: 4rem 0;
+    overflow: hidden;
+    background-image: url('/assets/tony_reactsummit.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+    z-index: -1;
   }
 
-  .talk-pic-container img {
-    display: block;
+  .background-image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 100%;
-    height: auto;
-    -webkit-mask-image: 
-    linear-gradient(to top, transparent, #222222 2%, #222222 98%, transparent),
-    linear-gradient(to left, transparent, #222222 2%, #222222 98%, transparent);
-    -webkit-mask-composite: intersect;
-    mask-image: 
-      linear-gradient(to top, transparent, #222222 2%, #222222 98%, transparent),
-      linear-gradient(to left, transparent, #222222 2%, #222222 98%, transparent);
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(34, 34, 34, 0.3),
+      rgba(34, 34, 34, 0.3)
+    );
+  }
+
+  .mailing-list {
+    position: relative;
+    margin-top: -4rem;
+    z-index: 1;
+  }
+
+  /* Style the Flodesk form container */
+  #fd-form-654c34a2f58f74816ab58ded {
+    background: transparent !important;
+  }
+
+  /* Target any potential form wrapper elements */
+  #fd-form-654c34a2f58f74816ab58ded > div {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .posts-section {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    background-color: #2E2E2E;  /* Slightly lighter than main background */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: calc(50vw - 50%);
+    padding-right: calc(50vw - 50%);
+  }
+
+  .posts-section h2 {
+    margin-block-end: .5rem;
   }
 
 </style>
@@ -115,9 +163,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   <!--<article class="intro">
     
   </article>-->
-  <figure class="talk-pic-container">
-    <img src="/assets/tony_reactsummit.jpg" class="talk-pic" alt="Tony Alicea standing at a podium which says 'React Summit' on the front giving a technical talk on React and JavaScript." />
-  </figure>
+  <div class="background-image-container" role="img" aria-label="Tony Alicea standing at a podium which says 'React Summit' on the front giving a technical talk on React and JavaScript."></div>
   <article class="mailing-list">
   <div id="fd-form-654c34a2f58f74816ab58ded"></div>
   <script>
@@ -127,8 +173,12 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     });
   </script>
   </article>
-  {% include "posts.njk" %}
-  <a class="margin-block-start-large" href="/blog">More...</a>
+  <section class="posts-section">
+    <h2>Posts</h2>
+    {% include "posts.njk" %}
+    <br />
+    <a href="/blog">More...</a>
+  </section>
   <p></p>
   <h2>Courses</h2>
   {% include "courses.njk" %}
