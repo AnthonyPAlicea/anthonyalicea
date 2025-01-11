@@ -461,6 +461,10 @@ iframe {
     padding: 1rem !important;
 }
 
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__container {
+    border-radius: 12px;
+}
+
 footer {
     margin-top: 4rem;
     padding: 2rem 0;
