@@ -397,6 +397,13 @@ article.post small h2 {
     margin-block: 0;
 }
 
+article.post small .note-header {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 0.85rem;
+    display: block;
+}
+
 p {
     margin-block-start: 0;
 }

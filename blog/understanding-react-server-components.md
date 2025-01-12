@@ -60,52 +60,77 @@ date: 2025-01-05
 
 # {{ title }}
 
-React Server Components have lifted server-rendering to be a first-class citizen of the React ecosystem. They allow developers to render some components on the server, while attempting to abstract away the divide between the client and server. Devs can interleave client and server components in their code as if all the code was running in one place.
+React Server Components have lifted server-rendering to be a truly first-class citizen of the React ecosystem. They allow developers to render some components on the server, while attempting to abstract away the divide between the client and server. Devs can interleave client and server components in their code as if all the code was running in one place.
 
-Yet, abstractions always come at a cost. What are those costs? When *can* you use RSCs? Do they always reduce bundle size? When *should* you use RSCs (React Server Components)? What are the rules that devs have to follow to use them properly and why do those rules exist?
+Yet, abstractions always come at a cost. What are those costs? When *can* you use RSCs? Does reduced bundle size mean reduced bandwidth? When *should* you use RSCs (React Server Components)? What are the rules that devs have to follow to use them properly and why do those rules exist?
 
 To answer these questions, let's dive together into how React Server Components really work, under-the-hood. We'll do this by examining two sides of the RSC story: React itself and React meta-frameworks. In particular, we'll look at both React and NextJS internals to form an accurate mental model of how the RSC story comes together.
 
-<small>This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like.<br /><br />It's also assumed your familiar with Promises, async, and await in JavaScript.If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.<br /><br />For a deep dive into every aspect of React from scratch, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.</small>
+<p>
+<small>
+<b class="note-header">Note</b>
+This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like.<br /><br />It's also assumed your familiar with Promises, async, and await in JavaScript.If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.<br /><br />For a deep dive into every aspect of React from scratch, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.</small>
+</p>
 
 First, we must establish some fundamentals necessary to understanding how RSCs work.
 
 ## The DOM and Client Rendering
-React co-opted the term "render". It usually refers to the actual work of painting the DOM to the screen. React uses the term to mean calculating what the DOM should look like.
+React co-opted the term "render". When we say the browser "renders" our page we are referring to the actual work of painting the DOM to the screen. The browser takes the DOM (the tree of elements) and the CSSOM (the tree of computed styles), calculates how elements should layout, and then paints the appropriate pixels to the screen.
 
-Thus, in the world of React (and other frameworks who have since followed in React's footsteps), when we say "client rendering" we're talking about **React executing our component functions** ***in the browser***.
+React instead uses that same term to mean "calculating what the DOM should look like". The values our component functions return tell React what the DOM should look like.
 
-React's version of "rendering" doesn't always lead to actual browser rendering, since it's possible the DOM already looks the way React thinks it should. In fact, a major point of React's core architecture (along with all other JS frameworks) is to limit how much its internal code updates the DOM.
+Thus, in the world of React (and other frameworks who have since followed in React's footsteps), when we say "client rendering" we're talking about **our component functions being executed** ***in the browser***.
 
-> When React says "client rendering" we're talking about React executing our component functions ***in the browser***.
+React's version of "rendering" doesn't always lead to actual browser rendering, since it's possible the DOM already looks the way React thinks it should.
+
+> When React says "client rendering" we're talking about our component functions being executed ***in the browser***.
+
+In fact, a major point of React's core architecture (along with all other JS frameworks) is to limit how much its internal code updates the DOM.
 
 ### Tree Reconciliation
+Inside React's source code are calls to browser DOM APIs like <code>appendChild</code> to update the DOM in the client. React chooses when to execute those browser DOM APIs via tree reconciliation and diffing.
 
-This has the advantage of not losing state as you update the UI.
+As we talked about in my post on [React Compiler](/blog/understanding-react-compiler), React keeps track of what the DOM both currently looks like and *should* look like in a tree of JavaScript objects, where each node is called a Fiber.
+
+React calculates what the DOM should look like (called "Work-In-Progress") and compares it to what the DOM currently looks like (called "Current") in two branches of that JavaScript object tree.
+
+It then reconciles the difference between those two trees, calculating the steps needed to convert the current tree into the work-in-progress tree. Those steps are the "diff" or "patch".
+
 ![A representation of the reconciliation process inside React, showing current and work-in-progress branches of the tree which are compared to calculate what updates to make to the real DOM tree.](/assets/blogimages/ReactCompiler_Reconciliation.png)
 
-<small>React used to call it's collection of JavaScript objects that are structured like the DOM the "Virtual DOM". But React doesn't like that term now because you can target other things like native iOS and Android apps (React Native) to render to.<br /><br />There are multiple trees that React deals with, a tree of React Elements (JS objects) that your function components return and a Fiber tree (also JS objects) that React Elements are converted into and are used for reconciliation.<br /><br />While I usually refer to these two trees more specifically, for this post I'll use the long-standing colloquial term "Virtual DOM" because it's useful in keeping track of how RSCs work.</small>
+Once it finishes that calculation, all against simple JavaScript objects, it knows what steps to take in the *real* DOM. By finding the minimum number of steps to take, it minimizes how much it has to update the DOM, since updating the DOM is expensive and causes the browser to re-render (layout elements and paint pixels).
 
-Understanding that **React co-opted the term "render"** goes a surprisingly long way in helping explain RSCs accurately.
+Updating the DOM in the client has the advantage of not losing state as you update the UI. For example, a user can type information into a form, React can update the UI based on some event, and the text stays in the form (unlike if the page refreshed).
 
-To understand RSCs we need to have clear in our minds the difference between what we usually mean in web dev by client and server rendering, and React's focus on the generation of the Virtual DOM (i.e. the React Elements and Fiber trees).
+Thus React is focused on updating the DOM in the client, while trying to be as efficient as it can in doing so, doing work first against a fake DOM. This fake copy of the DOM's structure in JavaScript is generally called the "Virtual DOM".
 
-I made this little image to remind you that when React says "render" it doesn't mean you actually see anything happen:
+<p>
+<small><b class="note-header">Is "Virtual DOM" the Right Phrase?</b>
+ We used to call the collection of JavaScript objects in React that are structured like the DOM the "Virtual DOM". But React doesn't like that term now because you can target other things like native iOS and Android apps (React Native) to render to.<br /><br />In fact, there are multiple trees that React deals with, a tree of React Elements (JS objects) that your function components return and a Fiber tree (also JS objects) that React Elements are converted into and used to store state among other things.<br /><br />While I usually refer to these two trees more specifically, for this post I'll use the long-standing colloquial term "Virtual DOM" because it's useful in keeping track of how RSCs work.</small>
+</p>
+
+Calculating the Virtual DOM is what React refers to as "rendering": executing your function components to determine what the real DOM should look like. This all happens inside the JavaScript engine executing the functions, and until reconciliation doesn't touch the real DOM at all.
+
+As it turns out, understanding that **React co-opted the term "render"** goes a surprisingly long way in helping explain RSCs accurately.
+
+To understand RSCs we need to have clear in our minds the difference between what we usually mean in web dev by client and server rendering, and React's focus on the generation of the Virtual DOM.
+
+I made the below image when preparing this post. A reminder that when React says "render" it doesn't mean you actually see anything happen :).
 <p style="text-align: center;">
 <img style="max-width: 350px;" alt="A cartoon sketch of a quivering atom saying "Oh I am rendering...in my mind." src="/assets/blogimages/tonyalicea_cartoon1_dark.png" />
 </p>
 
-Let's keep track of these various "render" meanings as we go. We'll call the typical (non-React) definitions "classical". Let's start building a dictionary entry for our web dev vocabulary:
+Let's keep track of these various "render" meanings as we go. We'll call the typical (non-React) definitions "classical" and start building a dictionary entry for our web dev vocabulary:
 
 <dl class="dictionary-entry">
   <dt class="dictionary-term">rend·er</dt>
   <dd class="dictionary-pronunciation">/ˈrendər/</dd>
   <dd class="dictionary-part-speech"><em>verb</em></dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">1.</span> <em>(Classical Client-Side)</em> To update the DOM using browser APIs (e.g. <code>el.appendChild(...);</code>).
+    <span class="definition-number">1.</span> <em>(Classical Client-Side)</em> To take the DOM and CSSOM, compute layout, and paint pixels to the screen.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">2.</span> <em>(React Client-Side)</em> To execute function components in order to update the Virtual DOM.
+    <span class="definition-number">2.</span> <em>(React Client-Side)</em> To execute function components in order to build and update the Virtual DOM.
   </dd>
 </dl>
 
@@ -119,7 +144,7 @@ You can ask for it again (but you lose state)
 
 Close to the database or file storage for data access
 
-Developers have been able to server-render React components (SSR) for a long time. The server generates an HTML string to send to the client, **but** the JavaScript code for those same React components also had to be sent to the client and executed, so the Virtual DOM could be built from them. React needs **both** trees to work.
+Developers have been able to server-render React components (SSR) for a long time. The server generates an HTML string to send to the client, **but** the JavaScript code for those same React components also had to be sent to the client and executed, so the Virtual DOM could be built from them. Remember, React needs **both** trees (DOM and Virtual DOM) to work.
 
 This has been the balancing act for many years in web development: server-rendered HTML appears quickly, but DOM updates via client-side JavaScript let you make changes while maintaining the state of the page.
 
@@ -134,24 +159,24 @@ Let's update our dictionary entry:
   <dd class="dictionary-pronunciation">/ˈrendər/</dd>
   <dd class="dictionary-part-speech"><em>verb</em></dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">1.</span> <em>(Classical Client-Side)</em> To update the DOM using browser APIs (e.g. <code>el.appendChild(...);</code>).
+    <span class="definition-number">1.</span> <em>(Classical Client-Side)</em> To take the DOM and CSSOM, compute layout, and paint pixels to the screen.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">2.</span> <em>(React Client-Side)</em> To execute function components in order to update the Virtual DOM.
+    <span class="definition-number">2.</span> <em>(React Client-Side)</em> To execute function components in order to build and update the Virtual DOM.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">3.</span> <em>(Classical Server-Side)</em> To generate HTML intended to be sent to the client which will then use it to build the DOM.
+    <span class="definition-number">3.</span> <em>(Classical Server-Side)</em> To generate HTML to be sent to the client to build the DOM.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">4.</span> <em>(React Server-Side SSR)</em> To execute function components in order to generate HTML intended to be sent to the client which will then use it to build the DOM.
+    <span class="definition-number">4.</span> <em>(React Server-Side SSR)</em> To execute function components in order to generate HTML to be sent to the client to build the DOM.
   </dd>
 </dl>
-
+<p>
 <small>
-  One thing we aren't talking about here is SSG (Server-Side Generation). That means pre-generating the HTML while <em>building</em> the app (that is, preparing it for deployment). You can do this for both client and server components.
-
-  SSG has the same definition as SSR in this case. However, once you generate that HTML the user can't request that it be re-generated and its contents can't be unique per user. This doesn't help us much in the goal of understanding RSCs so I won't talk more about it, but it is supported.
+<b class="note-header">What About Server-Side Generation?</b>
+  One thing we aren't talking about here is SSG (Server-Side Generation). That means pre-generating the HTML while <em>building</em> the app (that is, preparing it for deployment). You can do this for both client and server components.<br /><br />SSG would have the same definition as SSR in our dictionary entry. Differentiating SSG and SSR doesn't help us much in this post, so I won't talk about it much, but it is supported.
 </small>
+</p>
 
 ## Streaming and ReadableStream
 
@@ -211,7 +236,7 @@ Classical server rendering (generating HTML) gets you pages that render (painted
 
 Thus, in practice, an RSC will result in what is called the "double data problem". You will send the same information from the server in two different formats at the same time: HTML and Payload. You're sending the info needed to immediately build the DOM (HTML) and the Virtual DOM (Payload).
 
-Sometimes its argued that repetition is negated by compression algorithms (like gzip) which servers use before sending responses. However, HTML and the JSON-ish payload are two different formats, so the repetition is obfuscated enough that the double data still makes an noticeable impact on bandwidth.
+Sometimes it's argued that repetition is negated by compression algorithms (like gzip) which servers use before sending responses. However, HTML and the JSON-ish payload are two different formats, so the repetition is obfuscated enough that the double data still makes an noticeable impact on bandwidth.
 
 With all that said, we now have a complete list of 5 different definitions for "render", providing an accurate mental model!
 
@@ -220,23 +245,23 @@ With all that said, we now have a complete list of 5 different definitions for "
   <dd class="dictionary-pronunciation">/ˈrendər/</dd>
   <dd class="dictionary-part-speech"><em>verb</em></dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">1.</span> <em>(Classical Client-Side)</em> To update the DOM using browser APIs (e.g. <code>el.appendChild(...);</code>).
+    <span class="definition-number">1.</span> <em>(Classical Client-Side)</em> To take the DOM and CSSOM, compute layout, and paint pixels to the screen.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">2.</span> <em>(React Client-Side)</em> To execute function components in order to update the Virtual DOM.
+    <span class="definition-number">2.</span> <em>(React Client-Side)</em> To execute function components in order to build and update the Virtual DOM.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">3.</span> <em>(Classical Server-Side)</em> To generate HTML intended to be sent to the client which will then use it to build the DOM.
+    <span class="definition-number">3.</span> <em>(Classical Server-Side)</em> To generate HTML to be sent to the client to build the DOM.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">4.</span> <em>(React Server-Side SSR)</em> To execute function components in order to generate HTML intended to be sent to the client which will then use it to build the DOM.
+    <span class="definition-number">4.</span> <em>(React Server-Side SSR)</em> To execute function components in order to generate HTML to be sent to the client to build the DOM.
   </dd>
   <dd class="dictionary-definition">
-    <span class="definition-number">5.</span> <em>(React Server-Side RSC)</em> To execute function components in order to generate flight (payload) data intended to be sent to the client which will use it to build the Virtual DOM.
+    <span class="definition-number">5.</span> <em>(React Server-Side RSC)</em> To execute function components in order to generate flight (payload) data to be sent to the client to build and update the Virtual DOM.
   </dd>
 </dl>
 
-Notice similarities across the React definitions? For React rendering *always* means "executing function components". And client and server components *both* mean "building the Virtual DOM".
+Notice similarities across the React definitions? For React rendering *always* means "executing function components", and client and server components *both* provide what is needed to build and update the Virtual DOM.
 
 ## Streaming Flight Data
 
@@ -302,6 +327,7 @@ Now that we've seen how RSCs are rendered and their content ends up in the brows
 ### But RSCs Are In The Virtual DOM
 
 ## Refetching and Reconciliation
+It's worth noting here that you can also take RSCs and generate the HTML and Payload while building the app, thus SSG instead of SSR. However since SSG happens only once as part of deployment, and not when a user requests the page, there will never be anything new to refetch.
 
 ## The Bundle Size Confusion
 ***Bundle size and bandwidth usage are not the same thing.***
