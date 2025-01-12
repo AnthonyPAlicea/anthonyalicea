@@ -233,8 +233,6 @@ But where does flight data stream *to* really? It must be somewhere in the React
 
 ## Bundlers and RSCs
 
-## Streaming Flight Data
-
 ## ServerRoot and React Elements
 
 ## Suspense, async, and await
