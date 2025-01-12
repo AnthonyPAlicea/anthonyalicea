@@ -327,6 +327,7 @@ code {
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
     max-width: 90vw;
     font-size: 0.85rem;
+    border-radius: 8px;
 }
 
 pre[class*="language-"] {
@@ -343,7 +344,13 @@ small, aside {
     background-color: var(--color-small-background);
     color: #fff;
     border-inline-start: solid 3px var(--color-small-border);
-    font-size: 0.875rem;
+    font-size: 0.8rem;
+}
+
+.note-header {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    display: block;
 }
 
 aside {
