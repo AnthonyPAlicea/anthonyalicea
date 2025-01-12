@@ -77,7 +77,7 @@ Thus, in the world of React, when we say "client rendering" we're talking about 
 
 React's version of "rendering" doesn't always lead to actual browser rendering, since it's possible the DOM already looks the way React thinks it should. In fact, a major point of React's core architecture (along with all other JS frameworks) is to limit how much its internal code updates the DOM.
 
-> When we say "client rendering" we're talking about React executing our component functions ***in the browser***.
+> When React says "client rendering" we're talking about React executing our component functions ***in the browser***.
 
 ### Tree Reconciliation
 
@@ -89,8 +89,9 @@ Understanding that **React co-opted the term "render"** goes a surprisingly long
 To understand RSCs we need to have clear in our minds the difference between what we usually mean in web dev by client and server rendering, and React's focus on the generation of the Virtual DOM (i.e. the Fiber tree).
 
 I made this little image to remind you that when React says "render" it doesn't mean you actually see anything happen:
-
-![A cartoon sketch of a quivering atom saying "Oh I am rendering...in my mind."](/assets/blogimages/tonyalicea_cartoon1_dark.png)
+<p style="text-align: center;">
+<img style="max-width: 350px;" alt="A cartoon sketch of a quivering atom saying "Oh I am rendering...in my mind." src="/assets/blogimages/tonyalicea_cartoon1_dark.png" />
+</p>
 
 Let's keep track of these various "render" meanings as we go. We'll call the typical (non-React) definitions "classical". Let's start building a dictionary entry for our web dev vocabulary:
 
@@ -143,6 +144,12 @@ Let's update our dictionary entry:
     <span class="definition-number">4.</span> <em>(React Server-Side SSR)</em> To execute function components in order to generate HTML intended to be sent to the client which will then use it to build the DOM.
   </dd>
 </dl>
+
+<small>
+  One thing we aren't talking about here is SSG (Server-Side Generation). That means pre-generating the HTML while <em>building</em> the app (that is, preparing it for deployment). You can do this for both client and server components.
+
+  However, once you generate that HTML the user can't request that it be re-generated and its contents can't be unique per user. This doesn't help us much in the goal of understanding RSCs so I won't talk more about it, but it is supported.
+</small>
 
 ## Streaming and ReadableStream
 

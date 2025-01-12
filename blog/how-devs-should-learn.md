@@ -1,7 +1,7 @@
 ---
 layout: post.njk
-title: "How To Learn Any Tech"
+title: "How Devs Should Learn"
 excerpt: 
-date: 2024-06-05
+date: 2025-01-11
 ---
 # {{ title }}
