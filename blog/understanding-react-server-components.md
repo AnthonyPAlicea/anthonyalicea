@@ -136,23 +136,27 @@ Let's keep track of these various "render" meanings as we go. We'll call the typ
 
 
 ## The DOM and Server Rendering
-Moving forward in this story means moving backwards in time.
+Moving forward in the RSC story means moving backwards in time. A core idea of the internet has long been HTML being delivered from a server.
 
-HTML renders fast (how the internet always worked)
+Creating your HTML on the server (perhaps using server technologies like NodeJS or PHP) is classically called "server-side rendering" or "server rendering". This is already different than what we meant by classical client rendering. Historically server rendering has meant "generate strings of HTML" on the server.
 
-You can ask for it again (but you lose state)
+This comes with some advantages. Browsers translate HTML into the DOM very quickly. As a result HTML *renders in the browser fast*. Updating the DOM via JavaScript is slower in comparison. Also, your server is closer to your database or file storage, so those operations are more efficient.
 
-Close to the database or file storage for data access
-
-Developers have been able to server-render React components (SSR) for a long time. The server generates an HTML string to send to the client, **but** the JavaScript code for those same React components also had to be sent to the client and executed, so the Virtual DOM could be built from them. Remember, React needs **both** trees (DOM and Virtual DOM) to work.
+A downside is that, while the client can request the HTML again, you lose state (the page refreshes).
 
 This has been the balancing act for many years in web development: server-rendered HTML appears quickly, but DOM updates via client-side JavaScript let you make changes while maintaining the state of the page.
 
-That balance hasn't changed. React has always primarily been about the client, stateful side of things. Server components add the ability to intermingle React components that execute on the server with React components that execute on the client *without* sending the server component's code over, and the possibility of initially rendering HTML on the server, before beginning to update the DOM in the browser.
+React doing both is nothing new. While React does DOM updates via client-side JavaScript, developers have long been able to server-render React components (SSR) as well. 
+
+The server (running its own JavaScript engine via something like NodeJS) executes the components and generates an HTML string to send to the client, but there's a big caveat: all the JavaScript code for those same components *also* had to be sent to the client and executed. 
+
+Why? So the Virtual DOM could be built from what those function components return. The Virtual DOM is used to "hydrate" the real DOM, meaning for example we know what click event inside what function component to run when a button is clicked. Remember, React needs **both** trees (DOM and Virtual DOM) to exist in the client to work. So, SSR in React means executing your functions twice (once on the server to make HTML and once on the client to make the Virtual DOM).
+
+Enter React Server Components. RSCs add the ability to intermingle React components that execute on the server with React components that execute on the client *without* sending and re-executing the server components' JavaScript code. This also comes with the possibility of initially rendering HTML on the server, before beginning to update the DOM in the browser.
 
 How?
 
-Let's update our dictionary entry:
+First, let's update our dictionary entry:
 
 <dl class="dictionary-entry">
   <dt class="dictionary-term">rend·er</dt>
@@ -178,8 +182,9 @@ Let's update our dictionary entry:
 </small>
 </p>
 
-## Streaming and ReadableStream
+We said React needs both full trees, DOM and Virtual DOM, to be sitting in the browser's memory to work. So how do React Server Components get away with only executing on the server, without needing their JavaScript code to be downloaded and executed by the client? 
 
+In other words, how does React build the Virtual DOM in the browser for the part of the DOM defined by functions executed on the server?
 
 ## Flight Data
 
