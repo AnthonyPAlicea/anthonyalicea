@@ -152,7 +152,7 @@ The server (running its own JavaScript engine via something like NodeJS) execute
 
 Why? So the Virtual DOM could be built from what those function components return. The Virtual DOM is used to "hydrate" the real DOM, meaning for example we know what click event inside what function component to run when a button is clicked. Remember, React needs **both** trees (DOM and Virtual DOM) to exist in the client to work. So, SSR in React means executing your functions twice (once on the server to make HTML and once on the client to make the Virtual DOM).
 
-Enter React Server Components. RSCs add the ability to intermingle React components that execute on the server with React components that execute on the client *without* sending and re-executing the server components' JavaScript code. This also comes with the possibility of initially rendering HTML on the server, before beginning to update the DOM in the browser.
+Enter React Server Components. RSCs add the ability to intermingle React components that execute on the server with React components that execute on the client ***without* sending and re-executing the server components' JavaScript code**. This also comes with the possibility of initially rendering HTML on the server, before beginning to update the DOM in the browser.
 
 How?
 
@@ -184,51 +184,70 @@ First, let's update our dictionary entry:
 
 We said React needs both full trees, DOM and Virtual DOM, to be sitting in the browser's memory to work. So how do React Server Components get away with only executing on the server, without needing their JavaScript code to be downloaded and executed by the client? 
 
-In other words, how does React build the Virtual DOM in the browser for the part of the DOM defined by functions executed on the server?
+> React needs both full trees, DOM and Virtual DOM, to be sitting in the browser's memory to work.
 
-## Flight Data
+In other words, how does React build the Virtual DOM in the *browser* for the part defined by functions executed on the *server*?
+
+## Flight
+
+In order to support executing function components on the server, and then building the Virtual DOM from their results on the client, React added the ability to *serialize* the React Element tree returned from server-executed functions.
+
+Serialization and deserialization often end up meaning "convert objects in a computer's memory into a string" and "convert strings back into objects in a computer's memory".
+
+In this case, the results of our component functions need to be serialized and sent to the client.
+
+Let's suppose I'm making a simple app where I will track how many students have enrolled in my React course. I'll start with a basic RSC in NextJS. It will be executed on the server.
 
 ```js
-"[\"$\",\"main\",null,{\"children\":[[\"$\",\"h1\",null,{\"children\":\"Understanding React\"},\"$c\"],[\"$\",\"$Ld\",null,{},\"$c\"]]},\"$c\"]"
+export default function Home() {
+  return (
+    <main>
+      <h1>understandingreact.com</h1>
+    </main>
+  );
+}
 ```
+
+<p>
+<small>
+<b class="note-header">Isomorphic Components</b>
+If a component can be executed on the server <em>or</em> the client it's referred to as "isomorphic". My above function doesn't do anything server-specific (like connect directly to a database or read a file off the server), so it could instead have been executed on the client, and React could build the Virtual DOM from it's results directly as normal.<br /><br />If a function is isomorphic, then it can be shared. Both server and client components can import and use them.
+</small>
+</p>
+
+To prevent having to send this function to the client for execution, it's results need to be serialized. Inside React's codebase this serialization format is called "flight" and the sum of data sent is called the "RSC Payload".
+
+My simple function's result ends up serialized into this:
+
+```js
+"[\"$\",\"main\",null,{\"children\":[\"$\",\"h1\",null,{\"children\":\"understandingreact.com\"},\"$c\"]},\"$c\"]"
+```
+
+Let's format it for easier examination (credit for the excellent <a href="https://github.com/alvarlagerlof/rsc-parser" target="blank">RSC parser</a> from Alvar Lagerlöf):
 
 ```js
 {
- "type": "model",
- "id": "b",
- "value": {
   "type": "main",
   "key": null,
   "props": {
-   "children": [
-    {
-     "type": "h1",
-     "key": null,
-     "props": {
+    "children": {
+    "type": "h1",
+    "key": null,
+    "props": {
       "children": "understandingreact.com"
-     }
-    },
-    {
-     "type": {
-      "$$type": "reference",
-      "id": "d",
-      "identifier": "L",
-      "type": "Lazy node"
-     },
-     "key": null,
-     "props": {}
     }
-   ]
-  }
- }
+}
 ```
 
-Credit for the excellent <a href="https://github.com/alvarlagerlof/rsc-parser" target="blank">RSC parser</a> from Alvar Lagerlöf.
+Can you see the structure of the Virtual DOM? Our <code>main</code> and <code>h1</code> elements are here as well as our plain text node. We can see what is being passed as props, specifically the standard "children" prop intrinsic to React.
 
-## Streams and Promises
-But there are two kinds of performance: actual performance and perceived performance.
+We're simplifying here, there's more to the format than this, and a meta-framework may add more to it for their own purposes. For example, identifiers for what kind of thing is being placed in the tree "like 'f:' for 'flight'". But a simplified example is sufficient for our understanding.
 
-With streams the question isn't "what was sent" but "what has been sent *over time*".
+While React is providing the serialization format, the meta-framework (in this case NextJS) must do the work of ensuring the payload is created and sent to the client.
+
+NextJS, for example, has a function in its codebase called <code>generateDynamicRSCPayload</code>.
+
+The meta-framework is ensuring that the payload is generated and sent to the client. Thanks to the payload, on the client React can build an accurate Virtual DOM and do its normal reconciliation work.
 
 ## Meta-Frameworks and Server Rendering
 We said earlier that rendering HTML from RSCs was a "possibility". That's because it's optional - it's up to the meta-framework if it does so or not. But it makes sense to do so.
@@ -241,9 +260,36 @@ Classical server rendering (generating HTML) gets you pages that render (painted
 
 Thus, in practice, an RSC will result in what is called the "double data problem". You will send the same information from the server in two different formats at the same time: HTML and Payload. You're sending the info needed to immediately build the DOM (HTML) and the Virtual DOM (Payload).
 
-Sometimes it's argued that repetition is negated by compression algorithms (like gzip) which servers use before sending responses. However, HTML and the JSON-ish payload are two different formats, so the repetition is obfuscated enough that the double data still makes an noticeable impact on bandwidth.
+For our simple example, NextJS returns HTML, which the browser uses to build the DOM:
 
-With all that said, we now have a complete list of 5 different definitions for "render", providing an accurate mental model!
+```html
+<main>
+  <h1>understandingreact.com</h1>
+</main>
+```
+*and* the Payload, which React uses to build the Virtual DOM:
+
+```js
+{
+  "type": "main",
+  "key": null,
+  "props": {
+    "children": {
+    "type": "h1",
+    "key": null,
+    "props": {
+      "children": "understandingreact.com"
+    }
+}
+```
+
+The HTML being sent allows the page to be browser rendered quickly. The user sees something right away. The Payload being sent lets React finish the work of making the page interactive.
+
+Sometimes it's argued that the cost of this repetition of data is negated by compression algorithms (like gzip) which servers use before sending responses. However, HTML and the JSON-ish payload are two different formats, so the repetition is obfuscated enough that the double data still makes an noticeable impact on bandwidth.
+
+Abstractions have a cost. The cost here is sending the same information twice.
+
+With all this in mind, though, we now have a complete list of 5 different definitions for "render"!
 
 <dl class="dictionary-entry">
   <dt class="dictionary-term">rend·er</dt>
@@ -268,9 +314,36 @@ With all that said, we now have a complete list of 5 different definitions for "
 
 Notice similarities across the React definitions? For React rendering *always* means "executing function components", and client and server components *both* provide what is needed to build and update the Virtual DOM.
 
-## Streaming Flight Data
+## Streams
+But there are two kinds of performance: actual performance and perceived performance.
+
+With streams the question isn't "what was sent" but "what has been sent *over time*".
 
 But where does flight data stream *to* really? It must be somewhere in the React codebase. It turns out the answer to that question adds an important player to the RSC story.
+
+```js
+{
+  "type": "main",
+  "key": null,
+  "props": {
+   "children": [
+    {
+     "type": "h1",
+     "key": null,
+     "props": {
+      "children": "understandingreact.com"
+     }
+    },
+    {
+     "$$type": "reference",
+     "id": "d",
+     "identifier": "L",
+     "type": "Lazy node"
+    }
+   ]
+  } 
+}
+```
 
 ## Bundlers and RSCs
 
