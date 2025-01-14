@@ -925,7 +925,7 @@ So, when should you use RSCs? The right answer, as always, is "it depends". Bein
 
 For my part, I wouldn't use RSCs for a big blog post like this one. The bandwidth usage doesn't make sense to me. I'd use something like <a href="https://astro.build/">Astro</a> for content-heavy sites and apps.
 
-On the other hand, if I had a lot of DB access and complex logic, I might offload that to the server by doing it on a Server Component.
+On the other hand, if I had a lot of DB access and complex logic, I might offload that to the server by doing it on a Server Component. The same if I needed to use large JavaScript libraries to produce a relatively small amount of content. If the bundle to Payload trade off is worth it, RSCs make sense to me.
 
 If I have a highly interactive app, and I'm iterating and constantly adding features, I'd also be hesistant to do too much client/server refactoring and might keep it as mostly Client Components.
 
