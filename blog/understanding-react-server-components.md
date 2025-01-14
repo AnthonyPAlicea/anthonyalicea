@@ -565,7 +565,7 @@ The answer introduces an unsung hero in the RSC story: bundlers.
 ## Bundlers and Interleaving
 One of React's core tenants has always been component composition. You can split the work of deciding what the DOM should look like across many functions, and compose (that is, combine) that work together by having components be children of each other.
 
-For RSCs to not be a dramatic shift of this core tenant, you need to be able to interleave (or weave) server and client components. **Client components need to be able to be children of server components and vice versa.** That includes being able to pass props (function arguments) to each other.
+For RSCs to not be a dramatic shift of this core tenant, you need to be able to interleave (or weave) server and client components. **Client components need to be able to be children of server components.** That includes being able to pass props (function arguments).
 
 What that really means is that in your component hierarchy *some* of your functions will run on the server and *some* on the client. In the end though, they all will be doing work that calculates how the part of the DOM that they generate should be structured and what it should contain.
 
@@ -620,7 +620,7 @@ Notice the <code>use client</code> directive at the top of the file. This is *no
 
 That component *and any components it imports* will be bundled as Client Components.
 
-The bundler will note the <code>use client</code> directive and include that component's code in what is downloaded by the browser.
+The bundler will note the <code>use client</code> directive and include that component's code (and any it imports) in what is downloaded by the browser.
 
 The <code>Home</code> and <code>DelayedMessage</code> RSCs will execute on the server, and their code won't be included in the bundle. The Payload from the server will look like this:
 
@@ -685,7 +685,7 @@ As we've seen, the props will be part of the Payload sent over the network. That
 ### Server Components imported into Client Components
 **This *isn't* allowed**. You can't import a component that is intended to run on the server into your component that will run in the browser.
 
-Why? Because bundlers *won't send RSC functions to the client, only the Payload*. Therefore there *is no file to import*. The bundler won't include the code for the client to download, so the RSC code isn't there to use.
+Why? Because bundlers *shouldn't send RSC functions to the client, only the Payload*. Therefore there *is no code to import*. The bundler won't include the code for the client to download, so the RSC code isn't there to use.
 
 It *is* possible to import a shared component that is viable to run on both the server and client. But if you import a shared component into a Client Component then its code will be bundled for download by the client. If you import a shared component into a Server Component, then it won't be bundled.
 
@@ -695,7 +695,9 @@ Good question! This is a bit of a security problem. You could have code in a Ser
 
 NextJS tries to resolve this by <a href="https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment">allowing you to mark components as server only</a>. This is a bit like tying string to your finger to remember something though. It's possible to forget to tie the string.
 
-Once you accept an abstraction over the server-client boundary, you accept a degree of risk in forgetting those boundaries exist.
+Other meta-frameworks are looking at safer alternatives for ensuring your server code doesn't get bundled and sent to the client.
+
+However, once you accept an abstraction over the server-client boundary, you accept a degree of risk in forgetting those boundaries exist.
 
 ### Server Components passed as children to Client Components
 **This is allowed.** This is a special, interesting case. You *can* pass Server Components as <code>children</code> props to a Client Component, which is different from importing it.
@@ -806,6 +808,25 @@ The Payload looks like this:
 
 Notice the "Server Text" portion of the Payload. It's already passed as a prop to the Client Component. It's as if you'd simply written the JSX in the Payload directly in your Client Component.
 
+## Bundlers: The Unsung Heroes
+All of this serves to show an important point. ***React Server Components, in many ways, are a bundler feature.***
+
+The bundler analyzes your code, and ensures that Client Components are in the bundle and helps ensure references to those Client Components appear properly in the Payload.
+
+Bundlers are a first-class citizen in React. If you look at the React codebase you'll find folders like:
+
+```js
+/react-server-dom-parcel
+/react-server-dom-turbopack
+/react-server-dom-webpack
+//...and more
+```
+
+Inside those folders are code having to do with Flight, helping the bundled code get all of this right.
+
+Because bundlers are the unsung hero of RSCs, it also means that *other conventions are possible*. A meta-framework doesn't *have* to buy-in to the <code>use client</code> approach that NextJS uses. <a href="https://tanstack.com/start/">TanStack Start</a>, for example, is implementing RSCs simply as functions that "return JSX" (i.e. the Flight format).
+
+React has provided an API: streaming Flight data. It's up the meta-frameworks to iterate and innovate on how they use that API.
 
 ## Hooks and RSCs
 Execution on the server comes with some advantages, but also some limitations.
@@ -829,20 +850,89 @@ Whenever you need something like <code>useReducer</code> or <code>useState</code
 If you keep in mind *where* your components are executing, you'll use (or not use) Hooks properly.
 
 ## To Hydrate or Not to Hydrate
-### RSCs Are Non-Interactive
+I wanted to mention for a moment a point of common confusion. Do RSCs hydrate?
 
-### But RSCs Are In The Virtual DOM
+The answer is no. Hydration is about re-executing the actual functions on the client, in order to build the Virtual DOM so that events can be hooked to their handlers.
+
+In React, when we click a button, that event is sent way up the DOM tree to React's root, where React then determines which component should handle the click (the answer is the component that was responsible for creating the button).
+
+Thus you need the Virtual DOM in place *and* the code that handles the click so that React can respond properly to the event.
+
+RSCs are non-interactive. They won't set state, they won't handle clicks, at least not via React's normal approach. Their code isn't sent to the client for execution, so by definition they don't hydrate.
+
+However, they *are* part of building the Virtual DOM. They *are* part of tree reconciliation. The fact that they don't hydrate doesn't mean they aren't in the tree during hydration. They are.
 
 ## Refetching and Reconciliation
-If you are making dynamic requests (SSR) and not static ones (SSG), that is the server is executing components on demand instead of pre-building HTML and Payload data, then you also are concerned with *refetching* those server components.
+In real world apps you likely are not not just concerned with the initial load of a page, but concerned with *refetching* those server components.
 
 That means asking the server to re-execute those components (perhaps with new props), and provide new Payload data to update the Virtual DOM with.
 
+For example, if we are paginating through a list of data, and that list is generated by an RSC, we want to get a different set of data if the route is <code>/page/1</code> versus <code>/page/2</code>.
+
+This is an advantage of RSCs, and most likely integrated with the meta-frameworks' router. The meta-framework doesn't have to do a full page refresh, even though the UI is calculated on the server.
+
+By its very nature, RSCs can stream Virtual DOM definitions to the client, and React can then perform client-side reconciliation as normal. In other words, the page doesn't have to refresh and you don't lose other state on the page.
+
+In this aspect RSCs can provide the best of both rendering worlds. They can run on the server, but update as if they were executed on the client.
+
+Now that we've covered how RSCs really work, this hopefully makes more intuitive sense. React already updates the DOM by diffing the Virtual DOM. So if we can get Virtual DOM data from the server, it can do what it always has.
+
+
 ## The Bundle Size Confusion
-***Bundle size and bandwidth usage are not the same thing.***
+For over a decade now, I've pushed having deep understanding how the tools you use work. That's what <a href="/courses">my courses</a> have always been about.
+
+I'm happy that so many students have appreciated that approach. Yet, every now and again, someone complains "too much theory, just learn by doing".
+
+One of the major values, however, of understanding how the tools, libraries, and frameworks we use work is we can ***make good, informed architectural decisions***.
+
+For example, there's been confusion in the NextJS world on the benefits of RSCs. There's a <a href="https://github.com/vercel/next.js/discussions/42170"> pretty extraordinary discussion</a> on the next.js code repository about the <code>__next_f()</code> function.
+
+Devs who started to use RSCs discovered that there was duplicated data being passed to this function in <code>script</code> tags at the bottom of their pages. Some asked why it was there and if it could be turned off.
+
+What is this doubled data? You guessed it. The Payload! Those function calls were streamed in pass the Payload data ultimately to React to create the Virtual DOM. This is shocking *if you don't understand how all this works*.
+
+The issue is that it increases bandwidth usage, which many were complaining about. You're sending more data across the network.
+
+Why were people surprised? Well, Vercel originally described RSCs this way on NextJS' documentation site:
+
+<p style="text-align: center">
+<img src="/assets/blogimages/vercel_orig.jpeg" style="max-width: 300px;" alt="A old snippet from NextJS website that says 'The client down not have download, parse, and execute any JavaScript for Server Components.'" /></p>
+
+The phrase "the client down not have download, parse, and execute any JavaScript for Server Components" was the misleading one. It isn't really true. Vercel was referring to the actual JavaScript code of the Server Components, but they use the word *any*.
+
+I had <a href="https://x.com/joshcstory/status/1766547542194409664">an interesting branching conversation</a> with them on social media. I like to think that was part of the reason the wording was later changed (kudos to Vercel for changing it):
+
+<p style="text-align: center">
+<img src="/assets/blogimages/vercel_updated.jpeg" style="max-width: 300px;" alt="A newer snippet from NextJS website that says Server Components 'can reduce the amount of client-side JavaScript needed.'" /></p>
+
+The new description says that Server Components "*can* reduce the amount of client-side JavaScript needed". This is true! But they can also *increase* it, in the sense that the *Payload, in a sense, is JavaScript*, or at least data passed to JavaScript functions.
+
+The core misunderstanding of devs is that ***bundle size and bandwidth usage are not the same thing.***
+
+Server Component code is not in the bundle! So they do reduce bundle size! But the Payload is doubled data, and if that data is large (like a big blog post like this one) you'll end up sending more bytes than you save.
 
 ## When Should You Use RSCs?
 
+So, when should you use RSCs? The right answer, as always, is "it depends". Being armed with an accurate mental model of how they work will help you make that architectural choice.
+
+For my part, I wouldn't use RSCs for a big blog post like this one. The bandwidth usage doesn't make sense to me. I'd use something like <a href="https://astro.build/">Astro</a> for content-heavy sites and apps.
+
+On the other hand, if I had a lot of DB access and complex logic, I might offload that to the server by doing it on a Server Component.
+
+If I have a highly interactive app, and I'm iterating and constantly adding features, I'd also be hesistant to do too much client/server refactoring and might keep it as mostly Client Components.
+
+There are simply too many variables to make a hard recommendation. The best I can do is what I tried to do here in this post: help you understand, so you can come to an informed decision.
+
 ## Looking Forward
+What's the future of React Server Components? It isn't entirely clear. React has made the API, and meta-frameworks are using it.
+
+I think the TanStack Start approach of functions that return Virtual DOM, rather than full Server Components, will be popular. But for some uses, NextJS' approach will work well.
+
+I hope to see incremental improvements in security and performance. For example, if a branch of the Virtual DOM is all Server Components, some reconciliation or hydration optimizations could be made to skip that part of the tree.
 
 ## Diving Deeper
+I hope you found this post useful to your understanding of React Server Components. For a deep dive like this into *all* of React, from scratch, you can enroll in my full course <a href="https://understandingreact.com">Understanding React</a>.
+
+Over 27 modules and 16.5 hours of video content we dive into React's source code together, to build **the most valuable tool in a developer's toolbelt: an accurate mental model**.
+
+Happy coding!
