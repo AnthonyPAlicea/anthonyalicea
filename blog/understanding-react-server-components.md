@@ -152,6 +152,10 @@ The server (running its own JavaScript engine via something like NodeJS) execute
 
 Why? So the Virtual DOM could be built from what those function components return. The Virtual DOM is used to "hydrate" the real DOM, meaning for example we know what click event inside what function component to run when a button is clicked. Remember, React needs **both** trees (DOM and Virtual DOM) to exist in the client to work. So, SSR in React means executing your functions twice (once on the server to make HTML and once on the client to make the Virtual DOM).
 
+Here's a visualization of the SSR/hydration process to help:
+
+<div class="video"><video loop autoplay muted playsinline aria-labelledby="video-label" src="/assets/blogvideos/RSC_SSRHydration.mp4"></video></div>
+
 Enter React Server Components. RSCs add the ability to intermingle React components that execute on the server with React components that execute on the client ***without* sending and re-executing the server components' JavaScript code**. This also comes with the possibility of initially rendering HTML on the server, before beginning to update the DOM in the browser.
 
 How?
@@ -259,6 +263,10 @@ If a meta-framework is perceived as slow, no one will use it. So React meta-fram
 Classical server rendering (generating HTML) gets you pages that render (painted by the browser) quickly, while React-style server rendering (RSC payload) gets you the Virtual DOM for future stateful updates.
 
 Thus, in practice, an RSC will result in what is called the "double data problem". You will send the same information from the server in two different formats at the same time: HTML and Payload. You're sending the info needed to immediately build the DOM (HTML) and the Virtual DOM (Payload).
+
+Here's a visualization:
+
+<div class="video"><video loop autoplay muted playsinline aria-labelledby="video-label" src="/assets/blogvideos/RSC_RSC.mp4"></video></div>
 
 For our simple example, NextJS returns HTML, which the browser uses to build the DOM:
 
