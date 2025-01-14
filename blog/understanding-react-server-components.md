@@ -581,7 +581,7 @@ It is the responsibility of the meta-frameworks and bundlers to make this happen
 
 In the case of RSCs there are 3 interleaving scenarios to consider. The rules are, really, about what can be *imported* by the component depending on where it will execute. They are rules based on how RSCs work along with the bundlers who analyze the directives and imports and pull it all together.
 
-### Client Components imported into Server Components
+### Client Components Imported Into Server Components
 **This is allowed**. It makes sense that this is fine. Bundlers look at import statements to decide which code to include in their bundles, and which code will be downloaded by the client.
 
 RSCs also participate in building the Virtual DOM. They can reference Client Components in their trees, because that Client Component code will be made available to the browser in the bundle.
@@ -690,7 +690,7 @@ One more note: if you pass props from a Server Component to a Client Component, 
 
 As we've seen, the props will be part of the Payload sent over the network. That means anything passed needs to be representable as a string, so it can be converted back into an object in memory on the client.
 
-### Server Components imported into Client Components
+### Server Components Imported Into Client Components
 **This *isn't* allowed**. You can't import a component that is intended to run on the server into your component that will run in the browser.
 
 Why? Because bundlers *shouldn't send RSC functions to the client, only the Payload*. Therefore there *is no code to import*. The bundler won't include the code for the client to download, so the RSC code isn't there to use.
@@ -707,7 +707,7 @@ Other meta-frameworks are looking at safer alternatives for ensuring your server
 
 However, once you accept an abstraction over the server-client boundary, you accept a degree of risk in forgetting those boundaries exist.
 
-### Server Components passed as children to Client Components
+### Server Components Passed as Children to Client Components
 **This is allowed.** This is a special, interesting case. You *can* pass Server Components as <code>children</code> props to a Client Component, which is different from importing it.
 
 If we gave our <code>Counter</code> function some children:
