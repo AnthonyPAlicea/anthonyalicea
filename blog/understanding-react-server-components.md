@@ -3,6 +3,8 @@ layout: post.njk
 title: "Understanding React Server Components"
 excerpt: A deep dive into the internals of React and NextJS to understand RSCs.
 date: 2025-01-05
+og_image: 'assets/rsc_twittercard.png'
+tags: ['post','front-page']
 ---
 
 {% block head %}
