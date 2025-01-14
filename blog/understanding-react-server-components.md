@@ -314,12 +314,51 @@ With all this in mind, though, we now have a complete list of 5 different defini
 
 Notice similarities across the React definitions? For React rendering *always* means "executing function components", and client and server components *both* provide what is needed to build and update the Virtual DOM.
 
-## Streams
-But there are two kinds of performance: actual performance and perceived performance.
+## Streams, Suspense, and RSCs
+Performance is always a concern when building an application. But there are two kinds of performance: actual performance and perceived performance.
 
-With streams the question isn't "what was sent" but "what has been sent *over time*".
+HTTP and browsers have long supported streaming as a way to improve both kinds of performance. Things like NodeJS' <a href="https://nodejs.org/en/learn/modules/how-to-use-streams">Stream API</a> and the browser's <a href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API">Streams API</a> (in particular the browser's <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream">ReadableStream</a> object).
 
-But where does flight data stream *to* really? It must be somewhere in the React codebase. It turns out the answer to that question adds an important player to the RSC story.
+React (and any meta-framework that wants to support RSCs) utilize these core technologies to stream both HTML and Payload data. Streaming really means sending small amounts (called chunks) at a time. The client can work with those smaller amounts of data as they come in.
+
+Thus with streams the question isn't "what was sent" but "what has been sent *over time*".
+
+The browser is designed to handle HTML streaming over the network. It renders (lays out and paints) the page as HTML streams in.
+
+Similarly, React accepts a Promise which later resolves to RSC Payload data. NextJS, for example, sets up a ReadableStream on the client, reads in the stream from the server, and gives it to React as it comes in. React's entire approach to server rendering is centered around streaming content in where needed.
+
+In fact, the Flight format itself includes markers for things that haven't completed yet. Like Promises and lazy loading.
+
+For example, suppose I setup a server component to by async, and await a timer:
+
+```js
+// components/Delayed.js
+async function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export default async function DelayedMessage() {
+    await delay(5000); // 2 second delay
+    
+    return (
+        <p>This message was loaded after a 5 second delay!</p>
+    );
+}
+
+// page.js
+import DelayedMessage from "./components/DelayedMessage";
+
+export default function Home() {
+  return (
+    <main>
+      <h1>understandingreact.com</h1>
+      <DelayedMessage />
+    </main>
+  );
+}
+```
+
+The async function returns a Promise. Thus the resulting Payload will look like this:
 
 ```js
 {
@@ -345,49 +384,174 @@ But where does flight data stream *to* really? It must be somewhere in the React
 }
 ```
 
-## Bundlers and RSCs
+Notice that the place where the <code>DelayedMessage</code> component should be is instead marked with a special "L" identifier, marking a place where content will appear later.
 
-## ServerRoot and React Elements
+If you run this code, though you'll find that instead the entire page takes 5 seconds to load, rather than just the delayed message.
 
-## Suspense, async, and await
-
-Here's an example from the React documentation:
+That's because React deals with Promises and lazy loading using the special <code>Suspense</code> functionality designed for the client. If we update our component to use <code>Suspense</code>:
 
 ```js
-// Server Component
-import db from './database';
+import DelayedMessage from "./components/DelayedMessage";
+import { Suspense } from "react";
 
-async function Page({id}) {
-  // Will suspend the Server Component.
-  const note = await db.notes.get(id);
-  
-  // NOTE: not awaited, will start here and await on the client. 
-  const commentsPromise = db.comments.get(note.id);
+export default function Home() {
   return (
-    <div>
-      {note}
-      <Suspense fallback={<p>Loading Comments...</p>}>
-        <Comments commentsPromise={commentsPromise} />
+    <main>
+      <h1>understandingreact.com</h1>
+      <Suspense fallback={<p>Loading...</p>}>
+        <DelayedMessage />
       </Suspense>
-    </div>
+    </main>
   );
-}
-
-// Client Component
-"use client";
-import {use} from 'react';
-
-function Comments({commentsPromise}) {
-  // NOTE: this will resume the promise from the server.
-  // It will suspend until the data is available.
-  const comments = use(commentsPromise);
-  return comments.map(commment => <p>{comment}</p>);
 }
 ```
 
-## Out-of-Order Streaming
+and we run the page, it will instead show the fallback first and then show the delayed message after 5 seconds. But notice this components still runs *on the server*! How can you opt into <code>Suspense</code> on the server? You don't. The Payload returned from the function, when processed on the client, builds a Virtual DOM that includes a <Suspense> boundary.
 
-## Interleaving
+The Payload looks like this:
+
+```js
+{
+  "type": "main",
+  "key": null,
+  "props": {
+   "children": [
+    {
+     "type": "h1",
+     "key": null,
+     "props": {
+      "children": "understandingreact.com"
+     }
+    },
+    {
+     "type": {
+      "$$type": "reference",
+      "id": "d",
+      "identifier": "",
+      "type": "Reference"
+     },
+     "key": null,
+     "props": {
+      "fallback": {
+       "type": "p",
+       "key": null,
+       "props": {
+        "children": "Loading..."
+       }
+      },
+      "children": {
+       "$$type": "reference",
+       "id": "e",
+       "identifier": "L",
+       "type": "Lazy node"
+      }
+     }
+    }
+  }
+}
+```
+
+Notice both the fallback (as a prop) and what is loaded after the Promises resolves (the "Lazy node", in this case the <code>DelayedMessage</code>) are all there.
+
+The Payload both itself streams in in chunks *and* references spots in the Virtual DOM where Promises will later be resolved. In this way React and RSC-supporting meta-frameworks endeavor to improve both real and perceived performance for the user, letting the user see receive UI as soon as possible.
+
+But where does flight data stream *to* really? It must be somewhere in the React codebase.
+
+## Giving React the Payload
+To support RSCs, React added to its codebase the ability to accept the Flight format (a string) and convert it to React Elements in functions like <code>parseModelString</code>.
+
+It's up to the RSC-supporting meta-framework to execute those React APIs, sending the appropriate data.
+
+For example, NextJS adds some extra wrapping components to your app, where it passes in a stream of Payload data.
+
+It looks like this:
+
+```html
+<ServerRoot>
+  <AppRouter
+      actionQueue={actionQueue}
+      globalErrorComponentAndStyles={initialRSCPayload.G}
+      assetPrefix={initialRSCPayload.p}
+  />
+</ServerRoot>
+```
+
+NextJS adds a component to your component tree, above the <code>AppRouter</code> called <code>ServerRoot</code>. From there it streams to <code>AppRouter</code> the RSC Payload data.
+
+Ultimately that data is streamed to React's Promise-based APIs for accepting the Flight format.
+
+Thus React provides APIs for building its Virtual DOM from the Payload, and NextJS (or any RSC-supporting meta-framework) has its own mechanisms for getting that data to React after components execute on the server.
+
+## Out-of-Order Streaming
+There's more to the streaming story though. Different components may complete executing at different times. As Payload chunks stream in, how does React know *where* in the Virtual DOM (and thus the DOM) to place them?
+
+If we look at the DOM again where we use our <code>DelayedMessage</code> component, it looks like this:
+
+```html
+<main>
+  <h1>understandingreact.com</h1>
+  <!--$?-->
+  <template id="B:0"></template>
+  <p>Loading...</p>
+  <!--/$-->
+</main>
+```
+
+React leaves placeholders like <code>template</code> with a special ID and HTML comments to note where content should be dropped once the Promise <code>Suspense</code> is waiting for resolves.
+
+The fallback is in the DOM, but when the Promise resolves some new JavaScript is streamed to the page:
+
+```js
+$RC = function(b, c, e) {
+  c = document.getElementById(c);
+  c.parentNode.removeChild(c);
+  var a = document.getElementById(b);
+  if (a) {
+      b = a.previousSibling;
+      if (e)
+          b.data = "$!",
+          a.setAttribute("data-dgst", e);
+      else {
+          e = b.parentNode;
+          a = b.nextSibling;
+          var f = 0;
+          do {
+              if (a && 8 === a.nodeType) {
+                  var d = a.data;
+                  if ("/$" === d)
+                      if (0 === f)
+                          break;
+                      else
+                          f--;
+                  else
+                      "$" !== d && "$?" !== d && "$!" !== d || f++
+              }
+              d = a.nextSibling;
+              e.removeChild(a);
+              a = d
+          } while (a);
+          for (; c.firstChild; )
+              e.insertBefore(c.firstChild, a);
+          b.data = "$"
+      }
+      b._reactRetry && b._reactRetry()
+  }
+}
+;
+$RC("B:0", "S:0")
+```
+
+This code inserts the new pieces of the DOM created after the Promise resolves in the right place, where the placeholder was left, and removes the placeholder and fallback.
+
+This is called ***out-of-order streaming*** and simply means taking what is streamed in and inserting it in the right, expected place in the Virtual DOM/DOM tree, even if its expected spot is before other components that finish first.
+
+In this way if one particular component takes longer than others to execute, you don't have to wait for it to update the UI with the results of other components.
+
+So far, however, we've only been concerning ourselves with Server Components. What about the components devs have been writing for years? What about Client Components, functions that execute in the browser?
+
+The answer introduces an unsung hero in the RSC story: bundlers.
+
+## Bundlers and Interleaving
 One of React's core tenants has always been component composition. You can split the work of deciding what the DOM should look like across many functions, and compose (that is, combine) that work together by having components be children of each other.
 
 For RSCs to not be a dramatic shift of this core tenant, you need to be able to interleave (or weave) server and client components. **Client components need to be able to be children of server components and vice versa.** That includes being able to pass props (function arguments) to each other.
@@ -396,8 +560,142 @@ What that really means is that in your component hierarchy *some* of your functi
 
 It is the responsibility of the meta-frameworks and bundlers to make this happen, and they do. But remember abstractions have a cost. Often that cost is special rules you have to learn to use the abstraction. In this case, abstracting away some of the separation of server and client means following rules to prevent breaking the limitations of the abstraction.
 
+In the case of RSCs there are 3 interleaving scenarios to consider. The rules are, really, about what can be *imported* by the component depending on where it will execute. They are rules based on how RSCs work along with the bundlers who analyze the directives and imports and pull it all together.
+
+### Client Components imported into Server Components
+**This is allowed**. It makes sense that this is fine. Bundlers look at import statements to decide which code to include in their bundles, and which code will be downloaded by the client.
+
+RSCs also participate in building the Virtual DOM. They can reference Client Components in their trees, because that Client Component code will be made available to the browser in the bundle.
+
+Let's try adding a stateful <code>Counter</code> to our React course enrollment page:
+
+```js
+// components/Counter.js
+'use client';
+import { useState } from 'react';
+
+export default function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        <section>
+            <p>{count}</p>
+            <button onClick={() => setCount(count + 1)}>
+                Enroll
+            </button>
+        </section>
+    );
+}
+
+// page.js
+import Counter from "./components/Counter";
+import DelayedMessage from "./components/DelayedMessage";
+import { Suspense } from "react";
+
+export default function Home() {
+  return (
+    <main>
+      <h1>understandingreact.com</h1>
+      <Counter />
+      <Suspense fallback={<p>Loading...</p>}>
+        <DelayedMessage />
+      </Suspense>
+    </main>
+  );
+}
+```
+
+The bundler will note the <code>use client</code> directive and include that component's code in what is downloaded by the browser.
+
+The <code>Home</code> and <code>DelayedMessage</code> RSCs will execute on the server, and their code won't be included in the bundle. The Payload from the server will look like this:
+
+```js
+{
+  "type": "main",
+  "key": null,
+  "props": {
+   "children": [
+    {
+     "type": "h1",
+     "key": null,
+     "props": {
+      "children": "understandingreact.com"
+     }
+    },
+    {
+     "type": {
+      "$$type": "reference",
+      "id": "d",
+      "identifier": "L",
+      "type": "Lazy node"
+     },
+     "key": null,
+     "props": {}
+    },
+    {
+     "type": {
+      "$$type": "reference",
+      "id": "e",
+      "identifier": "",
+      "type": "Reference"
+     },
+     "key": null,
+     "props": {
+      "fallback": {
+       "type": "p",
+       "key": null,
+       "props": {
+        "children": "Loading..."
+       }
+      },
+      "children": {
+       "$$type": "reference",
+       "id": "f",
+       "identifier": "L",
+       "type": "Lazy node"
+      }
+     }
+    }
+   ]
+  }
+}
+```
+
+Notice there's a new "Lazy node" reference where the Client Component will be. That part of the Virtual DOM will be known when that Client Component executes. That will happen either when the Client Component is SSR'd (if the framework does that) or when it executes in the browser.
+
+### Server Components imported into Client Components
+**This *isn't* allowed**. You can't import a component that ran on the server into your component that will run in the browser.
+
+Why? Because bundlers *won't send RSC functions to the client, only the Payload*. Therefore there *is no file to import*. The bundler won't include the code for the client to download, so the RSC code isn't there to use.
+
+### Server Components passed as children to Client Components
+**This is allowed.** This is a special, interesting case. You *can* pass Server Components as <code>children</code> props to a Client Component, which is different from importing it.
+
+Why does this work? Because what you're really passing is a portion of the Virtual DOM tree (the results of executing the code), not the Server Component code to be executed.
+
+It's as if you'd simply written the JSX in the Payload directly in your Client Component.
+
+
 ## Hooks and RSCs
-Now that we've seen how RSCs are rendered and their content ends up in the browser, how do they fit in with the normal client-side React functionality?
+Execution on the server comes with some advantages, but also some limitations.
+
+React doesn't just store the structure of elements in the Virtual DOM, it stores *state*. When you write:
+
+```js
+const [counter, setCounter] = useState(0);
+```
+
+in a component, it places that data in a node on a linked list attached to your component's place in the Virtual DOM. In reality, then, that state is sitting in a JavaScript object in the client browser's memory.
+
+So, React Server Components, by their very nature, *can't use those hooks*. They run in the wrong environment to do that.
+
+That means, ultimately, that RSCs are *non-interactive*. Interactivity in React generally means triggering a client-side React re-render, and that happens by updating state.
+
+This means that as your app gains more and more interactive functionality, you tend to refactor your Server Components into Client and Server Component compositions.
+
+Whenever you need something like <code>useReducer</code> or <code>useState</code>, you need a Client Component.
+
+If you keep in mind *where* your components are executing, you'll use (or not use) Hooks properly.
 
 ## To Hydrate or Not to Hydrate
 ### RSCs Are Non-Interactive
@@ -405,7 +703,9 @@ Now that we've seen how RSCs are rendered and their content ends up in the brows
 ### But RSCs Are In The Virtual DOM
 
 ## Refetching and Reconciliation
-It's worth noting here that you can also take RSCs and generate the HTML and Payload while building the app, thus SSG instead of SSR. However since SSG happens only once as part of deployment, and not when a user requests the page, there will never be anything new to refetch.
+If you are making dynamic requests (SSR) and not static ones (SSG), that is the server is executing components on demand instead of pre-building HTML and Payload data, then you also are concerned with *refetching* those server components.
+
+That means asking the server to re-execute those components (perhaps with new props), and provide new Payload data to update the Virtual DOM with.
 
 ## The Bundle Size Confusion
 ***Bundle size and bandwidth usage are not the same thing.***
