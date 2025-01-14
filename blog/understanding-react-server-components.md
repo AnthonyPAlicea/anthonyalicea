@@ -115,7 +115,7 @@ As it turns out, understanding that **React co-opted the term "render"** goes a 
 
 To understand RSCs we need to have clear in our minds the difference between what we usually mean in web dev by client and server rendering, and React's focus on the generation of the Virtual DOM.
 
-I made the below image when preparing this post. A reminder that when React says "render" it doesn't mean you actually see anything happen :).
+When React says "render", you don't actually necessarily see anything happen...
 <p style="text-align: center;">
 <img style="max-width: 350px;" alt="A cartoon sketch of a quivering atom saying "Oh I am rendering...in my mind." src="/assets/blogimages/tonyalicea_cartoon1_dark.png" />
 </p>
@@ -485,7 +485,7 @@ Thus React provides APIs for building its Virtual DOM from the Payload, and Next
 ## Out-of-Order Streaming
 There's more to the streaming story though. Different components may complete executing at different times. As Payload chunks stream in, how does React know *where* in the Virtual DOM (and thus the DOM) to place them?
 
-If we look at the DOM again where we use our <code>DelayedMessage</code> component, it looks like this:
+If we look at the DOM again where we use our <code>DelayedMessage</code> component, it looks like this at first:
 
 ```html
 <main>
@@ -542,6 +542,17 @@ $RC("B:0", "S:0")
 ```
 
 This code inserts the new pieces of the DOM created after the Promise resolves in the right place, where the placeholder was left, and removes the placeholder and fallback.
+
+After this DOM manipulation code is run, the DOM looks like this:
+
+```html
+<main>
+  <h1>understandingreact.com</h1>
+  <!--$-->
+  <p>This message was loaded after a 5 second delay!</p>
+  <!--/$-->
+</main>
+```
 
 This is called ***out-of-order streaming*** and simply means taking what is streamed in and inserting it in the right, expected place in the Virtual DOM/DOM tree, even if its expected spot is before other components that finish first.
 
@@ -605,6 +616,10 @@ export default function Home() {
 }
 ```
 
+Notice the <code>use client</code> directive at the top of the file. This is *not a React feature*. It's an agreed upon convention for devs to mark that a portion of the component tree is meant to be executed on the client.
+
+That component *and any components it imports* will be bundled as Client Components.
+
 The bundler will note the <code>use client</code> directive and include that component's code in what is downloaded by the browser.
 
 The <code>Home</code> and <code>DelayedMessage</code> RSCs will execute on the server, and their code won't be included in the bundle. The Payload from the server will look like this:
@@ -663,17 +678,133 @@ The <code>Home</code> and <code>DelayedMessage</code> RSCs will execute on the s
 
 Notice there's a new "Lazy node" reference where the Client Component will be. That part of the Virtual DOM will be known when that Client Component executes. That will happen either when the Client Component is SSR'd (if the framework does that) or when it executes in the browser.
 
+One more note: if you pass props from a Server Component to a Client component, those props <a href="https://react.dev/reference/rsc/use-server#serializable-parameters-and-return-values">need to be serializable by React</a>.
+
+As we've seen, the props will be part of the Payload sent over the network. That means anything passed needs to be representable as a string, so it can be converted back into an object in memory on the client.
+
 ### Server Components imported into Client Components
-**This *isn't* allowed**. You can't import a component that ran on the server into your component that will run in the browser.
+**This *isn't* allowed**. You can't import a component that is intended to run on the server into your component that will run in the browser.
 
 Why? Because bundlers *won't send RSC functions to the client, only the Payload*. Therefore there *is no file to import*. The bundler won't include the code for the client to download, so the RSC code isn't there to use.
+
+It *is* possible to import a shared component that is viable to run on both the server and client. But if you import a shared component into a Client Component then its code will be bundled for download by the client. If you import a shared component into a Server Component, then it won't be bundled.
+
+You might thinking: "what if I accidentally import a Server Component, how does the bundler know I don't mean to?"
+
+Good question! This is a bit of a security problem. You could have code in a Server Component that is never meant to be downloaded and seen by others, but you accidentally import it into a Client Component and so it gets bundled in. If it has server-specific features (like connecting to a database) it will fail to execute in the browser, but if it made it into production you might have leaked some sensitive information like the address of your database.
+
+NextJS tries to resolve this by <a href="https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment">allowing you to mark components as server only</a>. This is a bit like tying string to your finger to remember something though. It's possible to forget to tie the string.
+
+Once you accept an abstraction over the server-client boundary, you accept a degree of risk in forgetting those boundaries exist.
 
 ### Server Components passed as children to Client Components
 **This is allowed.** This is a special, interesting case. You *can* pass Server Components as <code>children</code> props to a Client Component, which is different from importing it.
 
+If we gave our <code>Counter</code> function some children:
+
+```js
+// components/Counter.js
+'use client';
+import { useState } from 'react';
+
+export default function Counter({ children }) {
+    const [count, setCount] = useState(0);
+
+    return (
+        <section>
+            <p>{count}</p>
+            <button onClick={() => setCount(count + 1)}>
+                Enroll
+            </button>
+            { children }
+        </section>
+    );
+}
+
+// page.js
+import Counter from "./components/Counter";
+import DelayedMessage from "./components/DelayedMessage";
+import { Suspense } from "react";
+
+export default function Home() {
+  return (
+    <main>
+      <h1>understandingreact.com</h1>
+      <Counter>
+        <p>Server Text</p>
+      </Counter>
+      <Suspense fallback={<p>Loading...</p>}>
+        <DelayedMessage />
+      </Suspense>
+    </main>
+  );
+}
+```
+
+It works just fine, even though the <code>Counter</code> function executes on the client, and the children passed to it (<code>&lt;p&gt;Server Text&lt;/p&gt;</code>) were processed on the server!
+
 Why does this work? Because what you're really passing is a portion of the Virtual DOM tree (the results of executing the code), not the Server Component code to be executed.
 
-It's as if you'd simply written the JSX in the Payload directly in your Client Component.
+The Payload looks like this:
+
+```js
+{
+   "children": [
+    {
+     "type": "h1",
+     "key": null,
+     "props": {
+      "children": "understandingreact.com"
+     }
+    },
+    {
+     "type": {
+      "$$type": "reference",
+      "id": "d",
+      "identifier": "L",
+      "type": "Lazy node"
+     },
+     "key": null,
+     "props": {
+      "children": {
+       "type": "p",
+       "key": null,
+       "props": {
+        "children": "Server Text"
+       }
+      }
+     }
+    },
+    {
+     "type": {
+      "$$type": "reference",
+      "id": "e",
+      "identifier": "",
+      "type": "Reference"
+     },
+     "key": null,
+     "props": {
+      "fallback": {
+       "type": "p",
+       "key": null,
+       "props": {
+        "children": "Loading..."
+       }
+      },
+      "children": {
+       "$$type": "reference",
+       "id": "f",
+       "identifier": "L",
+       "type": "Lazy node"
+      }
+     }
+    }
+   ]
+  }
+ }
+ ```
+
+Notice the "Server Text" portion of the Payload. It's already passed as a prop to the Client Component. It's as if you'd simply written the JSX in the Payload directly in your Client Component.
 
 
 ## Hooks and RSCs
