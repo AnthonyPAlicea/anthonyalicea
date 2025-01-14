@@ -69,13 +69,13 @@ To answer these questions, let's dive together into how React Server Components 
 <p>
 <small>
 <b class="note-header">Note</b>
-This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like.<br /><br />It's also assumed your familiar with Promises, async, and await in JavaScript.If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.<br /><br />For a deep dive into every aspect of React from scratch, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.</small>
+This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like.<br /><br />It's also assumed you're familiar with Promises, async, and await in JavaScript.If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.<br /><br />For a deep dive into every aspect of React from scratch, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.</small>
 </p>
 
 First, we must establish some fundamentals necessary to understanding how RSCs work.
 
 ## The DOM and Client Rendering
-React co-opted the term "render". When we say the browser "renders" our page we are referring to the actual work of painting the DOM to the screen. The browser takes the DOM (the tree of elements) and the CSSOM (the tree of computed styles), calculates how elements should layout, and then paints the appropriate pixels to the screen.
+React co-opted the term "render". When we say the browser "renders" our page we are referring to the actual work of painting the DOM to the screen. The browser takes the DOM (the tree of elements) and the CSSOM (the tree of computed styles), calculates how elements should be laid out, and then paints the appropriate pixels to the screen.
 
 React instead uses that same term to mean "calculating what the DOM should look like". The values our component functions return tell React what the DOM should look like.
 
@@ -100,7 +100,7 @@ It then reconciles the difference between those two trees, calculating the steps
 
 Once it finishes that calculation, all against simple JavaScript objects, it knows what steps to take in the *real* DOM. By finding the minimum number of steps to take, it minimizes how much it has to update the DOM, since updating the DOM is expensive and causes the browser to re-render (layout elements and paint pixels).
 
-Updating the DOM in the client has the advantage of not losing state as you update the UI. For example, a user can type information into a form, React can update the UI based on some event, and the text stays in the form (unlike if the page refreshed).
+Updating the DOM in the client has the advantage of preserving state as you update the UI. For example, a user can type information into a form, React can update the UI based on some event, and the text stays in the form (unlike if the page refreshed).
 
 Thus React is focused on updating the DOM in the client, while trying to be as efficient as it can in doing so, doing work first against a fake DOM. This fake copy of the DOM's structure in JavaScript is generally called the "Virtual DOM".
 
@@ -215,11 +215,11 @@ export default function Home() {
 <p>
 <small>
 <b class="note-header">Isomorphic Components</b>
-If a component can be executed on the server <em>or</em> the client it's referred to as "isomorphic". My above function doesn't do anything server-specific (like connect directly to a database or read a file off the server), so it could instead have been executed on the client, and React could build the Virtual DOM from it's results directly as normal.<br /><br />If a function is isomorphic, then it can be shared. Both server and client components can import and use them.
+If a component can be executed on the server <em>or</em> the client it's referred to as "isomorphic". My above function doesn't do anything server-specific (like connect directly to a database or read a file off the server), so it could instead have been executed on the client, and React could build the Virtual DOM from its results directly as normal.<br /><br />If a function is isomorphic, then it can be shared. Both Server and Client Components can import and use them.
 </small>
 </p>
 
-To prevent having to send this function to the client for execution, it's results need to be serialized. Inside React's codebase this serialization format is called "flight" and the sum of data sent is called the "RSC Payload".
+To prevent having to send this function to the client for execution, its results need to be serialized. Inside React's codebase this serialization format is called "flight" and the sum of data sent is called the "RSC Payload".
 
 My simple function's result ends up serialized into this:
 
@@ -571,9 +571,9 @@ So far, however, we've only been concerning ourselves with Server Components. Wh
 The answer introduces an unsung hero in the RSC story: bundlers.
 
 ## Bundlers and Interleaving
-One of React's core tenants has always been component composition. You can split the work of deciding what the DOM should look like across many functions, and compose (that is, combine) that work together by having components be children of each other.
+One of React's core tenets has always been component composition. You can split the work of deciding what the DOM should look like across many functions, and compose (that is, combine) that work together by having components be children of each other.
 
-For RSCs to not be a dramatic shift of this core tenant, you need to be able to interleave (or weave) server and client components. **Client components need to be able to be children of server components.** That includes being able to pass props (function arguments).
+For RSCs to not be a dramatic shift of this core tenet, you need to be able to interleave (or weave) Server and Client Components. **Client Components need to be able to be children of Server Components.** That includes being able to pass props (function arguments).
 
 What that really means is that in your component hierarchy *some* of your functions will run on the server and *some* on the client. In the end though, they all will be doing work that calculates how the part of the DOM that they generate should be structured and what it should contain.
 
@@ -686,7 +686,7 @@ The <code>Home</code> and <code>DelayedMessage</code> RSCs will execute on the s
 
 Notice there's a new "Lazy node" reference where the Client Component will be. That part of the Virtual DOM will be known when that Client Component executes. That will happen either when the Client Component is SSR'd (if the framework does that) or when it executes in the browser.
 
-One more note: if you pass props from a Server Component to a Client component, those props <a href="https://react.dev/reference/rsc/use-server#serializable-parameters-and-return-values">need to be serializable by React</a>.
+One more note: if you pass props from a Server Component to a Client Component, those props <a href="https://react.dev/reference/rsc/use-server#serializable-parameters-and-return-values">need to be serializable by React</a>.
 
 As we've seen, the props will be part of the Payload sent over the network. That means anything passed needs to be representable as a string, so it can be converted back into an object in memory on the client.
 
