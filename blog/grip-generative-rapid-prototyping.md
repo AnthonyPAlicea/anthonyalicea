@@ -134,7 +134,7 @@ To begin implementing GRiP in your workflow:
    - Interaction patterns
    - User research
 
-Once you have a well-working prototype that both dev and design feel good about, you likely still will need to work on getting the design just right. This approach is about accelerating *prototyping*, and working out what you *should* build.
+Once you have a well-working prototype that both dev and design feel good about, you likely still will need to work on getting the design just right. This approach is about accelerating *prototyping* and working out what you *should* build.
 
 ## Prompt Guidance
 When prompting an AI to build your prototype be sure to specify:
