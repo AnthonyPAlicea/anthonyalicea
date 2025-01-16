@@ -339,6 +339,14 @@ ol li::marker {
     color: var(--color-article-h2);
 }
 
+ol > li {
+    margin-block-start: 1rem;
+}
+
+ol p {
+    margin-block-end: 0;
+}
+
 small, aside {
     display: block;
     padding: 0.5rem 0.75rem;
