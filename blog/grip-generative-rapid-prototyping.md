@@ -39,7 +39,7 @@ Designers and developers have been discovering this approach for awhile now, and
 
 Modern AI tools can generate functional UI components, forms, and interactions very quickly. Combined with lightweight styling frameworks, testable prototypes can be created in a fraction of the traditional time. This means more time for iteration and less time wrestling with tools.
 
-Focus on setting up an environment and prompts that encourage rapid iteration. Your goal is to *figure out the problems you need to solve and how to solve them*. Generative AI isn't going to get you pixel perfect design. Pixel perfect designs can come after.
+Focus on setting up an environment and prompts that encourage rapid iteration. Your goal is to *figure out the problems you need to solve and how to solve them*. Generative AI isn't going to get you pixel-perfect design. Pixel-perfect designs can come after.
 
 ### 2. Testable Interactivity
 **Principle:** Simulate real-world user flows with basic interactivity.
@@ -162,6 +162,6 @@ Generative Rapid Prototyping isn't just some new tool – it's a new prototyping
 
 What should be your first step? Start by converting your next prototype from static mockups to a functional web application with local data storage. Choose a tool for generating the web application, whether it's <a href="https://bolt.net">bolt.new</a>, <a href="https://www.cursor.com/">Cursor</a>, or another.
 
-Setup easy ways to deploy. For example you can setup a GitHub repo and deploy quickly to <a href="https://stackblitz.com">StackBlitz</a>.
+Set up easy ways to deploy. For example you can set up a GitHub repo and deploy quickly to <a href="https://stackblitz.com">StackBlitz</a>.
 
 The time you invest in setting up your GRiP workflow will pay dividends in faster iterations and better user feedback.
