@@ -339,7 +339,7 @@ Similarly, React accepts a Promise which later resolves to RSC Payload data. Nex
 
 In fact, the Flight format itself includes markers for things that haven't completed yet. Like Promises and lazy loading.
 
-For example, suppose I setup a server component to by async, and await a timer:
+For example, suppose I setup a server component to be async, and await a timer:
 
 ```js
 // components/Delayed.js
