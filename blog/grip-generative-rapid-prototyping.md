@@ -119,7 +119,7 @@ To begin implementing GRiP in your workflow:
 1. Choose your tools:
    - An AI coding assistant
    - A lightweight CSS framework or vanilla CSS
-   - A modern JavaScript framework (the AI has lots of training data)
+   - A modern JavaScript framework (AI tends to be good at them because it has lots of training data)
    - Basic data storage solution (localStorage or indexedDB)
    - A storage and deployment solution (where you can separately store each iteration)
 
