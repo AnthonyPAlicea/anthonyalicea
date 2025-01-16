@@ -62,7 +62,7 @@ tags: ['post','front-page']
 
 # {{ title }}
 
-React Server Components have lifted server-rendering to be a truly first-class citizen of the React ecosystem. They allow developers to render some components on the server, while attempting to abstract away the divide between the client and server. Devs can interleave client and server components in their code as if all the code was running in one place.
+React Server Components have lifted server-rendering to be a truly first-class citizen of the React ecosystem. They allow developers to render some components on the server, while attempting to abstract away the divide between the client and server. Devs can interleave Client and Server Components in their code as if all the code was running in one place.
 
 Yet, abstractions always come at a cost. What are those costs? When *can* you use RSCs? Does reduced bundle size mean reduced bandwidth? When *should* you use RSCs (React Server Components)? What are the rules that devs have to follow to use them properly and why do those rules exist?
 
@@ -184,7 +184,7 @@ First, let's update our dictionary entry:
 <p>
 <small>
 <b class="note-header">What About Server-Side Generation?</b>
-  One thing we aren't talking about here is SSG (Server-Side Generation). That means pre-generating the HTML while <em>building</em> the app (that is, preparing it for deployment). You can do this for both client and server components.<br /><br />SSG would have the same definition as SSR in our dictionary entry. Differentiating SSG and SSR doesn't help us much in this post, so I won't talk about it much, but it is supported.
+  One thing we aren't talking about here is SSG (Server-Side Generation). That means pre-generating the HTML while <em>building</em> the app (that is, preparing it for deployment). You can do this for both Client and Server Components.<br /><br />SSG would have the same definition as SSR in our dictionary entry. Differentiating SSG and SSR doesn't help us much in this post, so I won't talk about it much, but it is supported.
 </small>
 </p>
 
@@ -322,7 +322,7 @@ With all this in mind, though, we now have a complete list of 5 different defini
   </dd>
 </dl>
 
-Notice similarities across the React definitions? For React rendering *always* means "executing function components", and client and server components *both* provide what is needed to build and update the Virtual DOM.
+Notice similarities across the React definitions? For React rendering *always* means "executing function components", and Client and Server Components *both* provide what is needed to build and update the Virtual DOM.
 
 ## Streams, Suspense, and RSCs
 Performance is always a concern when building an application. But there are two kinds of performance: actual performance and perceived performance.
@@ -416,7 +416,7 @@ export default function Home() {
 }
 ```
 
-and we run the page, it will instead show the fallback first and then show the delayed message after 5 seconds. But notice this components still runs *on the server*! How can you opt into <code>Suspense</code> on the server? You don't. The Payload returned from the function, when processed on the client, builds a Virtual DOM that includes a <Suspense> boundary.
+and we run the page, it will instead show the fallback first and then show the delayed message after 5 seconds. But notice this component still runs *on the server*! How can you opt into <code>Suspense</code> on the server? You don't. The Payload returned from the function, when processed on the client, builds a Virtual DOM that includes a <Suspense> boundary.
 
 The Payload looks like this:
 
@@ -463,7 +463,7 @@ The Payload looks like this:
 
 Notice both the fallback (as a prop) and what is loaded after the Promises resolves (the "Lazy node", in this case the <code>DelayedMessage</code>) are all there.
 
-The Payload both itself streams in in chunks *and* references spots in the Virtual DOM where Promises will later be resolved. In this way React and RSC-supporting meta-frameworks endeavor to improve both real and perceived performance for the user, letting the user see receive UI as soon as possible.
+The Payload both itself streams in in chunks *and* references spots in the Virtual DOM where Promises will later be resolved. In this way React and RSC-supporting meta-frameworks endeavor to improve both real and perceived performance for the user, letting the user see UI as soon as possible.
 
 But where does flight data stream *to* really? It must be somewhere in the React codebase.
 
@@ -899,7 +899,7 @@ For example, there's been confusion in the NextJS world on the benefits of RSCs.
 
 Devs who started to use RSCs discovered that there was duplicated data being passed to this function in <code>script</code> tags at the bottom of their pages. Some asked why it was there and if it could be turned off.
 
-What is this doubled data? You guessed it. The Payload! Those function calls were streamed in pass the Payload data ultimately to React to create the Virtual DOM. This is shocking *if you don't understand how all this works*.
+What is this doubled data? You guessed it. The Payload! Those function calls that were streamed in ultimately pass that Payload data to React to create the Virtual DOM. This is shocking *if you don't understand how all this works*.
 
 The issue is that it increases bandwidth usage, which many were complaining about. You're sending more data across the network.
 
@@ -908,14 +908,14 @@ Why were people surprised? Well, Vercel originally described RSCs this way on Ne
 <p style="text-align: center">
 <img src="/assets/blogimages/vercel_orig.jpeg" style="max-width: 300px;" alt="A old snippet from NextJS website that says 'The client down not have download, parse, and execute any JavaScript for Server Components.'" /></p>
 
-The phrase "the client down not have download, parse, and execute any JavaScript for Server Components" was the misleading one. It isn't really true. Vercel was referring to the actual JavaScript code of the Server Components, but they use the word *any*.
+The phrase "the client down not have download, parse, and execute any JavaScript for Server Components" was the misleading one. It isn't really true. Vercel was referring to the actual JavaScript code of the Server Components, but they used the word *any*.
 
 I had <a href="https://x.com/joshcstory/status/1766547542194409664">an interesting branching conversation</a> with them on social media. I like to think that was part of the reason the wording was later changed (kudos to Vercel for changing it):
 
 <p style="text-align: center">
 <img src="/assets/blogimages/vercel_updated.jpeg" style="max-width: 300px;" alt="A newer snippet from NextJS website that says Server Components 'can reduce the amount of client-side JavaScript needed.'" /></p>
 
-The new description says that Server Components "*can* reduce the amount of client-side JavaScript needed". This is true! But they can also *increase* it, in the sense that the *Payload, in a sense, is JavaScript*, or at least data passed to JavaScript functions.
+The new description says that Server Components "*can* reduce the amount of client-side JavaScript needed". This is true! But they can also *increase* it, because the *Payload, in a sense, is JavaScript*, or at least data passed to JavaScript functions.
 
 The core misunderstanding of devs is that ***bundle size and bandwidth usage are not the same thing.***
 
