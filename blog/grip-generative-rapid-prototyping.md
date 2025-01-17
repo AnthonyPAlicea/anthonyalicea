@@ -160,7 +160,7 @@ By embracing GRiP, teams can:
 
 Generative Rapid Prototyping isn't just some new tool – it's a new prototyping approach. By leveraging AI and modern web technologies, we can create better prototypes faster, leading to better products and happier users.
 
-What should be your first step? Start by converting your next prototype from static mockups to a functional web application with local data storage. Choose a tool for generating the web application, whether it's <a href="https://bolt.net">bolt.new</a>, <a href="https://www.cursor.com/">Cursor</a>, or another.
+What should be your first step? Start by converting your next prototype from static mockups to a functional web application with local data storage. Choose a tool for generating the web application, whether it's <a href="https://bolt.new">bolt.new</a>, <a href="https://www.cursor.com/">Cursor</a>, or another.
 
 Set up easy ways to deploy. For example you can set up a GitHub repo and deploy quickly to <a href="https://stackblitz.com">StackBlitz</a>.
 
