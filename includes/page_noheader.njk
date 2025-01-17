@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {# Google Schema #}
+    <meta itemprop="name" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta itemprop="description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+
+    {# Twitter #}
+    <meta name="twitter:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary_large_image{% endif %}">
+    <meta name="twitter:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:site" content="{{ site.author.handle }}">
+    <meta name="twitter:creator" content="{{ site.author.handle }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.twitter }}{% endif %}">
+
+    {# Open Graph #}
+    <meta property="og:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
+    <meta property="og:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.og }}{% endif %}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" type="image/x-icon" href="{{ site.baseUrl }}assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseUrl }}assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseUrl }}assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseUrl }}assets/favicon-16x16.png">
+    <link rel="mask-icon" href="{{ site.baseUrl }}assets/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>{% if metaTitle %}{{ metaTitle }}{% else %}{{ title }}{% endif %}{% if metaTitle or title %} | {% endif %}{{ site.name }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ site.baseUrl }}assets/main.css">
+
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <main>
+      {% block body %}{% endblock %}
+    </main>
+    <footer>
+      <div class="footer-content">
+        <p>&copy; {% year %} Tony Alicea. All rights reserved.</p>
+        <p><a href="https://tonyalicea.dev">tonyalicea.dev</a></p>
+      </div>
+    </footer>
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="{{ site.baseUrl }}assets/main.js"></script>
+  </body>
+</html>

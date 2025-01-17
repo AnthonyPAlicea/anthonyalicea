@@ -1,0 +1,65 @@
+{% set title = "Computer Science | Tony Alicea" %}
+{% extends 'page_noheader.njk' %}
+{% block head %}
+<style>
+body {
+    background-color: #1f1c02;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+i {
+    font-size: 0.8rem;
+    color: #ABABAB;
+}
+
+.desc {
+    font-size: 0.9rem;
+}
+
+[data-ff-el="root"].ff-678a9c326e10d0200b6c7459 .ff-678a9c326e10d0200b6c7459__form {
+    padding: 0 !important;
+}
+
+[data-ff-el="root"].ff-678a9c326e10d0200b6c7459 .ff-678a9c326e10d0200b6c7459__container {
+    margin: 0 !important;
+}
+</style>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
+{% endblock %}
+{% block body %}
+<h1>A Computer Science Education Should Not Be Beyond Your Reach</h1>
+<p>Discrete Mathematics. Logic. Truth Tables. Turing Machines. Lambda Calculus. CPUs. Machine Language. Assembly Language. Compilers. C, C++, Rust, Python, JavaScript. Data Structures and Algorithms. Set Theory.</p>
+
+<p class="desc">A thorough university-level computer science education, focused on what developers need to know, for far less than the cost of a single college credit.<br /><i>by Tony Alicea</i></p>
+
+<div id="fd-form-678a9c326e10d0200b6c7459"></div>
+<script>
+  window.fd('form', {
+    formId: '678a9c326e10d0200b6c7459',
+    containerEl: '#fd-form-678a9c326e10d0200b6c7459'
+  });
+</script>
+{% endblock %}
