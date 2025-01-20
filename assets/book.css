@@ -222,7 +222,6 @@ h2 {
     position: relative;
     display: inline-block;
     overflow: hidden;
-    z-index: -2000;
     border: solid 1px #000;
     opacity: 0.9;
 }
