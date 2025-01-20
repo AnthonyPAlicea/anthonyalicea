@@ -1,5 +1,25 @@
 :root {
     --pico-block-spacing-vertical: 2rem;
+    --pico-color-orange-950: #1b0d06;
+    --pico-color-orange-900: #2d1509;
+    --pico-color-orange-850: #411a0a;
+    --pico-color-orange-800: #561e0a;
+    --pico-color-orange-750: #6b220a;
+    --pico-color-orange-700: #7f270b;
+    --pico-color-orange-650: #942d0d;
+    --pico-color-orange-600: #a83410;
+    --pico-color-orange-550: #bd3c13;
+    --pico-color-orange-500: #d24317;
+    --pico-color-orange-450: #e74b1a;
+    --pico-color-orange-400: #f45d2c;
+    --pico-color-orange-350: #f56b3d;
+    --pico-color-orange-300: #f68e68;
+    --pico-color-orange-250: #f8a283;
+    --pico-color-orange-200: #f8b79f;
+    --pico-color-orange-150: #f8cab9;
+    --pico-color-orange-100: #f9dcd2;
+    --pico-color-orange-50: #faeeea;
+    --pico-color-orange: #d24317;
     --pico-color-blue-950: #080f2d;
     --pico-color-blue-900: #0c1a41;
     --pico-color-blue-850: #0e2358;
@@ -60,7 +80,15 @@
     --pico-color-grey-100: #e2e2e2;
     --pico-color-grey-50: #f1f1f1;
     --pico-color-grey: #ababab;
-    --pico-font-family-sans-serif: 'Inter', system-ui,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,Helvetica,Arial,"Helvetica Neue",sans-serif,var
+    --pico-font-family-sans-serif: 'Noto Sans', system-ui,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,Helvetica,Arial,"Helvetica Neue",sans-serif,var
+}
+
+h1, h2, h3, button {
+    font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3 {
+    font-weight: 900;
 }
 
 p {
@@ -69,6 +97,10 @@ p {
 
 p + p {
     margin-block-start: var(--pico-typography-spacing-vertical);
+}
+
+body {
+    background-color: var(--pico-color-orange-950);
 }
 
 /* Layout */
@@ -81,10 +113,10 @@ body > header {
 }
 
 body > header > nav {
-    background-color: var(--pico-progress-background-color);
+    background-color: var(--pico-color-orange-850);
     margin-block-start: 0;
     padding: 0 1rem;
-    opacity: 0.98;
+    opacity: 0.9;
 }
 
 nav .enroll {
@@ -283,7 +315,7 @@ h2 {
 }
 
 .enroll-form {
-    background-color: var(--pico-color-blue-900);
+    background-color: var(--pico-color-orange-900);
     border: solid 2px var(--pico-color-yellow-100);
     max-width: 500px;
     color: #fff !important;
@@ -377,7 +409,7 @@ h2 {
 footer {
     padding: 1rem;
     font-size: 0.75rem;
-    background-color: var(--pico-progress-background-color);
+    background-color: var(--pico-color-orange-850);
 }
 
 footer h2 {
