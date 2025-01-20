@@ -1,7 +1,7 @@
 ---
 layout: post.njk
 title: "Understanding React Server Components"
-excerpt: A deep dive into the internals of React and NextJS to understand RSCs.
+excerpt: A deep dive into the internals of React and Next.js to understand RSCs.
 date: 2025-01-14
 og_image: 'assets/rsc_twittercard.png'
 tags: ['post','front-page']
@@ -66,7 +66,7 @@ React Server Components have lifted server-rendering to be a truly first-class c
 
 Yet, abstractions always come at a cost. What are those costs? When *can* you use RSCs? Does reduced bundle size mean reduced bandwidth? When *should* you use RSCs (React Server Components)? What are the rules that devs have to follow to use them properly and why do those rules exist?
 
-To answer these questions, let's dive together into how React Server Components really work, under-the-hood. We'll do this by examining two sides of the RSC story: React itself and React meta-frameworks. In particular, we'll look at both React and NextJS internals to form an accurate mental model of how the RSC story comes together.
+To answer these questions, let's dive together into how React Server Components really work, under-the-hood. We'll do this by examining two sides of the RSC story: React itself and React meta-frameworks. In particular, we'll look at both React and Next.js internals to form an accurate mental model of how the RSC story comes together.
 
 <p>
 <small>
@@ -202,7 +202,7 @@ Serialization and deserialization often end up meaning "convert objects in a com
 
 In this case, the results of our component functions need to be serialized and sent to the client.
 
-Let's suppose I'm making a simple app where I will track how many students have enrolled in my React course. I'll start with a basic RSC in NextJS. It will be executed on the server.
+Let's suppose I'm making a simple app where I will track how many students have enrolled in my React course. I'll start with a basic RSC in Next.js. It will be executed on the server.
 
 ```js
 export default function Home() {
@@ -249,9 +249,9 @@ Can you see the structure of the Virtual DOM? Our <code>main</code> and <code>h1
 
 We're simplifying here, there's more to the format than this, and a meta-framework may add more to it for their own purposes. For example, identifiers for what kind of thing is being placed in the tree "like 'f:' for 'flight'". But a simplified example is sufficient for our understanding.
 
-While React is providing the serialization format, the meta-framework (in this case NextJS) must do the work of ensuring the payload is created and sent to the client.
+While React is providing the serialization format, the meta-framework (in this case Next.js) must do the work of ensuring the payload is created and sent to the client.
 
-NextJS, for example, has a function in its codebase called <code>generateDynamicRSCPayload</code>.
+Next.js, for example, has a function in its codebase called <code>generateDynamicRSCPayload</code>.
 
 The meta-framework is ensuring that the payload is generated and sent to the client. Thanks to the payload, on the client React can build an accurate Virtual DOM and do its normal reconciliation work.
 
@@ -270,7 +270,7 @@ Here's a visualization:
 
 <div class="video"><video loop autoplay muted playsinline aria-labelledby="video-label" src="/assets/blogvideos/RSC_RSC.mp4"></video></div>
 
-For our simple example, NextJS returns HTML, which the browser uses to build the DOM:
+For our simple example, Next.js returns HTML, which the browser uses to build the DOM:
 
 ```html
 <main>
@@ -335,7 +335,7 @@ Thus with streams the question isn't "what was sent" but "what has been sent *ov
 
 The browser is designed to handle HTML streaming over the network. It renders (lays out and paints) the page as HTML streams in.
 
-Similarly, React accepts a Promise which later resolves to RSC Payload data. NextJS, for example, sets up a ReadableStream on the client, reads in the stream from the server, and gives it to React as it comes in. React's entire approach to server rendering is centered around streaming content in where needed.
+Similarly, React accepts a Promise which later resolves to RSC Payload data. Next.js, for example, sets up a ReadableStream on the client, reads in the stream from the server, and gives it to React as it comes in. React's entire approach to server rendering is centered around streaming content in where needed.
 
 In fact, the Flight format itself includes markers for things that haven't completed yet. Like Promises and lazy loading.
 
@@ -472,7 +472,7 @@ To support RSCs, React added to its codebase the ability to accept the Flight fo
 
 It's up to the RSC-supporting meta-framework to execute those React APIs, sending the appropriate data.
 
-For example, NextJS adds some extra wrapping components to your app, where it passes in a stream of Payload data.
+For example, Next.js adds some extra wrapping components to your app, where it passes in a stream of Payload data.
 
 It looks like this:
 
@@ -486,11 +486,11 @@ It looks like this:
 </ServerRoot>
 ```
 
-NextJS adds a component to your component tree, above the <code>AppRouter</code> called <code>ServerRoot</code>. From there it streams to <code>AppRouter</code> the RSC Payload data.
+Next.js adds a component to your component tree, above the <code>AppRouter</code> called <code>ServerRoot</code>. From there it streams to <code>AppRouter</code> the RSC Payload data.
 
 Ultimately that data is streamed to React's Promise-based APIs for accepting the Flight format.
 
-Thus React provides APIs for building its Virtual DOM from the Payload, and NextJS (or any RSC-supporting meta-framework) has its own mechanisms for getting that data to React after components execute on the server.
+Thus React provides APIs for building its Virtual DOM from the Payload, and Next.js (or any RSC-supporting meta-framework) has its own mechanisms for getting that data to React after components execute on the server.
 
 ## Out-of-Order Streaming
 There's more to the streaming story though. Different components may complete executing at different times. As Payload chunks stream in, how does React know *where* in the Virtual DOM (and thus the DOM) to place them?
@@ -703,7 +703,7 @@ You might thinking: "what if I accidentally import a Server Component, how does 
 
 Good question! This is a bit of a security problem. You could have code in a Server Component that is never meant to be downloaded and seen by others, but you accidentally import it into a Client Component and so it gets bundled in. If it has server-specific features (like connecting to a database) it will fail to execute in the browser, but if it made it into production you might have leaked some sensitive information like the address of your database.
 
-NextJS tries to resolve this by <a href="https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment">allowing you to mark components as server only</a>. This is a bit like tying string to your finger to remember something though. It's possible to forget to tie the string.
+Next.js tries to resolve this by <a href="https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment">allowing you to mark components as server only</a>. This is a bit like tying string to your finger to remember something though. It's possible to forget to tie the string.
 
 Other meta-frameworks are looking at safer alternatives for ensuring your server code doesn't get bundled and sent to the client.
 
@@ -834,7 +834,7 @@ Bundlers are a first-class citizen in React. If you look at the React codebase y
 
 Inside those folders are code having to do with Flight, helping the bundled code get all of this right.
 
-Because bundlers are the unsung hero of RSCs, it also means that *other conventions are possible*. A meta-framework doesn't *have* to buy-in to the <code>use client</code> approach that NextJS uses. <a href="https://tanstack.com/start/">TanStack Start</a>, for example, is implementing RSCs simply as functions that "return JSX" (i.e. the Flight format).
+Because bundlers are the unsung hero of RSCs, it also means that *other conventions are possible*. A meta-framework doesn't *have* to buy-in to the <code>use client</code> approach that Next.js uses. <a href="https://tanstack.com/start/">TanStack Start</a>, for example, is implementing RSCs simply as functions that "return JSX" (i.e. the Flight format).
 
 React has provided an API: streaming Flight data. It's up the meta-frameworks to iterate and innovate on how they use that API.
 
@@ -895,7 +895,7 @@ I'm happy that so many students have appreciated that approach. Yet, every now a
 
 One of the major values, however, of understanding how the tools, libraries, and frameworks we use work is we can ***make good, informed architectural decisions***.
 
-For example, there's been confusion in the NextJS world on the benefits of RSCs. There's a <a href="https://github.com/vercel/next.js/discussions/42170"> pretty extraordinary discussion</a> on the next.js code repository about the <code>__next_f()</code> function.
+For example, there's been confusion in the Next.js world on the benefits of RSCs. There's a <a href="https://github.com/vercel/next.js/discussions/42170"> pretty extraordinary discussion</a> on the next.js code repository about the <code>__next_f()</code> function.
 
 Devs who started to use RSCs discovered that there was duplicated data being passed to this function in <code>script</code> tags at the bottom of their pages. Some asked why it was there and if it could be turned off.
 
@@ -903,17 +903,17 @@ What is this doubled data? You guessed it. The Payload! Those function calls tha
 
 The issue is that it increases bandwidth usage, which many were complaining about. You're sending more data across the network.
 
-Why were people surprised? Well, Vercel originally described RSCs this way on NextJS' documentation site:
+Why were people surprised? Well, Vercel originally described RSCs this way on Next.js' documentation site:
 
 <p style="text-align: center">
-<img src="/assets/blogimages/vercel_orig.jpeg" style="max-width: 300px;" alt="A old snippet from NextJS website that says 'The client down not have download, parse, and execute any JavaScript for Server Components.'" /></p>
+<img src="/assets/blogimages/vercel_orig.jpeg" style="max-width: 300px;" alt="A old snippet from Next.js website that says 'The client down not have download, parse, and execute any JavaScript for Server Components.'" /></p>
 
 The phrase "the client down not have download, parse, and execute any JavaScript for Server Components" was the misleading one. It isn't really true. Vercel was referring to the actual JavaScript code of the Server Components, but they used the word *any*.
 
 I had <a href="https://x.com/joshcstory/status/1766547542194409664">an interesting branching conversation</a> with them on social media. I like to think that was part of the reason the wording was later changed (kudos to Vercel for changing it):
 
 <p style="text-align: center">
-<img src="/assets/blogimages/vercel_updated.jpeg" style="max-width: 300px;" alt="A newer snippet from NextJS website that says Server Components 'can reduce the amount of client-side JavaScript needed.'" /></p>
+<img src="/assets/blogimages/vercel_updated.jpeg" style="max-width: 300px;" alt="A newer snippet from Next.js website that says Server Components 'can reduce the amount of client-side JavaScript needed.'" /></p>
 
 The new description says that Server Components "*can* reduce the amount of client-side JavaScript needed". This is true! But they can also *increase* it, because the *Payload, in a sense, is JavaScript*, or at least data passed to JavaScript functions.
 
@@ -936,7 +936,7 @@ There are simply too many variables to make a hard recommendation. The best I ca
 ## Looking Forward
 What's the future of React Server Components? It isn't entirely clear. React has made the API, and meta-frameworks are using it.
 
-I think the TanStack Start approach of functions that return Virtual DOM, rather than full Server Components, will be popular. But for some uses, NextJS' approach will work well.
+I think the TanStack Start approach of functions that return Virtual DOM, rather than full Server Components, will be popular. But for some uses, Next.js' approach will work well.
 
 I hope to see incremental improvements in security and performance. For example, if a branch of the Virtual DOM is all Server Components, some reconciliation or hydration optimizations could be made to skip that part of the tree.
 
