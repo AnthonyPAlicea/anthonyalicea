@@ -484,7 +484,7 @@ iframe {
     padding: 1rem !important;
 }
 
-[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__container {
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__container, [data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__container {
     border-radius: 12px;
 }
 
