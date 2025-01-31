@@ -308,6 +308,11 @@ article.post img {
     margin: 0 auto;
 }
 
+article.post img.small-image {
+    max-width: 100px;
+    margin: 1rem;
+}
+
 article.post blockquote {
     border-inline-start: solid 3px #463D00;
     padding-inline-start: 1rem;
@@ -454,6 +459,10 @@ p {
     article.post img {
         max-width: 700px;
     }
+
+    article.post img.small-image {
+        max-width: 150px;
+    }
 }
 
 @media screen and (min-width: 1150px) {
@@ -517,4 +526,13 @@ footer {
 
 .footer-content a:hover {
     color: var(--color-link);
+}
+
+.footer-content .newsletter-link {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.footer-content .newsletter-link:hover {
+    text-decoration: none;
 }
