@@ -1,3 +1,12 @@
+---
+pagination:
+  data: collections.newsletters
+  size: 500
+  alias: newsletters
+permalink: "/newsletter/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+og_image: 'assets/diu_newsletter.png'
+---
+
 {% set title = "Newsletter" %}
 {% extends 'page.njk' %}
 {% block head %}
@@ -41,5 +50,9 @@
         containerEl: '#fd-form-679d3e8ec4c21b86ff8a9772'
     });
     </script>
+</article>
+<article style="border-top: dashed 1px #ccc; margin-top: 2rem;">
+<h2>Read the Archive</h2>
+{% include "newsletters.njk" %}
 </article>
 {% endblock %}

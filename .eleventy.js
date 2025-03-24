@@ -30,6 +30,12 @@ module.exports = config => {
       });
     });
 
+    config.addCollection("newsletters", function(collectionApi) {
+      return collectionApi.getFilteredByTags("newsletter").sort((a, b) => {
+        return parseInt(a.data.number) - parseInt(b.data.number);
+      });
+    });
+
     config.addShortcode("year", () => `${new Date().getFullYear()}`);
   
     return {

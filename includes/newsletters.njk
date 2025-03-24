@@ -1,0 +1,15 @@
+{% for newsletter in newsletters %}
+    {% if not newsletter.data.draft %}
+    <article class="card">
+        <h2 class="card__title">
+            <a href="{{ newsletter.url | url }}">
+                {{ newsletter.data.title }}
+            </a>
+        </h2>
+
+        <p class="card__body">
+            {{ newsletter.data.desc | safe }}
+        </p>
+    </article>
+    {% endif %}
+{% endfor %}
