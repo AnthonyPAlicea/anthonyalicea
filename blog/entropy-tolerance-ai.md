@@ -28,6 +28,10 @@ Good decisions come from clear thinking—and clear thinking needs clear terms. 
 
 For devs, realize that we aren't talking about the entropy tolerance of the act of coding itself. Rather the entropy tolerance of *the processes that the code is supporting*. This touches both how we code, and any AI integration we include in the software.
 
+<p style="text-align: center">
+<img src="/assets/blogimages/robot_question.png" alt="Robot with question" />
+</p>
+
 ## Requirements, "Vibe Coding", and Entropy Tolerance
 
 When you begin any software project, ask yourself this question: ***What is the entropy tolerance of the process this software is supporting?***
