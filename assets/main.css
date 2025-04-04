@@ -303,6 +303,16 @@ article.post hr {
     border-top-width: 1px;
 }
 
+article.post hr {
+    height: 1px;
+    background-color: var(--color-article-h2); 
+    border: none;
+    width: 50%;
+    min-width: 300px;
+    margin: 0 auto;
+    margin-block: 1rem;
+}
+
 article.post img {
     max-width: 100%;
     margin: 0 auto;
