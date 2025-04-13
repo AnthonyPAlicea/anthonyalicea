@@ -461,7 +461,7 @@ I read every line of React's source code, and then every line of React Compiler'
 
 React itself is a massive abstraction layer on top of web fundamentals. As is the case with so many abstractions, I find that most devs using React have an inaccurate mental model of how it works, which greatly impacts how they build and debug React-based applications. But you <em>can</em> understand React deeply.
 
-New content on React 19 features and React Compiler is coming to the course, free to students who are already enrolled. **<a href="https://understandingreact.com">Check the course out</a>**. You can also watch the first 6 hours of the course for free on my YouTube channel, which I'll put here.
+New content on React 19 has been added to the course. **<a href="https://understandingreact.com">Check the course out</a>**. You can also watch the first 6 hours of the course for free on my YouTube channel, which I'll put here.
 
 <div class="video">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-XKvVyC6si0?si=WLIpNsD796LCIuJ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
