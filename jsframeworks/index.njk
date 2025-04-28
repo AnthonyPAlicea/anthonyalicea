@@ -1,0 +1,163 @@
+---
+og_image: "assets/compscisignup_twittercard.png"
+---
+{% set title = "Understanding Modern JavaScript Frameworks" %}
+{% extends 'page_noheader.njk' %}
+{% block head %}
+<style>
+body {
+    background-color: #1f1c02;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.gear-background {
+    position: fixed;
+    top: 50%;
+    left: -25%; /* Positioned half off-screen to the left */
+    transform: translateY(-50%);
+    width: 120vw; /* Increased from 80vw to 120vw */
+    height: 120vw; /* Increased from 80vw to 120vw */
+    max-width: 1200px; /* Increased from 800px to 1200px */
+    max-height: 1200px; /* Increased from 800px to 1200px */
+    opacity: 0.15; /* Slightly increased opacity */
+    z-index: -1; /* Place behind content */
+    pointer-events: none; /* Allow clicking through */
+    animation: rotateGear 24s steps(1) infinite;
+}
+
+.gear-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform-origin: center center; /* Ensure rotation happens from center */
+}
+
+@keyframes rotateGear {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    4.166% { transform: translateY(-50%) rotate(15deg); }
+    8.333% { transform: translateY(-50%) rotate(30deg); }
+    12.5% { transform: translateY(-50%) rotate(45deg); }
+    16.666% { transform: translateY(-50%) rotate(60deg); }
+    20.833% { transform: translateY(-50%) rotate(75deg); }
+    25% { transform: translateY(-50%) rotate(90deg); }
+    29.166% { transform: translateY(-50%) rotate(105deg); }
+    33.333% { transform: translateY(-50%) rotate(120deg); }
+    37.5% { transform: translateY(-50%) rotate(135deg); }
+    41.666% { transform: translateY(-50%) rotate(150deg); }
+    45.833% { transform: translateY(-50%) rotate(165deg); }
+    50% { transform: translateY(-50%) rotate(180deg); }
+    54.166% { transform: translateY(-50%) rotate(195deg); }
+    58.333% { transform: translateY(-50%) rotate(210deg); }
+    62.5% { transform: translateY(-50%) rotate(225deg); }
+    66.666% { transform: translateY(-50%) rotate(240deg); }
+    70.833% { transform: translateY(-50%) rotate(255deg); }
+    75% { transform: translateY(-50%) rotate(270deg); }
+    79.166% { transform: translateY(-50%) rotate(285deg); }
+    83.333% { transform: translateY(-50%) rotate(300deg); }
+    87.5% { transform: translateY(-50%) rotate(315deg); }
+    91.666% { transform: translateY(-50%) rotate(330deg); }
+    95.833% { transform: translateY(-50%) rotate(345deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Ensure content stays above the gear */
+h1, p, .desc, #fd-form-680fd354d4c3097e4fce60d3 {
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+i {
+    font-size: 0.8rem;
+    color: #ABABAB;
+}
+
+.desc {
+    font-size: 0.9rem;
+}
+
+[data-ff-el="root"].ff-680fd354d4c3097e4fce60d3 .ff-680fd354d4c3097e4fce60d3__form {
+    padding: 0 !important;
+}
+
+[data-ff-el="root"].ff-680fd354d4c3097e4fce60d3 .ff-680fd354d4c3097e4fce60d3__container {
+    margin: 0 !important; 
+    background-color: rgba(0,0,0,0.0) !important;  
+}
+
+[data-ff-el="root"].ff-680fd354d4c3097e4fce60d3 .ff-680fd354d4c3097e4fce60d3__control {
+  background-color: #1F1C02 !important;
+}
+</style>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const gear = document.querySelector('.gear-background');
+    let rotation = 0;
+    let isRotating = true;
+    let lastTime = 0;
+    
+    function rotateGear(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        
+        // Check if we need to toggle rotation state (every 1000ms)
+        if (timestamp - lastTime >= 1000) {
+            isRotating = !isRotating;
+            lastTime = timestamp;
+            
+            if (isRotating) {
+                rotation += 15; // Exactly 15 degrees per second
+                gear.style.transform = `translateY(-50%) rotate(${rotation}deg)`;
+            }
+        }
+        
+        requestAnimationFrame(rotateGear);
+    }
+    
+    requestAnimationFrame(rotateGear);
+  });
+</script>
+{% endblock %}
+{% block body %}
+<div class="gear-background">
+    <img src="/assets/gear1.svg" alt="Rotating gear background">
+</div>
+<h1>The End of Framework Fatigue</h1>
+<p>A course on Signals, Hydration, Resumability, SSR, SSG, Routing, RPCs, and more.</p>
+<p>Learn, not how to use individual frameworks, but how to be prepared to use any that exist, or may exist in the future, by understanding how they work and why they work the way they do.</p>
+<p>Dive under-the-hood of React, Vue, Angular, Svelte, Solid, Qwik, Astro, TanStack, and more.</p>
+
+
+<p class="desc">A deep dive into the core concepts of modern JavaScript frameworks.<br /><i>by Tony Alicea</i></p>
+
+<div id="fd-form-680fd354d4c3097e4fce60d3"></div>
+<script>
+  window.fd('form', {
+    formId: '680fd354d4c3097e4fce60d3',
+    containerEl: '#fd-form-680fd354d4c3097e4fce60d3'
+  });
+</script>
+{% endblock %}
