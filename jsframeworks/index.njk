@@ -2,14 +2,9 @@
 og_image: "assets/jsframeworks_twittercard.png"
 ---
 {% set title = "Understanding Modern JavaScript Frameworks" %}
-{% extends 'page_noheader.njk' %}
+{% extends 'page_pico.njk' %}
 {% block head %}
 <style>
-body {
-    background-color: #1f1c02;
-    position: relative;
-    overflow-x: hidden;
-}
 
 .gear-background {
     position: fixed;
@@ -21,7 +16,7 @@ body {
     max-width: 1200px;
     max-height: 1200px;
     opacity: 0.15;
-    z-index: -1;
+    z-index: 10000;
     pointer-events: none;
     animation: rotateGear 20s steps(1) infinite;
 }
@@ -71,19 +66,6 @@ h1, p, .desc, #fd-form-680fd354d4c3097e4fce60d3 {
     z-index: 1;
 }
 
-h1 {
-    font-size: 2.5rem;
-}
-
-i {
-    font-size: 0.8rem;
-    color: #ABABAB;
-}
-
-.desc {
-    font-size: 0.9rem;
-}
-
 [data-ff-el="root"].ff-680fd354d4c3097e4fce60d3 .ff-680fd354d4c3097e4fce60d3__form {
     padding: 0 !important;
 }
@@ -98,26 +80,6 @@ i {
 }
 </style>
 <script>
-  (function(w, d, t, h, s, n) {
-    w.FlodeskObject = n;
-    var fn = function() {
-      (w[n].q = w[n].q || []).push(arguments);
-    };
-    w[n] = w[n] || fn;
-    var f = d.getElementsByTagName(t)[0];
-    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
-    var sm = d.createElement(t);
-    sm.async = true;
-    sm.type = 'module';
-    sm.src = h + s + '.mjs' + v;
-    f.parentNode.insertBefore(sm, f);
-    var sn = d.createElement(t);
-    sn.async = true;
-    sn.noModule = true;
-    sn.src = h + s + '.js' + v;
-    f.parentNode.insertBefore(sn, f);
-  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
-
   document.addEventListener('DOMContentLoaded', function() {
     const gear = document.querySelector('.gear-background');
     let rotation = 0;
@@ -149,19 +111,30 @@ i {
 <div class="gear-background">
     <img src="/assets/gear1.svg" alt="Rotating gear background">
 </div>
-<h1>The End of Framework Fatigue</h1>
-<p>A course on Signals, Hydration, Resumability, SSR, SSG, Routing, RPCs, and more.</p>
-<p>Learn, not how to use individual frameworks, but how to be prepared to use any that exist, or may exist in the future, by understanding how they work and why they work the way they do.</p>
-<p>Dive under-the-hood of React, Vue, Angular, Svelte, Solid, Qwik, Astro, TanStack, and more.</p>
-
-
-<p class="desc">A deep dive into the core concepts of modern JavaScript frameworks.<br /><i>by Tony Alicea</i></p>
-
-<div id="fd-form-680fd354d4c3097e4fce60d3"></div>
-<script>
-  window.fd('form', {
-    formId: '680fd354d4c3097e4fce60d3',
-    containerEl: '#fd-form-680fd354d4c3097e4fce60d3'
-  });
-</script>
+<hgroup class="container">
+  <h1>The End of Framework Fatigue</h1>
+  <p class="credit">A deep dive into the core concepts of modern JavaScript frameworks.<br /><img src="/assets/tonyalicea.png" style="height: 30px;" /> &nbsp;&nbsp;<i>by Tony Alicea</i></p>
+</hgroup>
+<section class="container">
+        <p>A course on <b>Signals, Hydration, Resumability, SSR, SSG, Routing, RPCs, and more</b>.</p>
+    <p>Learn, not how to use individual frameworks, but how to be prepared to use any that exist, or may exist in the future, by understanding how they work and why they work the way they do.</p>
+    <p>Dive under-the-hood of React, Vue, Angular, Svelte, Solid, Qwik, Astro, TanStack, and more.</p>
+</section>
+<section class="container enroll-container">
+<article class="enroll-form">
+    <h3 class="enroll-header">Understanding Modern JavaScript Frameworks</h3>
+    <p class="price" id="price">$39&nbsp;<s>$79</s></p>
+    <p class="lifetime"><b>Pre-Sale 50% Off!</b></p>
+    <p class="lifetime">Lifetime Access</p>
+    <p class="lifetime">Tax/VAT Included</p>
+     <a id="buy-link" href="https://dontimitateunderstand.com/purchase?product_id=6236097&coupon_code=JSFS_PRESALE"><button>Pre-Order Now</button></a>
+    <p>INCLUDES</p>
+    <ul class="enroll-list">
+      <li>&check; All source code</li>
+      <li>&check; Certificate of completion</li>
+      <li>&check; Questions answered by me personally</li>
+      <li>&check; Free future updates</li>
+    </ul>    
+  </article>
+</section>
 {% endblock %}
