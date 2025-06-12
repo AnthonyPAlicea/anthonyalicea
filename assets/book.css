@@ -170,7 +170,13 @@ main {
 
 .container h3 {
     font-size: 1.25rem;
+    margin-block-start: 1.5rem;
+    margin-block-end: 0.5rem;
     color: var(--pico-color-yellow-150);
+}
+
+h3 ~ ul.list {
+    padding-block-start: 0rem;
 }
 
 
