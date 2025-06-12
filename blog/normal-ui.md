@@ -179,7 +179,7 @@ This becomes even more true with a framework like <a href="https://qwik.dev">Qwi
 
 Thinking in terms of normalized and denormalized workflows doesn't just improve usability, but gives a way for devs and designers to talk about performance, file structures, clarity, cognitive load, bundle size, and efficiency.
 
-## The Book
+## The Book and Video Series
 There's a lot more to share, but I hope you found this introduction to Normal UI useful.
 
 I've considered writing a book on this subject for years. I have an old blog post from 2014 where I started, but never posted it.
@@ -198,13 +198,19 @@ The book is a fast read, so you can start implementing Normal UI right away.
 
 You can download the first 4 chapters free <a href="https://tonyalicea.dev/normalui/NormalUI_SampleChapters.pdf">here</a>.
 
-
 ## Easier-to-use vs. Easy-to-use
 Normal UI is about making your web apps *easier* to use. It doesn't replace usability and user experience expertise. It certainly doesn't replace usability testing and other forms of user research.
 
 What it does do is give you a foundation that will result in strong usability *improvements*. 
 
 You'll have a way of talking about and thinking through your software that puts you in the mindset of your user and yields benefits by following a framework, instead of subjective opinion, which is what design discussions sometimes devolve into at dev shops.
+
+## An AI-friendly Approach
+A funny thing happened shortly after releasing Normal UI as a technique. The AI explosion changed the coding landscape.
+
+As it turns out, Normal UI works wonderfully in conjunction with generative AI. You can teach an LLM the Normal UI approach and terminology, and it gives you a vocabulary to guide an AI during UI generation.
+
+I've found that it greatly improves the experience and output of iterating with an AI on a workflow. In the video series I give you a prompt to get you started.
 
 ## Successful Web Apps Are Usable Web Apps
 I hope this technique helps you build successful, usable web apps.
