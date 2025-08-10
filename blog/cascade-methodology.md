@@ -1266,7 +1266,7 @@ If you understand the underlying problems each Cascade's features are solving yo
 
 For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to   ensure your UI's URLs are unique and shareable and add a Share button to your screens. The spec is detailed, the feature itself is far smaller than requested.
 
-I find that Agile attempts to artificially compensate for poor understanding of underlying problems with sprint timelines.
+I find that many teams use Agile sprint timelines as an attempt to artificially compensate for poor understanding of underlying user and business problems. Building bigger-than-needed, or outright not-needed, software in a sprint does not mean you're more efficient or flexible.
 
 If you understand the underlying problems well, you end up writing less software, timelines naturally shrink, and stakeholder and user satisfaction increases. That's why Cascade Methodology doesn't have explicit two-week sprints.
 
