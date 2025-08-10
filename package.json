@@ -6,5 +6,8 @@
   },
   "dependencies": {
     "netlify-cli": "^17.33.0"
+  },
+  "scripts": {
+    "dev": "npx @11ty/eleventy --serve --watch"
   }
 }
