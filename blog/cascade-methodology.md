@@ -1204,7 +1204,7 @@ For example, suppose scroll animations are being added to static web pages on a 
 
 It may be sufficient for human review of a portion of the site, not every line of code. In this case, an LLM agent may be given the task of updating all the pages, and the Verification Gate can be "porous", meaning *few or cursory human checks of the code*.
 
-The more porous the Gate, the more "vibe coded" a feature may be. Things are allowed through the gate more easily. Of course Cascades are like a river with a series of waterfalls. That same code will still be there in later iterations, so code wuality is still a consideration. That's why good specs are so important.
+The more porous the Gate, the more "vibe coded" a feature may be. Things are allowed through the gate more easily. Of course Cascades are like a river with a series of waterfalls. That same code will still be there in later iterations, so code quality is still a concern. That's why good specs are so important.
 
 You might have automated code reviews in your process via LLM. But until there is a human in the loop, you should still consider your gate porous.
 
