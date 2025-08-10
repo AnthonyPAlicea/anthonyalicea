@@ -1242,7 +1242,7 @@ This could range from QA-style checks of the running software to human-in-the-lo
 ### #5: Deploy
 Deploy via whatever methodology works for your team. I recommend Continuous Deployment, but only integrate code that passes the Verification Gate, whether porous or dense. CI/CD in a gated context.
 
-You aren't really doing anything you didn't do nefore if you are refiewing code before merging and engage in CI/CD. You are just more explicitly aware of AI-generated code as a danger to quality.
+You aren't really doing anything you didn't do before if you are reviewing code before merging and engage in CI/CD. You are just more explicitly aware of AI-generated code as a danger to quality.
 
 To recap, then, the phases of a Cascade cycle are:
 ```
