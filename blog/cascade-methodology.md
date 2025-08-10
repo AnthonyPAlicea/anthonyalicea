@@ -1217,7 +1217,7 @@ Less vibes, more PR reviews.
 You should determine the Entropy Tolerance of a feature during the spec phase of a Cascade. This is a great opportunity to involve both your domain and security experts in the spec process.
 
 ### Scope
-Avoiding scope creep is an issue of defining the problems to be solved in a development cycle, rather than specific features (solutions to problems). You should avoid the flawed concept of MVPs and focus releases on <a href="/blog/on-the-why-down">MSPs (Minimum Solved Problems)</a>. 
+Avoiding scope creep is an issue of defining the problems to be solved in a development cycle, rather than specific features (features are just solutions to problems). You should avoid the flawed concept of MVPs and focus releases on <a href="/blog/on-the-why-down">MSPs (Minimum Solved Problems)</a>. 
 
 An MSP set is a subset of user and business problems that need to be solved by the software in some way. This approach allows for cross-disciplinary and mental flexibility in what features really need to be built. 
 
