@@ -1264,7 +1264,7 @@ In general the stakeholder question of "how long will this take" is a function o
 
 If you understand the underlying problems each Cascade's features are solving you can prioritize your Cascades by business need. You can also minimize the scope to as small a feature as possible that solves the problem.
 
-For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to   ensure your UI's URLs are unique and shareable and add a Share button to your screens.
+For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to   ensure your UI's URLs are unique and shareable and add a Share button to your screens. The spec is detailed, the feature itself is far smaller than requested.
 
 I find that Agile attempts to artificially compensate for poor understanding of underlying problems with sprint timelines.
 
