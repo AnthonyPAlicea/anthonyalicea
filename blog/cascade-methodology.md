@@ -1206,7 +1206,7 @@ It may be sufficient for human review of a portion of the site, not every line o
 
 The more porous the Gate, the more "vibe coded" a feature may be. Things are allowed through the gate more easily.
 
-You might have automated code reviews in your process via LLM. But until there is a human in the loop, you should comsider your gate porous.
+You might have automated code reviews in your process via LLM. But until there is a human in the loop, you should consider your gate porous.
 
 On the other hand, a feature that involves personally identifiable information of users has a low Entropy Tolerance. Bugs or security holes would have a large impact on the underlying processes the software is supporting (like user's lives and business health).
 
