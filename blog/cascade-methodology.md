@@ -1206,11 +1206,13 @@ It may be sufficient for human review of a portion of the site, not every line o
 
 The more porous the Gate, the more "vibe coded" a feature may be. Things are allowed through the gate more easily.
 
+You might have automated code reviews in your process via LLM. But until there is a human in the loop, you should comsider your gate porous.
+
 On the other hand, a feature that involves personally identifiable information of users has a low Entropy Tolerance. Bugs or security holes would have a large impact on the underlying processes the software is supporting (like user's lives and business health).
 
 Thus the Verification Gate in this case would need to be *dense*. Human-in-the-loop checks of code are required. AI-generated code is not trusted.
 
-Less vibes, more PR reviews.
+Less vibes, more PR reviews. 
 
 You should determine the Entropy Tolerance of a feature during the spec phase of a Cascade. This is a great opportunity to involve both your domain and security experts in the spec process.
 
@@ -1240,7 +1242,9 @@ This could range from QA-style checks of the running software to human-in-the-lo
 ### #5: Deploy
 Deploy via whatever methodology works for your team. I recommend Continuous Deployment, but only integrate code that passes the Verification Gate, whether porous or dense. CI/CD in a gated context.
 
-Thus the phases of a Cascade cycle are:
+You aren't really doing anything you didn't do nefore if you are refiewing code before merging and engage in CI/CD. You are just more explicitly aware of AI-generated code as a danger to quality.
+
+To recap, then, the phases of a Cascade cycle are:
 ```
 1. SPEC ←──────────────┐
    ↓                   │
@@ -1258,9 +1262,9 @@ Much of Agile is about *learning as-you-go*. Cascade Methodology embraces this a
 
 Even after deployment, the spec is both a source of truth *and* living documentation of a continuing experiment.
 
-The ability to *pivot* is a key feature of Agile, and one that Cascades also encourages. You should respond to what you learn. 
+You should then respond to what you learn. The ability to *pivot* is a key feature of Agile, and one that Cascades also encourages. You learn a lot in the experiment phase. You learn even more when the feature is live.
 
-A Cascade is just a moment in time. The river keeps flowing. 
+A Cascade is just a moment in time. Don't consider its results permanent. The river keeps flowing. 
 
 ## Methodology for the Modern Era
 The age of AI has changed software development in many ways. But LLM marketing hype has also clouded the impact of their downsides.
