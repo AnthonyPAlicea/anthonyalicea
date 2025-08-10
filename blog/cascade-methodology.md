@@ -1286,6 +1286,6 @@ The age of AI has changed software development in many ways. But LLM marketing h
 
 Cascade Methodology aims to be a practical, realistic approach to modern AI-assisted software development that takes advantage of LLM positives and mitigates LLM negatives, balancing *good* software with high velocity.
 
-I'm working on a more formal write-up <a href="https://github.com/AnthonyPAlicea/cascade-methodology">on Github</a>. Feel free to peruse and discuss.
+I'm working (with LLM assitance) on a more formal write-up <a href="https://github.com/AnthonyPAlicea/cascade-methodology">on Github</a>. Feel free to peruse and discuss.
 
 Happy coding!
