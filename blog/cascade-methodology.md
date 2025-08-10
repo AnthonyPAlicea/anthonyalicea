@@ -1204,7 +1204,7 @@ For example, suppose scroll animations are being added to static web pages on a 
 
 It may be sufficient for human review of a portion of the site, not every line of code. In this case, an LLM agent may be given the task of updating all the pages, and the Verification Gate can be "porous", meaning *few or cursory human checks of the code*.
 
-The more porous the Gate, the more "vibe coded" a feature may be. Things are allowed through the gate more easily.
+The more porous the Gate, the more "vibe coded" a feature may be. Things are allowed through the gate more easily. Of course Cascades are like a river with a series of waterfalls. That same code will still be there in later iterations, so code wuality is still a consideration. That's why good specs are so important.
 
 You might have automated code reviews in your process via LLM. But until there is a human in the loop, you should still consider your gate porous.
 
@@ -1270,7 +1270,7 @@ I find that Agile attempts to artificially compensate for poor understanding of 
 
 If you understand the underlying problems well, you end up writing less software, timelines naturally shrink, and stakeholder and user satisfaction increases. That's why Cascade Methodology doesn't have explicit two-week sprints.
 
-You can have multiple Cascades running in parallel sitting at different phases in the process. Ccordinate them however makes sense for your team. But if you prioritize understanding over timeline, and keep your Cascades sized according to Entropy Tolerance,   velocity will stay high.
+You can have multiple Cascades running in parallel sitting at different phases in the process. Coordinate them however makes sense for your team. But if you prioritize understanding over timeline, and keep your Cascades sized according to Entropy Tolerance,   velocity will stay high.
 
 ## Learning
 Much of Agile is about *learning as-you-go*. Cascade Methodology embraces this as well, but utilizes AI to expand the *scope* of learning by expanding the scope of the release when possible.
