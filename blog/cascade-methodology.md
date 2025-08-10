@@ -1110,21 +1110,19 @@ AI-assisted development requires something in-between. Let's call it Cascades.
   </dd>
 </dl>
 
-**Cascades** are rapid AI-driven development cycles that flow from detailed specifications through interactive prototypes to production code, with verification gates that scale based on business risk tolerance.
+**Cascades** are rapid AI-driven micro-waterfall development cycles that flow from detailed specifications through interactive prototypes to production code, with verification gates that scale based on business risk tolerance.
 
 To adopt **Cascade Methodology** means embracing and understanding both the benefits and the dangers of AI-assisted development, and using it to your greatest advantage.
 
-## The Issues With Waterfall and AI
+## Waterfall and AI
 Traditional Waterfall specs are too large and rigid for the rapid iteration that AI-assisted development enables. A major advantage of LLM code generation is the speed of iteration, and Waterfall simply doesn't take advantage of that.
 
-## The Issues With Agile and AI
+## Agile and AI
 Agile's intentionally minimal user stories are poor context engineering for an AI. An LLM needs guardrails and detailed specifications to avoid velocity-killing hallucinations and incorrect output.
 
 At the same time, LLMs let you potentially implement far more features than you'd typically constrain an Agile sprint to. However Agile has no metric to define how much LLM generation you can tolerate within a sprint, nor how much time verifying AI-generated code you can spare.
 
-Thus you're slowing down the discovery process (less features) while simultaneously opening yourself to the dangers of continuous integration with LLM probability-based output.
-
-When we talk about Agile vs Cascades, we're talking about *how much you can learn, safely*. AI-assisted development lets you learn more in an iteration. You can deploy bigger chunks of functionality and get more meaningful feedback. But you also need safeguards that Agile doesn't explicitly provide.
+Agile is about quickly learning what does and doesn't work for yout users, and AI-assisted development lets you learn more in an iteration. You can deploy bigger chunks of functionality with an LLM and thus get more feedback. But you also need spec details and code safeguards that Agile doesn't explicitly provide.
 
 ## Cascade Methodology
 With **Cascade Methodology** you iterate in development cycles. Each cycle is a micro-waterfall called a **Cascade**. With AI-assisted development I find it more useful to think in terms of *specs* instead of *sprints*, so a **Cascade** is **the work done from spec to deployment**.
@@ -1140,14 +1138,16 @@ Specs need to also include technical constraints, so they contain design, functi
 
 Spec creation is good for your team. It's the perfect place for multiple disciplines to have "seats at the table". It requires the cross-disciplinary work of requirements gatherers, designers, and software architects to arrive at well-engineered context for both the LLM and the team itself.
 
+As Cascades are micro-waterfalls, specs should be for targeted features. But AI-assisted development in general let's you include more features in a spec than you might normally include in an Agile sprint.
+
 Your spec is stored with your code (likely via a <code>.md</code> file) and provided to your LLM during prototype and production code generation. The first version of the spec is the entry point, but unlike Waterfall it's only a start.
 
 The spec is a *hypothesis*, and thus doesn't have to be perfect. Once prototyped it becomes an *experiment*. Once verified, implemented, and deployed it becomes a *source of truth*.
 
 ### #2: Experiment
-A lot has been said about how LLMs have changed getting code to production. But the effects of LLMs on prototype creation is an absolute game-changer. In a Cascade the "experiment" step means prototyping and research.
+A lot has been said about how LLMs have impacted getting code to production. But the effects of LLMs on prototype creation is an absolute game-changer. In a Cascade the "experiment" step means prototyping and research.
 
-Being able to generate true interactive prototypes (with locally stored data) for user research and usability testing, is a true LLM superpower. Since you don't have to care about prototype code quality, designers and developers can vibe code their way through a spec.
+Being able to generate true interactive prototypes (with locally stored data) for user research and usability testing is a true LLM superpower. Since you don't have to care about prototype code quality, designers and developers can vibe code their way through a spec first.
 
 Quality context from the spec will enable the LLM to generate realistic data and scenarios, enhancing the value of user testing.
 
@@ -1215,7 +1215,11 @@ Less vibes, more PR reviews.
 You should determine the Entropy Tolerance of a feature during the spec phase of a Cascade. This is a great opportunity to involve both your domain and security experts in the spec process.
 
 ### Scope
-Avoiding scope creep is an issue of defining the problems to be solved in a development cycle, rather than specific features (solutions to problems). I recommend avoiding the concept of MVPs and working toward <a href="/blog/on-the-why-down">MSPs (Minimum Solved Problems)</a>.
+Avoiding scope creep is an issue of defining the problems to be solved in a development cycle, rather than specific features (solutions to problems). You should avoid the flawed concept of MVPs and focus releases on <a href="/blog/on-the-why-down">MSPs (Minimum Solved Problems)</a>. 
+
+An MSP set is a subset of user and business problems that need to be solved by the software in some way. This approach allows for cross-disciplinary and mental flexibility in what features really need to be built. 
+
+You don't get attached to a feature idea in an MSP set, or blindly implement solutions users and stakeholders suggest. You get attached to solving the real underlying problems with the least amount of software possible.
 
 That said, scope is variable in Cascade Methodology. Scope is a function of Entropy Tolerance and the chosen "problems to be solved".
 
@@ -1250,17 +1254,19 @@ Thus the phases of a Cascade cycle are:
 ```
 
 ## Learning
-Much of Agile is about *learning as-you-go*. Cascade Methodology embraces this as well, but utilizes AI to expand the *scope* of learning by expanding the scope of the feature when possible.
+Much of Agile is about *learning as-you-go*. Cascade Methodology embraces this as well, but utilizes AI to expand the *scope* of learning by expanding the scope of the release when possible.
 
 Even after deployment, the spec is both a source of truth *and* living documentation of a continuing experiment.
 
-The ability to *pivot* is a key feature of Agile, and one that Cascades also encourages. A Cascade is just a moment in time. The river keeps flowing. 
+The ability to *pivot* is a key feature of Agile, and one that Cascades also encourages. You should respond to what you learn. 
+
+A Cascade is just a moment in time. The river keeps flowing. 
 
 ## Methodology for the Modern Era
 The age of AI has changed software development in many ways. But LLM marketing hype has also clouded the impact of their downsides.
 
 Cascade Methodology aims to be a practical, realistic approach to modern AI-assisted software development that takes advantage of LLM positives and mitigates LLM negatives, balancing *good* software with high velocity.
 
-I've created a more formal write-up <a href="https://github.com/AnthonyPAlicea/cascade-methodology">on Github</a>. Feel free to peruse and discuss.
+I'm working on a more formal write-up <a href="https://github.com/AnthonyPAlicea/cascade-methodology">on Github</a>. Feel free to peruse and discuss.
 
 Happy coding!
