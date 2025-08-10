@@ -1257,6 +1257,21 @@ To recap, then, the phases of a Cascade cycle are:
 5. DEPLOY
 ```
 
+## Timelines
+Experience has shown that the amount LLMs increase velocity of implementation is dependent on how good the specs you give them are. Thus the upfront focus on cross-disciplinary spec creation and rapid prototyping and research.
+
+In general the stakeholder question of "how long will this take" is a function of the supported process' entropy tolerance and and how well the underlying problems being solved have been flushed out.
+
+If you understand the underlying problems each Cascade's features are solving you can prioritize your Cascades by business need. You can also minimize the scope to as small a feature as possible that solves the problem.
+
+For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to   ensure your UI's URLs are unique and shareable and add a Share button to your screens.
+
+I find that Agile attempts to artificially compensate for poor understanding of underlying problems with sprint timelines.
+
+If you understand the underlying problems well, you end up writing less software, timelines naturally shrink, and stakeholder and user satisfaction increases. That's why Cascade Methodology doesn't have explicit two-week sprints.
+
+You can have multiple Cascades running in parallel sitting at different phases in the process. Ccordinate them however makes sense for your team. But if you prioritize understanding over timeline, and keep your Cascades sized according to Entropy Tolerance,   velocity will stay high.
+
 ## Learning
 Much of Agile is about *learning as-you-go*. Cascade Methodology embraces this as well, but utilizes AI to expand the *scope* of learning by expanding the scope of the release when possible.
 
