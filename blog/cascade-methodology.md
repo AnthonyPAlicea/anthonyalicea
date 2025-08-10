@@ -1157,6 +1157,8 @@ The SPEC -> EXPERIMENT -> SPEC loop should be *fast*. There's no need to spend t
 
 Time spent on designing, testing, and iterating on prototypes is often the first thing to be neglected when teams are trying to move fast. But a good user experience is an important differentiator in the AI age, and with LLM generation, velocity is no longer an excuse not to research.
 
+In fact, prototyping and research ultimately *save* time because prototypes can be purely vibe coded, no code quality required.
+
 In the AI age building *something* is easy, but building something *good* is still hard. That's why prototyping and user-research are first-class citizens in Cascade Methodology.
 
 ### #3: Implement
