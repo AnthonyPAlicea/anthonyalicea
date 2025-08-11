@@ -1266,11 +1266,13 @@ If you understand the underlying problems each Cascade's features are solving yo
 
 For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to   ensure your UI's URLs are unique and shareable and add a Share button to your screens. The spec is detailed, the feature itself is far smaller than requested.
 
+It turns out that LLMs do a decent job of identifying these kind of alternative solutions if you give them the complete context of a feature request. You should use AI to  brainstorm and help you minimize the amount of code needed for a solution. It may dramatically improve your velocity.
+
 I find that many teams use Agile sprint timelines as an attempt to artificially compensate for poor understanding of underlying user and business problems. Building bigger-than-needed, or outright not-needed, software in a sprint does not mean you're more efficient or flexible.
 
 If you understand the underlying problems well, you end up writing less software, timelines naturally shrink, and stakeholder and user satisfaction increases. That's why Cascade Methodology doesn't have explicit two-week sprints.
 
-You can have multiple Cascades running in parallel sitting at different phases in the process. Coordinate them however makes sense for your team. But if you prioritize understanding over timeline, and keep your Cascades sized according to Entropy Tolerance,   velocity will stay high.
+You can have multiple Cascades running in parallel where each sits at different phases in the process. Coordinate them however makes sense for your team. But if you prioritize understanding over timeline, and keep your Cascades sized according to Entropy Tolerance,   velocity will stay high.
 
 ## Learning
 Much of Agile is about *learning as-you-go*. Cascade Methodology embraces this as well, but utilizes AI to expand the *scope* of learning by expanding the scope of the release when possible.
