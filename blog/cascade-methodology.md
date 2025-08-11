@@ -1275,11 +1275,11 @@ If you understand the underlying problems well, you end up writing less software
 You can have multiple Cascades running in parallel where each sits at different phases in the process. Coordinate them however makes sense for your team. But if you prioritize understanding over timeline, and keep your Cascades sized according to Entropy Tolerance,   velocity will stay high.
 
 ## Learning
-Much of Agile is about *learning as-you-go*. Cascade Methodology embraces this as well, but utilizes AI to expand the *scope* of learning by expanding the scope of the release when possible.
+Like Agile, Cascade Methodology embraces *learning as-you-go*, but utilizes AI to expand the *scope* of learning by expanding the scope of the release when possible.
 
-Even after deployment, the spec is both a source of truth *and* living documentation of a continuing experiment.
+Even after deployment, the spec is both a source of truth *and* living documentation of a continuing education in what the software needs truly are.
 
-You should then respond to what you learn. The ability to *pivot* is a key feature of Agile, and one that Cascades also encourages. You learn a lot in the experiment phase. You learn even more when the feature is live.
+You should then respond to what you learn. The ability to *pivot* is also a key feature of Agile, and one that Cascades encourages as well. You learn a lot in the experiment phase. You learn even more when the feature is live.
 
 A Cascade is just a moment in time. Don't consider its results permanent. The river keeps flowing. 
 
@@ -1288,6 +1288,6 @@ The age of AI has changed software development in many ways. But LLM marketing h
 
 Cascade Methodology aims to be a practical, realistic approach to modern AI-assisted software development that takes advantage of LLM positives and mitigates LLM negatives, balancing *good* software with high velocity.
 
-I'm working (with LLM assitance) on a more formal write-up <a href="https://github.com/AnthonyPAlicea/cascade-methodology">on Github</a>. Feel free to peruse and discuss.
+You can find a more formal write-up of the methodology <a href="https://github.com/AnthonyPAlicea/cascade-methodology">on Github</a>. Feel free to peruse and discuss.
 
 Happy coding!
