@@ -1175,7 +1175,7 @@ At the end of implementation you should have a working software.
 ## A Reality Check...
 LLMs are statistical probability machines. AI-generated code may have edge case bugs, performance problems, security issues, regressions, and more.
 
-Code needs to be verified before being deployed. But verification is nuanced, so before we can describe the next step we need to pause and talk about Entropy Tolerance, Verification Gates, and scope.
+Code needs to be verified before being deployed. But verification is nuanced, so before we can describe the next step we need to pause and talk about Entropy Tolerance and Verification Gates.
 
 <div class="svg-holder">
 <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 308.92 257.4"><defs><style>.strnr-cls-1 {fill: #ffffff;}</style></defs>
@@ -1222,23 +1222,6 @@ Less vibes, more PR reviews.
 
 You should determine the Entropy Tolerance of a feature during the spec phase of a Cascade. This is a great opportunity to involve both your domain and security experts in the spec process.
 
-## Scope
-Avoiding scope creep is an issue of defining the problems to be solved in a development cycle, rather than specific features (features are just solutions to problems). You should avoid the flawed concept of MVPs and focus releases on <a href="/blog/on-the-why-down">MSPs (Minimum Solved Problems)</a>. 
-
-An MSP set is a subset of user and business problems that need to be solved by the software in some way. This approach allows for cross-disciplinary and mental flexibility in what features really need to be built. 
-
-You don't get attached to a feature idea in an MSP set, or blindly implement solutions users and stakeholders suggest. You get attached to solving the real underlying problems with the least amount of software possible.
-
-That said, scope is variable in Cascade Methodology. Scope is a function of Entropy Tolerance and the chosen "problems to be solved" by the software.
-
-Why a function of Entropy Tolerance? Because AI-assisted velocity changes depending on the bottleneck of needed human verification. A dense Gate necessarily slows down the waterfall.
-
-In our previous example, the scope of adding scroll animations to an existing site could be quite large. An LLM agent could update hundreds of pages. Since the Gate is porous, letting more "AI slop" through, the Cascade can handle a larger scope.
-
-For denser verification requirements, the scope is constrained by what humans can reasonably check. This may also vary depending on the complexity of the feature. Straightforward CRUD pages may be human-checked more quickly than complex business rules.
-
-What about "problems to be solved"? They influence the scope by *shrinking* it. You build only what you need (if anything) to solve the user and business needs.
-
 ## Phase 4: Verify
 The feature implementation is verified according the Entropy Tolerance of the process it supports.
 
@@ -1263,6 +1246,25 @@ To recap, then, the phases of a Cascade cycle are:
    ↓
 5. DEPLOY
 ```
+
+## Scope
+How do you maintain a reasonable scope in Cascade Methodology?
+
+Avoiding scope creep is an issue of defining the problems to be solved in a development cycle, rather than specific features (features are just solutions to problems). You should avoid the flawed concept of MVPs and focus releases on <a href="/blog/on-the-why-down">MSPs (Minimum Solved Problems)</a>. 
+
+An MSP set is a subset of user and business problems that need to be solved by the software in some way. This approach allows for cross-disciplinary and mental flexibility in what features really need to be built. 
+
+You don't get attached to a feature idea in an MSP set, or blindly implement solutions users and stakeholders suggest. You get attached to solving the real underlying problems with the least amount of software possible.
+
+That said, scope is variable in Cascade Methodology. Scope is a function of Entropy Tolerance and the chosen "problems to be solved" by the software.
+
+Why a function of Entropy Tolerance? Because AI-assisted velocity changes depending on the bottleneck of needed human verification. A dense Gate necessarily slows down the waterfall.
+
+In our previous example, the scope of adding scroll animations to an existing site could be quite large. An LLM agent could update hundreds of pages. Since the Gate is porous, letting more "AI slop" through, the Cascade can handle a larger scope.
+
+For denser verification requirements, the scope is constrained by what humans can reasonably check. This may also vary depending on the complexity of the feature. Straightforward CRUD pages may be human-checked more quickly than complex business rules.
+
+What about "problems to be solved"? They influence the scope by *shrinking* it. You build only what you need (if anything) to solve the user and business needs.
 
 ## Timelines
 Experience has shown that the amount LLMs increase velocity of implementation is dependent on how good the specs you give them are. Thus the upfront focus on cross-disciplinary spec creation and rapid prototyping and research.
