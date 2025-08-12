@@ -1134,7 +1134,7 @@ With **Cascade Methodology** you iterate in development cycles. Each cycle is a 
 Let's talk, in order, about the 5 phases of Cascade Methodology.
 
 ## Phase 1: Spec
-In Cascades, feature specs are detailed enough to give the AI deep, actionable context, but small enough to create quickly and adapt as you learn.
+In Cascades, feature specs are detailed enough to give the AI clear context, but small enough to iterate quickly and adapt as you learn.
 
 A good spec should include the usual business rules, data requirements, etc. But they should also include the *why*, not just the what. Those writing specs, via user interviews and observation, stakeholder meetings, and more should be good at getting to <a href="/blog/on-the-why-down">the "why" of the underlying problems that need to be solved</a>.
 
