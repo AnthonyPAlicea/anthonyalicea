@@ -1140,7 +1140,7 @@ A good spec should include the usual business rules, data requirements, etc. But
 
 Specs need to also include technical constraints, so they contain design, functional, and technical requirements. A Cascade is a micro-waterfall, so that means spec work up-front. But the speed-up that comes from providing good context to an LLM outweighs the time it takes to write a good spec.
 
-Spec creation is good for your team. It's the perfect place for multiple disciplines to have "seats at the table". It requires the cross-disciplinary work of requirements gatherers, designers, software architects, and more to arrive at well-engineered context for both the LLM and the team itself.
+Spec creation is good for your team. It should be a silo-breaking activity. It's the perfect place for multiple disciplines to have "seats at the table". Spec creation requires the cross-disciplinary work of requirements gatherers, designers, software architects, and more to arrive at well-engineered context for both the LLM and the team itself.
 
 As Cascades are micro-waterfalls, specs should be for targeted features. But AI-assisted development in general let's you include more features in a spec than you might normally include in an Agile sprint.
 
