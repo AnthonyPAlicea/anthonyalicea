@@ -4,7 +4,7 @@ title: "How to Rewrite a Web Application"
 excerpt: Most teams waste time, money, and opportunity.
 date: 2024-07-29
 og_image: 'assets/rewrite-card.png'
-tags: ['post','front-page']
+tags: ['post']
 ---
 {% block head %}
 <style>
