@@ -1286,7 +1286,10 @@ For example, a steakholder may ask for a way to automate emailing data in a web 
 
 It turns out that LLMs do a decent job of identifying these kind of alternative solutions if you give them the complete context of a feature request. You should use AI to  brainstorm and help you minimize the amount of code needed for a solution. It may dramatically improve your velocity.
 
-I find that some teams use Agile sprint timelines as an attempt to artificially compensate for poor understanding of underlying user and business problems. Building bigger-than-needed, or outright not-needed, software in a sprint does not mean you're more efficient or flexible.
+I find that some teams use Agile sprint timelines as an attempt to artificially compensate for poor understanding of underlying user and business problems. 
+Some might say that's the point. 
+
+But a lack of user research followed by building bigger-than-needed, or outright not-needed, software in a sprint does not mean you're more efficient or flexible.
 
 *If you understand the underlying problems well, you end up writing less software*, timelines naturally shrink, and stakeholder and user satisfaction increases. That's why Cascade Methodology doesn't have explicit timeboxed sprints like Scrum.
 
