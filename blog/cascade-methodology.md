@@ -1103,7 +1103,7 @@ Waterfall was about writing comprehensive specs upfront, Agile is about building
 
 AI-assisted development requires something in-between. Something that fosters good context engineering, utilizes LLM abilities to do things we could never do before, and pragmatically surfaces the dangers of probabilistic code generation. 
 
-I've developed a new methodology for this era. I call it **Cascades**.
+This post describes how I think we should develop software in the age of AI. Not Agile. Not Waterfall. I call it **Cascades**.
 
 <dl class="dictionary-entry">
   <dt class="dictionary-term">cascade</dt>
