@@ -1256,9 +1256,9 @@ To recap, then, the phases of a Cascade cycle are:
 5. DEPLOY
 ```
 
-## Scope
-How do you maintain a reasonable scope in Cascade Methodology?
+This lays out the complete methodology. But any experienced team will ask two questions: how do you maintain a reasonable scope in Cascade Methodology and how do you control the timeline?
 
+## Scope
 Avoiding scope creep is an issue of defining the problems to be solved in a development cycle, rather than specific features (features are just solutions to problems). You should avoid the flawed concept of MVPs and focus releases on <a href="/blog/on-the-why-down">MSPs (Minimum Solved Problems)</a>. 
 
 An MSP set is a subset of user and business problems that need to be solved by the software in some way. This approach allows for cross-disciplinary and mental flexibility in what features really need to be built. 
@@ -1282,7 +1282,7 @@ In general the stakeholder question of "how long will this take" is a function o
 
 If you understand the underlying problems each Cascade's features are solving you can prioritize your Cascades by business need. You can also minimize the scope to as small a feature as possible that solves the problem.
 
-For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to   ensure your UI's URLs are unique and shareable and add a Share button to your screens. The spec is detailed, the feature itself is far smaller than requested.
+For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to ensure your UI's URLs are unique and shareable and add a Share button to your screens. The spec is detailed, the feature itself is far smaller than requested.
 
 It turns out that LLMs do a decent job of identifying these kind of alternative solutions if you give them the complete context of a feature request. You should use AI to  brainstorm and help you minimize the amount of code needed for a solution. It may dramatically improve your velocity.
 
@@ -1291,6 +1291,8 @@ I find that some teams use Agile sprint timelines as an attempt to artificially 
 *If you understand the underlying problems well, you end up writing less software*, timelines naturally shrink, and stakeholder and user satisfaction increases. That's why Cascade Methodology doesn't have explicit timeboxed sprints like Scrum.
 
 You can have multiple Cascades running in parallel where each sits at different phases in the process. Coordinate them however makes sense for your team. But if you prioritize understanding over timeline, and keep your Cascades sized according to Entropy Tolerance, velocity will stay high.
+
+You don't aim to control the timeline. You aim to control the software.
 
 ## Learning
 Like Agile, Cascade Methodology embraces *learning as-you-go*, but utilizes AI to expand the *scope* of learning by expanding the scope of the release when possible.
