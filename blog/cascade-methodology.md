@@ -1172,7 +1172,7 @@ A combination of spec and prototype form fantastic context for both an LLM and d
 
 Implementation choices is not a concern of Cascade Methodology. The guiding principle to keep in mind is to build the least amount of software needed to satisfy the problems to be solved.
 
-That doesn't mean you skip write tests or best practices. It means you keep in mind that the assumptions of the requirements and the design of the software are experiments that will be tested in the laboratory of your code. So don't get attached and don't try too hard to predict the future.
+That doesn't mean devs should skip writing tests or best practices. It means everyone keeps in mind that the assumptions of the requirements and the design of the software are experiments that will be tested in the laboratory of actual code. So devs shouldn't get attached and shouldn't try too hard to predict the future.
 
 At the end of implementation you should have a working software.
 
