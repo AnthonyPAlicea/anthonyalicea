@@ -1170,6 +1170,8 @@ In the AI age building *something* is easy, but building something *good* is sti
 ## Phase 3: Implement
 A combination of spec and prototype form fantastic context for both an LLM and developers.
 
+Implementation choices is not a concern of Cascade Methodology. The only core principle to keep in mind is to build the least amount of software needed to satisfy the problems to be solved.
+
 At the end of implementation you should have a working software.
 
 ## A Reality Check...
@@ -1197,7 +1199,7 @@ At the bottom of each micro-waterfall, we add a **Gate**. A **Verification Gate*
 
 In our metaphor, you should imagine a mesh gate, which can vary in its fineness. You can have a *porous* gate or a *dense* gate.
 
-With AI-assisted development we measure the density of checks needed as a function of the feature's Entropy Tolerance.
+With AI-assisted development **we measure the density of checks needed as a function of the feature's Entropy Tolerance**.
 
 ### Entropy Tolerance
 <a href="/blog/entropy-tolerance-ai">Entropy Tolerance</a> is how much uncertainty (or AI-generated 'guesswork') a software-supported process can handle.
@@ -1229,6 +1231,10 @@ This could range from QA-style checks of the running software to human-in-the-lo
 
 In reality, the implementation and verification phases are often in a loop across multiple code merges.
 
+You shouldn't waste much time isolating which code is AI-generated (though running agents that make PRs may make this obvious).
+
+The Verification Gate being porous or dense applies as much to human code as AI-generated. The point is that you are aware of the needs of and dangers inherent to deploying the feature.
+
 ## Phase 5: Deploy
 Deploy via whatever methodology works for your team. I recommend Continuous Deployment, but only integrate code that passes the Verification Gate, whether porous or dense. CI/CD in a gated context.
 
@@ -1243,6 +1249,7 @@ To recap, then, the phases of a Cascade cycle are:
 3. IMPLEMENT ←─────┐
    ↓               │
 4. VERIFY ─────────┘
+   [porous or dense]
    ↓
 5. DEPLOY
 ```
@@ -1297,6 +1304,6 @@ The age of AI has changed software development in many ways. But LLM marketing h
 
 Cascade Methodology aims to be a practical, realistic approach to modern AI-assisted software development that takes advantage of LLM positives and mitigates LLM negatives, balancing *good* software with high velocity.
 
-You can find a more formal write-up of the methodology <a href="https://github.com/AnthonyPAlicea/cascade-methodology">on Github</a>. Feel free to peruse and discuss.
+I hope these concepts help you and your team successfully build something great.
 
 Happy coding!
