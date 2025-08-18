@@ -1170,7 +1170,9 @@ In the AI age building *something* is easy, but building something *good* is sti
 ## Phase 3: Implement
 A combination of spec and prototype form fantastic context for both an LLM and developers.
 
-Implementation choices is not a concern of Cascade Methodology. The only core principle to keep in mind is to build the least amount of software needed to satisfy the problems to be solved.
+Implementation choices is not a concern of Cascade Methodology. The guiding principle to keep in mind is to build the least amount of software needed to satisfy the problems to be solved.
+
+That doesn't mean you skip write tests or best practices. It means you keep in mind that the assumptions of the requirements and the design of the software are experiments that will be tested in the laboratory of your code. So don't get attached and don't try too hard to predict the future.
 
 At the end of implementation you should have a working software.
 
@@ -1284,7 +1286,7 @@ For example, a steakholder may ask for a way to automate emailing data in a web 
 
 It turns out that LLMs do a decent job of identifying these kind of alternative solutions if you give them the complete context of a feature request. You should use AI to  brainstorm and help you minimize the amount of code needed for a solution. It may dramatically improve your velocity.
 
-I find that many teams use Agile sprint timelines as an attempt to artificially compensate for poor understanding of underlying user and business problems. Building bigger-than-needed, or outright not-needed, software in a sprint does not mean you're more efficient or flexible.
+I find that some teams use Agile sprint timelines as an attempt to artificially compensate for poor understanding of underlying user and business problems. Building bigger-than-needed, or outright not-needed, software in a sprint does not mean you're more efficient or flexible.
 
 *If you understand the underlying problems well, you end up writing less software*, timelines naturally shrink, and stakeholder and user satisfaction increases. That's why Cascade Methodology doesn't have explicit timeboxed sprints like Scrum.
 
