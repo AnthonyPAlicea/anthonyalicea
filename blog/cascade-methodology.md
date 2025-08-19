@@ -2,8 +2,8 @@
 layout: post.njk
 title: "Not Agile. Not Waterfall. With AI It's Cascades."
 excerpt: Introducing Cascade Methodology - Software Development Methodology in the Age of AI
-date: 2025-08-11
-og_image: 'assets/entropy_twitter.png'
+date: 2025-08-19
+og_image: 'assets/cascades_twittercard.png'
 ---
 {% block head %}
 <style>
@@ -1095,7 +1095,7 @@ og_image: 'assets/entropy_twitter.png'
 </div>
 
 # {{ title }}
-**LLMs have changed software development**. They can generate features in minutes that once took days, and code that’s subtly wrong in ways that can take hours to fix. 
+**LLMs have changed software development**. They can generate features in minutes that once took days, and large amounts of code that’s subtly wrong. 
 
 In the age of AI, our software development *methodologies* need to change along with our tools, taking advantage of the positives of LLMs while guarding against the downsides.
 
