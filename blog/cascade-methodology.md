@@ -1244,6 +1244,8 @@ Thus the Verification Gate in this case would need to be *dense*. Human-in-the-l
 
 You should determine the Entropy Tolerance of a feature during the spec phase of a Cascade. This is a great opportunity to involve both your domain and security experts in the spec process.
 
+That all said, we can define the final two phases of Cascade Methdology.
+
 ## Phase 4: Verify
 The feature implementation is verified according the Entropy Tolerance of the process it supports.
 
