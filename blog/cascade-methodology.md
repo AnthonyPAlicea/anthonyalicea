@@ -1122,7 +1122,7 @@ To adopt **Cascade Methodology** means embracing and understanding both the bene
 Traditional Waterfall specs are too large and rigid for the rapid iteration that AI-assisted development enables. A major advantage of LLM code generation is the speed of iteration, and Waterfall simply doesn't take advantage of that.
 
 ## Agile/Scrum and AI
-Agile's intentionally minimal "just enough documentation" user stories are poor context engineering for an AI. An LLM needs guardrails and detailed specifications to avoid velocity-killing hallucinations and incorrect output.
+Agile's intentionally minimal "just enough documentation" user stories can be poor context for an AI. An LLM needs guardrails and detailed specifications to avoid velocity-killing hallucinations and incorrect output.
 
 At the same time, LLMs let you potentially implement far more features than you'd typically constrain a Scrum sprint to. However Agile has no metric to define how much LLM generation you can tolerate within a sprint, nor how much time verifying AI-generated code you can spare.
 
