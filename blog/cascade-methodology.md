@@ -1305,7 +1305,9 @@ Experience has shown that the amount LLMs increase velocity of implementation is
 
 In general the stakeholder question of "how long will this take" is **a function of the supported process' entropy tolerance and and how well the underlying problems being solved have been flushed out**.
 
-If you understand the underlying problems each Cascade's features are solving *you can prioritize your Cascades by business need*. You can also minimize the scope to as small a feature as possible that solves the problem.
+If you understand the underlying problems each Cascade's features are solving *you can prioritize your Cascades by business need* and, as we said before, minimize the scope to as small a feature as possible that solves the problem.
+
+Minimizing the scope reduces the timeline.
 
 For example, a steakholder may ask for a way to automate emailing data in a web app. You flush out that the underlying problem is quickly sharing data. So you design a Cascade to ensure your UI's URLs are unique and shareable and add a Share button to your screens. The spec is detailed, the feature itself is far smaller than requested.
 
