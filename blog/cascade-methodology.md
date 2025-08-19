@@ -1178,7 +1178,7 @@ In fact, prototyping and research ultimately *save* time because prototypes can 
 
 In the AI age building *something* is easy, but building something *good* is still hard. That's why **prototyping and user research are first-class citizens in Cascade Methodology**.
 
-While it is preferable that prototypes be focused on a single Cascade, designers need to have a holistic view of software. Thus *a single prototype may include features from multiple cascades*.
+While it is preferable that prototypes be focused on a single Cascade, designers need to have a holistic view of software. Thus *a single prototype may include features from multiple Cascades*.
 
 From a project management standpoint, this means the prototyping phase of a Cascade can be a cross-reference to a separate UI/UX task. In this way designers, through iteration and user research and testing, can ensure that various specs work together to form cohesive software workflows. 
 
@@ -1339,5 +1339,7 @@ The age of AI has changed software development in many ways. But LLM marketing h
 Cascade Methodology aims to be a practical, realistic approach to modern AI-assisted software development that takes advantage of LLM positives and mitigates LLM negatives, balancing *good* software with high velocity.
 
 I hope these concepts help you and your team successfully build something great.
+
+If you have questions, thoughts, or your team would like help adopting these ideas, feel free to <a href="mailto:hey@tonyalicea.dev">drop me an e-mail</a>.
 
 Happy coding!
