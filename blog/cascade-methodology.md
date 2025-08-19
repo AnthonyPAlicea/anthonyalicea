@@ -1345,6 +1345,6 @@ Cascade Methodology aims to be a practical, realistic approach to modern AI-assi
 
 I hope these concepts help you and your team successfully build something great.
 
-If you have questions or thoughts, feel free to <a href="mailto:hey@tonyalicea.dev">drop me an e-mail</a>.
+If you have questions or thoughts, feel free to <a href="mailto:hey@tonyalicea.dev">drop me an e-mail</a>. If you'd like to discuss, contribute, or support with a star, I've <a href="https://github.com/AnthonyPAlicea/cascade-methodology/">started a GitHub repo</a>.
 
 Happy coding!
