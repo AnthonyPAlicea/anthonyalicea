@@ -1345,6 +1345,6 @@ Cascade Methodology aims to be a practical, realistic approach to modern AI-assi
 
 I hope these concepts help you and your team successfully build something great.
 
-If you have questions, thoughts, or your team would like help adopting these ideas, feel free to <a href="mailto:hey@tonyalicea.dev">drop me an e-mail</a>.
+If you have questions or thoughts, feel free to <a href="mailto:hey@tonyalicea.dev">drop me an e-mail</a>.
 
 Happy coding!
