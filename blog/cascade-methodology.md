@@ -4,6 +4,7 @@ title: "Not Agile. Not Waterfall. With AI It's Cascades."
 excerpt: Introducing Cascade Methodology - Software Development Methodology in the Age of AI
 date: 2025-08-19
 og_image: 'assets/cascades_twittercard.png'
+tags: ['post','front-page']
 ---
 {% block head %}
 <style>
