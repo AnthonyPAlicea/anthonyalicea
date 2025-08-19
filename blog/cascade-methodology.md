@@ -1180,7 +1180,9 @@ In the AI age building *something* is easy, but building something *good* is sti
 
 While it is preferable that prototypes be focused on a single Cascade, designers need to have a holistic view of software. Thus *a single prototype may include features from multiple Cascades*.
 
-From a project management standpoint, this means the prototyping phase of a Cascade can be a cross-reference to a separate UI/UX task. In this way designers, through iteration and user research and testing, can ensure that various specs work together to form cohesive software workflows. 
+From a project management standpoint, this means the prototyping phase of a Cascade can be a cross-reference to a separate UI/UX task. In this way designers, through iteration and user research and testing, can ensure that various specs work together to form cohesive software workflows.
+
+However, design should not be a bottleneck to learning, and perfect is the enemy of good. Designers can continue to easily experiment, but their priority should be solving user problems *in some way*, and getting that solution moved forward to implementation.
 
 ## Phase 3: Implement
 A combination of spec and prototype form fantastic context for both an LLM and developers.
