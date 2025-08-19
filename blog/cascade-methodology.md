@@ -1147,7 +1147,7 @@ In Cascades, feature specs are detailed enough to give the AI clear context, but
 
 A good spec should include the usual business rules, data requirements, etc. But they should also include the *why*, not just the what. Those writing specs, via user interviews and observation, stakeholder meetings, and more should be good at **getting to <a href="/blog/on-the-why-down">the "why" of the underlying problems that need to be solved</a>**.
 
-Specs need to also include constraints, so they contain design, functional, and technical requirements. A Cascade is a micro-waterfall, so that means spec work up-front. But the speed-up that comes from providing good context to an LLM outweighs the time it takes to write a good spec.
+Specs, especially those being written for LLM consumption, need to include constraints: design, functional, and technical requirements. That means more spec work up-front. But the speed-up that comes from providing good context to an LLM outweighs the time it takes to write a good spec.
 
 Spec creation is good for your team. It should be a *silo-breaking* activity. It's the perfect place for multiple disciplines to have "seats at the table". **Spec creation requires the cross-disciplinary work of requirements gatherers, designers, software architects, and more to arrive at well-engineered context for both the LLM and the team itself**.
 
