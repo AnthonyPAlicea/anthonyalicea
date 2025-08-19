@@ -1296,6 +1296,10 @@ For denser verification requirements, the scope is constrained by what humans ca
 
 What about "problems to be solved"? They influence the scope by *shrinking* it. You build only what you need (if anything) to solve the user and business needs.
 
+Thus solving problems with the least amount of software possible, combined with AI-assisted developer velocity, can result in a *massive* scope of "solved problems" for each release.
+
+Your users and stakeholders don't care about how many lines of code you deployed this week. They don't actually care about how many features you've deployed. They care about how many of their problems you've solved.
+
 ## Timelines
 Experience has shown that the amount LLMs increase velocity of implementation is dependent on how good the specs you give them are. Thus the upfront focus on cross-disciplinary spec creation and rapid prototyping and research.
 
