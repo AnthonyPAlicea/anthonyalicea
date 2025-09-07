@@ -1133,13 +1133,13 @@ Agile is about quickly learning what does and doesn't work for your users, and A
 With **Cascade Methodology** you iterate in development cycles. Each cycle is a micro-waterfall called a **Cascade**. With AI-assisted development I find it more useful to think in terms of *specs* instead of *sprints*, so a **Cascade** is **the work done from spec to deployment**.
 
 The guiding principles of Cascade Methodology are:
-1. Understand the underlying user and business problems the software should solve.
-1. Build the least amount of software possible to solve those problems.
-1. Everyone has a seat at the table in writing specs.
-1. Prototyping and user research are first-class citizens.
-1. AI-generated code is not to be trusted.
-1. The density of code quality checks needed to deploy code is a function of the entropy tolerance of the business process the code is supporting.
-1. Scope and timelines are functions of entropy tolerance and understanding the problems to be solved.
+1. Everyone has a seat at the table in writing specs.  
+1. Understand the underlying user and business problems the software should solve.  
+1. Build the least amount of software possible to solve those problems.  
+1. Prototyping and user research are first-class citizens.  
+1. AI-generated code is not to be trusted.  
+1. The density of code quality checks needed to deploy code is a function of the entropy tolerance of the business process the code is supporting.  
+1. Scope and timelines are functions of entropy tolerance and understanding the problems to be solved.  
 
 We will delve into each of these as we talk about the 5 phases of Cascade Methodology.
 
