@@ -71,7 +71,7 @@ To answer these questions, let's dive together into how React Server Components 
 <p>
 <small>
 <b class="note-header">Note</b>
-This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like.<br /><br />It's also assumed you're familiar with Promises, async, and await in JavaScript.If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.<br /><br />For a deep dive into every aspect of React from scratch, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.</small>
+This post is aimed at developers who are familiar with using React. It assumes you know what components and hooks look like.<br /><br />It's also assumed you're familiar with Promises, async, and await in JavaScript.If not, you can watch my under-the-hood YouTube video on <a href="https://youtu.be/fyGSyqEX2dw?si=MkRII6BoKW8Dm-Ml"><b>Promises, async, and await</b></a>.</small>
 </p>
 
 First, we must establish some fundamentals necessary to understanding how RSCs work.
@@ -101,6 +101,13 @@ It then reconciles the difference between those two trees, calculating the steps
 ![A representation of the reconciliation process inside React, showing current and work-in-progress branches of the tree which are compared to calculate what updates to make to the real DOM tree.](/assets/blogimages/ReactCompiler_Reconciliation.png)
 
 Once it finishes that calculation, all against simple JavaScript objects, it knows what steps to take in the *real* DOM. By finding the minimum number of steps to take, it minimizes how much it has to update the DOM, since updating the DOM is expensive and causes the browser to re-render (layout elements and paint pixels).
+
+<p>
+<aside>
+<b class="note-header">Take My Video Course</b>
+If you like this style of learning, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.
+</aside>
+</p>
 
 Updating the DOM in the client has the advantage of preserving state as you update the UI. For example, a user can type information into a form, React can update the UI based on some event, and the text stays in the form (unlike if the page refreshed).
 
@@ -193,6 +200,7 @@ We said React needs both full trees, DOM and Virtual DOM, to be sitting in the b
 > React needs both full trees, DOM and Virtual DOM, to be sitting in the browser's memory to work.
 
 In other words, how does React build the Virtual DOM in the *browser* for the part defined by functions executed on the *server*?
+
 
 ## Flight
 

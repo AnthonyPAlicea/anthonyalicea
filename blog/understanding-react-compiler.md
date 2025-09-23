@@ -161,6 +161,13 @@ React actually keeps two branches that can fork out from each node of the tree. 
 
 React will then compare those two trees to decide what changes need to made to the actual DOM, so that the DOM matches the work-in-progress side of the tree. This process is called "reconciliation".
 
+<p>
+<aside>
+<b class="note-header">Take My Video Course</b>
+If you like this style of learning, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.
+</aside>
+</p>
+
 Thus, depending on what other functionality we add to our app, React may choose to call our <code>List</code> function over and over, whenever it thinks the UI might need to be updated. This makes our mental model fairly straightforward. Whenever the UI might need to be updated (for example, in response to a user action like clicking a button), the functions that define the UI will be called again, and React will figure out how to update the actual DOM in the browser to match how our functions say the UI should look.
 
 But if the <code>processItems</code> function is slow, then every call to <code>List</code> will be slow, and our whole app will be slow as we interact with it!
