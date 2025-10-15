@@ -1,6 +1,6 @@
 ---
 layout: post.njk
-title: "I've Started Offering Live Coaching. Human Interaction For The Win."
+title: "I've Started Offering Live Coaching."
 excerpt: After over a decade of producing online courses, I'm enjoying connecting with real people live.
 date: 2025-10-15
 og_image: 'assets/coaching_twittercard.png'
