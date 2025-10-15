@@ -32,7 +32,7 @@ Teams need to understand that clarity is more important than speed, and communic
 
 For myself personally, I've also rediscovered my own value. I've been in dev and UX for 25 years. An online educator for over a decade. My experiences as a team and product lead, educator, and human dev have value. It's been so gratifying to share and see that experience help others.
 
-> “I booked a session to prep for an interview. He gave me a solid framework for how to approach the interview and helped me work through some technical areas I wanted to strengthen. What really stuck with me was how much more confident I felt afterward—I went in feeling ready.”  — *Helios*
+> “I booked a session to prep for an interview. He gave me a solid framework for how to approach the interview and helped me work through some technical areas I wanted to strengthen. What really stuck with me was how much more confident I felt afterward, I went in feeling ready.”  — *Helios*
 
 I've decided to continue to offer coaching into the foreseeable future. Happy to say multiple people have already booked a second session! You all have been students for so long. I'm so happy to hear your voices and see your faces. Times are changing and things are tough, and I'm so happy to help however I can.
 
