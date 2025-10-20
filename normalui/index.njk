@@ -288,7 +288,7 @@ og_image: 'assets/normalui_card.png'
 
   // Redirect to the target URL with the query string parameters
   if (document.getElementById("buy-link")) {
-    document.getElementById("buy-link").href = targetURL + (queryString ? queryString + '&' : '?')+ 'product_id=' + productID; 
+    document.getElementById("buy-link").href = targetURL + (queryString ? queryString + '&' : '?')+ 'product_id=' + productID + '&coupon_code=NORMALSALE'; 
   }
 </script> 
 {% endblock %}
