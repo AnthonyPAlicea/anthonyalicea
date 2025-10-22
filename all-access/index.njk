@@ -1,0 +1,132 @@
+{% set title = "All Access Mentorship" %}
+{% extends 'page.njk' %}
+{% block head %}
+<style>
+    li {
+        margin-block-start: 1rem;
+    }
+
+    .cta-container {
+        margin-block-start: 2rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, rgba(255, 229, 62, 0.1) 0%, rgba(255, 229, 62, 0.05) 100%);
+        border: 2px solid #FFE53E;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background-color: #FFE53E;
+        color: #000;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 1.25rem;
+        font-family: 'Raleway', sans-serif;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 229, 62, 0.3);
+        margin-block-end: 1rem;
+    }
+
+    .cta-button:hover {
+        background-color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 229, 62, 0.5);
+    }
+
+    .cta-tagline {
+        font-size: 1.1rem;
+        color: #f8f9fa;
+        font-weight: 600;
+        margin-block: 0;
+        line-height: 1.5;
+    }
+
+    .cta-tagline strong {
+        color: #FFE53E;
+    }
+
+    .cta-note {
+        font-size: 0.75rem;
+    }
+
+    /* Mobile: centered layout */
+    .hero-section {
+        text-align: center;
+    }
+
+    .hero-image {
+        float: none;
+        display: block;
+        margin: 0 auto 1rem auto !important;
+    }
+
+    /* Desktop: float right, left-aligned text */
+    @media screen and (min-width: 768px) {
+        .hero-section {
+            text-align: left;
+        }
+
+        .hero-image {
+            float: right;
+            margin: 1rem;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .cta-note {
+            margin-block-start: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}
+{% block body %}
+<article class="post">
+<section class="hero-section">
+<img src="/assets/lightbulb_graduating.webp" class="small-image hero-image" />
+<h1>All Access<br />Mentorship</h1>
+</section>
+<section>
+    <p>I'm so excited to present a new unique opportunity, and a new way to learn with me.</p>
+    <p>The new <b><i>All Access Mentorship</i></b> subscription. Join now to lock in Founding Member pricing that will never go up as long as you're subscribed.</p>
+</section>
+<section>
+    <h2>What You Get</h2>
+    <ul>
+        <li>Access to <em>all</em> my courses and books across Teachable and Udemy, including both current <em>and future courses</em> as they are released.</li>
+        <li>A monthly "Developer Round Table", live over Zoom. Tech talks, office hours, interviews and more, run by me every month. Access the recording archive of every round table ever.</li>
+        <li>Access to an exclusive community. Connect with like-minded devs who believe in "Don't Imitate, Understand"!</li>
+        <li>Access to an exclusive LinkedIn group. Network with fellow DIU devs.</li>
+        <li>Discounts on 1-on-1 and team coaching.</li>
+        <li>A free seat to the Cascade AI Workshop, a workshop on replacing Agile/Scrum concepts with AI-assisted development and problem-first processes.</li>
+        <li><strong>Through the end of 2025</strong>: Locked in Founding Member pricing that won't go up as long as you subscribe.</li>
+    </ul>
+    <div class="cta-container">
+        <a href="https://dontimitateunderstand.com/purchase?product_id=6503833" class="cta-button">Become a Founding Member</a>
+        <p class="cta-tagline">Lock in your rate for life — <strong>$199/year</strong> (normally $299)<br /></p>
+        <p class="cta-tagline cta-note">Founding Member opportunity closes December 31, 2025.</p>
+    </div>
+</section>
+<section>
+    <h2>FAQs</h2>
+    <h3>What about the courses I've purchased?</h3>
+    <p>You own them for life, whether you have a subscription or not! And you'll still be able to purchase courses for lifetime access.</p>
+    <p>But a membership gets you access to <em>everything</em> as long as you are subscribed, plus all the other benefits listed above.<p>
+    <h3>What are some upcoming courses?</h3>
+    <p>A new course on <em>AI-Assisted Software Development</em> is coming in December, followed by a course on <em>The Web Platform</em>, where we learn how to avoid frameworks using LLMs and use features provided in the browser to build awesome web apps.</p>
+    <p>Other courses will be announced in 2026, and you'll get a chance to help guide the direction of the year.</p>
+    <h3>The Founding Member price really won't go up?</h3>
+    <p>No, it won't, as long as you stay subscribed. That means you save money on new courses every year, plus get all the other benefits. I'm aiming to make this an unbeatable continuing education deal.</p>
+    <h3>Is there PPP Pricing?</h3>
+    <p>Yes, but it is higher than other PPP offerings in the past, due to the value being provided. Please <a href="all-access-ppp">fill out the PPP request form</a> with details.</p>
+    <h3>What is the Cascade AI Workshop?</h3>
+    <p>A 90-minute workshop where you will learn about Cascade Methodology, a replacement for Agile/Scrum that I've been implementing successfully for 20 years, now augmented for AI-assisted development.</p>
+    <p>You'll learn to "why down" features into problem statements, conduct MSP (Minimum Solved Problem) releases (instead of MVP), and decompose tasks in a way that provide good context for AI and get the best possible output from LLM code generation.</p>
+    <p>Dates are coming soon for January 2026.</p>
+    <h3>How do I subscribe?</h3>
+    <p>You can <a href="https://dontimitateunderstand.com/purchase?product_id=6503833">become a founding member</a> now, locking in your subscription price for life.</p>
+</section>
+</article>
+{% endblock %}
