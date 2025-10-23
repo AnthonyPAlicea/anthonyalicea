@@ -85,6 +85,27 @@ og_image: 'assets/allaccess_twitter_card.png'
         }
     }
 </style>
+<script>
+  // Remove the 'New' badge from all-access link when on the all-access page
+  document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('nav ul li a');
+    const allAccessLink = navLinks[navLinks.length - 1]; // Get the last link
+
+    if (allAccessLink && allAccessLink.getAttribute('href').includes('all-access')) {
+      allAccessLink.style.setProperty('display', 'inline', 'important');
+    }
+
+    // Remove ::before and ::after pseudo-elements by overriding them
+    const style = document.createElement('style');
+    style.textContent = `
+      .all-access::before,
+      .all-access::after {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  });
+</script>
 {% endblock %}
 {% block body %}
 <article class="post">
