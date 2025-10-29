@@ -550,3 +550,82 @@ footer {
 .footer-content .newsletter-link:hover {
     text-decoration: none;
 }
+
+/* Course Callout Component */
+.course-callout {
+    background: linear-gradient(135deg, rgba(48, 49, 54, 0.6) 0%, rgba(0, 56, 109, 0.4) 100%);
+    border: 1px solid #444;
+    border-left: 4px solid var(--color-highlight);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.course-callout__image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--color-highlight);
+    flex-shrink: 0;
+}
+
+.course-callout__content {
+    flex: 1;
+}
+
+.course-callout__title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem 0;
+    color: var(--color-highlight);
+}
+
+.course-callout__description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+    color: var(--color-text);
+}
+
+.course-callout__description em {
+    color: var(--color-highlight);
+    font-style: italic;
+}
+
+.course-callout__cta {
+    display: inline-block;
+    background-color: var(--color-highlight);
+    color: #000;
+    font-weight: 700;
+    font-family: 'Raleway', sans-serif;
+    padding: 0.625rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-callout__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 229, 62, 0.3);
+}
+
+/* Tablet and up: side-by-side layout */
+@media screen and (min-width: 640px) {
+    .course-callout {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .course-callout__image {
+        width: 140px;
+        height: 140px;
+    }
+}

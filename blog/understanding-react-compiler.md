@@ -161,12 +161,14 @@ React actually keeps two branches that can fork out from each node of the tree. 
 
 React will then compare those two trees to decide what changes need to made to the actual DOM, so that the DOM matches the work-in-progress side of the tree. This process is called "reconciliation".
 
-<p>
-<aside>
-<b class="note-header">Take My Video Course</b>
-If you like this style of learning, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.
-</aside>
-</p>
+<div class="course-callout">
+  <img src="/assets/react_courseimage.png" alt="Understanding React Course" class="course-callout__image" />
+  <div class="course-callout__content">
+    <h3 class="course-callout__title">Master React From The Inside Out</h3>
+    <p class="course-callout__description">If you are enjoying this deep dive, you'll love and benefit from understanding <em>all</em> of React at this level. My course <strong>Understanding React</strong> takes you through 17 hours of React's source code, covering JSX, Fiber, hooks, forms, reconciliation, and more, updated for React 19.</p>
+    <a href="https://understandingreact.com" class="course-callout__cta">Explore the Course →</a>
+  </div>
+</div>
 
 Thus, depending on what other functionality we add to our app, React may choose to call our <code>List</code> function over and over, whenever it thinks the UI might need to be updated. This makes our mental model fairly straightforward. Whenever the UI might need to be updated (for example, in response to a user action like clicking a button), the functions that define the UI will be called again, and React will figure out how to update the actual DOM in the browser to match how our functions say the UI should look.
 

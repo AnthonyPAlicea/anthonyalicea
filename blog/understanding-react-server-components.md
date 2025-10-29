@@ -102,13 +102,6 @@ It then reconciles the difference between those two trees, calculating the steps
 
 Once it finishes that calculation, all against simple JavaScript objects, it knows what steps to take in the *real* DOM. By finding the minimum number of steps to take, it minimizes how much it has to update the DOM, since updating the DOM is expensive and causes the browser to re-render (layout elements and paint pixels).
 
-<p>
-<aside>
-<b class="note-header">Take My Video Course</b>
-If you like this style of learning, check out my course <a href="https://understandingreact.com"><b>Understanding React</b></a> where we dig into React's source code to understand how JSX, Fiber, components, hooks, forms, and more really work.
-</aside>
-</p>
-
 Updating the DOM in the client has the advantage of preserving state as you update the UI. For example, a user can type information into a form, React can update the UI based on some event, and the text stays in the form (unlike if the page refreshed).
 
 Thus React is focused on updating the DOM in the client, while trying to be as efficient as it can in doing so, doing work first against a fake DOM. This fake copy of the DOM's structure in JavaScript is generally called the "Virtual DOM".
@@ -156,6 +149,15 @@ A downside is that, while the client can request the HTML again, you lose state 
 This has been the balancing act for many years in web development: server-rendered HTML appears quickly, but DOM updates via client-side JavaScript let you make changes while maintaining the state of the page.
 
 React doing both is nothing new. While React does DOM updates via client-side JavaScript, developers have long been able to server-render React components (SSR) as well. 
+
+<div class="course-callout">
+  <img src="/assets/react_courseimage.png" alt="Understanding React Course" class="course-callout__image" />
+  <div class="course-callout__content">
+    <h3 class="course-callout__title">Master React From The Inside Out</h3>
+    <p class="course-callout__description">If you are enjoying this deep dive, you'll love and benefit from understanding <em>all</em> of React at this level. My course <strong>Understanding React</strong> takes you through 17 hours of React's source code, covering JSX, Fiber, hooks, forms, reconciliation, and more, updated for React 19.</p>
+    <a href="https://understandingreact.com" class="course-callout__cta">Explore the Course →</a>
+  </div>
+</div>
 
 The server (running its own JavaScript engine via something like NodeJS) executes the components and generates an HTML string to send to the client, but there's a big caveat: all the JavaScript code for those same components *also* had to be sent to the client and executed. 
 
