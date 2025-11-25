@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npm run:*)",
+      "Bash(npx @11ty/eleventy)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

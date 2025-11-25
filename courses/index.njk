@@ -1,19 +1,25 @@
 {% set title = "Courses" %}
+{% set onSale = true %}
+{% set saleEndDate = "2025-12-03T00:01:00 EST" %}
 {% extends 'page.njk' %}
 {% block body %}
 <article class="post">
 <h1>Courses</h1>
 <!--<p><small>My courses are on sale for Cyber Monday!</small></p>-->
-<p>Over 360,000 students have enrolled in my courses on <a href="https://www.udemy.com/user/anthonypalicea/">Udemy</a>, Pluralsight, and <a href="https://dontimitateunderstand.com/courses/">Teachable</a>. The core concept of my courses is "Don't Imitate, Understand."</p>
+<p>Over 360,000 students have enrolled in my courses worldwide. The core concept of my courses is "Don't Imitate, Understand."</p>
 <p>Most courses focus on the student copying what the teacher is doing. This means students fail in the real world when faced with new situations or errors. My courses focus on <strong>deep understanding</strong> that stands the test of time, makes you a better debugger, and allows you to face new challenges confidently.</p>
 
+{% if onSale %}
 <aside class="news">
-    <p><strong class="news-label">Black Friday is On!</strong></p>
-    <p class="news-detail"><a href="https://dontimitate.dev">All my courses and coaching are on sale on my new course site until Dec 2nd!</b></a><br /></p>
+    <p><strong class="news-label">New Course Site and Black Friday is On!</strong></p>
+    <p class="news-detail"><a href="https://dontimitate.dev">All my courses and coaching are on sale on my new course site until Dec 3rd!</b></a><br /></p>
   </aside>
+{% endif %}
 
 <h2>The Courses</h2>
 <p>With all my courses you get <strong>lifetime access</strong>, <strong>all source code</strong>, and <strong>a certificate of completion</strong>.</p>
 </article>
+{% set courseOnSale = onSale %}
+{% set courseSaleEndDate = saleEndDate %}
 {% include "courses.njk" %}
 {% endblock %}

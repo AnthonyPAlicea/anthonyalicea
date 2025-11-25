@@ -1,79 +1,253 @@
+{% if courseOnSale == undefined %}
+    {% set courseOnSale = true %}
+{% endif %}
 <section class="course-list">
-    <article class="course">
-        <a class="course__link" href="https://dontimitate.dev/courses/react/">
-            <img class="course__image" src="/assets/course_react.jpg" />
-            <h2 class="margin-block-0 posts__title">Understanding React</h2>
-        </a>
-        <p><b>Newly updated for React 19, and On Sale for End of Summer!</b><br /><br />Deeply understand React by diving under-the-hood of React's source code and breaking down React internals. <br /><br />Even if you've used React for years you likely have an inaccurate mental model. Build and debug React better by understanding how it really works. Covers Fiber, Hooks, Context, Suspense, a final project, and more.<br /><br />17 hours of video, 31 modules, 164 lessons. </p>
-        <aside class="course-banner">UPDATED</aside>
+<article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/ai-assisted-development/">
+                <img class="course-card__image" src="/assets/aidev.png" alt="Understanding AI-Assisted Software Development" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__badge">NEW!</div>
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/ai-assisted-development/">AI-Assisted Development</a>
+                </h3>
+            </div>
+            <p class="course-card__description">Master the principles behind AI-assisted development so you can build sustainable workflows for any tool or team.</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$99</span>
+                    <span class="course-card__original-price">$149</span>
+                {% else %}
+                    <span class="course-card__price">$149</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://dontimitate.dev/courses/normal-ui/">
-            <img class="course__image" src="/assets/course_normalui.png" />
-            <h2 class="margin-block-0 posts__title">Normal UI</h2>
-        </a>
-        <p>My new book and video course on a technique I've created over 20 years that empowers both non-designers and designers to build more usable software.<br /><br />A reusable, learnable technique that gets great usability testing results every time, even if you're unfamiliar with the psychology of human-computer interaction.</p>
-        <aside class="course-banner">NEW</aside>
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/javascript-frameworks/">
+                <img class="course-card__image" src="/assets/jsframeworks.png" alt="Understanding Modern JavaScript Frameworks" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__badge">NEW!</div>
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/javascript-frameworks/">Modern JavaScript Frameworks</a>
+                </h3>
+            </div>
+            <p class="course-card__description">Understand JS frameworks from first-principles: Signals, Hydration, SSR, Server Components, Routing, and more.</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$79</span>
+                    <span class="course-card__original-price">$149</span>
+                {% else %}
+                    <span class="course-card__price">$149</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/understand-nodejs/?referralCode=E4D3B311F7B1344C3CCB">
-            <img class="course__image" src="/assets/course_nodejs.jpg" />
-            <h2 class="margin-block-0 posts__title">Learn and Understand NodeJS</h2>
-        </a>
-        <p>132,000 Students | 13 Hours</p>
-        <p><br />Learn how to use NodeJS by learning how it (and other JavaScript runtimes) really work. Dive into the source code of Node, V8, and understand how you make a web server out of JavaScript.</p>
-        <aside class="course-banner">UPDATED</aside>
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/react/">
+                <img class="course-card__image" src="/assets/react.png" alt="Understanding React" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/react/">React</a>
+                </h3>
+                <div class="course-card__duration">17 hrs</div>
+            </div>
+            <p class="course-card__description">Master React's internals and source code for deep understanding of how it really works.</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$149</span>
+                    <span class="course-card__original-price">$199</span>
+                {% else %}
+                    <span class="course-card__price">$199</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">
-            <img class="course__image" src="/assets/course_htmlcss.png" />
-            <h2 class="margin-block-0 posts__title">Understanding HTML and CSS</h2>
-        </a>
-        <p>14,000 Students | 18 Hours</p>
-        <p><br />Most web developers don't know HTML or CSS very well, hurting the SEO, accessibility, and maintainability of their websites and apps. Learn semantic HTML and CSS at the browser-rendering engine level. Future-proof your skills by learning to read the HTML and CSS specifications.</p>
-        <!--<aside class="course-banner">ON SALE</aside>-->
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/javascript-weird-parts/">
+                <img class="course-card__image" src="/assets/jsweirdparts.png" alt="JavaScript: Understanding the Weird Parts" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/javascript-weird-parts/">JavaScript: The Weird Parts</a>
+                </h3>
+                <div class="course-card__duration">12 hrs</div>
+            </div>
+            <p class="course-card__description">Deep dive into how JavaScript works: closures, prototypes, scope, and more</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$19</span>
+                    <span class="course-card__original-price">$29</span>
+                {% else %}
+                    <span class="course-card__price">$29</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/understand-javascript/?referralCode=7E5C6727F7959934C311">
-            <img class="course__image" src="/assets/course_jsweirdparts.jpg" />
-            <h2 class="margin-block-0 posts__title">JavaScript: Understanding the Weird Parts</h2>
-            <aside class="course-banner">POPULAR</aside>
-        </a>
-        <p>193,000 Students | 12 Hours</p>
-        <p><br />Thousands of students credit this course with changing the course of their development career. Learn how JavaScript works under-the-hood at the JavaScript engine level.</p>
-        <!--<aside class="course-banner">ON SALE</aside>-->
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/html-css/">
+                <img class="course-card__image" src="/assets/htmlcss.png" alt="Understanding HTML and CSS" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/html-css/">HTML and CSS</a>
+                </h3>
+                <div class="course-card__duration">18 hrs</div>
+            </div>
+            <p class="course-card__description">Master semantic HTML and modern CSS for accessible, well-structured websites</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$19</span>
+                    <span class="course-card__original-price">$29</span>
+                {% else %}
+                    <span class="course-card__price">$29</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/javascript-understanding-es6-and-beyond/?referralCode=4C76A312761FF4720DC8">
-            <img class="course__image" src="/assets/course_es6.jpg" />
-            <h2 class="margin-block-0 posts__title">JavaScript: Understanding ES6 and Beyond</h2>
-        </a>
-        <p>5,000 Students</p>
-        <p><br />The sequel to Understanding the Weird Parts, building on the things we learn there, we dive into the latest features in the JavaScript language.</p>
-        <!--<aside class="course-banner">ON SALE</aside>-->
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/nodejs/">
+                <img class="course-card__image" src="/assets/nodejs.png" alt="Learn and Understand Node.js" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/nodejs/">Node.js</a>
+                </h3>
+                <div class="course-card__duration">14 hrs</div>
+            </div>
+            <p class="course-card__description">Master Node.js internals, V8 engine, Express, MERN, and full-stack development</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$19</span>
+                    <span class="course-card__original-price">$29</span>
+                {% else %}
+                    <span class="course-card__price">$29</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/right-software-and-right-stack/?referralCode=9467FA3A1CD317951E96">
-            <img class="course__image" src="/assets/course_rightsoftware.png" />
-            <h2 class="margin-block-0 posts__title">How to Build the Right Software (and Choose the Right Stack)</h2>
-        </a>
-        <p>New course! How can you control scope creep and technical debt? How can you pick the right stack? How can you solve the right problems?<br /><br />This course is for devs, designers, team leads, project managers, and anyone who impacts what software is built.<br /><br />I cover real world examples, practical techniques, there’s practice quizzes, and a free PDF worksheet. A fast, immediately implementable set of hard-earned wisdom and best practices built over 25 years as a dev, manager, and UX designer. </p>
-        <aside class="course-banner">NEW</aside>
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/advanced-es-next/">
+                <img class="course-card__image" src="/assets/jsadv.png" alt="JavaScript: Understanding Advanced ES.Next" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/advanced-es-next/">Advanced ES.Next</a>
+                </h3>
+                <div class="course-card__duration">3.5 hrs</div>
+            </div>
+            <p class="course-card__description">Master advanced ES6+ / ES.Next features and modern JavaScript patterns to write cleaner, more powerful code.</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$19</span>
+                    <span class="course-card__original-price">$29</span>
+                {% else %}
+                    <span class="course-card__price">$29</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://dontimitate.dev/courses/team-dynamics/">
-            <img class="course__image" src="/assets/course_teamdynamics.jpeg" />
-            <h2 class="margin-block-0 posts__title">Team Dynamics and Soft Skills for Developers</h2>
-        </a>
-        <p>The missing dev education. Bootcamps and universities don't teach you how to survive in your day-to-day interactions with dev team members, or deal with unique dev team stresses. This course shows you how to understand, communicate, and interact with your dev team members.</p>
-        <!--<aside class="course-banner">ON SALE</aside>-->
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/normal-ui/">
+                <img class="course-card__image" src="/assets/normalui.png" alt="Normal UI" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/normal-ui/">Normal UI</a>
+                </h3>
+            </div>
+            <p class="course-card__description">An AI-friendly learnable, repeatable technique for more usable, accessible, and maintainable web apps.</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$29</span>
+                    <span class="course-card__original-price">$49</span>
+                {% else %}
+                    <span class="course-card__price">$49</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
-    <article class="course">
-        <a class="course__link" href="https://www.udemy.com/course/learn-angularjs/?referralCode=24B7E651C14D3D3ED6A7">
-            <img class="course__image" src="/assets/course_angularjs.jpg" />
-            <h2 class="margin-block-0 posts__title">Learn and Understand AngularJS</h2>
-        </a>
-        <p>100,000 Students | 7 Hours</p>
-        <!--<aside class="course-banner">ON SALE</aside>-->
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/right-software/">
+                <img class="course-card__image" src="/assets/rightsoftware.png" alt="How to Build the Right Software (in the Right Stack)" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/right-software/">Building the Right Software</a>
+                </h3>
+                <div class="course-card__duration">2.5 hrs</div>
+            </div>
+            <p class="course-card__description">Learn to define requirements, choose tech stacks, and build software that matters.</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$29</span>
+                    <span class="course-card__original-price">$49</span>
+                {% else %}
+                    <span class="course-card__price">$49</span>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+
+    <article class="course-card">
+        <div class="course-card__image-wrapper">
+            <a href="https://dontimitate.dev/courses/team-dynamics/">
+                <img class="course-card__image" src="/assets/teamdynamics.png" alt="Team Dynamics and Soft Skills for Developers" />
+            </a>
+        </div>
+        <div class="course-card__content">
+            <div class="course-card__header">
+                <h3 class="course-card__title">
+                    <a href="https://dontimitate.dev/courses/team-dynamics/">Team Dynamics and Soft Skills</a>
+                </h3>
+                <div class="course-card__duration">5 hrs</div>
+            </div>
+            <p class="course-card__description">Master team dynamics and soft skills, the AI-proof human abilities that make you an invaluable developer and leader.</p>
+            <div class="course-card__pricing">
+                {% if courseOnSale %}
+                    <span class="course-card__price">$29</span>
+                    <span class="course-card__original-price">$49</span>
+                {% else %}
+                    <span class="course-card__price">$49</span>
+                {% endif %}
+            </div>
+        </div>
     </article>
 </section>
