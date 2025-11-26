@@ -46,15 +46,6 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     margin-block-start: 1rem;
   }
 
-  @media screen and (min-width: 768px) {
-    .course-list {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .course-list article {
-      grid-area: 1 / 1 / 1 / 3;
-    }
-  }
 
   .background-image-container {
     position: relative;
@@ -181,6 +172,8 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     <a href="/blog">More...</a>
   </section>
   <p></p>
-  <h2>Courses</h2>
-  {% include "courses.njk" %}
+  <article class="post">
+    <h2>Courses</h2>
+    {% include "courses.njk" %}
+  </article>
 {% endblock %}
