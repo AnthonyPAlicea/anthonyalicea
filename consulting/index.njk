@@ -80,11 +80,33 @@ tags: []
     .consulting-hero > p {
         font-size: 0.95rem;
         line-height: 1.6;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0rem;
     }
 
-    .consulting-hero > p:last-of-type {
+    .consulting-hero__highlights {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 0;
         margin-bottom: 0;
+    }
+
+    .consulting-hero__highlights li {
+        padding-left: 1.5rem;
+        text-indent: -1.5rem;
+        margin-block-end: 0.75rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .consulting-hero__highlights li:before {
+        content: "→";
+        color: var(--color-link);
+        font-weight: bold;
+        margin-right: 0.625rem;
+    }
+
+    .consulting-hero__highlights li:last-child {
+        margin-block-end: 0;
     }
 
     @media (min-width: 768px) {
@@ -457,10 +479,18 @@ tags: []
             <h2 class="consulting-hero__title">Consulting and Technical Advisory</h2>
         </div>
     </div>
-    <p>25 years of experience in software development, architecture, UX, and teaching 360,000+ developers.</p>
+    <p>25 years of experience in software development, architecture, UX, and educating 360,000+ developers.</p>
     <p>I help teams build the right software, with clarity, confidence, and a process that actually works in the AI age. Whether you need architecture help, UX and usability guidance, better workflows, or a senior engineer who can see the whole system, I provide practical clarity and direction.</p>
-    <p>If your team is feeling stuck, overwhelmed, or needs a strategic partner… I can help.</p>
+    <p>If your team needs a strategic partner… I'm here to help.</p>
 </section>
+
+<h2>What You Get</h2>
+<ul class="consulting-hero__highlights">
+    <li>I'm a <b>developer</b> with 25 years of experience in frontend architecture and database design.</li>
+    <li>I'm a <b>UX designer, usability, and user research expert</b> who has led multinational enterprise design teams.</li>
+    <li>I'm an <b>educator</b> who has taught over 360,000 developers, many who are now senior, leads, and architects.</li>
+    <li>I'm a <b>communicator</b> with decades of public speaking and presentation experience from small groups to crowds of thousands.</li>
+</ul>
 
 <!-- What I Do / Services Section -->
 <h2>What I Do</h2>
@@ -517,7 +547,6 @@ tags: []
             <li>UX walkthroughs</li>
             <li>Requirements clarification</li>
             <li>Team advice</li>
-            <li>Debugging hard problems</li>
         </ul>
         <p>No minimum hours. Straightforward and flexible.</p>
     </div>
@@ -532,7 +561,6 @@ tags: []
             <li>Information architecture review</li>
             <li>Workflow breakdown</li>
             <li>Cognitive load and usability analysis</li>
-            <li>Normal UI recommendations</li>
             <li>Clear, actionable improvement plan</li>
         </ul>
         <p>Great fit for teams with confusing workflows or products that have grown chaotically.</p>
@@ -553,7 +581,7 @@ tags: []
             <li>Avoiding costly mistakes early</li>
             <li>Helping junior/mid devs level up fast</li>
         </ul>
-        <p>Most popular option — ideal for teams without a full-time architect but who need expert direction.</p>
+        <p>Ideal for teams with a clear medium-term goal and need expert direction.</p>
     </div>
 
     <div class="pricing-card">
