@@ -1,7 +1,630 @@
-{% set title = "Speaking Engagements" %}
+---
+title: Consulting and Technical Advisory
+metaTitle: Consulting and Technical Advisory | Tony Alicea
+description: Hire Tony Alicea for technical architecture, product strategy, UX / usability, and team mentorship.
+permalink: /consulting/
+tags: []
+---
+
 {% extends 'page.njk' %}
+
+{% block head %}
+<style>
+    /* Hero Section */
+    .consulting-hero {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .consulting-hero__header {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .consulting-hero__image {
+        flex: 0 0 auto;
+        max-width: 100%;
+        border-radius: 12px;
+        border: 1px solid #444;
+        overflow: hidden;
+    }
+
+    .consulting-hero__image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-width: 300px;
+    }
+
+    .consulting-hero__content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .consulting-hero__subtitle {
+        color: var(--color-link);
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .consulting-hero__title {
+        color: var(--color-text);
+        font-family: 'Raleway', sans-serif;
+        font-weight: 900;
+        font-size: 2rem;
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    .consulting-hero__content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+    }
+
+    .consulting-hero__content p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .consulting-hero > p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 0.75rem;
+    }
+
+    .consulting-hero > p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    @media (min-width: 768px) {
+        .consulting-hero {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .consulting-hero__header {
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .consulting-hero__image {
+            flex: 0 0 250px;
+            max-width: none;
+        }
+
+        .consulting-hero__image img {
+            max-width: 100%;
+        }
+
+        .consulting-hero__title {
+            font-size: 1.8rem;
+        }
+
+        .consulting-hero__content p {
+            font-size: 0.95rem;
+        }
+    }
+
+    /* Services Grid */
+    .services-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .service-card {
+        border: 1px solid #444;
+        border-radius: 12px;
+        padding: 1.5rem;
+        background-color: rgba(0, 56, 109, 0.2);
+    }
+
+    .service-card h3 {
+        color: var(--color-article-h2);
+        font-family: 'Raleway', sans-serif;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    .service-card ul {
+        list-style: none;
+        padding-left: 0;
+        line-height: 1.8;
+        margin-block: 0;
+    }
+
+    .service-card li {
+        margin-block-end: 0.5rem;
+        padding-left: 1.5rem;
+        text-indent: -1.5rem;
+    }
+
+    .service-card li:before {
+        content: "→";
+        color: var(--color-link);
+        font-weight: bold;
+        margin-right: 0.625rem;
+    }
+
+    @media (min-width: 768px) {
+        .services-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            padding: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .service-card {
+            padding: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+        }
+
+        .service-card ul {
+            line-height: 1.6;
+        }
+
+        .service-card li:before {
+            margin-right: 0.35rem;
+        }
+    }
+
+    /* Pricing Grid */
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .pricing-card {
+        border: 1px solid var(--color-article-h2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        background-color: rgba(255, 229, 62, 0.05);
+    }
+
+    .pricing-card h3 {
+        color: var(--color-text);
+        font-family: 'Raleway', sans-serif;
+        font-weight: 900;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+    }
+
+    .pricing-card .price {
+        color: var(--color-article-h2);
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .pricing-card .price-details {
+        font-size: 0.9rem;
+        color: #ccc;
+        margin-bottom: 1rem;
+    }
+
+    .pricing-card ul {
+        list-style: none;
+        padding-left: 0;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-block: 0;
+    }
+
+    .pricing-card li {
+        margin-block-end: 0.5rem;
+        padding-left: 1.5rem;
+        text-indent: -1.5rem;
+    }
+
+    .pricing-card li:before {
+        content: "✓ ";
+        color: var(--color-link);
+        margin-right: 0.5rem;
+    }
+
+    .pricing-card p {
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #ccc;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #444;
+    }
+
+    .pricing-card p:first-of-type {
+        font-style: normal;
+        border-top: none;
+        padding-top: 0;
+        margin-top: 0;
+        color: var(--color-text);
+    }
+
+    .pricing-card p strong {
+        color: var(--color-text);
+        font-style: normal;
+    }
+
+    @media (min-width: 768px) {
+        .pricing-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .pricing-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Who I Work With */
+    .client-types {
+        margin-bottom: 3rem;
+    }
+
+    .client-types ul {
+        list-style: none;
+        padding-left: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .client-types li {
+        padding: 0.75rem;
+        border-left: 3px solid var(--color-article-h2);
+        padding-left: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .client-types li:before {
+        content: "";
+    }
+
+    @media (min-width: 768px) {
+        .client-types ul {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .client-types li {
+            padding: 1rem;
+            font-size: 1rem;
+        }
+    }
+
+    /* Contact Section */
+    .contact-section {
+        margin-top: 3rem;
+        padding: 2rem;
+        border: 1px solid #444;
+        border-radius: 12px;
+        background-color: rgba(0, 56, 109, 0.3);
+    }
+
+    .contact-section h2 {
+        color: var(--color-text);
+        font-family: 'Raleway', sans-serif;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    .contact-section > p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-section form {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .contact-section label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .contact-section input,
+    .contact-section textarea {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid #444;
+        border-radius: 6px;
+        padding: 0.75rem;
+        color: var(--color-text);
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    .contact-section input::placeholder,
+    .contact-section textarea::placeholder {
+        color: #999;
+    }
+
+    .contact-section textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .contact-section button {
+        background-color: var(--color-article-h2);
+        color: #222;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: 'Raleway', sans-serif;
+        font-size: 1rem;
+        transition: opacity 0.2s ease;
+        align-self: flex-start;
+    }
+
+    .contact-section button:hover {
+        opacity: 0.9;
+    }
+
+    .contact-section .form-footer {
+        font-size: 0.9rem;
+        color: #ccc;
+        margin-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .contact-section {
+            padding: 1.5rem;
+        }
+
+        .contact-section h2 {
+            font-size: 1.5rem;
+        }
+
+        .contact-section > p {
+            font-size: 0.95rem;
+        }
+
+        .contact-section input,
+        .contact-section textarea {
+            padding: 0.65rem;
+        }
+    }
+
+    /* Section Headings */
+    main > h2 {
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    main > h2:first-of-type {
+        margin-top: 0;
+    }
+
+    /* Statement paragraphs */
+    main > p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    main > p strong {
+        color: var(--color-article-h2);
+    }
+</style>
+{% endblock %}
+
 {% block body %}
-<article class="post">
-<h1>Consult with Tony Alicea</h1>
-</article>
+
+<!-- Hero Section -->
+<section class="consulting-hero">
+    <div class="consulting-hero__header">
+        <div class="consulting-hero__image">
+            <img src="/assets/tony_reactsummit.jpg" alt="Tony Alicea speaking at React Summit" />
+        </div>
+        <div class="consulting-hero__content">
+            <div class="consulting-hero__subtitle">Tony Alicea</div>
+            <h2 class="consulting-hero__title">Consulting and Technical Advisory</h2>
+        </div>
+    </div>
+    <p>25 years of experience in software development, architecture, UX, and teaching 360,000+ developers.</p>
+    <p>I help teams build the right software, with clarity, confidence, and a process that actually works in the AI age. Whether you need architecture help, UX and usability guidance, better workflows, or a senior engineer who can see the whole system, I provide practical clarity and direction.</p>
+    <p>If your team is feeling stuck, overwhelmed, or needs a strategic partner… I can help.</p>
+</section>
+
+<!-- What I Do / Services Section -->
+<h2>What I Do</h2>
+
+<div class="services-grid">
+    <div class="service-card">
+        <h3>Technical Architecture & Engineering</h3>
+        <ul>
+            <li>JavaScript, Node.js, Frameworks, and modern frontend architecture</li>
+            <li>Debugging complexity, scaling issues, and architectural drift</li>
+            <li>Code review, implementation guidance, and developer mentorship</li>
+            <li>Team processes for AI-assisted development</li>
+        </ul>
+    </div>
+
+    <div class="service-card">
+        <h3>Product & UX Strategy</h3>
+        <ul>
+            <li>Determining root problems to solve and user research</li>
+            <li>Cognitive load reduction</li>
+            <li>Information architecture</li>
+            <li>Redesigning confusing screens and flows</li>
+            <li>Improving usability and accessibility without increasing complexity</li>
+        </ul>
+    </div>
+
+    <div class="service-card">
+        <h3>Requirements, Planning, & Process</h3>
+        <ul>
+            <li>The Why Down (true problem decomposition)</li>
+            <li>Minimum Solved Problems (MSP) over MVP</li>
+            <li>Verification gates and entropy tolerance</li>
+            <li>Vibe coded prototypes</li>
+            <li>Rewriting legacy apps with intention</li>
+            <li>Communicating with stakeholders and clients</li>
+            <li>Successfully interfacing designers and developers</li>
+        </ul>
+    </div>
+</div>
+
+<p><strong>I'm not a freelancer. I'm not a feature factory.</strong><br>I'm a partner in helping you build software that actually works — and stays maintainable.</p>
+
+<!-- Pricing / Ways to Work Section -->
+<h2>Ways to Work With Me</h2>
+
+<div class="pricing-grid">
+    <div class="pricing-card">
+        <h3>⏰ Hourly Consulting</h3>
+        <div class="price">$200/hour</div>
+        <div class="price-details">Perfect for teams who need expert help on demand.</div>
+        <ul>
+            <li>Architectural questions</li>
+            <li>Code review</li>
+            <li>UX walkthroughs</li>
+            <li>Requirements clarification</li>
+            <li>Team advice</li>
+            <li>Debugging hard problems</li>
+        </ul>
+        <p>No minimum hours. Straightforward and flexible.</p>
+    </div>
+
+    <div class="pricing-card">
+        <h3>🔍 Product & UX Flow Audit</h3>
+        <div class="price">$3,000</div>
+        <div class="price-details">Fixed engagement (10-hour project)</div>
+        <p>A complete evaluation of a workflow, user journey, or interface.</p>
+        <p><strong>You'll get:</strong></p>
+        <ul>
+            <li>Information architecture review</li>
+            <li>Workflow breakdown</li>
+            <li>Cognitive load and usability analysis</li>
+            <li>Normal UI recommendations</li>
+            <li>Clear, actionable improvement plan</li>
+        </ul>
+        <p>Great fit for teams with confusing workflows or products that have grown chaotically.</p>
+    </div>
+
+    <div class="pricing-card">
+        <h3>🏛️ Technical Advisory (Monthly Retainer)</h3>
+        <div class="price">Starting at $4,000/month</div>
+        <div class="price-details">6–8 hours/week</div>
+        <p>Ongoing senior engineering and architecture support.</p>
+        <p><strong>This includes:</strong></p>
+        <ul>
+            <li>Architectural guidance</li>
+            <li>Code and pull request reviews</li>
+            <li>Developer mentorship</li>
+            <li>Technical direction</li>
+            <li>Implementation planning</li>
+            <li>Avoiding costly mistakes early</li>
+            <li>Helping junior/mid devs level up fast</li>
+        </ul>
+        <p>Most popular option — ideal for teams without a full-time architect but who need expert direction.</p>
+    </div>
+
+    <div class="pricing-card">
+        <h3>🚀 Software Development Lifecycle Engagement</h3>
+        <div class="price">Starting at $6,000</div>
+        <div class="price-details">2-week structured engagement</div>
+        <p>A guided overhaul of how your team plans, designs, and builds software using AI-first principles from Cascade Methodology.</p>
+        <p><strong>We'll work through:</strong></p>
+        <ul>
+            <li>The Why Down</li>
+            <li>Minimum Solved Problems</li>
+            <li>Entropy Tolerance</li>
+            <li>Verification Gates</li>
+            <li>Vibe-Coded Prototyping and User Research</li>
+            <li>Implementation via AI-Assisted Development</li>
+        </ul>
+        <p>By the end, your team will have a complete end-to-end playbook for building software in the AI era, with clarity instead of chaos and massive pull requests.</p>
+    </div>
+</div>
+
+<!-- Who I Work With Section -->
+<h2>Who I Work With</h2>
+
+<div class="client-types">
+    <ul>
+        <li>Web development teams building or rewriting apps</li>
+        <li>Startups needing architecture or UX expertise</li>
+        <li>Engineering teams adopting AI-assisted development</li>
+        <li>Companies modernizing legacy JavaScript/Node/Frameworks</li>
+        <li>Teams without a dedicated architect or UX strategist</li>
+        <li>Organizations struggling with clarity, flow, or direction</li>
+    </ul>
+</div>
+
+<p><strong>If your team values clarity, simplicity, and deep understanding, we'll be a great fit.</strong></p>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <h2>Get in Touch</h2>
+    <p>If you're interested in working together, reach out and tell me a little about your team and your goals.</p>
+
+    <form name="consulting-inquiry" method="POST" netlify>
+        <div>
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required />
+        </div>
+
+        <div>
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+
+        <div>
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" />
+        </div>
+
+        <div>
+            <label for="team-size">Team Size</label>
+            <input type="text" id="team-size" name="team-size" placeholder="e.g., 5-10 engineers" />
+        </div>
+
+        <div>
+            <label for="message">Tell me about your needs *</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+    </form>
+
+    <p class="form-footer">I'll follow up quickly, ask a few clarifying questions, and, if we'll be a great fit, we can schedule a short discovery call.</p>
+</section>
+
 {% endblock %}

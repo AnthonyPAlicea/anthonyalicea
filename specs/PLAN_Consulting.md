@@ -110,6 +110,151 @@ Closing statement: "If your team values clarity, simplicity, and deep understand
   - `--color-article-h2: #FFE53E` (yellow for accents)
   - `--color-small-background: rgba(0, 56, 109, 0.5)`
 
+### Key main.css Patterns to Maintain Consistency
+
+**Layout Grid System (from main.css lines 56-72):**
+```css
+main {
+    display: grid;
+    grid-template-columns: 25px 1fr 25px;  /* Mobile: small gutters */
+    margin-bottom: auto;
+}
+
+main > * {
+    grid-column: 2;  /* Content in middle column */
+}
+
+.full-bleed {
+    grid-column: 1 / span 3;  /* Full width for hero/sections */
+}
+
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: 1fr 700px 1fr;  /* Desktop: 700px content width */
+    }
+}
+```
+
+**All consulting page content must respect this grid:**
+- On mobile: 25px gutters on sides
+- On desktop (768px+): Centered 700px max-width content
+- Use `.full-bleed` class for full-width hero sections that extend edge-to-edge
+
+**Typography from main.css:**
+- **Body font:** `font-family: 'Noto Sans', sans-serif;` (line 47)
+- **Heading font:** `font-family: 'Raleway', sans-serif;` with `font-weight: 900;` (lines 195-196)
+- **Root font-size:** `20px` (line 2) - all rem units scale from this
+- **Line-height:** Use `1.6` for body text (standard), `1.1` for headings (tight)
+
+**Card Component Pattern (main.css lines 138-161):**
+```css
+.card {
+    padding: 1rem;
+    border: solid 1px var(--color-article-h2);  /* Yellow border */
+    border-radius: 12px;
+}
+
+.card + .card {
+    margin-block-start: 1.5rem;  /* Space between cards */
+}
+```
+Use this pattern for `.service-card` and `.pricing-card` — they already follow this style.
+
+**Heading Margins (main.css lines 199-206):**
+- `h1, h2`: `margin-block-end: .8rem;`
+- `h3`: `margin-block-start: 1.75rem;` and `margin-block-end: 0.25rem;`
+- Keep these margins consistent in consulting page
+
+**List Styling (main.css line 208-210):**
+```css
+ul li::marker {
+    color: var(--color-highlight);  /* Yellow bullets */
+}
+```
+Service and benefit lists automatically get yellow bullets — no extra styling needed.
+
+**Link Color (main.css lines 38-44):**
+- Links default to `var(--color-link)` (#9da2ff - blue)
+- No hover underline by default: `a:hover { text-decoration: none; }`
+- Only apply underline on specific link types (card titles, breadcrumbs) with `.card__title a` pattern
+
+**Form Styling (main.css lines 493-510):**
+```css
+.mailing-list {
+    margin-top: 1rem;
+    border: solid 1px #444;
+    border-radius: 12px;
+}
+
+.mailing-list form {
+    padding: 1rem !important;
+}
+```
+Contact form should follow this pattern: border, rounded corners, padding inside.
+
+**Color Palette Details (main.css lines 16-28):**
+- Primary dark background: `#222222` (lines 17)
+- Course/nav background (slightly lighter): `#303136` (line 18)
+- Text: `#f8f9fa` (line 19)
+- Small/aside background: `rgba(0, 56, 109, 0.5)` (line 22) - semi-transparent dark blue
+- Borders for cards: `#444` (observed in course cards line 221)
+- Yellow accent/highlight: `#FFE53E` (line 25-27)
+- Blue link: `#9da2ff` (line 21)
+
+**Responsive Images (main.css lines 313-321):**
+- Images scale with `max-width: 100%;`
+- `.small-image` class for smaller images (100px mobile, 150px desktop)
+- Use `object-fit: cover;` for consistent aspect ratios (as seen in course cards line 671)
+
+**Footer Pattern (main.css lines 511-549):**
+- Margin-top: `2rem`
+- Border-top: `1px solid #444`
+- Font-size: `0.75rem`
+- Center-aligned, max-width 700px content
+- Links styled differently than body links
+
+**Important: Box Sizing (main.css line 35):**
+```css
+* {
+    box-sizing: border-box;
+}
+```
+All elements already have border-box sizing — padding doesn't add to width.
+
+**Video/Iframe Responsive (main.css lines 481-489):**
+```css
+video, iframe, .video {
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: .5rem;
+}
+```
+If embedding any videos/iframes, they auto-scale and center.
+
+**Course Callout Component Pattern (main.css lines 552-628):**
+This component uses flexbox for responsive layout — useful reference for hero section:
+```css
+.course-callout {
+    display: flex;
+    flex-direction: column;  /* Mobile: stack */
+    gap: 1rem;
+}
+
+@media screen and (min-width: 640px) {
+    .course-callout {
+        flex-direction: row;  /* Tablet+: side-by-side */
+        gap: 1.5rem;
+    }
+}
+```
+Apply similar pattern to `.consulting-hero`: column on mobile, row-reverse on tablet+
+
+**CSS Custom Properties NOT to Override:**
+- Never redefine color variables
+- Never change the main grid structure (except with `.full-bleed`)
+- Never remove `box-sizing: border-box`
+- Always use `font-family: 'Raleway'` for headings, `'Noto Sans'` for body
+
 ### Component Styling
 
 #### Hero Section `.consulting-hero`
