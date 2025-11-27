@@ -4,7 +4,7 @@ title: "Generative Rapid Prototyping (GRiP)"
 excerpt: A better way to prototype in the age of AI.
 date: 2025-01-16
 og_image: 'assets/grip_twittercard.png'
-tags: ['post','front-page']
+tags: ['post']
 ---
 {% block head %}
 <style>

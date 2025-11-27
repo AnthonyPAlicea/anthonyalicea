@@ -3,7 +3,7 @@ layout: post.njk
 title: "It's Not Context Engineering, It's Context Authoring"
 excerpt: Words set proper mental models and expectations.
 date: 2025-08-12
-tags: ['post','front-page']
+tags: ['post']
 ---
 # {{ title }}
 
