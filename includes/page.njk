@@ -119,6 +119,29 @@
           transform: translate(10px, -7px) scale(0.8);
         }
       }
+
+      /* Countdown Banner Styles */
+      .countdown-banner {
+        background: var(--color-small-background);
+        color: white;
+        padding: 0.5em 1em;
+        text-align: center;
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+
+      .countdown-banner p {
+        margin: 0;
+      }
+
+      .countdown-banner a {
+        color: white;
+        text-decoration: underline;
+      }
+
+      .countdown-banner a:hover {
+        opacity: 0.8;
+      }
     </style>
     {% block head %}
     
@@ -134,6 +157,45 @@
         <li><a href="{{ site.baseUrl }}all-access">all access</a></li>
       </ul>
     </nav>
+    <div id="countdown-banner" class="countdown-banner">
+      <p>🎉 Black Friday Sale on <a href="https://dontimitate.dev/courses" target="_blank" rel="noopener noreferrer">dontimitate.dev</a> — <span id="countdown-days">0</span>d <span id="countdown-hours">0</span>h <span id="countdown-minutes">0</span>m <span id="countdown-seconds">0</span>s</p>
+    </div>
+
+    <script>
+      function initCountdown() {
+        const targetDate = new Date('2025-12-03T05:01:00Z').getTime();
+        const bannerEl = document.getElementById('countdown-banner');
+
+        function updateCountdown() {
+          const now = new Date().getTime();
+          const timeLeft = targetDate - now;
+
+          if (timeLeft < 0) {
+            bannerEl.style.display = 'none';
+            return;
+          }
+
+          const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+          document.getElementById('countdown-days').textContent = days;
+          document.getElementById('countdown-hours').textContent = hours;
+          document.getElementById('countdown-minutes').textContent = minutes;
+          document.getElementById('countdown-seconds').textContent = seconds;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCountdown);
+      } else {
+        initCountdown();
+      }
+    </script>
     <main>
       {% block body %}{% endblock %}
     </main>
