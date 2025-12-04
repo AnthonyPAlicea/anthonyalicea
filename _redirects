@@ -1,3 +1,4 @@
 # Redirects from what the browser requests to what we serve
 /devteams              https://thesmythgroup.com/insights/non-technical-guide-to-assembling-an-exceptional-software-team-webinar/
-/jsframeworks          https://dontimitate.dev/courses/javascript-frameworks/  301!       
+/jsframeworks          https://dontimitate.dev/courses/javascript-frameworks/  301!   
+/normalui              https://dontimitate.dev/courses/normal-ui/  301!       
