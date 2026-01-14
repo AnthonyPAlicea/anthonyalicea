@@ -44,11 +44,11 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 
 
   .background-image-container {
+    grid-column: 1 / -1;
     position: relative;
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
     height: 600px;
-    margin: -3rem calc(50% - 50vw);
+    margin-block: -3rem 0;
     padding: 4rem 0;
     overflow: hidden;
     background-image: url('/assets/tony_reactsummit.jpg');
@@ -57,7 +57,6 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     background-repeat: no-repeat;
     opacity: 0.85;
     z-index: -1;
-    box-sizing: border-box;
   }
 
   .background-image-container::after {
@@ -95,15 +94,16 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   }
 
   .posts-section {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: inherit;
     margin-top: 3rem;
     padding: 2rem 0;
     background-color: #2E2E2E;  /* Slightly lighter than main background */
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    padding-left: calc(50vw - 50%);
-    padding-right: calc(50vw - 50%);
-    max-width: 100vw;
-    box-sizing: border-box;
+  }
+
+  .posts-section > * {
+    grid-column: 2;
   }
 
   .posts-section h2 {
