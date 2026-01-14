@@ -13,11 +13,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 {% block head %}
 <style>
   :root {
-    overflow-x: hidden;
-  }
-
-  body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   .news {
@@ -50,6 +46,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
   .background-image-container {
     position: relative;
     width: 100vw;
+    max-width: 100vw;
     height: 600px;
     margin: -3rem calc(50% - 50vw);
     padding: 4rem 0;
@@ -60,6 +57,7 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     background-repeat: no-repeat;
     opacity: 0.85;
     z-index: -1;
+    box-sizing: border-box;
   }
 
   .background-image-container::after {
@@ -104,6 +102,8 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     margin-right: calc(50% - 50vw);
     padding-left: calc(50vw - 50%);
     padding-right: calc(50vw - 50%);
+    max-width: 100vw;
+    box-sizing: border-box;
   }
 
   .posts-section h2 {
