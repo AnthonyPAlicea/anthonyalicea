@@ -166,7 +166,7 @@ React will then compare those two trees to decide what changes need to made to t
   <div class="course-callout__content">
     <h3 class="course-callout__title">Master React From The Inside Out</h3>
     <p class="course-callout__description">If you are enjoying this deep dive, you'll love and benefit from understanding <em>all</em> of React at this level. My course <strong>Understanding React</strong> takes you through 17 hours of React's source code, covering JSX, Fiber, hooks, forms, reconciliation, and more, updated for React 19.</p>
-    <a href="https://understandingreact.com" class="course-callout__cta">On Sale for Black Friday →</a>
+    <a href="https://understandingreact.com" class="course-callout__cta">Learn More →</a>
   </div>
 </div>
 
