@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% if title %}{{ title }} — {% endif %}{{ site.name }}</title>
+
+    {# SEO #}
+    <meta name="description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta itemprop="name" content="{{ title }} — {{ site.name }}">
+    <meta itemprop="description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+
+    {# Twitter #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title }} — {{ site.name }}">
+    <meta name="twitter:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:site" content="{{ site.author.handle }}">
+    <meta name="twitter:creator" content="{{ site.author.handle }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.twitter }}{% endif %}">
+
+    {# Open Graph #}
+    <meta property="og:title" content="{{ title }} — {{ site.name }}">
+    <meta property="og:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="{{ site.url }}{{ site.baseUrl }}{% if og_image %}{{ og_image }}{% else %}{{ site.images.og }}{% endif %}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:type" content="article">
+
+    <link rel="icon" type="image/x-icon" href="{{ site.baseUrl }}assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseUrl }}assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseUrl }}assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseUrl }}assets/favicon-16x16.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Literata:ital,opsz,wght@0,7..72,300..600;1,7..72,300..500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/portfolio.css">
+
+    <script>
+      (function() {
+        var s = localStorage.getItem('portfolio-theme');
+        var t = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+  </body>
+</html>
