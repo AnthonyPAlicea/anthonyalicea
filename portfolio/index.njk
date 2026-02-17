@@ -1,7 +1,11 @@
+---
+title: Portfolio
+excerpt: "UX case studies and project work by Tony Alicea."
+---
 {% extends "portfolio.njk" %}
 
 {% block body %}
-<article class="case-study">
+<div class="portfolio">
   <nav class="case-study__nav">
     <a href="/" class="nav__home">{{ site.name }}</a>
     <span class="nav__sep">/</span>
@@ -12,45 +16,26 @@
     </button>
   </nav>
 
-  <header class="case-study__hero">
-    <div class="hero__inner">
-      {% if category %}<span class="hero__category">{{ category }}</span>{% endif %}
-      <h1 class="hero__title">{{ title }}</h1>
-      {% if subtitle %}<p class="hero__subtitle">{{ subtitle }}</p>{% endif %}
-
-      {% if role or timeline or team %}
-      <div class="hero__meta">
-        {% if role %}
-        <div class="meta__item">
-          <span class="meta__label">Role</span>
-          <span class="meta__value">{{ role }}</span>
-        </div>
-        {% endif %}
-        {% if timeline %}
-        <div class="meta__item">
-          <span class="meta__label">Timeline</span>
-          <span class="meta__value">{{ timeline }}</span>
-        </div>
-        {% endif %}
-        {% if team %}
-        <div class="meta__item">
-          <span class="meta__label">Team</span>
-          <span class="meta__value">{{ team }}</span>
-        </div>
-        {% endif %}
-      </div>
-      {% endif %}
-    </div>
+  <header class="portfolio__header">
+    <h1 class="portfolio__title">Portfolio</h1>
+    <p class="portfolio__intro">Case studies at the intersection of technology, design, and education.</p>
   </header>
 
-  <div class="case-study__body">
-    {{ content | safe }}
-  </div>
+  <section class="portfolio__entries">
+    <a href="/portfolio/ux-trainers/" class="portfolio__card">
+      <span class="card__category">Curriculum Design</span>
+      <h2 class="card__title">Training the Trainers</h2>
+      <p class="card__excerpt">Developing a repeatable framework for producing clear, effective technical education at scale.</p>
+      <span class="card__cta">Read case study &rarr;</span>
+    </a>
+  </section>
+
+  <p class="portfolio__note">This portfolio is currently being updated. More case studies coming soon.</p>
 
   <footer class="case-study__footer">
     <p>&copy; {% year %} {{ site.name }} · <a href="/">tonyalicea.dev</a></p>
   </footer>
-</article>
+</div>
 <script>
   document.querySelector('.theme-toggle').addEventListener('click', function() {
     var el = document.documentElement;
