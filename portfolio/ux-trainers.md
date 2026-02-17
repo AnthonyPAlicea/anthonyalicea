@@ -18,7 +18,7 @@ excerpt: "How I built a training pipeline that turns volunteers into capable UX 
 
 An international nonprofit organization relied on software used across many countries, and volunteer software teams located around the world. Volunteers available often had no UX background.
 
-As the chief UX strategist and educator, I needed to grow a research team from scratch and grow a team of designers embedded in product teams while they were learning.
+As the person responsible for UX strategy and education across many product teams, I needed to grow a research team from scratch and grow a team of designers embedded in product teams while they were learning.
 
 The challenge wasn't just "how do I train people in UX." It was: how do I build a system that keeps producing capable UX practitioners out of a wide selection of transient volunteers after I step back?
 
@@ -86,17 +86,19 @@ The outcome: volunteers who started with no UX background were now functioning a
   <img src="/assets/portfolio/ux-trainers/train4_dark.png" alt="Stage 4: Train Others -- Mentor new researchers, teach UX training, scale the practice." class="theme-img--dark">
 </div>
 
-The final stage is what makes the system self-sustaining. Experienced UXers who came through the pipeline became mentors and trainers for the next cohort. They didn't just "help out." They took ownership of onboarding and coaching new team members.
+The final stage is what makes the system self-sustaining. UXers who came through the pipeline could become mentors and trainers for the next cohort. They didn't just "help out." They took ownership of onboarding and coaching new team members.
 
-Mentoring someone to teach is different from teaching them to design. When a new mentor ran a workshop for the first time, I watched the session and gave detailed feedback afterward: how they framed the exercise, how they managed pacing, whether they let participants struggle productively or jumped in too early. Over time, I coached them on subtler skills: reading the room, handling a dominant participant without shutting them down, and knowing when silence is doing the work for you.
+Mentoring someone to teach is different from teaching them to design. When a new mentor paired with a student for the first time, I watched their initial sessions and gave detailed feedback afterward: how they framed exercises and pairing work, how they managed pacing, whether they let participants struggle productively or jumped in too early. Over time, as they began to also help entire teams engage in UX practices, I coached them on subtler skills: reading the room, handling a dominant participant without shutting them down, and knowing how to couch UX insights to tell convincing stories to stakeholders.
 
 New mentors were often as nervous as the people they were training. The critique had to be honest enough to improve their teaching and careful enough not to make them dread doing it again.
 
 As the pipeline grew, training had to stay consistent without me in the room. I built two kinds of materials: structured session plans that gave new mentors a clear sequence to follow, and flexible reference guides that experienced mentors could adapt to their own style. Quality couldn't depend on any single person's instincts.
 
-I kept a close eye on whether the training was actually working: talking to learners, watching mentors in action, and reviewing whether people could apply what they'd learned when it counted. When something wasn't landing, I figured out whether the problem was the material or the facilitation, and fixed it. The curriculum evolved through that process, not through theory alone.
+I kept a close eye on whether the training was actually working: talking to learners, watching mentors in action, and reviewing whether people could apply what they'd learned when it counted. When something wasn't landing, I figured out whether the problem was the material or the facilitation, and fixed it. 
 
-This is the feedback loop, and the most important aspect to make the process self-sustaining. Stage 4 feeds back into Stage 2: each generation of trained UXers becomes the teaching infrastructure for the next. The system no longer depends on me. It runs today, years after I built it, continuing to bring in people with no UX background and develop them into capable practitioners who then train others.
+For example, I found that teams at times became uncomfortable with technical design terms that new practioners began to use via their training. It became a friction to communication and collaboration. So we did two things: opened live UX tech talks to all team members (not just designers) and taught designers to adjust their vocabulary for their audience, whether developers or stakeholders. The curriculum improved iteratively through that process.
+
+This stage is the feedback loop, and the most important aspect to make the process self-sustaining. Stage 4 feeds back into Stage 2: each generation of trained UXers becomes the teaching infrastructure for the next. The system no longer depends on me. It runs today, years after I built it, continuing to bring in people with no UX background and develop them into capable practitioners who then train others.
 
 ---
 
@@ -107,5 +109,7 @@ The research team grew from nothing to 10 active researchers. Several of those r
 Over time, teams facilitated design studios, conducted cognitive walkthroughs, and produced heuristic analyses that directly shaped product decisions. Dozens of enterprise applications were delivered with usability issues identified and addressed through testing before each release. This led to measurable usability improvements and increased stakeholder and user satisfaction across tens of thousands of users.
 
 Because designers were exposed to research from the start, research-driven decisions became the norm. This held true across everything from large-scale usability studies to weekly hallway testing.
+
+Team leads *and* stakeholders now began to ask "aren't we going to test this?". I know of no better statement to the effectiveness of the approach than non-designers requesting user research.
 
 But the most significant outcome wasn’t any single deliverable or artifact. User research and UX became an intrinsic part of the software development lifecycle. The organizational culture shifted toward researched design. That shift is still in place today, and the pipeline is still running.
