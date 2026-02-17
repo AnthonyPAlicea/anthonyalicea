@@ -428,11 +428,12 @@ html:not([data-theme]) .theme-toggle {
   border: 1px solid var(--border-light);
 }
 
+.theme-img--sm {
+  text-align: center;
+}
+
 .theme-img--sm img {
   max-width: 300px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* Default: show light, hide dark */
@@ -446,7 +447,7 @@ html[data-theme="dark"] .theme-img--light {
 }
 
 html[data-theme="dark"] .theme-img--dark {
-  display: block;
+  display: inline;
 }
 
 /* No-JS fallback */
@@ -456,7 +457,7 @@ html[data-theme="dark"] .theme-img--dark {
   }
 
   html:not([data-theme="light"]) .theme-img--dark {
-    display: block;
+    display: inline;
   }
 }
 

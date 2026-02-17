@@ -14,7 +14,7 @@ excerpt: "How I developed a scalable approach to mentoring UX designers and grow
   <img src="/assets/portfolio/ux-trainers/train_full_dark.png" alt="Four-stage UX training pipeline: User Research, UX Training, Embedded UXer, and Train Others, with a feedback loop from Stage 4 back to Stage 2." class="theme-img--dark">
 </div>
 
-## The Problem
+## The Challenge
 
 An international nonprofit organization relied on software used across many countries, but had no budget to hire UX designers. The existing team was small, the need was large, and the volunteers available had no UX background. I needed a way to grow both a research team and a design team from scratch, using only the people and time I had.
 
