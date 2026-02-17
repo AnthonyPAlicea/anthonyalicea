@@ -415,6 +415,51 @@ html:not([data-theme]) .theme-toggle {
   max-width: 400px;
 }
 
+/* --- Theme-Aware Images --- */
+.theme-img {
+  margin: 2rem 0;
+}
+
+.theme-img img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 0;
+  border: 1px solid var(--border-light);
+}
+
+.theme-img--sm img {
+  max-width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Default: show light, hide dark */
+.theme-img--dark {
+  display: none;
+}
+
+/* JS-driven dark mode */
+html[data-theme="dark"] .theme-img--light {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-img--dark {
+  display: block;
+}
+
+/* No-JS fallback */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .theme-img--light {
+    display: none;
+  }
+
+  html:not([data-theme="light"]) .theme-img--dark {
+    display: block;
+  }
+}
+
 /* --- Portfolio Index --- */
 .portfolio {
   min-height: 100vh;
