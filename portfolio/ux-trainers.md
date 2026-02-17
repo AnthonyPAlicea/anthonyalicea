@@ -54,13 +54,13 @@ New team members were also trained on research discipline from the start: how to
   <img src="/assets/portfolio/ux-trainers/train2_dark.png" alt="Stage 2: UX Training -- NN/G curriculum, tech talks, required reading, pairing and 1-on-1 coaching." class="theme-img--dark">
 </div>
 
-As team members progressed, the training deepened. This stage included curriculum drawn from Nielsen Norman Group resources and established UX literature, along with tech talks and hands-on workshops.
+As team members progressed, the training deepened. This stage included curriculum drawn from Nielsen Norman Group resources and established UX literature, along with hands-on workshops and recorded tech talks. I produced many of the talks myself, and reviewed and critiqued ones that others built. Live sessions were recorded deliberately, so that each cohort's training built a reusable library for the next. That library is still in use today.
 
 I designed workshops to put learning into practice. One example: a design studio where team members role-played as stakeholders and designers, working through problem framing exercises together. Reading about stakeholder alignment is one thing. Navigating it in a room full of competing priorities is another.
 
 Running these sessions well required more than knowing the material. I coached facilitators on framing exercises, managing pacing, drawing out quieter participants, and keeping one voice from drowning out the rest.
 
-Each person in this stage was paired with an experienced team member for 1-on-1 coaching. The pairing wasn't informal. It was a structured arrangement with clear expectations for both sides, so that learning was consistent and no one fell through the cracks.
+Each person in this stage was paired with an experienced team member for 1-on-1 coaching. The pairing wasn't informal. It was a structured arrangement with clear expectations for both sides, so that learning was consistent and no one fell through the cracks. A major focus of pairing was teaching people to facilitate core UX activities: design studios, cognitive walkthroughs, and heuristic analyses. Each topic was supported by pre-recorded training videos I produced or reviewed, so pairs had a consistent foundation to work from.
 
 ---
 
@@ -71,9 +71,9 @@ Each person in this stage was paired with an experienced team member for 1-on-1 
   <img src="/assets/portfolio/ux-trainers/train3_dark.png" alt="Stage 3: Embedded UXer -- Standalone designer on product teams, cross-functional work." class="theme-img--dark">
 </div>
 
-The goal of the pipeline was never academic knowledge. It was to produce people who could do the work independently. In Stage 3, trained team members were placed on product teams as standalone UX designers, working cross-functionally with developers and stakeholders.
+The goal of the pipeline was never just academic knowledge. It was to produce people who could do the work independently. In Stage 3, trained team members were placed on product teams as standalone UX designers, working cross-functionally with developers and stakeholders.
 
-This transition didn't happen without support, but the support was lighter than in earlier stages by design. I paired new embeds with experienced UXers for an overlap period, and I reviewed their work directly: design deliverables, research plans, how they ran stakeholder conversations. The feedback was specific and candid: what was working, what wasn't, and why. The goal was to get them to where they could make good decisions on their own.
+This transition didn't happen without support, but the support was lighter than in earlier stages by design. I paired new embeds with experienced UXers for an overlap period, and I reviewed their work directly: design deliverables, research plans, how they ran stakeholder conversations. The feedback was specific but carefully couched to not destroy whatever excitement or momentum the designer had at this point. Every critique connected back to core principles and mental models. The goal was to get them to where they could make good decisions on their own.
 
 The outcome: volunteers who started with no UX background were now functioning as independent designers, making real decisions on real products used across multiple countries.
 
