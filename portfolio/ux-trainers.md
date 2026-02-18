@@ -112,4 +112,4 @@ Because designers were exposed to research from the start, research-driven decis
 
 Team leads *and* stakeholders now began to ask "aren't we going to test this?". I know of no better statement to the effectiveness of the approach than non-designers requesting user research.
 
-But the most significant outcome wasn’t any single deliverable or artifact. User research and UX became an intrinsic part of the software development lifecycle. The organizational culture shifted toward researched design. That shift is still in place today, and the pipeline is still running.
+The most significant outcome, however, wasn’t any single deliverable or artifact. User research and UX became an intrinsic part of the software development lifecycle. The organizational culture shifted toward researched design. That shift is still in place today, and the pipeline is still running.
