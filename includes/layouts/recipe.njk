@@ -1,7 +1,15 @@
 {% extends 'page.njk' %}
 
 {% block body %}
-<a href="{{ site.baseUrl }}projects/html-recipes" class="breadcrumb margin-block-start"> &laquo; Recipes</a>
-<article class="post recipe">{{ content | safe }}</article>
-<p class="margin-block-start-xlarge">Deeply understand semantic HTML authoring and CSS with my course:<br /><b><a href="https://www.udemy.com/course/understanding-html-and-css/?referralCode=29ED997A126F1B7FF1DF">Understanding HTML and CSS</a></b>.</p>
+<article class="post recipe">
+  <nav class="breadcrumbs">
+    <a href="/">Home</a>
+    <span class="breadcrumbs__sep">/</span>
+    <a href="{{ site.baseUrl }}projects/html-recipes">Recipes</a>
+  </nav>
+  {{ content | safe }}
+</article>
+<div style="max-width: 720px; margin: 0 auto; padding: 0 2rem 3rem;">
+  <p>Deeply understand semantic HTML authoring and CSS with my course:<br /><b><a href="https://dontimitate.dev/courses/html-css/">Understanding HTML and CSS</a></b>.</p>
+</div>
 {% endblock %}

@@ -596,7 +596,7 @@ html[data-theme="dark"] .theme-img--dark {
 /* --- Responsive --- */
 @media (max-width: 768px) {
   html {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .case-study__nav {
@@ -638,7 +638,7 @@ html[data-theme="dark"] .theme-img--dark {
 
 @media (max-width: 480px) {
   html {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .hero__inner {

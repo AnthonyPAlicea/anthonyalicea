@@ -11,7 +11,7 @@
 
     {# Twitter #}
     <meta name="twitter:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
-    <meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary_large_image{% endif %}">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
     <meta name="twitter:site" content="{{ site.author.handle }}">
     <meta name="twitter:creator" content="{{ site.author.handle }}">
@@ -30,19 +30,23 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseUrl }}assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseUrl }}assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseUrl }}assets/favicon-16x16.png">
-    <link rel="mask-icon" href="{{ site.baseUrl }}assets/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#FAF9F6">
 
     <title>{% if metaTitle %}{{ metaTitle }}{% else %}{{ title }}{% endif %}{% if metaTitle or title %} | {% endif %}{{ site.name }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-    <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Literata:ital,opsz,wght@0,7..72,300..600;1,7..72,300..500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ site.baseUrl }}assets/main.css">
+
+    <script>
+      (function() {
+        var s = localStorage.getItem('portfolio-theme');
+        var t = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
 
     {% block head %}{% endblock %}
   </head>
@@ -50,12 +54,9 @@
     <main>
       {% block body %}{% endblock %}
     </main>
-    <footer>
-      <div class="footer-content">
-        <p>&copy; {% year %} Tony Alicea. All rights reserved.</p>
-      </div>
+    <footer class="site__footer">
+      <p>&copy; {% year %} Tony Alicea. All rights reserved.</p>
     </footer>
-    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-    <script src="{{ site.baseUrl }}assets/main.js"></script>
+    {% block scripts %}{% endblock %}
   </body>
 </html>

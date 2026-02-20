@@ -1,10 +1,17 @@
 {% extends 'page.njk' %}
 
 {% block body %}
-<h1>Projects</h1>
-<h2 class="header-compressed posts__title"><a href="html-recipes">HTML Recipes</a></h2>
-<p>Semantic markup for common UI patterns.</p>
+<div class="page-content">
+  <h1 class="section-heading" style="font-size: 2.4rem; letter-spacing: -0.02em;">Projects</h1>
 
-<h2 class="header-compressed posts__title"><a href="good-interface-bad-interface">Good Interface, Bad Interface</a></h2>
-<p>Snapshots and lessons from everyday UX.</p>
+  <article class="card">
+    <h2 class="card__title"><a href="html-recipes">HTML Recipes</a></h2>
+    <p class="card__body">Semantic markup for common UI patterns.</p>
+  </article>
+
+  <article class="card">
+    <h2 class="card__title"><a href="good-interface-bad-interface">Good Interface, Bad Interface</a></h2>
+    <p class="card__body">Snapshots and lessons from everyday UX.</p>
+  </article>
+</div>
 {% endblock %}

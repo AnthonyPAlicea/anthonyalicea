@@ -33,16 +33,15 @@ og_image: 'assets/diu_newsletter.png'
 </script>
 {% endblock %}
 {% block body %}
-<article class="post">
-<h1>Newsletter</h1>
-<section>
-<img src="/assets/personwithlaptop.svg" class="small-image" style="float: right;" />
-<p>I infrequently send out a newsletter with medium-length posts written by me, updates on courses, new blog and YouTube videos, my <em>best</em> coupons, and interesting and fun links.</p>
-<p>I won't share your email with anyone else. If you reply to a newsletter, I'll do my best to write back!</p>
-<p>You can unsubscribe at any time.</p>
-</section>
-</article>
-<article class="mailing-list">
+<div class="page-content">
+  <h1 class="section-heading" style="font-size: 2.4rem; letter-spacing: -0.02em;">Newsletter</h1>
+  <section>
+    <img src="/assets/personwithlaptop.svg" class="small-image" style="float: right;" alt="" />
+    <p>I infrequently send out a newsletter with medium-length posts written by me, updates on courses, new blog and YouTube videos, my <em>best</em> coupons, and interesting and fun links.</p>
+    <p>I won't share your email with anyone else. If you reply to a newsletter, I'll do my best to write back!</p>
+    <p>You can unsubscribe at any time.</p>
+  </section>
+  <article class="mailing-list">
     <div id="fd-form-679d3e8ec4c21b86ff8a9772"></div>
     <script>
     window.fd('form', {
@@ -50,9 +49,9 @@ og_image: 'assets/diu_newsletter.png'
         containerEl: '#fd-form-679d3e8ec4c21b86ff8a9772'
     });
     </script>
-</article>
-<article style="border-top: dashed 1px #ccc; margin-top: 2rem;">
-<h2>Read the Archive</h2>
-{% include "newsletters.njk" %}
-</article>
+  </article>
+  <hr class="section-divider">
+  <h2 class="section-heading">Archive</h2>
+  {% include "newsletters.njk" %}
+</div>
 {% endblock %}
