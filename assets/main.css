@@ -119,7 +119,7 @@ html[data-theme="dark"] {
 
 /* --- Base --- */
 html {
-  font-size: 18px;
+  font-size: 19px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1268,7 +1268,7 @@ html[data-theme="dark"] img[src*="/normal_"] {
 /* --- Responsive --- */
 @media (max-width: 768px) {
   html {
-    font-size: 18px;
+    font-size: 19px;
   }
 
   .site__nav {
@@ -1340,7 +1340,7 @@ html[data-theme="dark"] img[src*="/normal_"] {
 
 @media (max-width: 480px) {
   html {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .site__nav {

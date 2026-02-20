@@ -74,7 +74,7 @@ html[data-theme="dark"] {
 
 /* --- Base --- */
 html {
-  font-size: 18px;
+  font-size: 19px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -596,7 +596,7 @@ html[data-theme="dark"] .theme-img--dark {
 /* --- Responsive --- */
 @media (max-width: 768px) {
   html {
-    font-size: 18px;
+    font-size: 19px;
   }
 
   .case-study__nav {
@@ -638,7 +638,7 @@ html[data-theme="dark"] .theme-img--dark {
 
 @media (max-width: 480px) {
   html {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .hero__inner {
