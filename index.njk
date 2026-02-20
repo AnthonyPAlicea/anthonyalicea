@@ -1,5 +1,5 @@
 ---
-metaTitle: Tony Alicea | Udemy and Pluralsight Instructor | JavaScript, HTML, CSS, NodeJS, UX
+metaTitle: Tony Alicea | Bestselling Developer Educator, UX and AI Strategist
 pagination:
   data: collections.front-page
   size: 50
@@ -12,80 +12,22 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 
 {% block head %}
 <style>
-  :root {
-    overflow-x: clip;
+  .home-mailing-list {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 0;
+    animation: fadeUp 0.6s ease 0.2s both;
   }
 
-  .news {
-    margin-block-start: 1rem;  
+  .home-mailing-list .mailing-list {
+    margin-top: 0;
   }
 
-  .tony-card__title {
-    margin-block-end: .375rem;
-  }
-
-  .tony-card__caption1, .tony-card__caption2, .tony-card__caption3 {
-    margin-block: 0;
-    font-family: 'Raleway', sans-serif;
-  }
-
-  .tony-card__caption2 {
-    margin-block-end: 0.75rem;
-  }
-
-  .tony-card__caption3 {
-    margin-block-end: .75rem;
-  }
-
-  .intro {
-    font-size: 0.9rem;
-    margin-block-start: 1rem;
-  }
-
-
-  .background-image-container {
-    grid-column: 1 / -1;
-    position: relative;
-    width: 100%;
-    height: 600px;
-    margin-block: -3rem 0;
-    padding: 4rem 0;
-    overflow: hidden;
-    background-image: url('/assets/tony_reactsummit.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: 0.85;
-    z-index: -1;
-  }
-
-  .background-image-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(34, 34, 34, 0.3),
-      rgba(34, 34, 34, 0.3)
-    );
-  }
-
-  .mailing-list {
-    position: relative;
-    margin-top: -4rem;
-    z-index: 1;
-    max-width: 700px;
-  }
-
-  /* Style the Flodesk form container */
+  /* Make Flodesk form bg transparent */
   #fd-form-654c34a2f58f74816ab58ded {
     background: transparent !important;
   }
 
-  /* Target any potential form wrapper elements */
   #fd-form-654c34a2f58f74816ab58ded > div {
     background: transparent !important;
     padding: 0 !important;
@@ -93,23 +35,19 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
     box-shadow: none !important;
   }
 
-  .posts-section {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: inherit;
-    margin-top: 3rem;
-    padding: 2rem 0;
-    background-color: #2E2E2E;  /* Slightly lighter than main background */
+  .home-posts {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 2rem 0;
+    animation: fadeUp 0.6s ease 0.25s both;
   }
 
-  .posts-section > * {
-    grid-column: 2;
+  .home-courses {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 2rem 2rem;
+    animation: fadeUp 0.6s ease 0.3s both;
   }
-
-  .posts-section h2 {
-    margin-block-end: .5rem;
-  }
-
 </style>
 
 <script>
@@ -136,46 +74,44 @@ permalink: "/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1
 {% endblock %}
 
 {% block body %}
-<header>
-  <h1 class="tony-card__title">Hi, I'm Tony Alicea</h1>
-  <p class="tony-card__caption1">Udemy and Pluralsight Instructor. 370,000 students and counting.</p>
-  <p class="tony-card__caption2">JavaScript, HTML, CSS, UX, Conference Speaker, Podcast Interviews.</p>
-  <p class="tony-card__caption3">
-    <!--<a href="https://twitter.com/anthonypalicea"><svg viewBox="0 0 24 24" class="social_logo" role="img"><path d="m17.687 3.063l-4.996 5.711l-4.32-5.711H2.112l7.477 9.776l-7.086 8.099h3.034l5.469-6.25l4.78 6.25h6.102l-7.794-10.304l6.625-7.571zm-1.064 16.06L5.654 4.782h1.803l10.846 14.34z"></path></svg></a>&nbsp;&nbsp;&nbsp;
-    <a href="https://bsky.app/profile/tonyalicea.dev"><svg viewBox="0 0 24 24" class="social_logo"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565C.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479c.815 2.736 3.713 3.66 6.383 3.364q.204-.03.415-.056q-.207.033-.415.056c-3.912.58-7.387 2.005-2.83 7.078c5.013 5.19 6.87-1.113 7.823-4.308c.953 3.195 2.05 9.271 7.733 4.308c4.267-4.308 1.172-6.498-2.74-7.078a9 9 0 0 1-.415-.056q.21.026.415.056c2.67.297 5.568-.628 6.383-3.364c.246-.828.624-5.79.624-6.478c0-.69-.139-1.861-.902-2.206c-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8"></path></svg></a>&nbsp;&nbsp;&nbsp;-->
-    <a href="https://youtube.com/tonyalicea"><svg class="social_logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>&nbsp;&nbsp;&nbsp;
-    <a href="{{ site.baseUrl }}feed/feed.xml"><svg class="social_logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z"/></svg></a>
-  </p>
-</header>
-<!--
-  <aside class="news">
-    <h2 class="news-header">News</h2>
-    <p><strong class="news-label">AI + JS Frameworks Course Bundle!</strong></p>
-    <p class="news-detail"><a href="https://dontimitate.dev/courses/new-course-bundle/">Save on my new AI and JS Frameworks Concepts courses!</b></a><br /></p>
-  </aside>
-  -->
-  <!--<article class="intro">
-    
-  </article>-->
-  <div class="background-image-container" role="img" aria-label="Tony Alicea standing at a podium which says 'React Summit' on the front giving a technical talk on React and JavaScript."></div>
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__content">
+      <h1 class="hero__title">Hi, I'm Tony Alicea</h1>
+      <p class="hero__subtitle">Bestselling Developer Educator, UX and AI Strategist</p>
+      <div class="hero__social">
+        <a href="https://youtube.com/tonyalicea" aria-label="YouTube"><svg class="social_logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="{{ site.baseUrl }}feed/feed.xml" aria-label="RSS Feed"><svg class="social_logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z"/></svg></a>
+      </div>
+    </div>
+    <div class="hero__media">
+      <img src="/assets/tony_reactsummit.jpg" alt="Tony Alicea speaking at React Summit" class="hero__img" />
+    </div>
+  </div>
+</section>
+
+<div class="home-mailing-list">
   <article class="mailing-list">
-  <div id="fd-form-654c34a2f58f74816ab58ded"></div>
-  <script>
-    window.fd('form', {
-      formId: '654c34a2f58f74816ab58ded',
-      containerEl: '#fd-form-654c34a2f58f74816ab58ded'
-    });
-  </script>
+    <div id="fd-form-654c34a2f58f74816ab58ded"></div>
+    <script>
+      window.fd('form', {
+        formId: '654c34a2f58f74816ab58ded',
+        containerEl: '#fd-form-654c34a2f58f74816ab58ded'
+      });
+    </script>
   </article>
-  <section class="posts-section">
-    <h2>Posts</h2>
-    {% include "posts.njk" %}
-    <br />
-    <a href="/blog">More...</a>
-  </section>
-  <p></p>
-  <article class="post">
-    <h2>Courses</h2>
-    {% include "courses.njk" %}
-  </article>
+</div>
+
+<section class="home-posts">
+  <h2 class="section-heading">Posts</h2>
+  {% include "posts.njk" %}
+  <a href="/blog" class="section-more">See all posts &rarr;</a>
+</section>
+
+<hr class="section-divider" style="max-width: 720px; margin: 0 auto;">
+
+<section class="home-courses">
+  <h2 class="section-heading">Courses</h2>
+  {% include "courses.njk" %}
+</section>
 {% endblock %}

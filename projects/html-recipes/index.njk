@@ -9,8 +9,10 @@ permalink: "/projects/html-recipes/{% if pagination.pageNumber > 0 %}page/{{ pag
 {% extends 'page.njk' %}
 
 {% block body %}
-<h1>HTML Recipes</h1>
-<p>Semantic HTML markup for common UI patterns, whether Angular, React, Vue, or any other template.</p>
-<small class="margin-block-end-large">Note that these recipes can appear <em>visually</em> however you want, thanks to CSS. The focus here then is not visual, but on good, <em>semantic</em> markup which provides better accessibility, readability, and maintainability.</small>
-{% include "recipes.njk" %}
+<div class="page-content">
+  <h1>HTML Recipes</h1>
+  <p>Semantic HTML markup for common UI patterns, whether Angular, React, Vue, or any other template.</p>
+  <small class="margin-block-end-large">Note that these recipes can appear <em>visually</em> however you want, thanks to CSS. The focus here then is not visual, but on good, <em>semantic</em> markup which provides better accessibility, readability, and maintainability.</small>
+  {% include "recipes.njk" %}
+</div>
 {% endblock %}

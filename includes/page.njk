@@ -11,7 +11,7 @@
 
     {# Twitter #}
     <meta name="twitter:title" content="{% if metaTitle %}{{ metaTitle }}{{ ' | '}}{% endif %}{% if title %}{{ title }}{{ ' | '}}{% endif %}{% if site.name %}{{ site.name }}{% endif %}">
-    <meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary_large_image{% endif %}">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="{% if excerpt %}{{ excerpt }}{% else %}{{ site.description }}{% endif %}">
     <meta name="twitter:site" content="{{ site.author.handle }}">
     <meta name="twitter:creator" content="{{ site.author.handle }}">
@@ -30,302 +30,59 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseUrl }}assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseUrl }}assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseUrl }}assets/favicon-16x16.png">
-    <link rel="mask-icon" href="{{ site.baseUrl }}assets/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="mask-icon" href="{{ site.baseUrl }}assets/safari-pinned-tab.svg" color="#4A6B52">
+    <meta name="msapplication-TileColor" content="#FAF9F6">
+    <meta name="theme-color" content="#FAF9F6">
 
     <title>{% if metaTitle %}{{ metaTitle }}{% else %}{{ title }}{% endif %}{% if metaTitle or title %} | {% endif %}{{ site.name }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-    <link href="https://unpkg.com/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Literata:ital,opsz,wght@0,7..72,300..600;1,7..72,300..500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ site.baseUrl }}assets/main.css">
-<style>
-      /* New badge for all-access link */
-      .all-access {
-        position: relative;
-      }
 
-      .all-access::before {
-        content: "NEW";
-        position: relative;
-        display: inline-block;
-        font-size: 0.65em;
-        font-weight: 700;
-        padding: 0.15em 0.4em;
-        margin-right: 0.5em;
-        vertical-align: middle;
-        border-radius: 3px;
-        background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
-        background-size: 200% 200%;
-        color: #1a1a1a;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        animation: shimmer 2.5s ease-in-out infinite;
-        box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
-      }
+    <script>
+      (function() {
+        var s = localStorage.getItem('portfolio-theme');
+        var t = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
 
-      .all-access::after {
-        content: "✦";
-        position: absolute;
-        font-size: 0.5em;
-        color: #ffd700;
-        opacity: 0;
-        animation: sparkle 2.5s ease-in-out infinite;
-        pointer-events: none;
-      }
-
-      @keyframes shimmer {
-        0%, 100% {
-          background-position: 0% 50%;
-          filter: brightness(1) hue-rotate(0deg);
-        }
-        25% {
-          background-position: 50% 50%;
-          filter: brightness(1.2) hue-rotate(5deg);
-        }
-        50% {
-          background-position: 100% 50%;
-          filter: brightness(1.3) hue-rotate(10deg);
-        }
-        75% {
-          background-position: 50% 50%;
-          filter: brightness(1.2) hue-rotate(5deg);
-        }
-      }
-
-      @keyframes sparkle {
-        0%, 100% {
-          opacity: 0;
-          transform: translate(0, 0) scale(0.8);
-        }
-        15% {
-          opacity: 1;
-          transform: translate(-8px, -6px) scale(1);
-        }
-        30% {
-          opacity: 0;
-          transform: translate(-10px, -8px) scale(0.8);
-        }
-        50% {
-          opacity: 1;
-          transform: translate(8px, -5px) scale(1);
-        }
-        65% {
-          opacity: 0;
-          transform: translate(10px, -7px) scale(0.8);
-        }
-      }
-
-      /* Countdown Banner Styles */
-      .countdown-banner {
-        background: linear-gradient(135deg, rgba(48, 49, 54, 0.6) 0%, rgba(0, 56, 109, 0.4) 100%);
-        border: 1px solid #444;
-        color: var(--color-text);
-        padding: 0.5rem 0.75rem;
-        text-align: center;
-        font-size: 0.75rem;
-        margin-bottom: .625rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.35rem;
-        align-items: center;
-      }
-
-      .countdown-banner__tag {
-        font-weight: 600;
-        color: var(--color-highlight);
-        font-size: 0.75rem;
-      }
-
-      .countdown-banner__timer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.3rem;
-        flex-wrap: wrap;
-      }
-
-      .countdown-banner__time-unit {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.15rem;
-      }
-
-      .countdown-banner__time-value {
-        background-color: var(--color-highlight);
-        color: #000;
-        font-weight: 700;
-        padding: 0.15rem 0.4rem;
-        border-radius: 3px;
-        min-width: 1.5rem;
-        text-align: center;
-        font-size: 0.8rem;
-      }
-
-      .countdown-banner__time-label {
-        font-size: 0.55rem;
-        color: rgba(248, 249, 250, 0.7);
-        text-transform: lowercase;
-        font-weight: 500;
-      }
-
-      .countdown-banner__separator {
-        color: var(--color-highlight);
-        font-weight: 700;
-        line-height: 1;
-        height: 1.1rem;
-        display: flex;
-        align-items: center;
-        font-size: 0.75rem;
-      }
-
-      .countdown-banner__ctas {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        margin-top: 0.2rem;
-      }
-
-      .countdown-banner__ctas br {
-        display: none;
-      }
-
-      .countdown-banner__ctas a {
-        color: var(--color-highlight);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.65rem;
-        transition: opacity 0.2s ease;
-      }
-
-      .countdown-banner__ctas a:hover {
-        opacity: 0.8;
-        text-decoration: underline;
-      }
-
-      @media screen and (min-width: 640px) {
-        .countdown-banner {
-          padding: 0.6rem 1rem;
-          gap: 0.45rem;
-          font-size: 0.85rem;
-        }
-
-        .countdown-banner__tag {
-          font-size: 0.85rem;
-        }
-
-        .countdown-banner__time-value {
-          min-width: 1.7rem;
-          padding: 0.2rem 0.5rem;
-          font-size: 0.9rem;
-        }
-
-        .countdown-banner__timer {
-          gap: 0.4rem;
-        }
-
-        .countdown-banner__separator {
-          font-size: 0.85rem;
-        }
-
-        .countdown-banner__ctas a {
-          font-size: 0.75rem;
-        }
-      }
-    </style>
     {% block head %}
-    
     {% endblock %}
   </head>
   <body>
-    <nav>
-      <a href="{{ site.baseUrl }}"><img src="/assets/tonyalicea.png" alt="Home" /></a>
-      <ul>
-        <li><a href="https://dontimitate.dev/courses/" target="_blank" rel="noopener noreferrer">courses <span style="font-size: .75em; vertical-align: text-top;">↗</span></a></li>
-        <li><a href="{{ site.baseUrl }}newsletter">newsletter</a></li>
-        <li><a href="{{ site.baseUrl }}blog">blog</a></li>
-        <li><a href="https://dontimitate.dev/coaching/" target="_blank" rel="noopener noreferrer">coaching <span style="font-size: .75em; vertical-align: text-top">↗</span></a></li>
-      </ul>
-    </nav>
-    <div id="countdown-banner" class="countdown-banner">
-      <div class="countdown-banner__tag">🎉 <span>Black Friday Sale!</span></div>
-      <div class="countdown-banner__timer">
-        <div class="countdown-banner__time-unit">
-          <div class="countdown-banner__time-value"><span id="countdown-days">0</span></div>
-          <span class="countdown-banner__time-label">days</span>
+    <div class="site">
+      <nav class="site__nav">
+        <a href="{{ site.baseUrl }}" class="nav__home">Tony Alicea</a>
+        <div class="nav__links">
+          <a href="{{ site.baseUrl }}blog">Blog</a>
+          <a href="{{ site.baseUrl }}newsletter">Newsletter</a>
+          <a href="https://dontimitate.dev/courses/" target="_blank" rel="noopener noreferrer">Courses<span class="nav__external">&thinsp;&#8599;</span></a>
+          <a href="https://dontimitate.dev/coaching/" target="_blank" rel="noopener noreferrer">Coaching<span class="nav__external">&thinsp;&#8599;</span></a>
         </div>
-        <span class="countdown-banner__separator">:</span>
-        <div class="countdown-banner__time-unit">
-          <div class="countdown-banner__time-value"><span id="countdown-hours">0</span></div>
-          <span class="countdown-banner__time-label">hrs</span>
-        </div>
-        <span class="countdown-banner__separator">:</span>
-        <div class="countdown-banner__time-unit">
-          <div class="countdown-banner__time-value"><span id="countdown-minutes">0</span></div>
-          <span class="countdown-banner__time-label">min</span>
-        </div>
-        <span class="countdown-banner__separator">:</span>
-        <div class="countdown-banner__time-unit">
-          <div class="countdown-banner__time-value"><span id="countdown-seconds">0</span></div>
-          <span class="countdown-banner__time-label">sec</span>
-        </div>
-      </div>
-      <div class="countdown-banner__ctas">
-        <a href="https://dontimitate.dev/courses/new-course-bundle/" target="_blank" rel="noopener noreferrer">AI-Assisted Dev and JS Frameworks Courses on Sale →</a><br />
-        <a href="https://dontimitate.dev/courses/react/" target="_blank" rel="noopener noreferrer">React Course On Sale →</a>
-      </div>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <svg class="theme-toggle__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-toggle__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </nav>
+      <main>
+        {% block body %}{% endblock %}
+      </main>
+      <footer class="site__footer">
+        <p>&copy; {% year %} {{ site.name }} &middot; <a href="/projects">Projects</a> &middot; <a href="/newsletter">Newsletter</a> &middot; <a href="/portfolio/">Portfolio</a></p>
+      </footer>
     </div>
-
     <script>
-      function initCountdown() {
-        const targetDate = new Date('2025-12-03T17:01:00Z').getTime();
-        const bannerEl = document.getElementById('countdown-banner');
-
-        function updateCountdown() {
-          const now = new Date().getTime();
-          const timeLeft = targetDate - now;
-
-          if (timeLeft < 0) {
-            bannerEl.style.display = 'none';
-            return;
-          }
-
-          const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-          document.getElementById('countdown-days').textContent = days;
-          document.getElementById('countdown-hours').textContent = hours;
-          document.getElementById('countdown-minutes').textContent = minutes;
-          document.getElementById('countdown-seconds').textContent = seconds;
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCountdown);
-      } else {
-        initCountdown();
-      }
+      document.querySelector('.theme-toggle').addEventListener('click', function() {
+        var el = document.documentElement;
+        var next = el.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        el.setAttribute('data-theme', next);
+        localStorage.setItem('portfolio-theme', next);
+      });
     </script>
-    <main>
-      {% block body %}{% endblock %}
-    </main>
-    <footer>
-      <div class="footer-content">
-        <p>&copy; {% year %} Tony Alicea. All rights reserved.</p>
-        <p><a href="/projects" class="newsletter-link">Projects</a> | <a href="/newsletter" class="newsletter-link">Join my newsletter</a>
-      </div>
-    </footer>
-    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-    <script src="{{ site.baseUrl }}assets/main.js"></script>
+    {% block scripts %}{% endblock %}
   </body>
 </html>

@@ -10,6 +10,8 @@ permalink: "/blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumbe
 {% extends 'page.njk' %}
 
 {% block body %}
-<h1>Blog</h1>
-{% include "posts.njk" %}
+<div class="page-content">
+  <h1 class="section-heading" style="font-size: 2.4rem; letter-spacing: -0.02em;">Blog</h1>
+  {% include "posts.njk" %}
+</div>
 {% endblock %}
