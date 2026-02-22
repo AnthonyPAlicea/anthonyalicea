@@ -1178,6 +1178,48 @@ video, iframe, .video {
   border-radius: 8px;
 }
 
+/* Flodesk form — theme-adaptive color overrides */
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__container,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__container {
+  background: var(--bg-subtle) !important;
+}
+
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__form,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__form {
+  color: var(--text) !important;
+}
+
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__title,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__title {
+  color: var(--text) !important;
+}
+
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__control,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__control {
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__label,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__label {
+  color: var(--text-2) !important;
+}
+
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__success-message,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__success-message {
+  color: var(--text) !important;
+}
+
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__privacy-policy-not-mandatory,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__privacy-policy-not-mandatory {
+  color: var(--text-3) !important;
+}
+
+[data-ff-el="root"].ff-654c34a2f58f74816ab58ded .ff-654c34a2f58f74816ab58ded__accepts-gdpr-checkbox .fd-form-check__label,
+[data-ff-el="root"].ff-679d3e8ec4c21b86ff8a9772 .ff-679d3e8ec4c21b86ff8a9772__accepts-gdpr-checkbox .fd-form-check__label {
+  color: var(--text) !important;
+}
+
 /* --- Full Bleed --- */
 .full-bleed {
   width: 100vw;
