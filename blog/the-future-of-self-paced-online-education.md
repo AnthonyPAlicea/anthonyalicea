@@ -25,6 +25,15 @@ Over the years interacting with so many students, I've seen the challenges they 
 Then, in 2014, something changed.
 
 ## AI and Probabilistic Learning
+The one true bottleneck of self-paced education was always the speed of getting student questions answered. There were lots of solutions like hiring teaching assistants, building online communities for student interaction, forum notifications to instructors and more.
+
+Enter AI. When ChatGPT output quality caused it to cement into the culture around 2023, AI chat bots began to provide something no self-paced instructor could hope to match: instant education gratification.
+
+An LLM is a tireless instructor. It answers any question, expounds on any point, and never becomes frustrated with a student. By all appearances you can learn *anything* with an LLM.
+
+The reality, of course, is more nuanced. LLMs are enormously sophisticated probabilistic word-guessing machines. They're underlying architecture is oriented around being correct (they have no real sense of 'truth') but of outputting something that looks like the languages they were trained on.
+
+In other words, if an LLM is inaccurate it's accomplished its purpose as long as the output reads like a human-written lie. That's not a small accomplishment.
 
 ## AI and Learning Innovation
 
@@ -38,5 +47,9 @@ Then, in 2014, something changed.
 ### IDE Integration
 
 ### WebMCP Learning Experiences
+
+### Designing a Learning Surface
+
+### Building a Learning Surface
 
 ## A Look Ahead at Learning
