@@ -4,12 +4,13 @@ title: "The Future of Self-Paced Online Education"
 excerpt: Rethinking learning for the age of AI.
 date: 2026-02-23
 og_image: 'assets/self-paced.png'
+tags: ['post','front-page']
 ---
 # {{ title }}
 
 A lot of words have been dedicated to how LLMs are changing the landscape of software development. But there's another arena that has been massively impacted by the rise of AI and deserves more discussion: the self-paced online education industry.
 
-Thousands upon thousands of developers are self-taught, and that self-taught education, for many, included self-paced video courses. The student appetite for inexpensive (compared to universities) video course education powered the success of marketplaces and platforms like Udemy, Coursera, Teachable and more.
+Thousands upon thousands of developers are self-taught, and that education, for many, included self-paced video courses. The student appetite for inexpensive (compared to universities) video course education powered the success of marketplaces and platforms like Udemy, Coursera, Teachable and more.
 
 However, the past few years have seen a massive disruption of that success. This AI disruption is leaving the industry and learners with some open vital questions: What is the value of a video course when you seemingly can ask an interactive LLM to teach you anything? Are LLMs the right answer to a good education for developers? What will the next generation of self-paced learning look like?
 
@@ -31,7 +32,7 @@ Enter AI. When ChatGPT output quality caused it to cement into the culture aroun
 
 An LLM is a tireless instructor. It answers any question, expounds on any point, and never becomes frustrated with a student. By all appearances you can learn *anything* with an LLM.
 
-The reality, of course, is more nuanced. LLMs are enormously sophisticated probabilistic word-guessing machines. They're underlying architecture is oriented, not around being correct (they have no real sense of 'truth'), but of outputting something that looks like the languages they were trained on.
+The reality, of course, is more nuanced. LLMs are enormously sophisticated probabilistic word-guessing machines. Their underlying architecture is oriented, not around being correct (they have no real sense of 'truth'), but of outputting something that looks like the languages they were trained on.
 
 In other words, if an LLM is inaccurate it's accomplished the core purpose of its design as long as the output reads like a human-written lie. That's not a small accomplishment. It's massively impacted the digital industry. But it isn't reliable learning.
 
@@ -56,7 +57,7 @@ For myself, I wondered how to pivot affordable self-paced education in the age o
 ![Robot with a graduation cap](/assets/blogimages/ai_graduate.png)
 Like most businesses, learning companies responded with attempts to include "AI innovation" in their service offerings. The aforementioned tools to build quizzes and content automated away some tasks for instructors, and you could feed transcripts of videos to an LLM so students could ask questions of it.
 
-Udemy piloted one of the more interesting approaches, called "Role Play", where students could converse with an LLM avatar. Of course, this was still a chatbot and a prompt, wrapped in an engaging user experience. I found students *loved* Role Play, even as they commmented that the AI was limited in the realism of its interactivity.
+Udemy piloted one of the more interesting approaches, called "Role Play", where students could converse with an LLM avatar. Of course, this was still a chatbot and a prompt, wrapped in an engaging user experience. I found students *loved* Role Play, even as they commented that the AI was limited in the realism of its interactivity.
 
 But that love of interactivity, coupled with the careful prompts that I wrote for Role Plays, began to spark some theories on what self-paced education innovation could really look like in the age of AI.
 
@@ -68,7 +69,7 @@ So, I gave my students a series of "AI-powered exercises" that were BYOLLM (Brin
 
 It took testing and iteration, but I got a set of prompts that worked well across models. I also instructed the LLM to summarize the experience of the student at the end, and the student pasted that summary as homework into their learning app. In reviewing those responses I discovered what an interesting experience it was for students, and the results reflected in the reviews I got as well.
 
-To discuss this further, let's coin some acronyms. If video courses are a form of human-led instruction (HLI), then these exercises were a form of AI-led instruction (ALI). But they were ALI with carefully curated and tested context. This is necessary because AI-led instruction, due to LLM tendency to drift in the direction the human gives it, is fundamentally flawed without knowledgable instructor support.
+To discuss this further, let's coin some acronyms. If video courses are a form of human-led instruction (HLI), then these exercises were a form of AI-led instruction (ALI). But they were ALI with carefully curated and tested context. This is necessary because AI-led instruction, due to an LLM's tendency to drift in the direction the human gives it, is fundamentally flawed without knowledgeable instructor support.
 
 For me this began to form some ground rules for a good AI-led instruction:
 - Context and prompts must be well-tested across models.
@@ -97,7 +98,7 @@ MCP Apps allows an MCP server to return interactive UI applications as part of t
 This means you can return deterministic slices of interactivity interlaced with the LLM's non-deterministic inference.
 
 ### WebMCP
-The <a href="https://github.com/webmachinelearning/webmcp">WebMCP standard</a> that allows web application functionality to be exposed as "tools" to an AI agent. 
+The <a href="https://github.com/webmachinelearning/webmcp">WebMCP standard</a> allows web application functionality to be exposed as "tools" to an AI agent. 
 
 Essentially, the web page becomes an MCP server. This enables user and agent collaboration on the same web page.
 
@@ -118,6 +119,21 @@ Self-paced AI-led instruction is unique because the learning experience will not
 
 Thus, while you might still call what you experience a "course", I think the curriculum that you build is more like the surface of a digital ocean. The student moves across the surface, likely in a pre-determined path. However the depth of exploration, the eddies of knowledge, are unique to that student's experience. 
 
+The flow of a Learning Surface for a coding course might look like this:
+
+```
+Student
+   ↑↓
+AI Agent
+   ↑↓
+Learning Surface
+   ├── Skill context
+   ├── MCP tools
+   ├── UI Apps
+   ├── Videos
+   └── Code workspace
+   ```
+
 An enjoyable Learning Surface provides both required and optional material, making a course not only personalized, but an experience that supports repetition.
 
 ### Skill and MCP Learning
@@ -128,6 +144,8 @@ A learning experience should start with a Skill. The student can install it into
 You might have a Skill for a single course module, an entire course, or an entire school.
 
 The Skill can help guide the usage of the MCP server. The server provides in-depth context (especially if paywalled, otherwise it may be in the Skill), deterministic tools needed during instruction, video snippets, interactive slides, and more.
+
+MCP Apps can also provide context to the LLM. For example, the results of a student's interaction with a piece of UI. Thus the deterministic elements can feed forward into the non-deterministic LLM keeping it on track and in the flow of the student's moment-to-moment experience.
 
 ### IDE Integration
 For coding education, MCP Apps combined with IDEs make for a fantastic experience. Students clone a course repo. The student can watch a video and interact with a widget in an agent integrated into the IDE, and the agent can read the code the student types, allowing the LLM to provide feedback.
@@ -141,6 +159,22 @@ Designing a web application with two intended users: the student and their agent
 
 I believe enabling an agent-aware web experience via WebMCP is a vital goal for any learning platform going forward.
 
+### A Sample Flow
+The idea of a Learning Surface is both an educational and a user experience design solution. For a coder, I've experimented with something that looks like this:
+- Clone a repo
+- Install the Agent Skill for the course into your AI agent
+- Connect the MCP server
+- Start the course and watch the introductory video
+- Interact with a slide
+- If you are in an IDE (or web IDE), read some code and ask questions about it
+- Ask a question mid-flow for clarification
+- Get asked a question about some code
+- Be asked to write some code
+- Get LLM feedback on the code
+- Have a mock debate with a fake coworker
+- Answer a quiz question
+- Time for lunch
+
 ### Designing a Learning Surface
 Designing a Learning Surface, in my experimentation, is in some ways much like designing a self-paced video course, and far different in other ways.
 
@@ -152,7 +186,9 @@ This is especially challenging because good education, I believe, provides a pro
 
 You need to encourage a "golden path" through the material, while understanding that LLM interaction naturally means the student can do whatever they want.
 
-This is not truly new. You could also skip around a textbook in school. But I think the best Learning Surfaces will be those that provide meaningful education at depth at all points on the surface, whether the student chooses to dive into all of them or not.
+Designing a Learning Surface is, at its core, a UX design challenge. You're designing for two simultaneous users (the student and the agent) across potentially non-linear paths, while maintaining progressive disclosure of concepts. The same principles that make a great product experience (clear mental models, meaningful feedback, guided autonomy) make a great learning experience.
+
+The problem of skipping ahead is also not truly new. You could skip around a textbook in school. But I think the best Learning Surfaces will be those that provide meaningful education depth at all points on the Surface, whether the student chooses to dive into all of them or not.
 
 After all, the best part about a human instructor is that you can ask them a question, and dive into their experience and opinions. Making your experience and opinions available to the student via LLM is a feat of context engineering that the best courses will muster.
 
@@ -163,7 +199,14 @@ It's building tools, content designed for agent consumption, and interactive UI 
 
 Instructors should get good at context engineering, and teams supporting learning platforms and apps should provide an infrastructure and design and development support that delivers performant and well-tested Skill, MCP, MCP Apps and WebMCP-based experiences.
 
-That said, one person can absolutely design and build a quality Learning Surface. 
+That said, one person can absolutely design and build a quality Learning Surface.
+
+### Observability
+Good analytics are important for course content iteration. But because the LLM is along for the student experience ride, analytics on student experiences become more like interviewing a mentor than reading quiz results.
+
+You can have the agent update student metrics and observations via the MCP server as the student takes the course. Have the LLM build a structured document as-you-go, and analyze the results. I found it enlightening and heartening. 
+
+For self-paced instruction you don't always get the enjoyment of watching the student learn and succeed. The AI can give you a play-by-play.
 
 ## A Look Ahead at Learning
 Maybe you were expecting me to sell you a Learning Surface at the end of this post. Well, I'm not. I'm sharing my ideas that I'm currently experimenting with.
@@ -175,6 +218,6 @@ However, I do believe it *is* possible to deliver an impactful learning experien
 Events like the merger of Udemy and Coursera have people wondering about the future of self-paced education. But I think that **self-paced online education isn't going anywhere**. 
 It's going to change, and we need to change how we think about learning experiences. But not about learning itself.
 
-A great Learning Surface that serves as the foundation for people's careers, won't come about because a new AI model is released. It will be carefully designed and thoughtfully curated by a human instructor who cares.
+A great Learning Surface that serves as the foundation for people's careers won't come about because a new AI model is released. It will be carefully designed and thoughtfully curated by a human instructor who cares.
 
-If you'd like to discuss the future of technical education, feel to reach out to me at <a href="mailto:hey@tonyalicea.dev">hey@tonyalicea.dev</a>, or <a href="https://www.linkedin.com/in/tonyalicea">connect with me on LinkedIn</a>.
+If you'd like to discuss or would like consultation on the future of technical education, feel free to reach out to me at <a href="mailto:hey@tonyalicea.dev">hey@tonyalicea.dev</a>, or <a href="https://www.linkedin.com/in/tonyalicea">connect with me on LinkedIn</a>.

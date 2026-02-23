@@ -19,6 +19,8 @@ For my <a href="https://dontimitate.dev/courses/html-css/">HTML and CSS course</
 
 The challenge was getting hundreds of thousands of students access to the kind of Socratic challenge that normally only happens in one-on-one mentorship, and doing it asynchronously.
 
+NOTE: For a discussion on what I think the future of self-paced online education looks like, <a href="/blog/the-future-of-self-paced-online-education/">see my blog post</a> on the subject.
+
 ## The Insight
 
 Large Language Models are capable of embodying an instructional role with some nuance, but only if the instructions they're given are designed with the same rigor as any other piece of curriculum. That was the core concept that drove this work: **a prompt is an instructional design artifact**. The quality of the learning experience it produces depends entirely on how well the instructional design behind it is conceived and expressed.
