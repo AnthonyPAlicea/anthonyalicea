@@ -373,7 +373,7 @@ article.post {
   max-width: 720px;
   width: 100%;
   margin: 0 auto;
-  padding: 2rem 2rem 4rem;
+  padding: 2rem 2rem 1rem;
   animation: fadeUp 0.6s ease 0.2s both;
 }
 

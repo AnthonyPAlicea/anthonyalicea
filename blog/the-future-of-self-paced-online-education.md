@@ -45,6 +45,13 @@ Unsurprisingly, their LLM-based pushback was *always* incorrect, and often had t
 
 Thus we're faced with a kind of cognitive dissonance. LLMs can make fantastic educational partners. LLMs are also unreliable educational partners, encumbered by the knowledge (or lack thereof) of the one asking the question, and a poor education is a poor foundation for a career.
 
+## The Pivot
+Many instructors have pivoted. Some to Developer Relations. Others to live teaching. 
+
+Live teaching is fantastic, and I've done it for years. However it is also more expensive for the student, and not scalable.
+
+For myself, I wondered how to pivot affordable self-paced education in the age of AI. Learning companies and platforms were asking the same thing.
+
 ## AI and Learning Innovation
 ![Robot with a graduation cap](/assets/blogimages/ai_graduate.png)
 Like most businesses, learning companies responded with attempts to include "AI innovation" in their service offerings. The aforementioned tools to build quizzes and content automated away some tasks for instructors, and you could feed transcripts of videos to an LLM so students could ask questions of it.
@@ -74,6 +81,32 @@ These concepts have provided a foundation for my experimentation with ALI, and s
 ## Skills, MCP, and the LLM Infrastructure
 The eternal challenge of LLMs is their inherent probabilistic nature. *Encouraging* them to produce structured, accurate results is as much art and authoring as engineering.
 
+The industry has provided standards to help. These same standards form the building blocks of AI-led curricula.
+
+### Agent Skills
+The <a href="https://agentskills.io">Agent Skills</a> standard provides a way to give an LLM context and tools that it loads on-demand, saving context window space and reducing context rot.
+
+### The Model Context Protocol (MCP)
+The <a href="https://modelcontextprotocol.io">Model Context Protocol</a> provides a standardized way to expose data, tools, and workflows to an LLM from an external system.
+
+### MCP Apps
+The <a href="https://modelcontextprotocol.io/extensions/apps/overview">MCP Apps</a> standard is the real game changer for AI-led instruction. 
+
+MCP Apps allows an MCP server to return interactive UI applications as part of the LLM conversation.
+
+This means you can return deterministic slices of interactivity interlaced with the LLM's non-deterministic inference.
+
+### WebMCP
+The <a href="https://github.com/webmachinelearning/webmcp">WebMCP standard</a> that allows web application functionality to be exposed as "tools" to an AI agent. 
+
+Essentially, the web page becomes an MCP server. This enables user and agent collaboration on the same web page.
+
+
+### The Infrastructure
+These four standards form an infrastructure for enabling an AI agent to enhance the context of an LLM.
+
+I think organizations and instructors that want to train in the age of AI need to be familiar with these standards, and how to build and use them. Because they also form the infrastructure for a high-quality student experience.
+
 ## Learning Surfaces: An LLM-Based Future
 ![Digital ocean surface](/assets/blogimages/surface.jpeg)
 
@@ -87,15 +120,61 @@ Thus, while you might still call what you experience a "course", I think the cur
 
 An enjoyable Learning Surface provides both required and optional material, making a course not only personalized, but an experience that supports repetition.
 
-### MCP Learning
+### Skill and MCP Learning
+Agent Skills and MCP provide context. Context nudges the LLM in the right direction.
+
+A learning experience should start with a Skill. The student can install it into the AI agent of their choice. It provides things like voice, style, workflow, core context, and more.
+
+You might have a Skill for a single course module, an entire course, or an entire school.
+
+The Skill can help guide the usage of the MCP server. The server provides in-depth context (especially if paywalled, otherwise it may be in the Skill), deterministic tools needed during instruction, video snippets, interactive slides, and more.
 
 ### IDE Integration
+For coding education, MCP Apps combined with IDEs make for a fantastic experience. Students clone a course repo. The student can watch a video and interact with a widget in an agent integrated into the IDE, and the agent can read the code the student types, allowing the LLM to provide feedback.
+
+This is a broad space to provide in-depth training in a real-world work environment.
 
 ### WebMCP Learning Experiences
+WebMCP really opens the doors to innovate on AI-led experiences. 
+
+Designing a web application with two intended users: the student and their agent with whom they are collaborating, coupled with the other foundational pieces of infrastructure we've discussed, really means the limits are open to instructor imagination.
+
+I believe enabling an agent-aware web experience via WebMCP is a vital goal for any learning platform going forward.
 
 ### Designing a Learning Surface
+Designing a Learning Surface, in my experimentation, is in some ways much like designing a self-paced video course, and far different in other ways.
+
+It's similar in that you need a progressive curriculum. You need to create artifacts intended for consumption via MCP Apps or WebMCP. You need a voice, an intent, a goal, and technique.
+
+It's vastly different in that it is a "surface" and not a straight line. If you want a learning experience to be more than "videos plus a chat bot", then you need to provide depth, delight, and aha-moments that can appear organically as the student moves through the experience.
+
+This is especially challenging because good education, I believe, provides a progression that builds accurate mental models and foundations before moving on to fully using them.
+
+You need to encourage a "golden path" through the material, while understanding that LLM interaction naturally means the student can do whatever they want.
+
+This is not truly new. You could also skip around a textbook in school. But I think the best Learning Surfaces will be those that provide meaningful education at depth at all points on the surface, whether the student chooses to dive into all of them or not.
+
+After all, the best part about a human instructor is that you can ask them a question, and dive into their experience and opinions. Making your experience and opinions available to the student via LLM is a feat of context engineering that the best courses will muster.
 
 ### Building a Learning Surface
+Building a Learning Surface goes beyond screen recordings.
+
+It's building tools, content designed for agent consumption, and interactive UI designed for "in the moment" student engagement.
+
+Instructors should get good at context engineering, and teams supporting learning platforms and apps should provide an infrastructure and design and development support that delivers performant and well-tested Skill, MCP, MCP Apps and WebMCP-based experiences.
+
+That said, one person can absolutely design and build a quality Learning Surface. 
 
 ## A Look Ahead at Learning
-AI won't replace human-led instruction.
+Maybe you were expecting me to sell you a Learning Surface at the end of this post. Well, I'm not. I'm sharing my ideas that I'm currently experimenting with.
+
+By the way, nothing in my experimentation leads me to believe that AI will replace human-led instruction. It won't. It *can't*.
+
+However, I do believe it *is* possible to deliver an impactful learning experience delivered via an AI agent. In fact, I think it's the future.
+
+Events like the merger of Udemy and Coursera have people wondering about the future of self-paced education. But I think that **self-paced online education isn't going anywhere**. 
+It's going to change, and we need to change how we think about learning experiences. But not about learning itself.
+
+A great Learning Surface that serves as the foundation for people's careers, won't come about because a new AI model is released. It will be carefully designed and thoughtfully curated by a human instructor who cares.
+
+If you'd like to discuss the future of technical education, feel to reach out to me at <a href="mailto:hey@tonyalicea.dev">hey@tonyalicea.dev</a>, or <a href="https://www.linkedin.com/in/tonyalicea">connect with me on LinkedIn</a>.
