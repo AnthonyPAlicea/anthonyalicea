@@ -47,6 +47,10 @@ Unsurprisingly, their LLM-based pushback was *always* incorrect, and often had t
 Thus we're faced with a kind of cognitive dissonance. LLMs can make fantastic educational partners. LLMs are also unreliable educational partners, encumbered by the knowledge (or lack thereof) of the one asking the question, and a poor education is a poor foundation for a career.
 
 ## The Pivot
+Instructors teaching "watch me code and parrot what I do" courses were especially vulnerable to the AI disruption.
+
+But all instructors were vulnerable to the student assumption that AI could either teach them or do the work for them.
+
 Many instructors have pivoted. Some to Developer Relations. Others to live teaching. 
 
 Live teaching is fantastic, and I've done it for years. However it is also more expensive for the student, and not scalable.
