@@ -19,7 +19,7 @@ I've been a developer educator building self-paced video courses for over a deca
 
 Leading up to that, I found nearly all video courses, even popular ones, to be nothing but "follow along with me while I code"-style videos, which did not provide the mental models and understanding necessary to debug well and support a long career. I wanted to provide web development education for self-taught devs that was rooted in first-principles and computer science (I got a comp sci degree 25 years ago).
 
-The results shocked me. To date I have over 370,000 enrolled students and I've heard from many students that my most well-known course, <a href="https://dontimitate.dev/courses/javascript-weird-parts/" target="_blank">JavaScript: Understanding the Weird Parts</a>, was the foundation of their career.
+The results shocked me. To date I have over 370,000 enrolled students across Teachable, Udemy, and Pluralsight and I've heard from many students that my most well-known course, <a href="https://dontimitate.dev/courses/javascript-weird-parts/" target="_blank">JavaScript: Understanding the Weird Parts</a>, was the foundation of their career.
 
 Over the years interacting with so many students, I've seen the challenges they face, the curricula that work, and what doesn't. Like many other instructors, I rode the wave of interest in inexpensive education, enjoyed watching students from all backgrounds and economic circumstances succeed, and was able to support myself and my family doing it.
 
