@@ -179,6 +179,11 @@ The idea of a Learning Surface is both an educational and a user experience desi
 - Answer a quiz question
 - Time for lunch
 
+### Video and Screenshare
+Thanks to MCP Apps and WebMCP video can and should still be a major building block of self-paced education. The human touch of an instructor's explanation, the power of animated visuals, and the practicality of observing an instructor's screen can't be overstated.
+
+However, as part of a Learning Surface, video becomes a carefully weaved thread in the tapestry of the student experience. Video serves well to establish core mental models, share thoughtful advice, and provide a real human connection as a needed break from fake LLM interaction.
+
 ### Designing a Learning Surface
 Designing a Learning Surface, in my experimentation, is in some ways much like designing a self-paced video course, and far different in other ways.
 
@@ -212,7 +217,7 @@ You can have the agent update student metrics and observations via the MCP serve
 
 For self-paced instruction you don't always get the enjoyment of watching the student learn and succeed. The AI can give you a play-by-play.
 
-## A Look Ahead at Learning
+## A Look Ahead at Self-Paced Learning
 Maybe you were expecting me to sell you a Learning Surface at the end of this post. Well, I'm not. I'm sharing my ideas that I'm currently experimenting with.
 
 By the way, nothing in my experimentation leads me to believe that AI will replace human-led instruction. It won't. It *can't*.
@@ -221,6 +226,8 @@ However, I do believe it *is* possible to deliver an impactful learning experien
 
 Events like the merger of Udemy and Coursera have people wondering about the future of self-paced education. But I think that **self-paced online education isn't going anywhere**. 
 It's going to change, and we need to change how we think about learning experiences. But not about learning itself.
+
+AI also doesn't remove the need for direct human instructor access. In fact, the possibility of AI inaccuracy increases it. Forums, office hours, and the like still are a vital aspect of self-paced education, no matter the format. But an LLM-powered format, properly designed, controlled, and presented, can be an impactful experience. 
 
 A great Learning Surface that serves as the foundation for people's careers won't come about because a new AI model is released. It will be carefully designed and thoughtfully curated by a human instructor who cares.
 
