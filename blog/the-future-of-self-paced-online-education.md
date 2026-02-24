@@ -55,7 +55,7 @@ Many instructors have pivoted. Some to Developer Relations. Others to live teach
 
 Live teaching is fantastic, and I've done it for years. However it is also more expensive for the student, and not scalable.
 
-For myself, I wondered how to pivot affordable self-paced education in the age of AI. Learning companies and platforms were asking the same thing.
+For myself, while I continued to enjoy creating courses for my own platform, Udemy, and Pluralsight, I wondered how to pivot affordable self-paced education in the age of AI. Learning companies and platforms were asking the same thing.
 
 ## AI and Learning Innovation
 ![Robot with a graduation cap](/assets/blogimages/ai_graduate.png)
