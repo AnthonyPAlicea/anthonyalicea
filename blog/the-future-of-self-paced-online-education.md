@@ -2,7 +2,7 @@
 layout: post.njk
 title: "The Future of Self-Paced Online Education"
 excerpt: Rethinking learning for the age of AI.
-date: 2026-02-23
+date: 2026-02-24
 og_image: 'assets/self-paced.png'
 tags: ['post','front-page']
 ---
