@@ -4,3 +4,4 @@ node_modules
 .netlify
 deno.lock
 package-lock.json
+.roo/skills/co-test/SKILL.md
