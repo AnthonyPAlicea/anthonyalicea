@@ -5,3 +5,4 @@ node_modules
 deno.lock
 package-lock.json
 .roo/skills/co-test/SKILL.md
+/trace
