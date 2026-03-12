@@ -242,7 +242,7 @@ EXTERNAL: Twilio SMS
   and cancel it. Appointment.R1 and Appointment.R5 still apply.
 ```
 
-The list of externals is declared simply domain file. The `LISTENS TO` section describes how the domain reacts to inbound messages from it.
+The list of externals is declared simply in the domain file. The `LISTENS TO` section describes how the domain reacts to inbound messages from it.
 
 ---
 
