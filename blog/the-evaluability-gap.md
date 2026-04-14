@@ -335,7 +335,7 @@ The designers and developers might also create a *consistency projection* cross-
 
 The attorneys spend their time on *judgment instead of extraction*. And the consistency projection catches drafting errors that aren't easily noticed by humans across 40 pages of legal language.
 
-### Financial Report: Provenance Index
+### Financial Report: Provenance
 
 A strategy team uses AI to build quarterly revenue forecasts. The outputs are polished, but the forecasts are continuously over-optimistic and no one can figure out why.
 
@@ -345,7 +345,7 @@ An *assumption decay projection* maps every input to the model, tags it with whe
 
 The systematic optimism gets traced back to two stale inputs nobody was updating because the LLM made the output look authoritative. The projections made its internal logic legible enough for humans to judge it themselves.
 
-### Code Review: Consistency Drift Reports
+### Code Review: Consistency Drift
 
 A software development team ships features using AI-generated code. Each set of new or edited code looks clean in isolation, but over three months the codebase loses its architectural coherence. Patterns get quietly replaced by alternatives that work just as well technically but weren't chosen deliberately. Nobody decided to change the approach. It drifted.
 
