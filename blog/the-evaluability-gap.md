@@ -136,6 +136,22 @@ A well-researched lens leading a well-designed projection helps the right person
       color: var(--eg-label-muted);
       margin-right: 0.25rem;
     }
+    @media (max-width: 520px) {
+      .eg-widget__controls {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .eg-widget__controls-label {
+        margin-right: 0;
+        text-align: center;
+      }
+      .eg-widget__controls-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 0.75rem;
+      }
+    }
     .eg-widget__btn {
       appearance: none;
       -webkit-tap-highlight-color: transparent;
@@ -197,15 +213,17 @@ A well-researched lens leading a well-designed projection helps the right person
 
   <div class="eg-widget__controls" role="group" aria-label="Projections">
     <span class="eg-widget__controls-label">Projections:</span>
-    <button type="button" class="eg-widget__btn" data-eg-projection="1" aria-pressed="false" style="--eg-btn-color: var(--eg-lens-1)">
-      <span class="eg-widget__btn-dot" aria-hidden="true"></span>1
-    </button>
-    <button type="button" class="eg-widget__btn" data-eg-projection="2" aria-pressed="false" style="--eg-btn-color: var(--eg-lens-2)">
-      <span class="eg-widget__btn-dot" aria-hidden="true"></span>2
-    </button>
-    <button type="button" class="eg-widget__btn" data-eg-projection="3" aria-pressed="false" style="--eg-btn-color: var(--eg-lens-3)">
-      <span class="eg-widget__btn-dot" aria-hidden="true"></span>3
-    </button>
+    <div class="eg-widget__controls-buttons">
+      <button type="button" class="eg-widget__btn" data-eg-projection="1" aria-pressed="false" style="--eg-btn-color: var(--eg-lens-1)">
+        <span class="eg-widget__btn-dot" aria-hidden="true"></span>1
+      </button>
+      <button type="button" class="eg-widget__btn" data-eg-projection="2" aria-pressed="false" style="--eg-btn-color: var(--eg-lens-2)">
+        <span class="eg-widget__btn-dot" aria-hidden="true"></span>2
+      </button>
+      <button type="button" class="eg-widget__btn" data-eg-projection="3" aria-pressed="false" style="--eg-btn-color: var(--eg-lens-3)">
+        <span class="eg-widget__btn-dot" aria-hidden="true"></span>3
+      </button>
+    </div>
   </div>
 
   <figcaption class="eg-widget__caption" id="eg-caption">
