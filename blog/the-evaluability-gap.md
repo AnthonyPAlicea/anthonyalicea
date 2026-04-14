@@ -369,7 +369,7 @@ There are, of course, caveats. Projections can themselves be wrong, giving revie
 
 ## Closing Thoughts
 
-AI can produce faster than humans can evaluate, and the gap is widening. The instinct in many organizations is to respond by either slowing down adoption or speeding up trust. Neither is the right answer.
+AI can produce faster than humans can evaluate, and that gap is widening. The instinct in many organizations is to respond by speeding up AI trust. That's the wrong answer.
 
 The correct answer is to *design for evaluability*. To treat the review of AI output not as a burden to be minimized, but as a practice to be deliberately designed. The evaluator's needs  shape the system. Projections are designed and built with care. The AI's role is to make judgment legible, not to replace it.
 
