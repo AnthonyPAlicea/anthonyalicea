@@ -90,7 +90,7 @@ A well-researched lens leading a well-designed projection helps the right person
       gap: 0.75rem 1.25rem;
       justify-content: center;
       margin: 0 0 1rem;
-      padding: 0;
+      padding: 0 !important;
       list-style: none;
       font-size: 0.9rem;
     }
