@@ -345,7 +345,7 @@ An *assumption decay projection* maps every input to the model, tags it with whe
 
 The systematic optimism gets traced back to two stale inputs nobody was updating because the LLM made the output look authoritative. The projections made its internal logic legible enough for humans to judge it themselves.
 
-### Code Review: Consistency Drift
+### Code Review: Pattern Divergence
 
 A software development team ships features using AI-generated code. Each set of new or edited code looks clean in isolation, but over three months the codebase loses its architectural coherence. Patterns get quietly replaced by alternatives that work just as well technically but weren't chosen deliberately. Nobody decided to change the approach. It drifted.
 
