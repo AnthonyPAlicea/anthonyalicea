@@ -12,7 +12,7 @@ In the age of AI, output velocity is no longer a limiting factor. AI can generat
 
 However, as LLMs are integrated in more and more processes, we are left with a new problem: evaluation.
 
-In this post we'll look at the next great usability and reliability problem facing us all: **The Evaluation Gap**. By that we mean *the gulf between the amount of output an AI can generate and the amount a human can reliably review*.
+In this post we'll look at the next great usability and reliability problem facing us all: **The Evaluability Gap**. By that we mean *the gulf between the amount of output an AI can generate and the amount a human can reliably review*.
 
 This gap shows up everywhere that AI is used, from legal paperwork to software development. It appears every time flawed output is blamed on AI hallucination.
 
@@ -24,7 +24,7 @@ This is a design problem. In fact the gap shows us something important: design i
 
 To accelerate the pace of evaluation, we must accept that humans cannot review every piece of every LLM output *at scale*. For smaller amounts of output, a complete review may be preferable, but building human evaluation methodologies for large amounts of AI output must be tackled by teams as a design and development challenge.
 
-We divide the design approach for meeting this challenge into two areas: a research area to understand the evaluators work, and the software workflow that must be designed and built.
+We divide the design approach for meeting this challenge into two areas: a research area to understand the evaluators' work, and the software workflow that must be designed and built.
 
 We'll call these two areas **lenses** and **projections**.
 
@@ -339,7 +339,7 @@ The attorneys spend their time on *judgment instead of extraction*. And the cons
 
 A strategy team uses AI to build quarterly revenue forecasts. The outputs are polished, but the forecasts are continuously over-optimistic and no one can figure out why.
 
-Sitting with the stakeholders reveals another lenses: assumption decay.
+Sitting with the stakeholders reveals another lens: assumption decay.
 
 An *assumption decay projection* maps every input to the model, tags it with when it was last updated, and flags stale data.
 
