@@ -7,6 +7,7 @@ module.exports = config => {
     config.markdownTemplateEngine = "njk";
     config.addPassthroughCopy("assets");
     config.addPassthroughCopy("normalui");
+    config.addPassthroughCopy("ux-context");
     config.addPassthroughCopy("projects/interface-normalization");
     config.addPassthroughCopy('_redirects');
 

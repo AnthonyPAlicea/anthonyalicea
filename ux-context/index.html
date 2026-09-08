@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Compare sixteen AI-generated insurance claim pages to see how research findings, user and world models, and a glossary affect the design.">
+<title>UX.md playground | How context changes AI output</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --paper:#EEF1EE;
+    --card:#FFFFFF;
+    --ink:#1A2421;
+    --muted:#54655C;
+    --line:#CBD5CE;
+    --line-soft:#DDE5DF;
+    --signal:#E4572E;
+    --signal-soft:#FBE9E2;
+    --wash:#E2EAE4;
+    --chip-dark:#1A2421;
+    --chip-green:#9FE8BE;
+    --display:"Space Grotesk","Inter",system-ui,sans-serif;
+    --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+    --r-lg:20px;
+    --r-md:12px;
+    --r-sm:8px;
+  }
+
+  /* ---------- base ---------- */
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,p{margin:0}
+  a{color:inherit}
+  button{font-family:inherit}
+  ::selection{background:var(--signal-soft)}
+  :focus-visible{outline:2.5px solid var(--ink);outline-offset:2px;border-radius:4px}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .skip{position:absolute;left:-9999px;top:14px;z-index:20;background:var(--ink);color:#fff;padding:10px 18px;border-radius:9999px;font-size:15px;text-decoration:none}
+  .skip:focus-visible{left:14px}
+
+  .page{max-width:1200px;margin:0 auto;padding:0 clamp(14px,3.5vw,40px) 32px}
+
+  .mono{font-family:var(--mono)}
+  .kicker{
+    font-family:var(--mono);
+    font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--signal);
+    margin-bottom:14px;
+  }
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.2vw,32px);line-height:1.2;letter-spacing:-.01em}
+  .lede-p{color:var(--muted);max-width:62ch;margin-top:12px}
+
+  section.band{padding:clamp(36px,6vw,72px) 0;border-top:1px solid var(--line-soft)}
+  section.band:first-of-type{border-top:0}
+
+  /* the annotation ring, echoing the overlay that rings context-shaped elements */
+  .ring{position:relative;display:inline-block;white-space:nowrap}
+  .ring svg{position:absolute;inset:-.28em -.42em;width:calc(100% + .84em);height:calc(100% + .56em);pointer-events:none;overflow:visible}
+  .ring svg path{fill:none;stroke:var(--signal);stroke-width:2.6;stroke-linecap:round;opacity:.9}
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    padding:20px 4px 18px;
+  }
+  .wordmark{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
+  .toplink{
+    display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:4px 8px;
+    font-size:15px;font-weight:500;text-decoration:none;color:var(--ink);
+  }
+  .toplink:hover{color:var(--signal)}
+
+  /* ---------- hero / instrument ---------- */
+  .hero{
+    display:grid;grid-template-columns:1.02fr .98fr;
+    gap:clamp(28px,4vw,56px);
+    align-items:start;
+    padding-top:clamp(20px,4vw,44px);
+  }
+  .hero h1{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(32px,4.6vw,52px);
+    line-height:1.12;letter-spacing:-.02em;
+    max-width:15ch;
+  }
+  .hero .lede-p{font-size:18px;margin-top:18px}
+  .hero-links{margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .textlink{
+    display:inline-flex;align-items:center;gap:6px;
+    min-height:44px;
+    font-weight:600;font-size:15.5px;color:var(--ink);text-decoration:none;
+    border-bottom:2px solid var(--signal);
+  }
+  .textlink:hover{color:var(--signal)}
+
+  .fineline{
+    margin-top:22px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:14px;color:var(--muted);max-width:52ch;
+  }
+  .fineline a{color:var(--ink);font-weight:500}
+
+  .promptcard{
+    margin:24px 0 0;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--r-md);
+    padding:18px 20px;
+    max-width:58ch;
+    box-shadow:0 1px 2px rgba(26,36,33,.05);
+  }
+  .promptcard figcaption{
+    font-family:var(--mono);font-size:12px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--signal);
+    margin-bottom:10px;
+  }
+  .promptcard blockquote{margin:0;border-left:3px solid var(--line);padding-left:14px}
+  .promptcard blockquote p{font-size:15.5px;line-height:1.6}
+  .promptcard blockquote p + p{margin-top:9px}
+
+  /* instrument card */
+  .instrument{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--r-lg);
+    box-shadow:0 1px 2px rgba(26,36,33,.05),0 10px 30px rgba(26,36,33,.07);
+    overflow:hidden;
+  }
+  .inst-head{
+    padding:16px 22px;
+    border-bottom:1px dashed var(--line);
+    display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  }
+  .inst-title{font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .inst-fixed{font-size:13.5px;color:var(--muted)}
+  .inst-fixed a{color:var(--ink)}
+
+  .switchlist{padding:8px 12px}
+  .switchrow{
+    display:flex;align-items:center;gap:14px;
+    padding:10px 10px;border-radius:var(--r-md);
+    transition:background-color .25s ease;
+  }
+  .switchrow:has(.switch:checked){background:var(--wash)}
+  .swname{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .swname label{font-family:var(--display);font-weight:600;font-size:16.5px;cursor:pointer}
+  .swread{font-size:13.5px;color:var(--muted);text-decoration:underline;text-underline-offset:2px;min-height:24px;display:inline-block}
+  .swread:hover{color:var(--signal)}
+
+  .switch{
+    appearance:none;-webkit-appearance:none;flex:none;
+    width:52px;height:31px;margin:0;position:relative;cursor:pointer;
+    border:1.5px solid var(--line);border-radius:9999px;background:var(--card);
+    transition:background-color .22s ease,border-color .22s ease;
+  }
+  .switch::after{
+    content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;
+    background:var(--muted);
+    transition:transform .22s ease,background-color .22s ease;
+  }
+  .switch:checked{background:var(--ink);border-color:var(--ink)}
+  .switch:checked::after{background:var(--chip-green);transform:translateX(21px)}
+
+  .inst-out{border-top:1px dashed var(--line);padding:18px 22px 22px}
+  .bits{display:flex;align-items:center;gap:8px}
+  .bit{
+    width:46px;height:50px;border-radius:10px;
+    display:grid;place-items:center;
+    font-family:var(--mono);font-weight:600;font-size:22px;
+    background:var(--paper);color:var(--muted);
+    border:1px solid var(--line-soft);
+    transition:background-color .25s ease,color .25s ease,border-color .25s ease;
+  }
+  .bit.on{background:var(--chip-dark);color:var(--chip-green);border-color:var(--chip-dark)}
+  .bit small{display:none}
+  .bitlabels{display:flex;gap:8px;margin-top:5px}
+  .bitlabels span{width:46px;text-align:center;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--muted)}
+  .codechip{
+    margin-left:auto;
+    font-family:var(--mono);font-weight:600;font-size:15px;
+    background:var(--chip-dark);color:var(--chip-green);
+    border-radius:8px;padding:6px 12px;
+  }
+
+  .msg{margin-top:16px;min-height:96px;font-size:15.5px;line-height:1.6;color:var(--ink)}
+  .msg p{animation:msgIn .3s ease both}
+  @keyframes msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+  .inst-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    min-height:48px;padding:10px 22px;
+    border:1.5px solid var(--ink);border-radius:9999px;
+    font-family:var(--display);font-weight:600;font-size:16px;
+    text-decoration:none;cursor:pointer;
+    transition:background-color .18s ease,color .18s ease;
+  }
+  .btn-primary{background:var(--ink);color:#fff;flex:1}
+  .btn-primary:hover{background:var(--signal);border-color:var(--signal)}
+  .btn-ghost{background:transparent;color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--signal);color:var(--signal)}
+
+  /* chips */
+  .chips-label{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:34px 0 12px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    min-height:44px;min-width:64px;padding:8px 13px;
+    border:1px solid var(--line);border-radius:10px;
+    background:var(--card);
+    font-family:var(--mono);font-weight:500;font-size:14px;color:var(--ink);
+    cursor:pointer;
+    transition:background-color .15s ease,border-color .15s ease,color .15s ease;
+  }
+  .chip:hover{border-color:var(--signal);color:var(--signal)}
+  .chip[aria-pressed="true"]{background:var(--chip-dark);border-color:var(--chip-dark);color:var(--chip-green)}
+
+  /* ---------- the fix ---------- */
+  .fixcol{max-width:72ch;margin-top:26px}
+  .fixcol p+p{margin-top:14px}
+  .fixcol p{font-size:16px;line-height:1.65}
+
+
+  /* ---------- library ---------- */
+  .docs{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+  .doc{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg)}
+  .doc summary{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:18px 22px;cursor:pointer;list-style:none;border-radius:var(--r-lg);
+    min-height:44px;
+  }
+  .doc summary::-webkit-details-marker{display:none}
+  .doc summary:hover .doc-title{color:var(--signal)}
+  .doc-title{font-family:var(--display);font-weight:600;font-size:18px}
+  .idpill{
+    font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.05em;
+    background:var(--paper);border:1px solid var(--line-soft);border-radius:9999px;padding:2px 10px;color:var(--muted);
+  }
+  .doc-sub{flex-basis:100%;font-size:13.5px;color:var(--muted)}
+  .chev{margin-left:auto;flex:none;transition:transform .22s ease;color:var(--muted)}
+  .doc[open] .chev{transform:rotate(180deg)}
+  .doc-body{padding:2px 22px 24px;animation:docIn .3s ease both}
+  @keyframes docIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .entry{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
+  .entry:first-child{margin-top:6px;padding-top:0;border-top:0}
+  .entry-head{display:flex;align-items:baseline;gap:10px}
+  .eid{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--signal);flex:none}
+  .entry h4{font-size:16px;font-weight:600;line-height:1.4}
+  .entry .cons{margin-top:6px;font-size:14.5px;color:var(--muted);line-height:1.55}
+  .entry .cons b{color:var(--ink);font-weight:600}
+
+  .tablewrap{overflow-x:auto;margin-top:8px}
+  .gloss{width:100%;min-width:440px;border-collapse:collapse}
+  .gloss th{text-align:left;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 14px 8px 0;border-bottom:1.5px solid var(--line)}
+  .gloss td{font-size:14.5px;line-height:1.5;padding:9px 14px 9px 0;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  .gloss td:first-child{font-weight:600;white-space:nowrap}
+  .gloss td:nth-child(2){color:var(--muted)}
+  .gloss tr:last-child td{border-bottom:0}
+
+  .swatches{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .sw{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .sw i{width:22px;height:22px;border-radius:6px;border:1px solid var(--line-soft);display:inline-block}
+  .doc-body p.docp{margin-top:10px;font-size:14.5px;line-height:1.6;color:var(--muted)}
+  .doc-body p.docp b{color:var(--ink)}
+
+  /* ---------- method ---------- */
+  .method{
+    margin-top:30px;
+    background:var(--card);border:1px dashed var(--line);border-radius:var(--r-lg);
+    padding:22px 26px;
+  }
+  .method h3{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .method ul{margin:12px 0 0;padding-left:20px;font-size:14.5px;line-height:1.7;color:var(--ink)}
+  .method li::marker{color:var(--signal)}
+  .method a{font-weight:500}
+
+  /* ---------- footer ---------- */
+  .foot{
+    margin-top:24px;
+    background:var(--chip-dark);color:#fff;
+    border-radius:var(--r-lg);
+    padding:clamp(30px,5vw,52px);
+    text-align:center;
+  }
+  .foot h2{color:#fff}
+  .foot p{max-width:54ch;margin:14px auto 0;color:#B9C6BE;font-size:15.5px;line-height:1.65}
+  .foot .btn{margin-top:24px;background:var(--chip-green);border-color:var(--chip-green);color:var(--chip-dark)}
+  .foot .btn:hover{background:#fff;border-color:#fff;color:var(--chip-dark)}
+  .foot .fine{margin-top:22px;font-size:13px;color:#8FA096}
+  .foot :focus-visible{outline-color:#fff}
+
+  /* ---------- motion ---------- */
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .flash{animation:flash 1s ease}
+  @keyframes flash{0%{box-shadow:0 0 0 0 rgba(228,87,46,0)}30%{box-shadow:0 0 0 4px rgba(228,87,46,.45)}100%{box-shadow:0 0 0 0 rgba(228,87,46,0)}}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .reveal{opacity:1;transform:none}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr}
+    .hero h1{max-width:none}
+  }
+  @media (max-width:560px){
+    .inst-head,.inst-out{padding-left:16px;padding-right:16px}
+    .switchlist{padding:6px 6px}
+    .bit{width:40px;height:44px;font-size:19px}
+    .bitlabels span{width:40px;font-size:10px}
+    .codechip{font-size:13.5px;padding:5px 9px}
+    .inst-actions{flex-direction:column}
+    .btn-ghost{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#playground">Skip to the switches</a>
+
+<div class="page">
+
+  <header class="topbar">
+    <p class="wordmark">UX.md<span style="color:var(--signal)">/</span>playground</p>
+    <a class="toplink" href="https://www.nngroup.com/articles/ux-context-design/" target="_blank" rel="noopener">
+      Read the article<span class="sr-only"> (opens in a new tab)</span>
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <!-- ============ hero + instrument ============ -->
+  <section class="hero" id="playground" aria-labelledby="hero-h">
+    <div>
+      <p class="kicker">UX-context design</p>
+      <h1 id="hero-h">How does UX context
+        <span class="ring">change<svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path d="M8,20 C8,7 30,3 52,4 C78,5 96,10 95,21 C94,33 70,38 46,37 C22,36 4,31 8,20"/></svg></span> AI output?
+      </h1>
+      <p class="lede-p">UX.md gives an AI model four kinds of context: research findings, a user model describing the people using the product, a world model describing their circumstances, and a glossary. I tested their effect by generating sixteen versions of a car insurance claim page.</p>
+      <p class="lede-p">Each version used Claude Opus 5, the same prompt, and the same visual identity. Only the combination of UX.md sections changed. Use the switches to compare the results.</p>
+      <figure class="promptcard">
+        <figcaption>The prompt</figcaption>
+        <blockquote>
+          <p>Build a single page where a customer can report a car accident to us.</p>
+          <p>It should collect everything we need to open the claim, and it should look like it belongs to our product. Keep it to one page.</p>
+        </blockquote>
+      </figure>
+      <div class="hero-links">
+        <a class="textlink" href="#library">Read the context</a>
+      </div>
+      <p class="fineline">Every version also used <a href="#doc-design" class="doc-link">the visual identity</a> of Keystone Mutual, a fictional insurer.</p>
+    </div>
+
+    <div class="instrument" id="instrument">
+      <div class="inst-head">
+        <span class="inst-title">UX.md</span>
+        <span class="inst-fixed">select the context to compare</span>
+      </div>
+      <div class="switchlist">
+        <div class="switchrow">
+          <span class="swname"><label for="f">Research findings</label><a class="swread doc-link" href="#doc-findings" aria-label="Read the research findings">Read</a></span>
+          <input class="switch" type="checkbox" id="f">
+        </div>
+        <div class="switchrow">
+          <span class="swname"><label for="u">User model</label><a class="swread doc-link" href="#doc-user" aria-label="Read the user model">Read</a></span>
+          <input class="switch" type="checkbox" id="u">
+        </div>
+        <div class="switchrow">
+          <span class="swname"><label for="w">World model</label><a class="swread doc-link" href="#doc-world" aria-label="Read the world model">Read</a></span>
+          <input class="switch" type="checkbox" id="w">
+        </div>
+        <div class="switchrow">
+          <span class="swname"><label for="g">Glossary</label><a class="swread doc-link" href="#doc-glossary" aria-label="Read the glossary">Read</a></span>
+          <input class="switch" type="checkbox" id="g">
+        </div>
+      </div>
+      <div class="inst-out">
+        <div style="display:flex;align-items:flex-start">
+          <div>
+            <div class="bits" aria-hidden="true">
+              <span class="bit" id="t-f">0</span><span class="bit" id="t-u">0</span><span class="bit" id="t-w">0</span><span class="bit" id="t-g">0</span>
+            </div>
+            <div class="bitlabels" aria-hidden="true"><span>Find</span><span>User</span><span>World</span><span>Gloss</span></div>
+          </div>
+          <span class="codechip" id="codechip">v0000</span>
+        </div>
+        <div class="msg" id="message" aria-live="polite"></div>
+        <div class="inst-actions">
+          <a class="btn btn-primary" id="go" href="variants/v0000.html" target="_blank" rel="noopener">
+            <span id="go-label">Open v0000</span><span class="sr-only"> (opens in a new tab)</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost" id="go-r" href="variants/v0000-reasoning.md" target="_blank" rel="noopener">
+            Read the AI reasoning<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div>
+    <p class="chips-label" id="chips-label">Select a version: 1 includes a section, 0 leaves it out</p>
+    <div class="chips" id="chips" role="group" aria-labelledby="chips-label"></div>
+  </div>
+
+  <!-- ============ takeaway ============ -->
+  <section class="band" aria-labelledby="fix-h">
+    <p class="kicker">Results</p>
+    <h2 id="fix-h">What changed with context</h2>
+
+    <div class="fixcol">
+      <p>The model received no example form and was not told which context sections were missing. This lets us compare its own choices with those it attributed to UX.md.</p>
+      <p>None of the sixteen pages requires an account, and thirteen make the policy number optional. The model made some of these choices without instructions in UX.md.</p>
+      <p>All eight versions with the research findings put photos first, as instructed. All eight without them put photos near the end. None of the versions without the world model displays a timestamp; that section explicitly required one.</p>
+      <p>The differences are specific: the research findings changed the order of questions, while the world model prompted details about saving and submission times. Other choices, such as allowing people to report without an account, appeared across all sixteen versions.</p>
+      <p>Each version has a reasoning log written by the AI during generation. The logs explain which decisions the model attributed to the context and which came from its own judgment. These are static mockups: save messages and timestamps show the proposed design, not working features.</p>
+    </div>
+  </section>
+
+  <!-- ============ library ============ -->
+  <section class="band" id="library" aria-labelledby="lib-h">
+    <p class="kicker">The context</p>
+    <h2 id="lib-h">Inside UX.md</h2>
+    <p class="lede-p">Below are summaries of the four UX.md sections and the shared visual identity. The full source files are in <span class="mono">context/</span>. Each version's exact UX.md is in <span class="mono">context/iterations/</span>.</p>
+
+    <div class="docs">
+
+      <details class="doc reveal" id="doc-findings">
+        <summary>
+          <h3 class="doc-title">Research findings</h3><span class="idpill">F1 to F5</span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 8 10.5 12.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="doc-sub">Research findings and the design requirements they led to.</span>
+        </summary>
+        <div class="doc-body">
+          <div class="entry"><div class="entry-head"><span class="eid">F1</span><h4>People rarely have their policy number ready.</h4></div><p class="cons"><b>Constraint.</b> Let people start without a policy number. Use details they can recall.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">F2</span><h4>People are more likely to finish when photos come first.</h4></div><p class="cons"><b>Constraint.</b> Ask for photos first. Put the written description last and make it optional.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">F3</span><h4>People want to know what happens next.</h4></div><p class="cons"><b>Constraint.</b> Explain what happens next before asking for information.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">F4</span><h4>Interruptions cause people to lose progress.</h4></div><p class="cons"><b>Constraint.</b> Save automatically. Show what is saved and how to resume.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">F5</span><h4>People fear that a mistake could cost them their claim.</h4></div><p class="cons"><b>Constraint.</b> Allow "I don't know" for every factual question. Explain that answers can be corrected later.</p></div>
+        </div>
+      </details>
+
+      <details class="doc reveal" id="doc-user">
+        <summary>
+          <h3 class="doc-title">User model</h3><span class="idpill">U1 to U4</span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 8 10.5 12.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="doc-sub">What research says about the people filing reports.</span>
+        </summary>
+        <div class="doc-body">
+          <div class="entry"><div class="entry-head"><span class="eid">U1</span><h4>Most people last filed a report about a decade ago.</h4></div><p class="cons"><b>Constraint.</b> Guide people through each step. Avoid shortcuts and controls that require prior experience.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">U2</span><h4>People are unfamiliar with insurance terms.</h4></div><p class="cons"><b>Constraint.</b> Explain each insurance term wherever it appears.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">U3</span><h4>People rarely need to use the service again.</h4></div><p class="cons"><b>Constraint.</b> Let people file without registering. Omit settings and features intended for frequent use.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">U4</span><h4>Many users are older or have limited vision or dexterity.</h4></div><p class="cons"><b>Constraint.</b> Use large text and controls. Avoid time limits, dragging, and actions that require hovering.</p></div>
+        </div>
+      </details>
+
+      <details class="doc reveal" id="doc-world">
+        <summary>
+          <h3 class="doc-title">World model</h3><span class="idpill">W1 to W5</span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 8 10.5 12.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="doc-sub">Where and under what conditions people file reports.</span>
+        </summary>
+        <div class="doc-body">
+          <div class="entry"><div class="entry-head"><span class="eid">W1</span><h4>Most reports come from a phone within an hour of the crash.</h4></div><p class="cons"><b>Constraint.</b> Design for phones: one column, high contrast, and controls people can use with one hand.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">W2</span><h4>People are shaken and frequently interrupted.</h4></div><p class="cons"><b>Constraint.</b> Show one decision per screen. Preserve unfinished answers and make it easy to resume after an interruption.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">W3</span><h4>People may not have access to their documents.</h4></div><p class="cons"><b>Constraint.</b> Let people continue without documents. Make those details optional or ask for them later.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">W4</span><h4>Internet access is unreliable.</h4></div><p class="cons"><b>Constraint.</b> Save answers on the device and sync when connected. Show when answers have not been sent.</p></div>
+          <div class="entry"><div class="entry-head"><span class="eid">W5</span><h4>The report is a legal record.</h4></div><p class="cons"><b>Constraint.</b> Show the report's date and time. Allow corrections after submission and explain how to make them.</p></div>
+        </div>
+      </details>
+
+      <details class="doc reveal" id="doc-glossary">
+        <summary>
+          <h3 class="doc-title">Glossary</h3><span class="idpill">G1</span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 8 10.5 12.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="doc-sub">Preferred terms and the jargon they replace.</span>
+        </summary>
+        <div class="doc-body">
+          <div class="tablewrap">
+            <table class="gloss">
+              <thead><tr><th scope="col">Say</th><th scope="col">Do not say</th></tr></thead>
+              <tbody>
+                <tr><td>report</td><td>First Notice of Loss, FNOL, claim submission</td></tr>
+                <tr><td>crash</td><td>loss event, incident, occurrence</td></tr>
+                <tr><td>the other driver</td><td>third party, adverse party, claimant</td></tr>
+                <tr><td>your car</td><td>insured vehicle, covered auto, unit</td></tr>
+                <tr><td>what you pay</td><td>deductible, unless defined on the spot</td></tr>
+                <tr><td>the person handling your claim</td><td>adjuster, claims representative</td></tr>
+                <tr><td>we got it</td><td>submission received, acknowledgement</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="docp"><b>The rule.</b> Use familiar words. Explain any policy term you need to include.</p>
+        </div>
+      </details>
+
+      <details class="doc reveal" id="doc-design">
+        <summary>
+          <h3 class="doc-title">Visual identity</h3><span class="idpill">included in every version</span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 6 8 10.5 12.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="doc-sub">DESIGN.md defines Keystone Mutual's visual style and components.</span>
+        </summary>
+        <div class="doc-body">
+          <div class="swatches" aria-hidden="true">
+            <span class="sw"><i style="background:#0B5C4B"></i>brand</span>
+            <span class="sw"><i style="background:#14202E"></i>ink</span>
+            <span class="sw"><i style="background:#C2610F"></i>accent</span>
+            <span class="sw"><i style="background:#A32020"></i>danger</span>
+            <span class="sw"><i style="background:#F4F7FA"></i>canvas</span>
+          </div>
+          <p class="docp">The shared file specifies Inter type, body text of at least 16px, one primary action per screen, red for errors, visible keyboard focus, tap targets of at least 44px, and US English. It defines the visual style and controls for all sixteen forms.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <div class="method reveal">
+      <h3>How the pages were generated</h3>
+      <ul>
+        <li>Sixteen Claude Opus 5 agents ran independently in parallel, one per version.</li>
+        <li>Each agent saw only its assigned materials. Folder names were shuffled, and agents were not told about the experiment, the context IDs, or the omitted sections.</li>
+        <li>Each agent wrote a reasoning log as it worked. The original logs are saved beside the pages.</li>
+        <li>Highlight rings were added afterward to connect page elements to context entries. Each connection is supported by the reasoning log or a direct match between an element and a requirement.</li>
+        <li>The generated pages have not been corrected.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ footer ============ -->
+  <footer class="foot">
+    <h2>Writing context for AI</h2>
+    <p>UX.md turns research about people and their circumstances into instructions a model can use. The article explains how to write this context as part of UX work.</p>
+    <a class="btn" href="https://www.nngroup.com/articles/ux-context-design/" target="_blank" rel="noopener">
+      Read the NN/G article<span class="sr-only"> (opens in a new tab)</span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="fine">Companion to the NN/g article on UX-context design. Pages generated August 21, 2026.</p>
+  </footer>
+
+</div>
+
+<script>
+  var MESSAGES = {
+    "0000": "With no UX.md, the model starts with policy and contact details and puts photos in section 9 of 10. It includes a 911 notice and allows some answers to be left blank, but requires a policy number, shows no timestamp, and uses \"adjuster\" without explanation.",
+    "0001": "With only the glossary, the model uses terms such as \"crash\" and \"the person handling your claim.\" The policy number is still the first field and is required. Photos appear in the final section. The log attributes the wording to the glossary and the opening field to policy lookup.",
+    "0010": "The world model leads to a narrow column, a visible start time, and a message about saving on the device. The log cites unavailable documents as the reason the policy number is optional. Photos appear in section 8 of 9.",
+    "0011": "The policy number is the last field and is optional. The hint tells people not to retrieve their insurance card. The log ties this to the world model and the wording to the glossary. The page shows a start time and an unsent status; photos appear in section 6.",
+    "0100": "The user model leads to explanations of insurance terms and large controls. The page says no account is needed and unknown answers can be left blank. Yet the policy number is required, contradicting that guidance.",
+    "0101": "The page uses the glossary and explains unfamiliar terms. It tells people their answers will not be saved until they send the report, and offers corrections by phone. The log cites the user model and static mockup requirement for omitting save features. There is no timestamp.",
+    "0110": "The page asks for a date of birth to help find the policy and makes the policy number optional. The final section offers a texted link to add photos later, with no upload control on the page. The log cites unreliable connections as the reason to defer photos.",
+    "0111": "The page uses the glossary, shows a start time, and offers policy lookup by name and phone. Photos are the last numbered section. The log describes the order as the model's own judgment about what people can answer at the roadside.",
+    "1000": "The research findings put the next steps before the form and photos before contact details. The policy number is optional and comes last in the contact section. The page still uses \"adjuster\" without explaining it.",
+    "1001": "The log ties the opening explanation and photos-first order to the research findings, and the wording to the glossary. The save message says \"a moment ago.\" There is no date or time; this version did not receive the world model.",
+    "1010": "Photos come before contact details. A sticky bar shows the start time and says answers are saved but not sent. The log explicitly rejects a confirmation checkbox because the research describes fear of mistakes. The page uses \"adjuster\" twice without explanation.",
+    "1011": "The page puts photos first, uses the glossary, shows a start time, and requires no account. The log ties these choices to the three supplied sections. The omitted user model has no obvious effect on these features.",
+    "1100": "The page puts photos first, explains insurance terms, and requires only three fields. It also says the form is not a legal statement. The log presents that as reassurance, but it conflicts with the world model, which this version did not receive.",
+    "1101": "The page says no policy number or account is needed and that people can stop and return. The log ties those statements to the research and user model. It defines \"deductible\" where it appears. The save message says \"just now,\" with no timestamp or indication of whether answers have been sent.",
+    "1110": "Photos come first and the optional policy number is in section 11 of 11. Insurance terms are explained without a glossary. The log says the model avoided a made-up timestamp on a legal record, so the page describes when a timestamp would be recorded instead of displaying one.",
+    "1111": "With all four sections, the page explains next steps before the form, puts photos before contact details, and requires only a name, phone number, and crash date. It shows a start time and defines \"deductible\" where it appears. The log links these choices to the supplied context."
+  };
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var boxes = ["f","u","w","g"].map(function(id){ return document.getElementById(id); });
+  var tiles = ["t-f","t-u","t-w","t-g"].map(function(id){ return document.getElementById(id); });
+  var go = document.getElementById("go");
+  var goR = document.getElementById("go-r");
+  var goLabel = document.getElementById("go-label");
+  var codechip = document.getElementById("codechip");
+  var message = document.getElementById("message");
+  var chips = document.getElementById("chips");
+  var instrument = document.getElementById("instrument");
+
+  function code(){ return boxes.map(function(b){ return b.checked ? "1" : "0"; }).join(""); }
+
+  function update(){
+    var c = code();
+    for (var i = 0; i < 4; i++){
+      tiles[i].textContent = c[i];
+      tiles[i].classList.toggle("on", c[i] === "1");
+    }
+    codechip.textContent = "v" + c;
+    go.setAttribute("href", "variants/v" + c + ".html");
+    goR.setAttribute("href", "variants/v" + c + "-reasoning.md");
+    goLabel.textContent = "Open v" + c;
+    message.innerHTML = "";
+    var p = document.createElement("p");
+    p.textContent = MESSAGES[c];
+    message.appendChild(p);
+    var all = chips.querySelectorAll(".chip");
+    for (var j = 0; j < all.length; j++){
+      all[j].setAttribute("aria-pressed", all[j].getAttribute("data-code") === c ? "true" : "false");
+    }
+  }
+
+  function setCode(v, flash){
+    for (var i = 0; i < 4; i++) boxes[i].checked = v[i] === "1";
+    update();
+    if (flash){
+      instrument.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "center" });
+      instrument.classList.remove("flash");
+      void instrument.offsetWidth;
+      instrument.classList.add("flash");
+    }
+  }
+
+  boxes.forEach(function(b){ b.addEventListener("change", update); });
+
+  for (var n = 0; n < 16; n++){
+    var c = n.toString(2); while (c.length < 4) c = "0" + c;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chip";
+    btn.textContent = c;
+    btn.setAttribute("data-code", c);
+    btn.setAttribute("aria-pressed", "false");
+    btn.setAttribute("aria-label", "Select version " + c);
+    btn.addEventListener("click", function(){ setCode(this.getAttribute("data-code"), false); });
+    chips.appendChild(btn);
+  }
+
+  var docLinks = document.querySelectorAll(".doc-link");
+  for (var d = 0; d < docLinks.length; d++){
+    docLinks[d].addEventListener("click", function(){
+      var target = document.querySelector(this.getAttribute("href"));
+      if (target && target.tagName === "DETAILS") target.open = true;
+    });
+  }
+
+  var revealed = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduceMotion.matches){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    Array.prototype.forEach.call(revealed, function(el){ io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(revealed, function(el){ el.classList.add("in"); });
+  }
+
+  update();
+</script>
+</body>
+</html>

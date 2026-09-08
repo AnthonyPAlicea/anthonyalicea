@@ -1,0 +1,69 @@
+/* Context-impact overlay, shared by all sixteen variants.
+   Loaded together with context-impact.js. Styled in the playground's
+   voice (maroon/pastel pills) so it reads as a layer over the page,
+   not part of the Keystone product. */
+
+.ctxi-btn{
+  position:fixed;right:20px;bottom:20px;z-index:2147483000;
+  border:0;border-radius:9999px;
+  background:#451316;color:#FFFFFF;
+  font:600 15px/1.4 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding:13px 22px;min-height:48px;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(20,32,46,.28);
+}
+.ctxi-btn:hover{background:#370E11}
+.ctxi-btn:focus-visible{outline:2px solid #1F6FEB;outline-offset:2px}
+
+/* the element that a piece of context shaped */
+.ctxi-hit{
+  box-shadow:0 0 0 2px #FF5148, 0 0 0 6px rgba(255,81,72,.22) !important;
+}
+
+/* the floating snippet card */
+.ctxi-card{
+  position:absolute;z-index:2147482999;
+  max-width:260px;
+  background:#451316;color:#FFFFFF;
+  border-radius:12px;padding:10px 12px;
+  font:400 12.5px/1.5 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  pointer-events:none;
+  box-shadow:0 6px 18px rgba(20,32,46,.25);
+  animation:ctxi-in .22s ease both;
+}
+@keyframes ctxi-in{
+  from{opacity:0;transform:translateY(4px)}
+  to{opacity:1;transform:none}
+}
+.ctxi-row{margin:0}
+.ctxi-row + .ctxi-row{margin-top:7px}
+
+/* ID pill, tinted by the kind of context */
+.ctxi-id{
+  display:inline-block;margin-right:4px;padding:0 7px;
+  border-radius:9999px;
+  font-weight:700;font-size:11px;line-height:1.7;
+  color:#2B0B0D;background:#F6EFEF;
+}
+.ctxi-id-f{background:#DACEFF}
+.ctxi-id-u{background:#F1CED0}
+.ctxi-id-w{background:#F9E299}
+.ctxi-id-g{background:#F6EFEF}
+
+/* shown when a page has no context-shaped elements (v0000) */
+.ctxi-empty{
+  position:fixed;right:20px;bottom:80px;z-index:2147482999;
+  max-width:280px;
+  background:#451316;color:#FFFFFF;
+  border-radius:12px;padding:12px 14px;
+  font:400 13px/1.5 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-shadow:0 6px 18px rgba(20,32,46,.25);
+  animation:ctxi-in .22s ease both;
+}
+
+@media print{
+  .ctxi-btn,.ctxi-card,.ctxi-empty{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .ctxi-card,.ctxi-empty{animation:none}
+}

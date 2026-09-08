@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report a car accident | Keystone Mutual</title>
+<style>
+  :root {
+    --ink:            #14202E;
+    --ink-soft:       #4A5A6B;
+    --line:           #DCE3EA;
+    --line-strong:    #8A8A8A;
+    --surface:        #FFFFFF;
+    --canvas:         #F4F7FA;
+    --brand:          #0B5C4B;
+    --brand-hover:    #094A3C;
+    --brand-tint:     #E7F1EE;
+    --accent:         #C2610F;
+    --danger:         #A32020;
+    --focus:          #1F6FEB;
+
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+    --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 16px;
+
+    --shadow-card: 0 1px 2px rgba(20,32,46,.06), 0 4px 12px rgba(20,32,46,.05);
+    --ring: 0 0 0 3px rgba(31,111,235,.35);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  /* ---------- Header ---------- */
+
+  .site-header {
+    height: var(--s8);
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--s4);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    color: var(--brand);
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .wordmark-key {
+    display: inline-block;
+    width: var(--s2);
+    height: var(--s2);
+    border-radius: 2px;
+    background: var(--brand);
+    margin-left: var(--s1);
+  }
+
+  /* ---------- Layout ---------- */
+
+  .wrap {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: var(--s5) var(--s4) var(--s8);
+  }
+
+  @media (min-width: 600px) {
+    .site-header { padding: 0 var(--s5); }
+    .wrap { padding: var(--s6) var(--s5) var(--s8); }
+  }
+
+  /* ---------- Type ---------- */
+
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    margin: 0 0 var(--s3);
+  }
+
+  h2 {
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 600;
+    margin: 0 0 var(--s3);
+  }
+
+  p { margin: 0 0 var(--s3); }
+  p:last-child { margin-bottom: 0; }
+
+  .lede { color: var(--ink-soft); margin-bottom: var(--s5); }
+
+  .overline {
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 550;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 var(--s2);
+  }
+
+  .muted { color: var(--ink-soft); }
+
+  .plain-number { font-weight: 600; white-space: nowrap; }
+
+  /* ---------- Cards and notices ---------- */
+
+  .card {
+    background: var(--surface);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-card);
+    padding: var(--s4);
+    margin-bottom: var(--s5);
+  }
+
+  @media (min-width: 600px) {
+    .card { padding: var(--s5); }
+  }
+
+  .card-quiet {
+    background: var(--brand-tint);
+    box-shadow: none;
+  }
+
+  .notice {
+    display: flex;
+    gap: var(--s3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: var(--s1) solid var(--accent);
+    border-radius: var(--r-sm);
+    padding: var(--s4);
+    margin-bottom: var(--s5);
+  }
+
+  .notice-quiet { border-left-color: var(--line-strong); }
+
+  .notice-icon { flex: none; margin-top: 2px; }
+  .notice-icon-alert { color: var(--accent); }
+  .notice-icon-quiet { color: var(--ink-soft); }
+
+  .notice h2 { font-size: 16px; line-height: 1.4; font-weight: 600; margin-bottom: var(--s1); }
+
+  .steps-next { margin: 0; padding: 0; list-style: none; counter-reset: nextstep; }
+
+  .steps-next li {
+    position: relative;
+    padding-left: var(--s6);
+    margin-bottom: var(--s4);
+  }
+
+  .steps-next li:last-child { margin-bottom: 0; }
+
+  .steps-next li::before {
+    counter-increment: nextstep;
+    content: counter(nextstep);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--s5);
+    height: var(--s5);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 650;
+    line-height: var(--s5);
+    text-align: center;
+  }
+
+  /* ---------- Form ---------- */
+
+  form { margin: 0; }
+
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+
+  legend { padding: 0; }
+
+  /* Every field keeps the same rhythm. The margin collapses against the
+     heading or hint above it, so the first field in a card is not pushed off. */
+  .field { margin-top: var(--s5); }
+
+  .field-label,
+  legend.field-label {
+    display: block;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 550;
+    margin-bottom: var(--s2);
+  }
+
+  .tag-required {
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-left: var(--s2);
+  }
+
+  .hint {
+    color: var(--ink-soft);
+    margin: 0 0 var(--s3);
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="date"],
+  input[type="time"],
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: var(--s7);
+    padding: var(--s3);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  .w-short { max-width: 8rem; }
+  .w-medium { max-width: 14rem; }
+
+  input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: var(--s2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  input[type="file"]::file-selector-button {
+    min-height: var(--s7);
+    padding: 0 var(--s5);
+    margin-right: var(--s3);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+  }
+
+  .choices { margin: 0; }
+
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    min-height: var(--s7);
+    padding: var(--s3);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    font-size: 16px;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  .choice + .choice { margin-top: var(--s2); }
+
+  .choice input {
+    flex: none;
+    width: var(--s5);
+    height: var(--s5);
+    margin: 0;
+    accent-color: var(--brand);
+  }
+
+  .choice:has(input:checked) { background: var(--brand-tint); }
+
+  .choice:focus-within {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    box-shadow: var(--ring);
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    box-shadow: var(--ring);
+  }
+
+  .choice input:focus-visible { outline: none; box-shadow: none; }
+
+  /* ---------- Buttons and links ---------- */
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    min-height: var(--s7);
+    padding: 0 var(--s5);
+    border: 1px solid var(--brand);
+    border-radius: var(--r-md);
+    background: var(--brand);
+    color: var(--surface);
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 550;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover { background: var(--brand-hover); border-color: var(--brand-hover); }
+
+  .link-call {
+    display: inline-block;
+    min-height: 44px;
+    line-height: 44px;
+    color: var(--brand);
+    font-weight: 550;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ---------- Footer ---------- */
+
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding: var(--s5) var(--s4) var(--s6);
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .site-footer .wrap-footer {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="wordmark">Keystone<span class="wordmark-key" aria-hidden="true"></span></span>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <p class="overline">Keystone Mutual claims</p>
+    <h1>Report a car accident</h1>
+    <p class="lede" data-ux="U2">This is the first report of an accident. It opens your claim, which is our record of what happened and the start of paying for the damage.</p>
+
+    <!-- Safety first, above everything -->
+    <div class="notice" data-ux="W1 U4">
+      <svg class="notice-icon notice-icon-alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M12 3.5 2.5 20h19L12 3.5z"></path>
+        <path d="M12 10v4.5"></path>
+        <path d="M12 17.5h.01"></path>
+      </svg>
+      <div>
+        <h2>If anyone is hurt, stop and call 911</h2>
+        <p>Dial <span class="plain-number">911</span> on your phone first. Get yourself somewhere safe, away from traffic. This report can wait as long as you need it to.</p>
+      </div>
+    </div>
+
+    <!-- F3: what happens next, before anything is asked for -->
+    <section class="card card-quiet" aria-labelledby="next-heading" data-ux="F3">
+      <p class="overline">Before you start</p>
+      <h2 id="next-heading">What happens next</h2>
+      <ol class="steps-next">
+        <li>You send this report. We record the date and time it reaches us, and that is the time that counts for your coverage.</li>
+        <li data-ux="U2">A claims specialist calls you at the number you give below. That is a person at Keystone who looks at what happened and sorts out what we pay. The call costs you nothing.</li>
+        <li>You and the specialist sort out your car: towing it, where it gets repaired, and whether your policy covers a rental car while it is in the shop.</li>
+        <li>You can add photos, fix a detail, or change your account of what happened after you send this. Nothing here is your last word on it.</li>
+      </ol>
+      <p style="margin-top: var(--s4);">You do not need your policy number, your insurance card, or a police report to send this. Every question below can be answered with "I am not sure," so you can finish now and fill in the rest later.</p>
+    </section>
+
+    <!-- F4 and W4: saved state is visible, and unsent state is stated plainly -->
+    <div class="notice notice-quiet" data-ux="F4 W4">
+      <svg class="notice-icon notice-icon-quiet" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <rect x="6" y="2.5" width="12" height="19" rx="2.5"></rect>
+        <path d="M10.5 18.5h3"></path>
+      </svg>
+      <div>
+        <h2>Your answers are saved on this device as you type</h2>
+        <p>If you get interrupted, close this page and open the same link again. What you typed will still be here.</p>
+        <p class="muted">Nothing reaches Keystone until you press Send report at the bottom of this page.</p>
+      </div>
+    </div>
+
+    <form>
+
+      <p class="muted" style="margin-bottom: var(--s5);" data-ux="F1 W3 F5">Only your name and phone number are required. Leave anything else blank if you do not know it or cannot get to it.</p>
+
+      <!-- F2: photos are the first substantive step -->
+      <section class="card step" aria-labelledby="s1" data-ux="F2">
+        <p class="overline">Step 1 of 11</p>
+        <h2 id="s1">Photos of the damage</h2>
+        <p class="hint">Photos tell us more than anything you can type, and they are easier to do standing at the roadside. Take them now if it is safe. If it is not safe, skip this step and add them later.</p>
+
+        <div class="field">
+          <label class="field-label" for="photos-car">Photos of your car</label>
+          <p class="hint">Stand back far enough to get the whole car in one shot, then take a close photo of each damaged part.</p>
+          <input type="file" id="photos-car" name="photos-car" accept="image/*" multiple>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="photos-scene">Photos of the scene</label>
+          <p class="hint">The road, where the cars ended up, traffic signs and signals, skid marks, the weather.</p>
+          <input type="file" id="photos-scene" name="photos-scene" accept="image/*" multiple>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="photos-other">Photos of the other driver's insurance card, license, or license plate</label>
+          <p class="hint">Only if they offered it and it is safe to ask. Do not press anyone for it.</p>
+          <input type="file" id="photos-other" name="photos-other" accept="image/*" multiple>
+        </div>
+      </section>
+
+      <!-- F1: identify by something they carry in their head -->
+      <section class="card step" aria-labelledby="s2" data-ux="F1 U3">
+        <p class="overline">Step 2 of 11</p>
+        <h2 id="s2">How we reach you</h2>
+        <p class="hint">You do not need your policy number. We will find your policy from your name and phone number.</p>
+
+        <div class="field">
+          <label class="field-label" for="your-name">Your full name<span class="tag-required">Required</span></label>
+          <input type="text" id="your-name" name="your-name" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="your-phone">Your mobile phone number<span class="tag-required">Required</span></label>
+          <p class="hint">This is where a claims specialist will call you.</p>
+          <input type="tel" id="your-phone" name="your-phone" autocomplete="tel" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="your-email">Your email address</label>
+          <p class="hint">If you give us this, we send you a copy of the report.</p>
+          <input type="email" id="your-email" name="your-email" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="home-zip">The ZIP code where you live</label>
+          <p class="hint">This helps us find the right policy if more than one person shares your name.</p>
+          <input type="text" id="home-zip" name="home-zip" class="w-medium" inputmode="numeric" autocomplete="postal-code">
+        </div>
+      </section>
+
+      <!-- F5: time is one of the things people stall on -->
+      <section class="card step" aria-labelledby="s3" data-ux="F5">
+        <p class="overline">Step 3 of 11</p>
+        <h2 id="s3">When it happened</h2>
+
+        <div class="field">
+          <label class="field-label" for="crash-date">Date of the accident</label>
+          <p class="hint">Your best guess is fine. You can correct it later.</p>
+          <input type="date" id="crash-date" name="crash-date" class="w-medium">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="crash-time">Time of the accident</label>
+          <p class="hint">Roughly is good enough. Nobody will hold you to the minute.</p>
+          <input type="time" id="crash-time" name="crash-time" class="w-medium">
+        </div>
+
+        <div class="field">
+          <label class="choice" for="time-unsure">
+            <input type="checkbox" id="time-unsure" name="time-unsure" value="yes">
+            <span>I am not sure of the time</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="card step" aria-labelledby="s4" data-ux="W2">
+        <p class="overline">Step 4 of 11</p>
+        <h2 id="s4">Where it happened</h2>
+
+        <div class="field">
+          <label class="field-label" for="street">Street or intersection</label>
+          <p class="hint">The nearest cross street is fine.</p>
+          <input type="text" id="street" name="street">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="landmark">Anything nearby that would help us find it</label>
+          <p class="hint">A store, a gas station, an exit number, a mile marker. Useful if you do not know the street.</p>
+          <input type="text" id="landmark" name="landmark">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="city">City or town</label>
+          <input type="text" id="city" name="city">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="state">State</label>
+          <p class="hint">Two letters, such as NY.</p>
+          <input type="text" id="state" name="state" class="w-short" maxlength="2" autocapitalize="characters" autocomplete="off" spellcheck="false">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="crash-zip">ZIP code</label>
+          <input type="text" id="crash-zip" name="crash-zip" class="w-medium" inputmode="numeric" autocomplete="off">
+        </div>
+
+        <fieldset class="field" data-ux="U1 U4">
+          <legend class="field-label">What kind of place was it</legend>
+          <div class="choices">
+            <label class="choice" for="place-street">
+              <input type="radio" id="place-street" name="place" value="street">
+              <span>A street or a road</span>
+            </label>
+            <label class="choice" for="place-highway">
+              <input type="radio" id="place-highway" name="place" value="highway">
+              <span>A highway or a freeway</span>
+            </label>
+            <label class="choice" for="place-lot">
+              <input type="radio" id="place-lot" name="place" value="parking-lot">
+              <span>A parking lot or a garage</span>
+            </label>
+            <label class="choice" for="place-private">
+              <input type="radio" id="place-private" name="place" value="private">
+              <span>A driveway or private property</span>
+            </label>
+            <label class="choice" for="place-unsure">
+              <input type="radio" id="place-unsure" name="place" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="card step" aria-labelledby="s5">
+        <p class="overline">Step 5 of 11</p>
+        <h2 id="s5">Your car</h2>
+
+        <div class="field">
+          <label class="field-label" for="car-year">Year</label>
+          <input type="text" id="car-year" name="car-year" class="w-short" inputmode="numeric" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="car-make">Make</label>
+          <p class="hint">The company that built it, such as Ford or Toyota.</p>
+          <input type="text" id="car-make" name="car-make">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="car-model">Model</label>
+          <input type="text" id="car-model" name="car-model">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="car-plate">License plate</label>
+          <p class="hint">Leave this blank if you cannot see it from where you are standing. It is not worth walking into traffic for.</p>
+          <input type="text" id="car-plate" name="car-plate" class="w-medium" autocapitalize="characters" spellcheck="false">
+        </div>
+
+        <fieldset class="field">
+          <legend class="field-label">Who was driving</legend>
+          <div class="choices">
+            <label class="choice" for="driver-me">
+              <input type="radio" id="driver-me" name="driver" value="me">
+              <span>I was driving</span>
+            </label>
+            <label class="choice" for="driver-other">
+              <input type="radio" id="driver-other" name="driver" value="someone-else">
+              <span>Someone else was driving my car</span>
+            </label>
+            <label class="choice" for="driver-parked">
+              <input type="radio" id="driver-parked" name="driver" value="parked">
+              <span>Nobody, the car was parked</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="field-label" for="driver-name">If someone else was driving, their name</label>
+          <input type="text" id="driver-name" name="driver-name">
+        </div>
+
+        <fieldset class="field">
+          <legend class="field-label">Can the car still be driven</legend>
+          <div class="choices">
+            <label class="choice" for="drivable-yes">
+              <input type="radio" id="drivable-yes" name="drivable" value="yes">
+              <span>Yes, it seems fine to drive</span>
+            </label>
+            <label class="choice" for="drivable-no">
+              <input type="radio" id="drivable-no" name="drivable" value="no">
+              <span>No, it cannot be driven</span>
+            </label>
+            <label class="choice" for="drivable-unsure">
+              <input type="radio" id="drivable-unsure" name="drivable" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="field-label">Where the car is now</legend>
+          <div class="choices">
+            <label class="choice" for="where-scene">
+              <input type="radio" id="where-scene" name="car-where" value="scene">
+              <span>Still where the accident happened</span>
+            </label>
+            <label class="choice" for="where-tow">
+              <input type="radio" id="where-tow" name="car-where" value="tow">
+              <span>Towed, or waiting for a tow truck</span>
+            </label>
+            <label class="choice" for="where-safe">
+              <input type="radio" id="where-safe" name="car-where" value="moved">
+              <span>I drove it home or somewhere safe</span>
+            </label>
+            <label class="choice" for="where-unsure">
+              <input type="radio" id="where-unsure" name="car-where" value="unsure">
+              <span>Somewhere else, or I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="field-label" for="tow-where">If it was towed, where it went</label>
+          <p class="hint">The name of the shop or the lot, if the driver told you.</p>
+          <input type="text" id="tow-where" name="tow-where">
+        </div>
+      </section>
+
+      <!-- F5: no dollar estimates, plain buckets instead -->
+      <section class="card step" aria-labelledby="s6">
+        <p class="overline">Step 6 of 11</p>
+        <h2 id="s6">Damage to your car</h2>
+        <p class="hint">This is a first impression from the roadside, not an estimate. Nobody will hold you to it, and a repair shop will look properly later.</p>
+
+        <fieldset class="field">
+          <legend class="field-label">Which parts look damaged</legend>
+          <p class="hint">Check as many as you need.</p>
+          <div class="choices">
+            <label class="choice" for="dmg-front">
+              <input type="checkbox" id="dmg-front" name="damage" value="front">
+              <span>Front</span>
+            </label>
+            <label class="choice" for="dmg-rear">
+              <input type="checkbox" id="dmg-rear" name="damage" value="rear">
+              <span>Rear</span>
+            </label>
+            <label class="choice" for="dmg-left">
+              <input type="checkbox" id="dmg-left" name="damage" value="left">
+              <span>Left side, the driver's side</span>
+            </label>
+            <label class="choice" for="dmg-right">
+              <input type="checkbox" id="dmg-right" name="damage" value="right">
+              <span>Right side, the passenger's side</span>
+            </label>
+            <label class="choice" for="dmg-roof">
+              <input type="checkbox" id="dmg-roof" name="damage" value="roof">
+              <span>Roof or underneath</span>
+            </label>
+            <label class="choice" for="dmg-glass">
+              <input type="checkbox" id="dmg-glass" name="damage" value="glass">
+              <span>Windshield, windows, or mirrors</span>
+            </label>
+            <label class="choice" for="dmg-unsure">
+              <input type="checkbox" id="dmg-unsure" name="damage" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="field-label">How bad does it look to you</legend>
+          <div class="choices">
+            <label class="choice" for="sev-light">
+              <input type="radio" id="sev-light" name="severity" value="light">
+              <span>Scratches and dents</span>
+            </label>
+            <label class="choice" for="sev-broken">
+              <input type="radio" id="sev-broken" name="severity" value="broken">
+              <span>A part is broken, cracked, or hanging off</span>
+            </label>
+            <label class="choice" for="sev-heavy">
+              <input type="radio" id="sev-heavy" name="severity" value="heavy">
+              <span>Heavy damage, the car is bent out of shape</span>
+            </label>
+            <label class="choice" for="sev-unsure">
+              <input type="radio" id="sev-unsure" name="severity" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="field-label">Did any airbags go off</legend>
+          <div class="choices">
+            <label class="choice" for="air-yes">
+              <input type="radio" id="air-yes" name="airbags" value="yes">
+              <span>Yes</span>
+            </label>
+            <label class="choice" for="air-no">
+              <input type="radio" id="air-no" name="airbags" value="no">
+              <span>No</span>
+            </label>
+            <label class="choice" for="air-unsure">
+              <input type="radio" id="air-unsure" name="airbags" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="card step" aria-labelledby="s7">
+        <p class="overline">Step 7 of 11</p>
+        <h2 id="s7">Is anyone hurt</h2>
+        <p class="hint">If anyone needs help right now, stop and call <span class="plain-number">911</span> before you finish this.</p>
+
+        <fieldset class="field">
+          <legend class="field-label">Is anyone hurt, even a little</legend>
+          <div class="choices">
+            <label class="choice" for="hurt-no">
+              <input type="radio" id="hurt-no" name="hurt" value="no">
+              <span>Nobody is hurt</span>
+            </label>
+            <label class="choice" for="hurt-yes">
+              <input type="radio" id="hurt-yes" name="hurt" value="yes">
+              <span>Yes, somebody is hurt</span>
+            </label>
+            <label class="choice" for="hurt-unsure">
+              <input type="radio" id="hurt-unsure" name="hurt" value="unsure">
+              <span>I am not sure yet</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="field-label" for="hurt-who">Who is hurt, and how</label>
+          <p class="hint">A few words is plenty. Aches and stiffness often turn up the next morning, so if that happens, call us and we will add it to the report.</p>
+          <textarea id="hurt-who" name="hurt-who" rows="3"></textarea>
+        </div>
+
+        <fieldset class="field">
+          <legend class="field-label">Did an ambulance or paramedics come</legend>
+          <div class="choices">
+            <label class="choice" for="ems-yes">
+              <input type="radio" id="ems-yes" name="ems" value="yes">
+              <span>Yes</span>
+            </label>
+            <label class="choice" for="ems-no">
+              <input type="radio" id="ems-no" name="ems" value="no">
+              <span>No</span>
+            </label>
+            <label class="choice" for="ems-unsure">
+              <input type="radio" id="ems-unsure" name="ems" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="card step" aria-labelledby="s8">
+        <p class="overline">Step 8 of 11</p>
+        <h2 id="s8">The other driver</h2>
+        <p class="hint">Fill in whatever you were able to get. Leave the rest blank. We can chase most of this ourselves.</p>
+
+        <fieldset class="field">
+          <legend class="field-label">Was another vehicle involved</legend>
+          <div class="choices">
+            <label class="choice" for="other-yes">
+              <input type="radio" id="other-yes" name="other-vehicle" value="yes">
+              <span>Yes, another vehicle was involved</span>
+            </label>
+            <label class="choice" for="other-no">
+              <input type="radio" id="other-no" name="other-vehicle" value="no">
+              <span>No, only my car</span>
+            </label>
+            <label class="choice" for="other-unsure">
+              <input type="radio" id="other-unsure" name="other-vehicle" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label class="field-label" for="other-name">The other driver's name</label>
+          <input type="text" id="other-name" name="other-name">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="other-phone">Their phone number</label>
+          <input type="tel" id="other-phone" name="other-phone">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="other-insurer">Their insurance company</label>
+          <p class="hint">The company name is enough. It is printed at the top of their insurance card.</p>
+          <input type="text" id="other-insurer" name="other-insurer">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="other-plate">Their license plate</label>
+          <input type="text" id="other-plate" name="other-plate" class="w-medium" autocapitalize="characters" spellcheck="false">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="other-car">Their car, as best you can describe it</label>
+          <p class="hint">Color, make, and model if you know them. "A dark blue pickup" is a useful answer.</p>
+          <input type="text" id="other-car" name="other-car">
+        </div>
+
+        <fieldset class="field">
+          <legend class="field-label">If you could not get their details</legend>
+          <div class="choices">
+            <label class="choice" for="no-details">
+              <input type="checkbox" id="no-details" name="no-details" value="yes">
+              <span>I was not able to get their details</span>
+            </label>
+            <label class="choice" for="left-scene">
+              <input type="checkbox" id="left-scene" name="left-scene" value="yes">
+              <span>They left before I could get anything</span>
+            </label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="card step" aria-labelledby="s9">
+        <p class="overline">Step 9 of 11</p>
+        <h2 id="s9">Police and witnesses</h2>
+
+        <fieldset class="field">
+          <legend class="field-label">Did the police come</legend>
+          <div class="choices">
+            <label class="choice" for="police-yes">
+              <input type="radio" id="police-yes" name="police" value="yes">
+              <span>Yes, they came</span>
+            </label>
+            <label class="choice" for="police-coming">
+              <input type="radio" id="police-coming" name="police" value="coming">
+              <span>Not yet, they are on the way</span>
+            </label>
+            <label class="choice" for="police-no">
+              <input type="radio" id="police-no" name="police" value="no">
+              <span>No</span>
+            </label>
+            <label class="choice" for="police-unsure">
+              <input type="radio" id="police-unsure" name="police" value="unsure">
+              <span>I am not sure</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field" data-ux="U2">
+          <label class="field-label" for="police-number">Police report number</label>
+          <p class="hint">This is the number on the card or slip an officer hands you at the scene. If you do not have one, leave it blank. We can get it from the department later.</p>
+          <input type="text" id="police-number" name="police-number">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="police-dept">Which police department, or the officer's name</label>
+          <input type="text" id="police-dept" name="police-dept">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="witnesses">Anyone who saw it happen</label>
+          <p class="hint">Their name and phone number, if they gave you one. If nobody stopped, leave this blank.</p>
+          <textarea id="witnesses" name="witnesses" rows="3"></textarea>
+        </div>
+      </section>
+
+      <!-- F2: the written description is last and optional -->
+      <section class="card step" aria-labelledby="s10" data-ux="F2 W5">
+        <p class="overline">Step 10 of 11</p>
+        <h2 id="s10">What happened, in your own words</h2>
+
+        <div class="field">
+          <label class="field-label" for="account">Tell us what happened</label>
+          <p class="hint">Only if you feel up to it. One sentence is enough, and blank is fine too. This report is a legal record, so give us your honest best account of it. It is normal to remember things differently once you have had time to sit down, and you can tell us then and we will add it.</p>
+          <textarea id="account" name="account" rows="6"></textarea>
+        </div>
+      </section>
+
+      <!-- F1 and W3: the policy number is last, and optional -->
+      <section class="card step" aria-labelledby="s11" data-ux="F1 W3">
+        <p class="overline">Step 11 of 11</p>
+        <h2 id="s11">Your policy number</h2>
+
+        <div class="field">
+          <label class="field-label" for="policy">Policy number</label>
+          <p class="hint">Only if it happens to be in your hand. Do not go looking for it, and do not go back to the car for the glovebox. We can find your policy from your name and phone number.</p>
+          <input type="text" id="policy" name="policy" autocomplete="off" spellcheck="false">
+        </div>
+      </section>
+
+      <!-- W5: the timestamp and the right to correct -->
+      <section class="card" aria-labelledby="send-heading" data-ux="W5 W4">
+        <h2 id="send-heading">Send your report</h2>
+        <p>We stamp your report with the date and time it reaches us. That time is what counts for your coverage, so it is worth sending now even if half of it is blank.</p>
+        <p>Nothing has been sent yet. Everything above is on this device only until you press the button.</p>
+        <p style="margin-bottom: var(--s5);">After you send it you can still add photos, correct a detail, or change your account of what happened. Open this link again, or call us.</p>
+        <button type="submit" class="btn-primary">Send report</button>
+      </section>
+
+      <p class="muted">Would you rather tell a person instead? Call the claims line at <a class="link-call" href="tel:+18005550142">1-800-555-0142</a></p>
+
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap-footer">
+    <p>Keystone Mutual. If anyone is hurt or in danger, call 911 before you do anything else here.</p>
+  </div>
+</footer>
+
+<link rel="stylesheet" href="context-impact.css">
+<script src="context-impact.js"></script>
+</body>
+</html>
