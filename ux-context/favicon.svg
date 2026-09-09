@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>UX.md playground</title>
+  <rect width="32" height="32" rx="7" fill="#1A2421"/>
+  <path d="M6 9v10a4 4 0 0 0 8 0V9M19 9l7 14M26 9l-7 14" fill="none" stroke="#9FE8BE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
