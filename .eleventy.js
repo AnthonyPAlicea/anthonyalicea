@@ -8,6 +8,7 @@ module.exports = config => {
     config.addPassthroughCopy("assets");
     config.addPassthroughCopy("normalui");
     config.addPassthroughCopy("ux-context");
+    config.addPassthroughCopy("sloptris");
     config.addPassthroughCopy("projects/interface-normalization");
     config.addPassthroughCopy('_redirects');
 

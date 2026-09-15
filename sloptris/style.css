@@ -1,0 +1,773 @@
+/* sloptris - terminal / CRT look.
+   One accent hue (amber). The only other hues are the clock's warn and danger states. */
+
+/* ---------------------------------------------------------------- tokens */
+
+:root {
+  --bg: #0b0d0e;
+  --accent: #e6b450;
+  --hi: #fff3d6;
+  --muted: #6b7075;
+  --danger: #d9534f;
+  --warn: #f0a030;
+
+  --glow: rgba(230, 180, 80, .35);
+  --glow-soft: rgba(230, 180, 80, .22);
+  --line-faint: rgba(230, 180, 80, .22);
+  --line-ghost: rgba(230, 180, 80, .10);
+
+  --cell: 20px;          /* game.js sets this on #app at runtime */
+  --header-h: 28px;      /* height of the header frame line */
+  --gap: 8px;
+  --pad: 8px;
+  --wb-cell: 36px;
+
+  --mono: ui-monospace, Menlo, Consolas, "Courier New", monospace;
+  --fs: 14px;
+  --fs-sm: 13px;
+  --fs-xs: 11px;
+}
+
+/* ------------------------------------------------------------------ base */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs);
+  line-height: 1.4;
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+input,
+select,
+pre {
+  font-family: var(--mono);
+}
+
+.app {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding: 0 var(--pad) var(--pad);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------------------------------------------------------------- header */
+/* The frame's top edge: a 1px accent rule with the items sitting in it. */
+
+.header {
+  position: relative;
+  flex: 0 0 var(--header-h);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: .4ch;
+  font-size: var(--fs-sm);
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px solid var(--accent);
+}
+
+.hdr-item {
+  position: relative;
+  background: var(--bg);
+  padding: 0 .7ch;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--glow);
+  white-space: nowrap;
+}
+
+.hdr-btn {
+  border: 0;
+  margin: 0;
+  font: inherit;
+  line-height: 1.4;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.hdr-btn:active { color: var(--hi); }
+
+/* The goal and the clock are the two numbers the game is about, so they sit
+   right after the sprint label, over the well, and are the largest text on
+   screen. Nothing is pushed to the far right: on a wide screen that is too far
+   from the action. */
+.hdr-goal {
+  font-size: 16px;
+  line-height: 1;
+  padding: 3px .7ch;
+  font-variant-numeric: tabular-nums;
+}
+
+.hdr-goal.met { color: var(--hi); }
+
+.hdr-clock {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .04em;
+  padding: 2px .6ch;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 8px var(--glow), 0 0 18px var(--glow-soft);
+}
+
+#clock.warn { color: var(--warn); text-shadow: 0 0 8px rgba(240, 160, 48, .5), 0 0 18px rgba(240, 160, 48, .25); }
+#clock.danger { color: var(--danger); text-shadow: 0 0 8px rgba(217, 83, 79, .5); animation: clock-danger 1s ease-in-out infinite; }
+#clock.hidden, #goal.hidden { visibility: hidden; }
+
+/* A new sprint: the clock and goal swell and flare, then settle. */
+.hdr-clock.reset, .hdr-goal.reset { animation: hdr-reset .9s ease-out; }
+#clock.danger.reset { animation: hdr-reset .9s ease-out; }
+
+@keyframes hdr-reset {
+  0%   { color: var(--hi); transform: scale(1.35); text-shadow: 0 0 12px var(--hi), 0 0 28px var(--glow); }
+  40%  { color: var(--hi); transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes clock-danger {
+  0%, 100% { color: var(--danger); }
+  50%      { color: var(--hi); text-shadow: 0 0 10px rgba(217, 83, 79, .9), 0 0 20px rgba(217, 83, 79, .5); }
+}
+
+/* ---------------------------------------------------------------- panels */
+
+.panel {
+  position: relative;
+  border: 1px solid var(--accent);
+  padding: 10px 8px 8px;
+  min-width: 0;
+}
+
+/* A title sits 0.7em above its panel, so a panel that follows another element
+   needs a little headroom or the title crosses the previous border line. */
+.play + .panel,
+.panel + .panel { margin-top: 4px; }
+
+.panel-title {
+  position: absolute;
+  top: -0.7em;
+  left: 1ch;
+  padding: 0 .4ch;
+  background: var(--bg);
+  color: var(--accent);
+  font-size: .75rem;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 0 6px var(--glow);
+}
+
+/* ---------------------------------------------------------------- layout */
+/* well left, ticket + workbench stacked right, full-width rows below.
+   This order never changes at any width. */
+
+.play {
+  flex: 0 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: var(--gap);
+  overflow: visible;   /* panel titles sit above the border line */
+}
+
+/* The well panel shrink-wraps its canvas; game.js owns the canvas size. */
+.well-panel {
+  flex: 0 0 auto;
+  display: inline-flex;
+  width: fit-content;
+  padding: 10px 6px 6px;
+}
+
+.well-wrap {
+  position: relative;
+  line-height: 0;
+  font-size: 0;
+}
+
+#well {
+  display: block;
+  touch-action: none;
+  background: transparent;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: .04;
+  background: repeating-linear-gradient(to bottom,
+    var(--hi) 0, var(--hi) 1px, transparent 1px, transparent 3px);
+}
+
+.right-col {
+  flex: 0 1 auto;
+  min-width: 144px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* ---------------------------------------------------------------- ticket */
+
+.ticket-shape {
+  display: grid;
+  grid-template-columns: repeat(4, 14px);
+  grid-auto-rows: 14px;
+  gap: 2px;
+  margin: 2px 0 7px;
+}
+
+.tk-cell {
+  border: 1px solid var(--line-ghost);
+  background: transparent;
+}
+
+.tk-cell.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 6px var(--glow);
+}
+
+.ticket-copy {
+  margin: 0;
+  font-size: .75rem;
+  line-height: 1.45;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--glow);
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------- workbench */
+
+.workbench {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(32px, var(--wb-cell)));
+  gap: 2px;
+  touch-action: none;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+
+.wb-cell {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid var(--line-faint);
+  border-radius: 0;
+  color: var(--muted);
+  font: inherit;
+  font-size: .8rem;
+  line-height: 1;
+  aspect-ratio: 1 / 1;
+  min-width: 32px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.wb-cell::before {
+  content: "\00B7";
+  color: var(--muted);
+}
+
+.wb-cell.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(230, 180, 80, .35);
+}
+
+.wb-cell.filled::before { content: ""; }
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Hover and the blinking cursor exist only for fine pointers. */
+@media (hover: hover) and (pointer: fine) {
+  .wb-cell:hover { border-color: var(--accent); }
+  .wb-cell.cursor::after {
+    content: "";
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    bottom: 4px;
+    border-bottom: 2px solid var(--accent);
+    animation: blink 1s steps(1, end) infinite;
+  }
+  .wb-cell.filled.cursor::after { border-bottom-color: var(--bg); }
+}
+
+/* Border flash when four cells do not match the ticket (game.js adds .flash). */
+#workbench.flash { animation: wb-flash 300ms ease-out 1; }
+
+/* A build in progress: the border breathes until the piece spawns. */
+#workbench.building { animation: wb-building 700ms ease-in-out infinite alternate; }
+
+@keyframes wb-building {
+  from { outline-color: var(--accent); }
+  to   { outline-color: var(--hi); }
+}
+
+@keyframes wb-flash {
+  0%   { outline-color: var(--hi); }
+  60%  { outline-color: var(--hi); }
+  100% { outline-color: transparent; }
+}
+
+/* ----------------------------------------------------------------- retro */
+
+.retro-stats {
+  margin: 0;
+  font: inherit;
+  font-size: .75rem;
+  line-height: 1.5;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--glow);
+}
+
+/* ------------------------------------------------------------- assistant */
+
+.assistant-panel { flex: 0 0 auto; }
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* newest line at the bottom */
+  overflow: hidden;
+  font-size: .8125rem;
+  line-height: 1.4;
+  height: calc(1.4em * 3);
+}
+
+.chat-line {
+  flex: 0 0 auto;              /* keep full line height; older lines clip at the top */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--glow);
+}
+
+.chat-line::before {
+  content: "> ";
+  color: var(--muted);
+  text-shadow: none;
+}
+
+.chat-line.typing::after {
+  content: "\258C";
+  animation: blink 1s steps(1, end) infinite;
+}
+
+/* -------------------------------------------------------------- hint row */
+
+.hint-row {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+.hint-keys {
+  white-space: pre;
+  font-size: .8125rem;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--glow);
+  overflow: hidden;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  min-height: 44px;
+  padding: 0 10px;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 0;
+  color: var(--accent);
+  font: inherit;
+  font-size: .8125rem;
+  line-height: 1;
+  cursor: pointer;
+  text-shadow: 0 0 6px var(--glow);
+}
+
+.btn:active {
+  background: var(--accent);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+.btn-small {
+  min-height: 28px;
+  padding: 0 6px;
+  font-size: var(--fs-xs);
+}
+
+/* Key hints on fine pointers, buttons on coarse ones. */
+#hint-buttons { display: none; }
+
+@media (pointer: coarse) {
+  #hint-keys { display: none; }
+  #hint-buttons { display: flex; }
+}
+
+body.coarse #hint-keys { display: none; }
+body.coarse #hint-buttons { display: flex; }
+
+/* ------------------------------------------------------------ status bar */
+
+/* The footer row holds the status line and the game's name. It stays above
+   the title and how-to overlays (z-index) so the name, and its long-press for
+   the dev panel on touch, is reachable everywhere. */
+.footer-row {
+  position: relative;
+  z-index: 11;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.footer-title {
+  flex: 0 0 auto;
+  background: transparent;
+  touch-action: none;          /* the long-press for the dev panel owns the gesture */
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  padding: 0 .4ch;
+  color: var(--accent);
+  font-size: .8125rem;
+  line-height: 20px;
+  text-shadow: 0 0 6px var(--glow);
+  white-space: nowrap;
+}
+
+.status-bar {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 20px;
+  line-height: 20px;
+  color: var(--muted);
+  font-size: .8125rem;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-bar::before { content: "> "; }
+
+/* --------------------------------------------------------------- screens */
+/* Title and how-to-play cover everything below the header. */
+
+.screen {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: var(--header-h);
+  z-index: 10;
+  background: var(--bg);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+.screen-inner {
+  width: 100%;
+  max-width: 64ch;
+}
+
+.screen-title {
+  margin: 0 0 .5em;
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 1.1;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--glow);
+}
+
+.screen-copy {
+  margin: 0 0 .9em;
+  font-size: .875rem;
+  line-height: 1.55;
+  color: var(--accent);
+}
+
+.screen-best {
+  margin: 0 0 .9em;
+  font-size: .8125rem;
+  color: var(--muted);
+}
+
+.screen-controls {
+  margin: 1.2em 0 0;
+  font: inherit;
+  font-size: .8125rem;
+  line-height: 1.6;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--muted);
+}
+
+#howto-controls-coarse { display: none; }
+
+@media (pointer: coarse) {
+  #howto-controls-fine { display: none; }
+  #howto-controls-coarse { display: block; }
+}
+
+body.coarse #howto-controls-fine { display: none; }
+body.coarse #howto-controls-coarse { display: block; }
+
+/* ---------------------------------------------------------------- resume */
+/* A small panel centred over the well. The only paused state in the game. */
+
+.resume-panel {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  max-width: 90%;
+  z-index: 5;
+  background: var(--bg);
+  padding: 12px 10px 10px;
+  text-align: left;
+  line-height: 1.4;
+  font-size: var(--fs);
+}
+
+.resume-line {
+  margin: 0 0 .8em;
+  font-size: .8125rem;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--glow);
+}
+
+.resume-controls {
+  margin: 0;
+  font-size: .8125rem;
+  white-space: pre-wrap;   /* the panel is only as wide as the well; wrap at the gap */
+  color: var(--muted);
+}
+
+.resume-panel .btn-row { display: none; }
+
+@media (pointer: coarse) {
+  .resume-controls { display: none; }
+  .resume-panel .btn-row { display: flex; }
+}
+
+body.coarse .resume-controls { display: none; }
+body.coarse .resume-panel .btn-row { display: flex; }
+
+/* --------------------------------------------------------- screen states */
+/* game.js keeps exactly one body.screen-* class on the body. screen-play is
+   the bare play screen and needs no rules of its own. */
+
+body.screen-title .hint-row,
+body.screen-howto .hint-row { visibility: hidden; }
+
+body.screen-resume .assistant-panel,
+body.screen-resume .hint-row,
+body.screen-resume .status-bar { opacity: .35; }
+body.screen-title .status-bar,
+body.screen-howto .status-bar { visibility: hidden; }
+
+body.screen-retro .status-bar { color: var(--accent); }
+
+/* ------------------------------------------------------------- dev panel */
+
+.dev-panel {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  z-index: 20;
+  width: min(320px, calc(100vw - 16px));
+  max-height: calc(100vh - 16px);
+  max-height: calc(100dvh - 16px);
+  overflow: auto;              /* a short phone screen scrolls the panel instead of clipping it */
+  background: var(--bg);
+  padding: 10px 8px 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Close sits in the top border line opposite the title. Padding gives it a
+   tappable hit area without moving the text off the line. */
+.dev-close {
+  left: auto;
+  right: 1ch;
+  top: calc(-0.7em - 9px);
+  padding: 9px .6ch;
+  border: 0;
+  margin: 0;
+  font: inherit;
+  font-size: .75rem;
+  line-height: 1;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  text-shadow: 0 0 6px var(--glow);
+}
+
+.dev-close:hover,
+.dev-close:active { color: var(--hi); }
+
+.dev-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: calc(90vh - 24px);
+  overflow: auto;   /* scroll the body, not the panel, so the title is not clipped */
+}
+
+.dev-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.dev-label {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.dev-panel label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.dev-panel input[type="text"],
+.dev-panel input[type="number"],
+.dev-panel select {
+  background: var(--bg);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 0;
+  font: inherit;
+  font-size: 12px;
+  padding: 1px 3px;
+}
+
+.dev-panel input[type="number"] {
+  width: 7ch;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.dev-panel input[type="number"]::-webkit-outer-spin-button,
+.dev-panel input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.dev-panel input[type="text"] { width: 12ch; }
+.dev-panel select { max-width: 16ch; }
+
+.dev-panel input[type="checkbox"],
+.dev-panel input[type="radio"] {
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+.dev-panel input[readonly] { color: var(--muted); }
+
+.screen-credit {
+  margin: 14px 0 0;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  white-space: pre;
+}
+
+/* ----------------------------------------------------------------- tight */
+
+@media (max-height: 699px) {
+  .chat { height: calc(1.4em * 2); }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --gap: 6px;
+    --pad: 6px;
+  }
+  .panel { padding: 9px 5px 5px; }
+  .well-panel { padding: 9px 4px 4px; }
+  .resume-panel { padding: 11px 8px 8px; }
+  .dev-panel { padding: 10px 8px 8px; }
+  .screen { padding: 12px; }
+  .screen-title { font-size: 1.75rem; }
+  .screen-controls { font-size: 10px; }
+  .hint-keys { font-size: 12px; }
+  .status-bar { font-size: 12px; }
+  .hdr-goal { font-size: 13px; }
+  .hdr-clock { font-size: 18px; }
+  /* Cap the right column on phones so the well keeps its share of the width.
+     168px still holds the workbench at 36px cells (4*36 + 3*2 + 12 chrome). */
+  .right-col { max-width: 168px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-cell.cursor::after,
+  .chat-line.typing::after,
+  #clock.danger,
+  .hdr-clock.reset,
+  .hdr-goal.reset,
+  #workbench.building,
+  #workbench.flash { animation: none; }
+}
