@@ -10,10 +10,12 @@
    * ===================================================================== */
 
   var CONFIG = {
-    // Mutation odds, index = min(streak, 5) - 1. Tuned up from the spec's
-    // 10/20/35/50/60 and 25 after playtesting (see NOTES.md, Tuning).
-    MUTATION_TABLE: [35, 40, 45, 50, 60],
-    REFACTOR_CHANCE: 5,
+    // Mutation odds per sprint, index = min(sprint, 5) - 1. A flat roll on
+    // every generate within a sprint; how often the player generates versus
+    // builds has no effect on it. Values kept from the streak-era tuning
+    // (see NOTES.md, Tuning).
+    MUTATION_TABLE: [45, 55, 60, 65, 70],
+    REFACTOR_CHANCE: 1,
     // How many times a board-aware target box may widen (CONTRACT res. 1, 12).
     TARGET_WIDEN_MAX: 2,
     // Rows a review must fall before it answers. Spec said 6; 3, then 2 after
@@ -116,9 +118,9 @@
     TITLE_BEST: 'best {n} shipped',
 
     // 11.2 How to play
-    HOWTO_P1: 'Build the next shape on the workbench or have the AI generate it.',
-    HOWTO_P2: 'Generated pieces can change shape after they land. The more you generate in a row, the more it happens.',
-    HOWTO_P3: "Review a falling generated piece to see what it will become. Whatever it becomes drops into place.",
+    HOWTO_P1: 'Build the next shape on the workbench (use the spacebar to build on keyboard) or have the AI generate it.',
+    HOWTO_P2: 'Move and rotate shapes with arrow keys on keyboard or swipe and tap on mobile. Generated pieces can change shape after they land!',
+    HOWTO_P3: "You can review a falling generated piece to see what it will become (hold R on keyboard, tap and hold on grid in mobile).",
     HOWTO_P4: "Complete the required number of lines before the clock hits zero to successfully complete a sprint.",
     HOWTO_CONTROLS_FINE: 'move: arrows or hjkl    rotate: up / x / z    hard drop: space\ngenerate: g    review: r (hold)    clear workbench: esc    sound: m',
     HOWTO_CONTROLS_COARSE: 'move: drag sideways    rotate: tap    drop: drag down    slam: flick down\nreview: press and hold    generate and clear: buttons below',
@@ -191,13 +193,13 @@
     RESUME_LINE_RETRO: 'Reloaded.',
     RESUME_CONTROLS: '[enter] resume    [n] new game',
     RESUME_CONTROLS_RETRO: '[enter] see retro    [n] new game',
-    RESUME_CONFIRM: 'Press n again to throw this run away.',
-    NEW_CONFIRM_KEYS: 'Press n again to throw this run away.',
-    NEW_CONFIRM_TOUCH: 'Tap again to throw this run away.',
+    RESUME_CONFIRM: 'Press n again to start a new game.',
+    NEW_CONFIRM_KEYS: 'Press n again to start a new game.',
+    NEW_CONFIRM_TOUCH: 'Tap again to start a new game.',
     BTN_NEW: '[new]',
     BTN_RESUME: '[resume]',
     BTN_NEWGAME: '[new game]',
-    BTN_THROW: '[throw it away]',
+    BTN_THROW: '[new game (confirm)]',
 
     // Header / hints
     SOUND_ON_KEY: '[m] sound on',
@@ -1024,6 +1026,13 @@
     var idx = Math.min(sprint, cfg.DEADLINES_S.length) - 1;
     if (idx < 0) idx = 0;
     return cfg.DEADLINES_S[idx];
+  }
+
+  // Mutation chance (percent) for a piece generated during this sprint.
+  function mutationChanceFor(sprint) {
+    var idx = Math.min(sprint, cfg.MUTATION_TABLE.length) - 1;
+    if (idx < 0) idx = 0;
+    return cfg.MUTATION_TABLE[idx];
   }
 
   function goalFor(sprint) {
@@ -2296,12 +2305,13 @@
     cancelBuild();
     clearWorkbench(false);
 
+    // The streak is a display-only stat (dev panel "show streak"); the odds
+    // depend on the sprint alone, never on the generate/build history.
     G.streak += 1;
-    var idx = Math.min(G.streak, 5) - 1;
-    var chance = cfg.MUTATION_TABLE[idx];
+    var chance = mutationChanceFor(G.sprint);
     var willMutate = (G.rng() * 100) < chance;
     var willRefactor = false;
-    if (willMutate && G.streak >= 5) willRefactor = (G.rng() * 100) < cfg.REFACTOR_CHANCE;
+    if (willMutate) willRefactor = (G.rng() * 100) < cfg.REFACTOR_CHANCE;
 
     // Dev overrides ride on top of the real rolls, so the stream is unchanged.
     if (G.forceMutation) {

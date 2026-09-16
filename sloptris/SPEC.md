@@ -150,21 +150,21 @@ The falling piece additionally stores:
 
 Generated pieces always drop as the correct shape. The surprise happens after lock. Whether it will happen, and into what, is decided the moment the piece is generated.
 
-### 6.1 Streak and odds
+### 6.1 Odds
 
-Track `generateStreak`: consecutive tickets resolved by Generate (including auto-generate at deadline, 7). Building a piece by hand resets it to 0.
+On Generate, roll once against this table using the current sprint. The chance is flat for the whole sprint; how often the player generates versus builds does not change it.
 
-On Generate, roll once against this table using the current streak:
-
-| streak | mutation chance |
+| sprint | mutation chance |
 |---|---|
-| 1 | 10% |
-| 2 | 20% |
-| 3 | 35% |
+| 1 | 35% |
+| 2 | 40% |
+| 3 | 45% |
 | 4 | 50% |
 | 5+ | 60% |
 
-If the roll hits and streak is 5 or more, roll again: 25% chance that this piece's lock triggers a **board refactor** (6.3) in addition to its own mutation.
+If the roll hits, roll again: `REFACTOR_CHANCE` (5%) that this piece's lock triggers a **board refactor** (6.3) in addition to its own mutation.
+
+`generateStreak` (consecutive tickets resolved by Generate; building resets it to 0) is still tracked and saved, but only as a stat for the dev panel's `show streak` toggle.
 
 Keep the table in a single config object at the top of `game.js` so it can be tuned.
 
@@ -401,7 +401,7 @@ Contents, top to bottom:
 
 - `seed mode` : `random` / `daily` / `fixed` (radio). Switching modes takes effect on the next run, not mid-run.
 - `seed` : the current run's seed, read-only in random and daily mode, editable in fixed mode. A `copy` button copies `?seed=<n>` as a full URL.
-- `mutation table` : the five streak percentages, editable.
+- `mutation table` : the five per-sprint percentages, editable.
 - `refactor chance` : editable.
 - `review threshold` and `review gravity (ms)` : editable.
 - `deadlines` : the five sprint values in seconds, editable.
@@ -586,8 +586,8 @@ The only score is `lines` (rows cleared). Best score saved to localStorage under
 - [ ] The target rotates and translates with the piece; rotating a reviewed piece rotates its outline on the canvas with no lag or offset.
 - [ ] At lock, the target applies only if it fits inside the well without overlapping filled cells; otherwise the piece stays with no message.
 - [ ] Mutation can complete a row, and that row clears.
-- [ ] Board refactor triggers only from a piece rolled at streak 5+ and re-mutates every other intact slop piece against the live board.
-- [ ] Building by hand resets the streak; auto-generate at deadline increments it.
+- [ ] Board refactor triggers only from a piece that rolled a mutation and re-mutates every other intact slop piece against the live board.
+- [ ] The mutation chance depends only on the current sprint; building by hand or generating in a row does not change it.
 - [ ] `R` does nothing on hand-built pieces.
 - [ ] While `R` is held on a slop piece: no move, rotate, soft drop, or hard drop; gravity at 1200 ms per cell; the clock keeps running; status bar reads `reviewing.`
 - [ ] Charge accumulates one per row fallen while held, persists across releases, and reveals nothing before 6.
