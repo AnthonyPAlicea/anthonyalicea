@@ -394,9 +394,12 @@
   }
 
   /**
-   * Create the AudioContext (once), resume it, kick off asset loading, and start
-   * music if the sound setting is on. Call from the start / resume / again
-   * gesture. Safe to call repeatedly, and safe where Web Audio does not exist.
+   * Create the AudioContext (once), resume it, kick off asset loading, and ask
+   * for music. The ask is recorded even while sound is off (the default on
+   * every page load, NOTES item 27) so that turning sound on later starts the
+   * loop; startMusic() itself plays nothing until sound is on and the file has
+   * decoded. Call from the start / resume / again gesture. Safe to call
+   * repeatedly, and safe where Web Audio does not exist.
    * @returns {void}
    */
   function unlock() {
@@ -416,7 +419,7 @@
     }
     resume();
     try { loadAll(); } catch (err) { /* assets are optional */ }
-    if (isEnabled()) startMusic();
+    startMusic();   /* records the want; audible only once sound is on */
   }
 
   /**

@@ -248,6 +248,13 @@ decide something the spec leaves open or gets wrong. Code comments that mention 
     captures the pointer on `pointerdown`, prevents the context menu, and no longer cancels
     on `pointerleave` (capture means leave does not fire until release anyway).
 
+29. **Music after a mid-run sound toggle (2026-09-16).** With sound off on every load (item
+    27), `unlock()` skipped `startMusic()` when the run began, so `musicWanted` stayed false
+    and `setEnabled(true)` later had nothing to restore: effects played, music never did.
+    `unlock()` now always calls `startMusic()`, which records the want and plays nothing
+    until sound is on and `loop.mp3` has decoded. The retro's `stopMusic()` still clears
+    the want, so a run that has ended stays silent when sound is switched on.
+
 ## Tuning
 
 Defaults in `CONFIG` differ from the numbers in SPEC 6.1 after playtesting. The owner found
