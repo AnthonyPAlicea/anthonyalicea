@@ -206,7 +206,7 @@
     SOUND_OFF_KEY: '[m] sound off',
     SOUND_ON_TOUCH: '[sound: on]',
     SOUND_OFF_TOUCH: '[sound: off]',
-    HINT_KEYS: '[B] build   [G] generate   [R] review (hold)   [N] new   [?] help',
+    HINT_KEYS: '[G] generate   [R] review (hold)   [N] new   [?] help',
     SPRINT_LABEL: 'sprint {n}',
     GOAL_LABEL: '{k}/{goal}',
     TICKET_TITLE: 'TICKET #{n}'
@@ -3053,7 +3053,6 @@
         return;
       }
       if (lk === 'g') { e.preventDefault(); if (!e.repeat) generate(); return; }
-      if (lk === 'b') { e.preventDefault(); if (!e.repeat) flashWorkbench(); return; }
       return;
     }
 
@@ -3073,7 +3072,6 @@
         return;
       }
       if (k === ' ') { e.preventDefault(); if (!e.repeat) hardDrop(); return; }
-      if (lk === 'b') { e.preventDefault(); if (!e.repeat) flashWorkbench(); return; }
     }
   }
 

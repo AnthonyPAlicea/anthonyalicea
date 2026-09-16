@@ -57,7 +57,7 @@ Terminal aesthetic, CRT flavor. Monospace everything. Lit things glow a little.
 │  │ > Sure! Here's your L-piece.              │         │
 │  └───────────────────────────────────────────┘         │
 │                                                        │
-│  [B] build   [G] generate   [R] review (hold)          │
+│  [G] generate   [R] review (hold)                      │
 │                                                        │
 │  > shipped 6   generated 4   debt 8                    │
 └────────────────────────────────────────────────────────┘
@@ -99,7 +99,7 @@ The game has two states that alternate: **Spec** and **Falling**.
 - A ticket appears: a tetromino shape rendered in the ticket panel, plus one line of ticket copy (11.3). The ticket shape is shown in one fixed orientation.
 - The workbench is a 4x4 grid, empty.
 - The player can:
-  - **Build:** toggle workbench cells with click, tap, or arrow keys plus `Space`/`Enter`. When the set of filled cells matches the ticket shape (any rotation, any position within the 4x4; see 5.1), the piece is accepted automatically and spawns in the well. No confirm key is needed. `B` is a no-op that flashes the workbench border, kept only so the on-screen hint matches a real key.
+  - **Build:** toggle workbench cells with click, tap, or arrow keys plus `Space`/`Enter`. When the set of filled cells matches the ticket shape (any rotation, any position within the 4x4; see 5.1), the piece is accepted automatically and spawns in the well. No confirm key is needed.
   - **Generate:** press `G` or tap the button. The workbench clears, the chat pane types a line from 11.4a, and the correct ticket shape spawns in the well immediately, marked as slop. The mutation roll and target are decided now (6.1, 6.2).
 - Filled workbench cells that do not yet match the shape stay filled. The player can clear the workbench with `Esc`, `C`, or the `[clear]` button.
 - If the player fills 4 cells that do not match the ticket, the workbench border flashes once and nothing else happens. They fix it.
@@ -330,7 +330,7 @@ Gesture rules:
 
 The row under the assistant pane depends on pointer type.
 
-- Fine pointer: `[B] build   [G] generate   [R] review (hold)`
+- Fine pointer: `[G] generate   [R] review (hold)`
 - Coarse pointer: three buttons, `[generate]`, `[clear]`, and, on retro only, `[again]` `[share]`. Buttons are at least 44 px tall and use the same box-drawing border treatment as the panels.
 
 ## 9. Sound
