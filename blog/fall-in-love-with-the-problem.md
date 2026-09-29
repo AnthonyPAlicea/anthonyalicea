@@ -1,6 +1,6 @@
 ---
 layout: post.njk
-title: "Falling In Love With the Problem, Not the Solution, Has Never Been More Important"
+title: "Falling In Love With the Problem, Not the Solution, Is More Important Than Ever"
 excerpt: "Typing code and dragging pixels were always solutions. What problem were you trying to solve?"
 date: 2026-09-29
 og_image: 'assets/fall_in_love_card.png'
