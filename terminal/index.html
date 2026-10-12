@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designing with Coding Tools: The Terminal</title>
+<meta name="description" content="Learn the terminal, one of the core tools coders use.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --desk-a:#222b42; --desk-b:#3f5b73; --desk-glow:#6e93a4;
+  --paper:#f7f5ef; --paper-2:#efece3; --ink:#22252d; --ink-soft:#5b6068;
+  --term-bg:#16140f; --term-bar:#2b2720; --term-text:#e9e3d2; --term-faint:#8d8776;
+  --prompt:#a7cb77; --err:#e2726b; --dirc:#84c8bd;
+  --marker:#ff5c39;          /* teacher's pen */
+  --hl:#ffd94a; --hl-deep:#f5c518;   /* sticky / highlighter */
+  --vio:#7a5cff; --vio-soft:#f2eeff; /* prediction cards */
+  --ok:#3f9d63;
+  --radius:12px;
+  --shadow:0 22px 60px rgba(10,14,24,.42), 0 3px 10px rgba(10,14,24,.25);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,sans-serif; color:var(--ink);
+  background:
+    radial-gradient(1100px 500px at 78% -8%, rgba(140,180,190,.28), transparent 60%),
+    radial-gradient(900px 600px at 8% 108%, rgba(70,110,140,.35), transparent 55%),
+    linear-gradient(158deg, var(--desk-a) 0%, var(--desk-b) 100%);
+  min-height:100vh;
+}
+a{color:inherit}
+code,.mono{font-family:'JetBrains Mono',monospace}
+.caveat{font-family:Caveat,cursive}
+
+.desk{max-width:1120px;margin:0 auto;padding:34px 18px 60px}
+
+/* ---------- header ---------- */
+header{color:#eef2f0;text-align:center;margin:6px 0 30px}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:#bcd3d2;margin-bottom:14px;
+}
+h1{
+  font-family:'JetBrains Mono',monospace;font-weight:800;
+  font-size:clamp(24px,4.4vw,42px);margin:0;line-height:1.15;
+  text-shadow:0 2px 24px rgba(0,0,0,.35);
+  min-height:1.2em;
+}
+h1 .cursor{
+  display:inline-block;width:.55em;height:1.05em;background:var(--hl);
+  vertical-align:text-bottom;margin-left:4px;animation:blink 1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.subline{color:#cfdcd9;font-size:15.5px;margin:14px auto 0;max-width:560px}
+.subline code{background:rgba(255,255,255,.12);padding:1px 6px;border-radius:5px;font-size:.92em}
+
+/* ---------- windows layout ---------- */
+main{display:grid;grid-template-columns:1.45fr 1fr;gap:26px;align-items:start}
+.win{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.titlebar{display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:12.5px}
+.titlebar.dark{background:var(--term-bar);color:#c9c2b0}
+.titlebar.light{background:linear-gradient(#f2efe8,#e7e3d9);color:#5c5c56;border-bottom:1px solid #d8d4c8}
+.lights{display:flex;gap:7px}
+.lights i{width:12px;height:12px;border-radius:50%;display:block}
+.lights i:nth-child(1){background:#ff5f57}.lights i:nth-child(2){background:#febc2e}.lights i:nth-child(3){background:#28c840}
+.titlebar .t{flex:1;text-align:center;font-weight:500;padding-right:52px}
+
+/* ---------- terminal ---------- */
+.term-body{
+  background:var(--term-bg);color:var(--term-text);
+  font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.62;
+  padding:16px 16px 20px;height:520px;overflow-y:auto;cursor:text;
+}
+.tl{white-space:pre-wrap;word-break:break-word}
+.tl .prompt{color:var(--prompt)}
+.tl.err{color:var(--err)}
+.tl.faint{color:var(--term-faint)}
+.tl.dim{opacity:.26;transition:opacity .5s}
+.tl.spot{color:#fff;text-shadow:0 0 14px rgba(255,217,74,.35)}
+.tl .dirname{color:var(--dirc)}
+.input-line{display:flex;align-items:baseline}
+.input-line .prompt{color:var(--prompt);white-space:pre}
+#cmd{
+  flex:1;background:transparent;border:0;outline:0;color:var(--term-text);
+  font:inherit;font-size:16px;caret-color:var(--hl);padding:0;min-width:40px;
+}
+.term-body::-webkit-scrollbar{width:10px}
+.term-body::-webkit-scrollbar-thumb{background:#3a352a;border-radius:6px}
+
+/* the ? affordance on executed lines */
+.qbtn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:17px;height:17px;margin-left:9px;border-radius:50%;
+  border:1.5px solid var(--marker);color:var(--marker);background:transparent;
+  font:600 11px Inter,sans-serif;cursor:pointer;vertical-align:1px;opacity:.75;
+}
+.qbtn:hover,.qbtn:focus-visible{opacity:1;background:rgba(255,92,57,.14)}
+.dict{
+  background:var(--hl);color:#3a3208;border-radius:9px;padding:9px 12px;margin:6px 0 8px;
+  font-family:Inter,sans-serif;font-size:13px;line-height:1.5;max-width:520px;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);
+}
+.dict b{font-family:'JetBrains Mono',monospace;font-weight:600}
+
+/* ---------- hand-drawn annotations (step 1) ---------- */
+.anno{margin:2px 0 4px;color:var(--marker)}
+.anno .lbl{font-family:Caveat,cursive;font-size:19px;line-height:1.25;color:#ff7c5e}
+.anno svg{display:block;overflow:visible}
+.anno .draw path{stroke:var(--marker);stroke-width:2.6;fill:none;stroke-linecap:round;
+  stroke-dasharray:120;stroke-dashoffset:120;animation:draw .7s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.fadein{opacity:0;animation:fin .5s ease forwards}
+@keyframes fin{to{opacity:1}}
+.enter-chip{
+  display:inline-block;background:var(--hl);color:#3a3208;border-radius:999px;
+  padding:3px 12px;font:600 12.5px Inter,sans-serif;margin-top:6px;
+  animation:pulse 1.6s ease infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+/* ---------- live grammar diagram (under the input, as you type) ---------- */
+#liveAnno{font-family:'JetBrains Mono',monospace}
+.lrow{display:flex;align-items:flex-start;line-height:1.3;margin:1px 0}
+.lrow svg{flex:none;height:9px;margin-top:7px;overflow:visible}
+.lrow svg path{stroke-width:2.4;fill:none;stroke-linecap:round}
+.lrow .llbl{font-family:Caveat,cursive;font-size:18px;margin-left:9px;white-space:nowrap}
+.lrow.k svg path{stroke:var(--marker)}   .lrow.k .llbl{color:#ff8a6b}
+.lrow.f svg path{stroke:var(--hl)}       .lrow.f .llbl{color:var(--hl)}
+.lrow.a svg path{stroke:#a794ff}         .lrow.a .llbl{color:#b3a3ff}
+.lrow.fresh{animation:fin .35s ease}
+
+/* ---------- prediction card ---------- */
+.predict{
+  background:var(--vio-soft);border:2px solid var(--vio);border-radius:12px;
+  padding:14px 15px;margin:10px 0 12px;max-width:560px;
+  font-family:Inter,sans-serif;color:var(--ink);
+  box-shadow:0 8px 26px rgba(60,40,160,.35);
+}
+.predict .ph{font-family:Caveat,cursive;font-size:22px;color:var(--vio);line-height:1.1;margin-bottom:6px}
+.predict .gram{
+  font-family:'JetBrains Mono',monospace;font-size:13px;background:#fff;border-radius:8px;
+  padding:9px 11px;margin:4px 0 10px;color:#333;
+}
+.predict .gram .g-verb{border-bottom:2.5px solid var(--marker);padding-bottom:1px}
+.predict .gram .g-noun{border-bottom:2.5px solid var(--vio);padding-bottom:1px}
+.predict .gram .g-flag{border-bottom:2.5px solid #d9a514;padding-bottom:1px}
+.predict .gram .tag{font-family:Caveat,cursive;font-size:16px;margin:0 2px}
+.predict .gram .tag.v{color:var(--marker)} .predict .gram .tag.n{color:var(--vio)}
+.predict .gram .tag.fl{color:#b8880c}
+.predict .gnote{font-family:Caveat,cursive;font-size:16.5px;color:#6b6280;margin:-4px 0 8px}
+.opt{
+  display:block;width:100%;text-align:left;background:#fff;border:1.5px solid #cfc6f2;
+  border-radius:9px;padding:9px 12px;margin:7px 0;font:500 14px Inter,sans-serif;
+  color:var(--ink);cursor:pointer;transition:border-color .15s, transform .1s;
+}
+.opt:hover:not(:disabled),.opt:focus-visible{border-color:var(--vio);transform:translateX(2px)}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.picked-right{border-color:var(--ok);background:#eafaf0;opacity:1}
+.opt.picked-wrong{border-color:var(--err);background:#fdefee;opacity:1}
+.opt.reveal{border-color:var(--ok);opacity:1}
+.pv{font-size:13.5px;margin-top:8px;color:#4a4560;line-height:1.5}
+.pv b{color:var(--ink)}
+
+/* wall-of-text teaching card */
+.wallcard{
+  background:#fff;border-left:5px solid var(--marker);border-radius:10px;
+  padding:11px 14px;margin:10px 0 12px;max-width:540px;font-family:Inter,sans-serif;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+.wallcard .ph{font-family:Caveat,cursive;font-size:22px;color:var(--marker);margin-bottom:3px}
+.wallcard p{margin:4px 0;font-size:13.5px;line-height:1.5;color:#3c4048}
+.ghostbtn{
+  background:transparent;border:1.5px solid var(--marker);color:var(--marker);
+  border-radius:999px;padding:4px 13px;font:600 12.5px Inter,sans-serif;cursor:pointer;margin-top:7px;
+}
+.ghostbtn:hover,.ghostbtn:focus-visible{background:rgba(255,92,57,.1)}
+.bye{opacity:0;transform:translateY(-4px);transition:opacity .25s ease, transform .25s ease}
+
+/* ---------- right column ---------- */
+.col{display:flex;flex-direction:column;gap:22px}
+
+/* Finder */
+.finder-toolbar{
+  display:flex;align-items:center;gap:10px;background:#f6f3ec;border-bottom:1px solid #e2ded2;
+  padding:7px 12px;font-size:12px;color:#8a887f;
+}
+.finder-toolbar .navg{letter-spacing:2px;font-size:14px;opacity:.5}
+.viewseg{margin-left:auto;display:flex;border:1px solid #d5d1c4;border-radius:7px;overflow:hidden}
+.viewseg span{padding:3px 9px;font-size:12px;background:#fff;color:#a2a096}
+.viewseg span.on{background:#dcd7c9;color:#514f47}
+.finder-body{background:#fdfcf8;min-height:250px;max-height:300px;overflow-y:auto;padding:14px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:14px 8px}
+.fitem{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center}
+.fitem .fname{font-size:11.5px;color:#3c3c38;word-break:break-word;line-height:1.25;max-width:92px}
+.fitem svg{width:46px;height:40px}
+.fitem.pop{animation:popin .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes popin{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.flist{width:100%;border-collapse:collapse;font-size:12.5px}
+.flist th{text-align:left;color:#9a9890;font-weight:500;font-size:11px;padding:3px 8px;border-bottom:1px solid #eceadf}
+.flist td{padding:5px 8px;border-bottom:1px solid #f3f1e8;color:#3c3c38;white-space:nowrap}
+.flist tr.pop td{animation:rowin .4s ease}
+@keyframes rowin{from{background:#fff6d6}to{background:transparent}}
+.flist svg{width:17px;height:15px;vertical-align:-2px;margin-right:6px}
+.fempty{color:#b4b2a8;font-size:13px;padding:20px 6px;text-align:center}
+.pathbar{
+  display:flex;align-items:center;gap:8px;background:#f6f3ec;border-top:1px solid #e2ded2;
+  padding:6px 12px;font-size:12px;color:#6d6b62;
+}
+.pathbar .crumb b{font-weight:600}
+.pathbar .vo{margin-left:auto;color:#b0aea2;font-size:11px}
+
+/* sticky-note coach */
+.sticky{
+  background:linear-gradient(178deg,#ffe985, var(--hl) 70%);
+  color:#463c07;border-radius:4px;padding:16px 18px 18px;
+  transform:rotate(-1.4deg);
+  box-shadow:0 14px 30px rgba(15,15,10,.38), 0 2px 6px rgba(0,0,0,.2);
+  position:relative;
+}
+.sticky:before{ /* tape */
+  content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(1.5deg);
+  width:86px;height:22px;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.05);
+}
+.dots{display:flex;gap:6px;margin-bottom:9px}
+.dots i{width:8px;height:8px;border-radius:50%;background:rgba(70,60,7,.22)}
+.dots i.on{background:#463c07}
+.dots i.past{background:rgba(70,60,7,.55)}
+.coach-h{font-family:Caveat,cursive;font-size:24px;line-height:1;margin-bottom:5px}
+.coach-b{font-size:14.5px;line-height:1.55}
+.coach-b code{background:rgba(255,255,255,.65);border-radius:5px;padding:1px 6px;font-size:.92em;font-weight:600}
+
+/* ---------- overlays: intro + finale ---------- */
+.ov{
+  position:fixed;inset:0;background:rgba(16,20,30,.6);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:18px;z-index:50;
+}
+.ov[hidden]{display:none}
+.ov .win{max-width:520px;width:100%;animation:ovin .4s cubic-bezier(.2,1.2,.4,1)}
+@keyframes ovin{from{transform:translateY(18px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.readme{background:var(--paper);padding:22px 26px 24px;font-size:15px;line-height:1.62}
+.readme p{margin:0 0 13px}
+.readme code{background:var(--paper-2);border:1px solid #e0dccd;border-radius:5px;padding:1px 6px;font-size:.9em}
+.btn-primary{
+  display:inline-block;background:var(--ink);color:#fff;border:0;border-radius:9px;
+  padding:10px 20px;font:600 14.5px Inter,sans-serif;cursor:pointer;text-decoration:none;
+}
+.btn-primary:hover,.btn-primary:focus-visible{background:#000}
+.btn-ghost{
+  background:transparent;border:1.5px solid var(--ink-soft);color:var(--ink-soft);
+  border-radius:9px;padding:9px 16px;font:600 13.5px Inter,sans-serif;cursor:pointer;
+}
+.btn-ghost:hover,.btn-ghost:focus-visible{border-color:var(--ink);color:var(--ink)}
+
+/* finale: an honest, empty text file */
+.fin-win{max-width:560px !important}
+.page{background:#fff;max-height:76vh;overflow-y:auto}
+.pad{
+  background:#fff;min-height:150px;padding:18px 20px;
+  font-family:'JetBrains Mono',monospace;font-size:14px;border-bottom:1px solid #efece3;
+}
+.padcaret{display:inline-block;width:2px;height:18px;background:#3a3a36;vertical-align:-3px;animation:blink 1.05s steps(1) infinite}
+.donecard{padding:22px 30px 26px}
+.done-h{font-size:30px;color:var(--vio);line-height:1;margin-bottom:8px}
+.donecard p{margin:0 0 12px;font-size:14.5px;line-height:1.62;color:#33363d}
+.cta-row{display:flex;gap:12px;align-items:center;margin-top:16px;flex-wrap:wrap}
+
+footer{
+  text-align:center;color:#b9cbc9;font-size:12.5px;margin-top:36px;line-height:1.7;
+}
+footer a{color:#dceae8}
+
+:focus-visible{outline:2.5px solid var(--hl);outline-offset:2px}
+
+/* ---------- responsive ---------- */
+@media (max-width:880px){
+  main{display:flex;flex-direction:column;gap:18px}
+  .col{display:contents}
+  .sticky{order:-1;position:sticky;top:10px;z-index:20;transform:rotate(-.6deg)}
+  .term-win{order:0}
+  .finder-win{order:1}
+  .term-body{height:min(58vh,440px)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  h1 .cursor{display:none}
+}
+</style>
+</head>
+<body>
+<div class="desk">
+
+  <header>
+    <div class="eyebrow">A short lesson for designers</div>
+    <h1><span id="typed"></span><span class="cursor" id="hcur"></span></h1>
+    <p class="subline">Learn to use the terminal without worrying about your computer.</p>
+  </header>
+
+  <main>
+    <!-- ============ TERMINAL ============ -->
+    <section class="win term-win" aria-label="Simulated terminal">
+      <div class="titlebar dark"><span class="lights"><i></i><i></i><i></i></span><span class="t mono">terminal — you@fake-machine</span></div>
+      <div class="term-body" id="termBody">
+        <div id="hist"></div>
+        <div class="input-line">
+          <span class="prompt" id="promptEl">~/Desktop $ </span><input id="cmd" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Type a command" disabled>
+        </div>
+        <div id="liveAnno" aria-hidden="true"></div>
+        <div id="annoSlot"></div>
+      </div>
+    </section>
+
+    <!-- ============ RIGHT COLUMN ============ -->
+    <div class="col">
+      <div class="sticky" id="coach" aria-live="polite">
+        <div class="dots" id="dots"></div>
+        <div class="coach-h caveat" id="coachH">Step 1 of 7</div>
+        <div class="coach-b" id="coachB">Type <code>pwd</code>, then stop. Don't press Enter yet!</div>
+      </div>
+      <section class="win finder-win" aria-label="File window, view only">
+        <div class="titlebar light"><span class="lights"><i></i><i></i><i></i></span><span class="t" id="finTitle">Desktop</span></div>
+        <div class="finder-toolbar">
+          <span class="navg">‹ ›</span>
+          <span id="crumbTop" style="font-weight:600;color:#5c5a52">Desktop</span>
+          <span class="viewseg"><span id="segIcons" class="on">▦</span><span id="segList">☰</span></span>
+        </div>
+        <div class="finder-body" id="finderBody"></div>
+        <div class="pathbar"><span class="crumb" id="crumb"><b>Desktop</b></span><span class="vo">view only · typing happens in the terminal</span></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    A taste of the NN/g course on designing with AI in real coding tools.<br>
+    Tony Alicea · <a id="footLink" href="#" target="_blank" rel="noopener">See the course</a>
+  </footer>
+</div>
+
+<!-- ============ INTRO ============ -->
+<div class="ov" id="introOv">
+  <div class="win">
+    <div class="titlebar light"><span class="lights"><i></i><i></i><i></i></span><span class="t mono">read-me.txt</span></div>
+    <div class="readme">
+      <p>In the 1970s a <i>terminal</i> was an interface to a computer. It was a screen, a keyboard, and no mouse.</p>
+      <p>The modern terminal mimics that user experience. It's about using your computer with just a keyboard and memorized expertise.</p>
+      <p>In these few lessons you'll get introduced to the terminal: a tool coders love to use when working with AI.</p>
+      <button class="btn-primary" id="startBtn">Open the terminal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FINALE ============ -->
+<div class="ov" id="finaleOv" hidden>
+  <div class="win fin-win">
+    <div class="titlebar light"><span class="lights"><i></i><i></i><i></i></span><span class="t mono" id="finFile">notes.txt</span></div>
+    <div class="page">
+      <div class="pad"><span class="padcaret"></span></div>
+      <div class="donecard">
+        <div class="done-h caveat">An keyboard-first interface.</div>
+        <p>Using the command line, you found where you were, looked around, unpacked an archive, dealt with one error, asked for detail, then built a folder and a file of your own and opened it. Great job!</p>
+        <p>The full course teaches things like: working in the terminal, working with an IDE, and using AI to build working prototypes on your own machine.</p>
+        <div class="cta-row">
+          <a class="btn-primary" id="ctaBtn" href="#" target="_blank" rel="noopener">Take the course</a>
+          <button class="btn-ghost" id="keepBtn">Keep typing</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   Swap this URL for the live course page before publishing.
+   ========================================================= */
+const COURSE_URL = "https://www.nngroup.com/courses/";
+
+document.getElementById('ctaBtn').href = COURSE_URL;
+document.getElementById('footLink').href = COURSE_URL;
+
+/* ---------- state ---------- */
+const S = {
+  step: 0,            // 0 intro, 1..7 guided, 8 sandbox
+  cwd: ['Desktop'],
+  unzipped: false,
+  busy: false,
+  view: 'icons',
+  seen: {},           // one-time prediction cards
+  histCmds: [], histIdx: -1,
+  annoShown: false,
+  labelCounts: {k:0, f:0, a:0},
+  prevLiveRows: 0,
+  newNames: []
+};
+const STAMP = 'Aug 23 10:02';
+const reduced = (typeof matchMedia === 'function') && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- file system ---------- */
+const d = (name, children) => ({name, type:'dir', children});
+const f = (name, size) => ({name, type:'file', size});
+const root = d('Desktop', [ {name:'portfolio.zip', type:'zip', size:48210} ]);
+
+const KIT = d('portfolio', [
+  d('fonts', [ f('body.woff2', 31280), f('heading.woff2', 42660) ]),
+  d('images', [ f('avatar.jpg',182400), f('logo.svg',8210), f('work-01.jpg',421337),
+                f('work-02.jpg',388012), f('work-03.jpg',402551), f('work-04.jpg',359874) ]),
+  f('index.html', 4102), f('script.js', 1584), f('style.css', 2210)
+]);
+
+function dirAt(path){
+  let node = root;
+  for (let i = 1; i < path.length; i++){
+    node = (node.children||[]).find(c => c.name === path[i] && c.type === 'dir');
+    if (!node) return null;
+  }
+  return node;
+}
+const cwdDir = () => dirAt(S.cwd);
+const sortKids = kids => [...kids].sort((a,b)=>{
+  if ((a.type==='dir') !== (b.type==='dir')) return a.type==='dir' ? -1 : 1;
+  return a.name.localeCompare(b.name);
+});
+
+/* ---------- dom helpers ---------- */
+const $ = id => document.getElementById(id);
+const hist = $('hist'), termBody = $('termBody'), input = $('cmd'),
+      promptEl = $('promptEl'), annoSlot = $('annoSlot'), liveAnno = $('liveAnno');
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function line(html, cls){
+  const el = document.createElement('div');
+  el.className = 'tl' + (cls ? ' ' + cls : '');
+  el.innerHTML = html;
+  hist.appendChild(el);
+  scrollDown();
+  return el;
+}
+function scrollDown(){ termBody.scrollTop = termBody.scrollHeight; }
+function promptStr(){ return '~/' + S.cwd.join('/') + ' $ '; }
+function refreshPrompt(){ promptEl.textContent = promptStr(); }
+
+/* ---------- the ? dictionary ---------- */
+const DICT = {
+  pwd:   '<b>pwd</b> — print working directory. Asks the machine: where am I right now?',
+  ls:    '<b>ls</b> — list. Look around the current folder. Add <b>-l</b> for the detailed view.',
+  cd:    '<b>cd</b> — change directory. Move into a folder. <b>cd ..</b> moves up one level.',
+  unzip: '<b>unzip</b> — unpack an archive. <b>unzip -l</b> peeks inside without unpacking anything.',
+  mkdir: '<b>mkdir</b> — make directory. Right-click → New Folder, typed.',
+  touch: '<b>touch</b> — make an empty file, or update the date on one that exists.',
+  open:  '<b>open</b> — open a file with its usual app. That word is macOS; Windows says <b>start</b>.',
+  clear: '<b>clear</b> — wipe the scrollback. The files are untouched; only the conversation clears.',
+  help:  '<b>help</b> — list what this little terminal understands.'
+};
+function echoCmd(raw){
+  const el = line('<span class="prompt">' + esc(promptStr()) + '</span>' + esc(raw));
+  const word = raw.trim().split(/\s+/)[0];
+  if (DICT[word]){
+    const b = document.createElement('button');
+    b.className = 'qbtn'; b.textContent = '?';
+    b.setAttribute('aria-label', 'What does ' + word + ' mean?');
+    b.onclick = e => {
+      e.stopPropagation();
+      const next = el.nextElementSibling;
+      if (next && next.classList.contains('dict')) { next.remove(); return; }
+      const card = document.createElement('div');
+      card.className = 'dict'; card.innerHTML = DICT[word];
+      el.after(card); scrollDown();
+    };
+    el.appendChild(b);
+  }
+  return el;
+}
+
+/* ---------- finder ---------- */
+const ICON = {
+  dir: '<svg viewBox="0 0 46 38"><path d="M3 8c0-2 1.5-3.5 3.5-3.5h10l4 4h19c2 0 3.5 1.5 3.5 3.5v18c0 2-1.5 3.5-3.5 3.5h-33C4.5 33.5 3 32 3 30V8z" fill="#7ab8e8"/><path d="M3 12h40v18c0 2-1.5 3.5-3.5 3.5h-33C4.5 33.5 3 32 3 30V12z" fill="#9fd0f5"/></svg>',
+  file:'<svg viewBox="0 0 46 38"><path d="M12 2h15l8 8v26H12z" fill="#fff" stroke="#c9c6ba" stroke-width="1.4"/><path d="M27 2l8 8h-8z" fill="#e8e5da"/><rect x="16" y="16" width="15" height="1.8" fill="#c9c6ba"/><rect x="16" y="20" width="15" height="1.8" fill="#c9c6ba"/><rect x="16" y="24" width="10" height="1.8" fill="#c9c6ba"/></svg>',
+  img: '<svg viewBox="0 0 46 38"><path d="M12 2h15l8 8v26H12z" fill="#fff" stroke="#c9c6ba" stroke-width="1.4"/><path d="M27 2l8 8h-8z" fill="#e8e5da"/><rect x="15" y="15" width="17" height="13" rx="1.5" fill="#d9ecdf"/><circle cx="19" cy="19" r="1.8" fill="#f5c518"/><path d="M15 26l5-5 4 4 3-3 5 5v1.5H15z" fill="#7fb28a"/></svg>',
+  html:'<svg viewBox="0 0 46 38"><path d="M12 2h15l8 8v26H12z" fill="#fff" stroke="#c9c6ba" stroke-width="1.4"/><path d="M27 2l8 8h-8z" fill="#e8e5da"/><text x="23" y="26" text-anchor="middle" font-family="monospace" font-size="10" fill="#ff5c39">&lt;/&gt;</text></svg>',
+  zip: '<svg viewBox="0 0 46 38"><path d="M3 8c0-2 1.5-3.5 3.5-3.5h10l4 4h19c2 0 3.5 1.5 3.5 3.5v18c0 2-1.5 3.5-3.5 3.5h-33C4.5 33.5 3 32 3 30V8z" fill="#e8b64c"/><path d="M3 12h40v18c0 2-1.5 3.5-3.5 3.5h-33C4.5 33.5 3 32 3 30V12z" fill="#f5cf7d"/><rect x="21" y="12" width="4" height="3" fill="#b98a2e"/><rect x="21" y="17" width="4" height="3" fill="#b98a2e"/><rect x="21" y="22" width="4" height="3" fill="#b98a2e"/></svg>'
+};
+function iconFor(k){
+  if (k.type==='dir') return ICON.dir;
+  if (k.type==='zip') return ICON.zip;
+  if (/\.(jpg|jpeg|png|svg|gif)$/.test(k.name)) return ICON.img;
+  if (/\.html$/.test(k.name)) return ICON.html;
+  return ICON.file;
+}
+const fmtSize = n => n===0 ? 'Zero bytes' : n<1024 ? n+' bytes' : Math.round(n/1024)+' KB';
+
+function renderFinder(){
+  const body = $('finderBody');
+  const kids = sortKids(cwdDir().children || []);
+  const here = S.cwd[S.cwd.length-1];
+  $('finTitle').textContent = here;
+  $('crumbTop').textContent = here;
+  $('crumb').innerHTML = S.cwd.map((p,i)=> i===S.cwd.length-1 ? '<b>'+esc(p)+'</b>' : esc(p)).join(' ▸ ');
+  $('segIcons').classList.toggle('on', S.view==='icons');
+  $('segList').classList.toggle('on', S.view==='list');
+
+  if (!kids.length){ body.innerHTML = '<div class="fempty">This folder is empty.</div>'; return; }
+
+  if (S.view === 'icons'){
+    body.innerHTML = '<div class="fgrid">' + kids.map(k =>
+      '<div class="fitem'+(S.newNames.includes(k.name)?' pop':'')+'">'+iconFor(k)+'<span class="fname">'+esc(k.name)+'</span></div>'
+    ).join('') + '</div>';
+  } else {
+    body.innerHTML = '<table class="flist"><tr><th>Name</th><th>Size</th><th>Modified</th></tr>' + kids.map(k =>
+      '<tr'+(S.newNames.includes(k.name)?' class="pop"':'')+'><td>'+iconFor(k)+esc(k.name)+'</td><td>'+
+      (k.type==='dir' ? '—' : fmtSize(k.size||0)) + '</td><td>'+STAMP+'</td></tr>'
+    ).join('') + '</table>';
+  }
+  S.newNames = [];
+}
+
+/* ---------- coach ---------- */
+const COACH = {
+  c1:{n:1,h:'Step 1 of 8',b:'Type <code>pwd</code>, then stop. Don\u2019t press Enter yet!'},
+  c2:{n:2,h:'Step 2 of 8',b:'That path is your Desktop, the same folder the Finder window shows. Now look around: type <code>ls</code>.'},
+  c3:{n:3,h:'Step 3 of 8',b:'A list of files in the folder is outputted. There is only one. You can unpack it: <code>unzip portfolio.zip</code>.'},
+  c4:{n:4,h:'Step 4 of 8',b:'Let\u2019s make a mistake on purpose. Type <code>cd portfolo</code>. Yes, missing the i.'},
+  c4b:{n:4,h:'Step 4, again',b:'Now spell it right: <code>cd portfolio</code>.'},
+  c5:{n:5,h:'Step 5 of 8',b:'Look at the command prompt. It shows you\u2019re inside that folder now. Look around: <code>ls</code>.'},
+  c6:{n:6,h:'Step 6 of 8',b:'Five items this time. Now ask for detail: <code>ls -l</code>.'},
+  c7:{n:7,h:'Step 7 of 8',b:'Great! Now make something of your own. Three new commands: <code>mkdir</code> creates a folder, <code>touch</code> creates an empty file, and <code>open</code> opens one. Make a notes file inside a new folder, then open it. Stuck? Try typing <code>help</code>.'},
+  c8:{n:8,h:'Step 8 of 8',b:'There it is, in both windows, and nobody dictated the steps. One more: <code>open</code> your new file, by name.'},
+  c9:{n:9,h:'Free play',b:'The terminal stays on, and <code>help</code> lists its full vocabulary. Try: <code>unzip -l portfolio.zip</code>. What do you think it will do?'}
+};
+function setCoach(key){
+  const c = COACH[key];
+  $('coachH').textContent = c.h;
+  $('coachB').innerHTML = c.b;
+  const dots = $('dots');
+  dots.innerHTML = '';
+  for (let i=1;i<=8;i++){
+    const dot = document.createElement('i');
+    if (c.n>8 || i < c.n) dot.className='past';
+    if (i === c.n) dot.className='on';
+    dots.appendChild(dot);
+  }
+}
+
+/* ---------- step-1 hand annotations (extras beyond the live diagram) ---------- */
+function showPwdAnno(){
+  if (S.annoShown) return;
+  S.annoShown = true;
+  const pad = promptStr().length;
+  annoSlot.innerHTML =
+    '<div class="anno fadein" style="padding-left:'+(pad-2)+'ch;animation-delay:.7s">' +
+      '<div class="lbl">\u2196 the <span class="mono" style="font-size:15px">$</span> is the command prompt, and it marks the spot where a command is typed</div>' +
+    '</div>' +
+    '<div class="anno fadein" style="animation-delay:1.5s">' +
+      '<div class="lbl">one line = one instruction.</div>' +
+      '<span class="enter-chip">Pressing enter runs the command \u23CE</span>' +
+    '</div>';
+  scrollDown();
+}
+function clearAnno(){ annoSlot.innerHTML = ''; liveAnno.innerHTML = ''; S.prevLiveRows = 0; }
+
+/* ---------- live grammar diagram: labels tokens as you type ---------- */
+const KNOWN = ['pwd','ls','cd','mkdir','touch','unzip','open','clear','help'];
+const LBL = {
+  k:{full:'the command: the name of a program', short:'command'},
+  f:{full:'a flag, or modifier, these are options a command may allow', short:'modifier'},
+  a:{full:'the argument: what to act on', short:'argument'}
+};
+function liveLabel(cat){
+  return S.labelCounts[cat] >= 3 ? LBL[cat].short : LBL[cat].full;
+}
+function tokensOf(str){
+  const out = []; const re = /\S+/g; let m;
+  while ((m = re.exec(str))) out.push({text:m[0], start:m.index, end:m.index + m[0].length});
+  return out;
+}
+function catOf(tok, i){ return i === 0 ? 'k' : (tok.startsWith('-') ? 'f' : 'a'); }
+
+function renderLive(){
+  const val = input.value;
+  const toks = tokensOf(val);
+  if (!toks.length){ liveAnno.innerHTML = ''; S.prevLiveRows = 0; return; }
+  const pad = promptStr().length;
+  const rows = [];
+  toks.slice(0,4).forEach((t,i)=>{
+    // the first word earns its bracket once it's a finished word:
+    // followed by a space, or a command this terminal knows.
+    if (i === 0 && !(val.length > t.end || KNOWN.includes(t.text))) return;
+    const cat = catOf(t.text, i);
+    const w = t.text.length;
+    rows.push(
+      '<div class="lrow '+cat+(rows.length >= S.prevLiveRows && !reduced ? ' fresh':'')+'" style="padding-left:'+(pad + t.start)+'ch">' +
+        '<svg style="width:'+w+'ch" viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M4 2 C 4 11, 96 11, 96 2"/></svg>' +
+        '<span class="llbl">'+liveLabel(cat)+'</span>' +
+      '</div>');
+  });
+  liveAnno.innerHTML = rows.join('');
+  S.prevLiveRows = rows.length;
+  scrollDown();
+}
+
+/* ---------- prediction cards ---------- */
+const CARDS = {
+  unzip: {
+    q:'Before it runs: what do you think will this do?',
+    gram:'<span class="g-verb">unzip</span> <span class="tag v">the command</span>' +
+         ' &nbsp;<span class="g-noun">portfolio.zip</span> <span class="tag n">the argument: what to act on</span>',
+    gnote:'the space separates these two pieces of the command line.',
+    opts:['Open the zip in its own window','Unpack the files onto the Desktop','Delete the zip'],
+    correct:1,
+    resolve:'It unpacked. The zip itself is untouched. Watch the Finder.'
+  },
+  typo: {
+    q:'That red line. What just happened?',
+    opts:['I broke something','It looked for a folder named \u201cportfolo\u201d and found nothing','The terminal crashed'],
+    correct:1,
+    resolve:'Read it like a sentence: <b>no such file or directory</b>. The computer is responding to your command with text.'
+  },
+  lsl: {
+    q:'What do you think adding <b>-l</b> changes?',
+    gram:'<span class="g-verb">ls</span> <span class="tag v">the command</span>' +
+         ' &nbsp;<span class="g-flag">-l</span> <span class="tag fl">the modifier: how, not what</span>',
+    gnote:'the dash says: a modifier is coming.',
+    opts:['Only the large files','It loads the files','Same files, more detail'],
+    correct:2,
+    resolve:'Same files, more detail. Every command has its own modifiers. You look them up; nobody memorizes them.'
+  },
+  unzipl: {
+    q:'You\u2019ve never run this one. Predict it.',
+    opts:['Unpacks a second copy','Shows what\u2019s inside, without unpacking','Locks the zip'],
+    correct:1,
+    resolve:'You just read a command you had never seen. That was the whole lesson.'
+  }
+};
+
+function showCard(key, after){
+  const c = CARDS[key];
+  S.seen[key] = true;
+  S.busy = true;
+  const card = document.createElement('div');
+  card.className = 'predict';
+  card.innerHTML =
+    (c.gram ? '<div class="gram mono">'+c.gram+'</div><div class="gnote">'+c.gnote+'</div>' : '') +
+    '<div class="ph">'+c.q+'</div>' +
+    c.opts.map((o,i)=>'<button class="opt" data-i="'+i+'">'+o+'</button>').join('') +
+    '<div class="pv" hidden></div>';
+  hist.appendChild(card);
+  scrollDown();
+
+  card.querySelectorAll('.opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const i = +btn.dataset.i;
+      card.querySelectorAll('.opt').forEach(b=>b.disabled = true);
+      const right = i === c.correct;
+      btn.classList.add(right ? 'picked-right' : 'picked-wrong');
+      if (!right) card.querySelector('[data-i="'+c.correct+'"]').classList.add('reveal');
+      const pv = card.querySelector('.pv');
+      pv.hidden = false;
+      pv.innerHTML = right ? '<b>Right.</b> Watch what happens.' : 'Reasonable guess. Watch what actually happens.';
+      scrollDown();
+      setTimeout(()=>{
+        S.busy = false;
+        after(()=>{ pv.innerHTML = c.resolve; scrollDown(); });
+      }, 650);
+    };
+  });
+}
+
+/* ---------- the wall of text ---------- */
+const WALL = [
+  'Archive:  portfolio.zip',
+  '   creating: portfolio/',
+  '  inflating: portfolio/index.html',
+  '  inflating: portfolio/style.css',
+  '  inflating: portfolio/script.js',
+  '   creating: portfolio/fonts/',
+  '  inflating: portfolio/fonts/heading.woff2',
+  '  inflating: portfolio/fonts/body.woff2',
+  '   creating: portfolio/images/',
+  '  inflating: portfolio/images/avatar.jpg',
+  '  inflating: portfolio/images/logo.svg',
+  '  inflating: portfolio/images/work-01.jpg',
+  '  inflating: portfolio/images/work-02.jpg',
+  '  inflating: portfolio/images/work-03.jpg',
+  '  inflating: portfolio/images/work-04.jpg',
+  'done. 11 files extracted.'
+];
+function runWall(thenResolve){
+  S.busy = true;
+  const els = [];
+  const step = reduced ? 0 : 55;
+  WALL.forEach((t,i)=>{
+    setTimeout(()=>{
+      els.push(line(esc(t)));
+      if (i === WALL.length-1) finishWall(els, thenResolve);
+    }, i*step);
+  });
+}
+function finishWall(els, thenResolve){
+  root.children.push(KIT);
+  S.unzipped = true;
+  S.newNames = ['portfolio'];
+  renderFinder();
+  setTimeout(()=>{
+    els.forEach((el,i)=>{
+      if (i > 0 && i < els.length-2) el.classList.add('dim');
+      if (i >= els.length-2) el.classList.add('spot');
+    });
+    const card = document.createElement('div');
+    card.className = 'wallcard';
+    card.innerHTML =
+      '<div class="ph">Tip: Read the last few lines first.</div>' +
+      '<p>The last lines tend to tell you the results. The middle is usually extra narration, like the machine listing each file it unzipped.</p>' +
+      '<button class="ghostbtn">Show me the middle</button>';
+    card.querySelector('button').onclick = e=>{
+      els.forEach(el=>el.classList.remove('dim'));
+      e.target.remove();
+      card.querySelector('p').innerHTML = 'In this case, the program is outputting which files were unzipped. You usually don\u2019t need to read the middle there\u2019s a problem.';
+      scrollDown();
+    };
+    hist.appendChild(card);
+    scrollDown();
+    S.busy = false;
+    thenResolve && thenResolve();
+    if (S.step === 3){ S.step = 4; setCoach('c4'); }
+  }, reduced ? 80 : 600);
+}
+
+/* ---------- commands ---------- */
+function resolveChild(dirNode, name){
+  return (dirNode.children||[]).find(c => c.name === name);
+}
+function resolvePath(str){
+  // supports "name" and "dir/name" from cwd
+  const parts = str.split('/').filter(Boolean);
+  let node = cwdDir();
+  for (let i=0;i<parts.length-1;i++){
+    node = resolveChild(node, parts[i]);
+    if (!node || node.type!=='dir') return null;
+  }
+  return node ? resolveChild(node, parts[parts.length-1]) : null;
+}
+
+function cmd_pwd(){ line(esc('/Users/you/' + S.cwd.join('/'))); }
+
+function cmd_ls(flags){
+  const long = flags.includes('-l');
+  const kids = sortKids(cwdDir().children||[]);
+  if (long){
+    line('total ' + (kids.length*4));
+    kids.forEach(k=>{
+      const perm = k.type==='dir' ? 'drwxr-xr-x' : '-rw-r--r--';
+      const size = String(k.type==='dir' ? (k.children||[]).length*32+64 : (k.size||0)).padStart(7,' ');
+      const nm = k.type==='dir' ? '<span class="dirname">'+esc(k.name)+'</span>' : esc(k.name);
+      line(perm+'  1 you  staff '+size+' '+STAMP+' '+nm);
+    });
+    S.view = 'list';
+  } else {
+    line(kids.map(k => k.type==='dir'
+      ? '<span class="dirname">'+esc(k.name)+'</span>' : esc(k.name)).join('  ') || '');
+    S.view = 'icons';
+  }
+  renderFinder();
+}
+
+function cmd_cd(arg){
+  if (!arg){ S.cwd = ['Desktop']; refreshPrompt(); renderFinder(); return true; }
+  if (arg === '..'){
+    if (S.cwd.length === 1){ line('(the demo stays on the Desktop)', 'faint'); return true; }
+    S.cwd.pop(); refreshPrompt(); renderFinder(); return true;
+  }
+  const child = resolveChild(cwdDir(), arg);
+  if (!child){ line('cd: no such file or directory: ' + esc(arg), 'err'); return false; }
+  if (child.type !== 'dir'){ line('cd: not a directory: ' + esc(arg), 'err'); return false; }
+  S.cwd.push(arg); refreshPrompt(); renderFinder(); return true;
+}
+
+const MKDIR_MADE = new Set();
+const TOUCH_MADE = new Set();
+
+function cmd_mkdir(arg){
+  if (!arg){ line('usage: mkdir folder-name', 'faint'); return; }
+  if (arg.includes('/')){ line('mkdir: ' + esc(arg) + ': No such file or directory', 'err'); line('(one level at a time in this demo)', 'faint'); return; }
+  if (resolveChild(cwdDir(), arg)){ line('mkdir: ' + esc(arg) + ': File exists', 'err'); return; }
+  const node = d(arg, []);
+  cwdDir().children.push(node);
+  MKDIR_MADE.add(node);
+  S.newNames = [arg]; renderFinder();
+}
+
+function cmd_touch(arg){
+  if (!arg){ line('usage: touch file-name', 'faint'); return null; }
+  let parent = cwdDir(), name = arg;
+  if (arg.includes('/')){
+    const parts = arg.split('/').filter(Boolean);
+    name = parts.pop();
+    for (const p of parts){
+      parent = parent && resolveChild(parent, p);
+      if (!parent || parent.type !== 'dir'){
+        line('touch: ' + esc(arg) + ': No such file or directory', 'err');
+        return null;
+      }
+    }
+  }
+  if (!resolveChild(parent, name)){
+    const node = f(name, 0);
+    parent.children.push(node);
+    TOUCH_MADE.add(node);
+    if (parent === cwdDir()) S.newNames = [name];
+  }
+  renderFinder();
+  return parent;
+}
+
+function cmd_unzip(flags, arg, doneResolve){
+  const peek = flags.includes('-l');
+  if (!arg){ line('usage: unzip archive.zip', 'faint'); return; }
+  const target = resolveChild(cwdDir(), arg);
+  if (!target || target.type !== 'zip'){
+    line('unzip: cannot find or open ' + esc(arg) + '.', 'err');
+    if (arg === 'portfolio.zip' && S.cwd.length > 1)
+      line('(the zip lives on the Desktop. cd .. gets you back)', 'faint');
+    return;
+  }
+  if (peek){
+    ['Archive:  portfolio.zip',
+     '  Length      Name',
+     ' -------      ----',
+     '    4102      portfolio/index.html',
+     '    2210      portfolio/style.css',
+     '    1584      portfolio/script.js',
+     '   73940      portfolio/fonts (2 files)',
+     ' 1762384      portfolio/images (6 files)',
+     ' -------      -------',
+     ' 1841220      11 files'].forEach(t=>line(esc(t)));
+    line('(nothing was unpacked. You just looked inside the box)', 'faint');
+    doneResolve && doneResolve();
+    return;
+  }
+  if (S.unzipped){ line('(already unpacked. The portfolio folder is on your Desktop)', 'faint'); return; }
+  runWall(doneResolve);
+}
+
+function cmd_open(arg){
+  if (!arg){ line('usage: open file-name', 'faint'); return; }
+  const target = resolvePath(arg);
+  if (!target){ line('open: ' + esc(arg) + ': no such file', 'err'); return; }
+  if (TOUCH_MADE.has(target)){
+    line('(opening ' + esc(target.name) + '\u2026)', 'faint');
+    line('(Great job!)', 'faint');
+    $('finFile').textContent = target.name;
+    setTimeout(()=>{ $('finaleOv').hidden = false; }, reduced ? 150 : 950);
+    S.step = 9;
+  } else {
+    line('(this little demo only opens a file you\u2019ve made yourself)', 'faint');
+  }
+}
+
+function cmd_help(){
+  line('this terminal understands:', 'faint');
+  line('  pwd   ls   ls -l   cd   cd ..   mkdir   touch', 'faint');
+  line('  unzip   unzip -l   open   clear   help', 'faint');
+  line('click the ? next to any command you\u2019ve run for a reminder.', 'faint');
+}
+
+/* ---------- dispatcher ---------- */
+function execute(raw, doneResolve){
+  const tokens = raw.trim().split(/\s+/);
+  const cmd = tokens[0] || '';
+  const flags = tokens.filter(t=>t.startsWith('-'));
+  const args = tokens.slice(1).filter(t=>!t.startsWith('-'));
+  const a = args[0];
+
+  switch(cmd){
+    case '': break;
+    case 'pwd': cmd_pwd(); break;
+    case 'ls': cmd_ls(flags); break;
+    case 'cd': {
+      const ok = cmd_cd(a);
+      if (!ok && !S.seen.typo){
+        showCard('typo', done => { done(); if (S.step === 4) setCoach('c4b'); });
+        return; // card manages busy state
+      }
+      break;
+    }
+    case 'mkdir': cmd_mkdir(a); break;
+    case 'touch': {
+      const parent = cmd_touch(a);
+      if (parent && MKDIR_MADE.has(parent) && S.step === 7){ S.step = 8; setCoach('c8'); }
+      break;
+    }
+    case 'unzip': cmd_unzip(flags, a, doneResolve); break;
+    case 'open': cmd_open(a); break;
+    case 'clear': hist.innerHTML = ''; break;
+    case 'help': cmd_help(); break;
+    default:
+      line('command not found: ' + esc(cmd), 'err');
+      line('(type help to see what this demo understands)', 'faint');
+  }
+  advance(cmd, flags, a);
+}
+
+/* guided-step advancement */
+function advance(cmd, flags, a){
+  const here = S.cwd[S.cwd.length-1];
+  if (S.step === 1 && cmd === 'pwd'){ S.step = 2; setCoach('c2'); }
+  else if (S.step === 2 && cmd === 'ls'){ S.step = 3; setCoach('c3'); }
+  /* step 3 -> 4 happens when the wall finishes */
+  else if (S.step === 4 && cmd === 'cd' && here === 'portfolio'){ S.step = 5; setCoach('c5'); }
+  else if (S.step === 5 && cmd === 'ls' && !flags.includes('-l')){ S.step = 6; setCoach('c6'); }
+  else if ((S.step === 5 || S.step === 6) && cmd === 'ls' && flags.includes('-l')){ S.step = 7; setCoach('c7'); }
+}
+
+/* ---------- input handling ---------- */
+function purgeTeaching(){
+  hist.querySelectorAll('.tl.dim').forEach(el=>el.classList.remove('dim'));
+  hist.querySelectorAll('.tl.spot').forEach(el=>el.classList.remove('spot'));
+  hist.querySelectorAll('.predict, .wallcard, .dict').forEach(el=>{
+    if (reduced){ el.remove(); return; }
+    el.classList.add('bye');
+    setTimeout(()=>el.remove(), 260);
+  });
+}
+
+function submit(){
+  if (S.busy) return;
+  const raw = input.value;
+  input.value = '';
+  tokensOf(raw).forEach((t,i)=>{ S.labelCounts[catOf(t.text,i)]++; });
+  clearAnno();
+  purgeTeaching();
+  echoCmd(raw);
+  if (raw.trim()){ S.histCmds.push(raw); }
+  S.histIdx = S.histCmds.length;
+
+  const tokens = raw.trim().split(/\s+/);
+  const cmd = tokens[0], hasL = tokens.includes('-l');
+  const arg = tokens.slice(1).filter(t=>!t.startsWith('-'))[0];
+
+  // pre-run prediction interceptions (first time each)
+  if (cmd === 'unzip' && !hasL && arg && resolveChild(cwdDir(), arg) && !S.unzipped && !S.seen.unzip){
+    showCard('unzip', done => execute(raw, done));
+    return;
+  }
+  if (cmd === 'ls' && hasL && !S.seen.lsl){
+    showCard('lsl', done => { execute(raw); done(); });
+    return;
+  }
+  if (cmd === 'unzip' && hasL && arg && resolveChild(cwdDir(), arg) && !S.seen.unzipl){
+    showCard('unzipl', done => execute(raw, done));
+    return;
+  }
+  execute(raw);
+}
+
+input.addEventListener('keydown', e=>{
+  if (e.key === 'Enter'){ e.preventDefault(); submit(); }
+  else if (e.key === 'ArrowUp'){
+    if (S.histIdx > 0){ S.histIdx--; input.value = S.histCmds[S.histIdx] || ''; }
+    e.preventDefault();
+  }
+  else if (e.key === 'ArrowDown'){
+    if (S.histIdx < S.histCmds.length){ S.histIdx++; input.value = S.histCmds[S.histIdx] || ''; }
+    e.preventDefault();
+  }
+});
+input.addEventListener('input', ()=>{
+  renderLive();
+  if (S.step === 1 && input.value.trim() === 'pwd') showPwdAnno();
+});
+termBody.addEventListener('click', e=>{
+  if (e.target.closest('button') || getSelection().toString()) return;
+  input.focus({preventScroll:true});
+});
+
+/* ---------- intro / finale ---------- */
+$('startBtn').onclick = ()=>{
+  $('introOv').hidden = true;
+  input.disabled = false;
+  S.step = 1;
+  setCoach('c1');
+  input.focus();
+};
+$('keepBtn').onclick = ()=>{
+  $('finaleOv').hidden = true;
+  setCoach('c9');
+  input.focus();
+};
+
+/* ---------- header typewriter ---------- */
+const TITLE = 'Designing with Coding Tools: The Terminal';
+const typedEl = $('typed');
+if (reduced){ typedEl.textContent = TITLE; $('hcur').style.display = 'none'; }
+else {
+  let i = 0;
+  const t = setInterval(()=>{
+    typedEl.textContent = TITLE.slice(0, ++i);
+    if (i >= TITLE.length){ clearInterval(t); setTimeout(()=>$('hcur').style.display='none', 2200); }
+  }, 42);
+}
+
+/* ---------- boot ---------- */
+setCoach('c1');
+renderFinder();
+refreshPrompt();
+</script>
+</body>
+</html>
