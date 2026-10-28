@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designing With Coding Tools: Event, Logic, Response</title>
+<meta name="description" content="Fix a vague AI prompt one part at a time and watch the app it builds get better. A free four-minute lesson from NN/G.">
+<!-- Favicon: the event, logic, response loop from the title screen -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101411'/%3E%3Ccircle cx='16' cy='17' r='9' fill='none' stroke='%2356665A' stroke-width='2'/%3E%3Ccircle cx='16' cy='8' r='4.5' fill='%2379C0FF'/%3E%3Ccircle cx='23.8' cy='21.5' r='4.5' fill='%23C7A4FF'/%3E%3Ccircle cx='8.2' cy='21.5' r='4.5' fill='%23FFBE5C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F6F2;
+    --card:#FFFFFF;
+    --ink:#1B211C;
+    --muted:#59625A;
+    --line:#DCE0D6;
+    --accent:#0E6B3C;
+    --accent-soft:#E3EFE7;
+
+    --hero-bg:#101411;
+    --hero-ink:#E7ECE3;
+    --hero-muted:#9BA898;
+
+    /* part colors, light surfaces */
+    --ev:#1558B0;
+    --lo:#7233B4;
+    --re:#9A5B00;
+    --ev-soft:#E8F0FB;
+    --lo-soft:#F2EBFB;
+    --re-soft:#FBF1E1;
+    /* part colors, dark surfaces */
+    --ev-d:#79C0FF;
+    --lo-d:#C7A4FF;
+    --re-d:#FFBE5C;
+
+    --nav-h:4.5rem;
+
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:1.0625rem;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+  [hidden]{display:none !important}
+
+  .visually-hidden{
+    position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+    overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+  }
+
+  .wrap{max-width:44rem;margin:0 auto;padding:0 1.25rem}
+  .wrap-wide{max-width:64rem;margin:0 auto;padding:0 1.25rem}
+
+  h1,h2{font-family:var(--mono);font-weight:600;letter-spacing:-.01em}
+  h2{font-size:clamp(1.3rem,2.6vw,1.6rem);line-height:1.3;margin-bottom:.9rem}
+  p+p{margin-top:.9rem}
+
+  /* ---------- part color hooks ---------- */
+  [data-part="event"]{--pc:var(--ev);--pc-soft:var(--ev-soft)}
+  [data-part="logic"]{--pc:var(--lo);--pc-soft:var(--lo-soft)}
+  [data-part="response"]{--pc:var(--re);--pc-soft:var(--re-soft)}
+
+  /* ---------- hero ---------- */
+  /* The title screen fills the space above the nav (--H) and never scrolls.
+     Everything on it is sized as a share of that space. */
+  .hero{
+    background:var(--hero-bg);
+    color:var(--hero-ink);
+    padding:calc(var(--H) * .05) 0;
+    text-align:center;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:.8rem;font-weight:500;
+    letter-spacing:.25em;text-transform:uppercase;color:var(--ev-d);
+  }
+  .hero h1{
+    font-size:clamp(1.45rem,min(5.2vw,var(--H) * .068),3.6rem);
+    line-height:1.2;
+    margin:calc(var(--H) * .015) auto calc(var(--H) * .012);
+    max-width:22ch;
+  }
+  .hero .subtitle{color:var(--hero-muted);font-size:clamp(1rem,var(--H) * .03,1.4rem);max-width:34ch;margin:0 auto}
+
+  .loop{display:block;width:min(78vw,var(--H) * .44,480px);margin:calc(var(--H) * .04) auto 0}
+  .loop .ring{fill:none;stroke:#2E3A31;stroke-width:2}
+  .loop .arrow{fill:#56665A}
+  .loop .node circle{fill:#161C17;stroke-width:2.5}
+  .loop text{font-family:var(--mono);font-size:13px;font-weight:600;text-anchor:middle}
+  .loop .n-ev circle{stroke:var(--ev-d)} .loop .n-ev text{fill:var(--ev-d)}
+  .loop .n-lo circle{stroke:var(--lo-d)} .loop .n-lo text{fill:var(--lo-d)}
+  .loop .n-re circle{stroke:var(--re-d)} .loop .n-re text{fill:var(--re-d)}
+  .loop .wait{fill:var(--hero-ink);font-weight:500}
+  .loop .node,.loop .wait{opacity:.3;animation:glow 4.8s infinite}
+  .loop .n-ev{animation-delay:0s}
+  .loop .n-lo{animation-delay:-3.6s}
+  .loop .n-re{animation-delay:-2.4s}
+  .loop .wait{animation-delay:-1.2s}
+  @keyframes glow{0%,20%{opacity:1}27%,94%{opacity:.3}100%{opacity:1}}
+
+  /* ---------- sections on paper ---------- */
+  .section{padding:3.4rem 0 3rem}
+
+  /* ---------- screens ---------- */
+  body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
+  :root{--H:calc(100vh - var(--nav-h))}
+  @supports (height:100svh){:root{--H:calc(100svh - var(--nav-h))}}
+  .screen{min-height:var(--H)}
+  .screen.enter{animation:enter .35s ease}
+  @keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  h1:focus,h2:focus{outline:none}
+
+  /* ---------- step nav ---------- */
+  .stepnav{
+    position:fixed;left:0;right:0;bottom:0;z-index:30;
+    height:calc(var(--nav-h) + env(safe-area-inset-bottom));
+    padding:0 max(1rem,calc((100vw - 64rem) / 2 + 1.25rem)) env(safe-area-inset-bottom);
+    display:grid;grid-template-columns:7rem 1fr 7rem;align-items:center;gap:.75rem;
+    background:rgba(255,255,255,.96);border-top:1px solid var(--line);
+    box-shadow:0 -6px 18px rgba(27,33,28,.06);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    transition:background .3s ease,border-color .3s ease;
+  }
+  .nav-btn{
+    font:inherit;font-size:.95rem;font-weight:600;cursor:pointer;
+    border-radius:8px;min-height:2.75rem;padding:.5rem 1rem;white-space:nowrap;
+  }
+  .nav-prev{justify-self:start;background:none;border:1.5px solid var(--line);color:var(--ink)}
+  .nav-prev:hover{border-color:var(--ink)}
+  .nav-next{grid-column:3;justify-self:end;background:var(--accent);color:#fff;border:1.5px solid var(--accent)}
+  .nav-next:hover{background:#0A5530}
+  .nav-next:disabled{background:#B9C2B4;border-color:#B9C2B4;cursor:not-allowed}
+  .nav-mid{grid-column:2;text-align:center;min-width:0}
+  .nav-label{font-size:.85rem;color:var(--muted);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav-count{font-family:var(--mono);font-weight:600;color:var(--ink)}
+  .nav-gate{font-weight:500;color:var(--ink);white-space:normal}
+  .nav-dots{list-style:none;display:flex;justify-content:center;gap:.4rem;margin-top:.35rem}
+  .nav-dots li{width:.45rem;height:.45rem;border-radius:50%;background:var(--line);transition:background .2s ease,width .2s ease}
+  .nav-dots li.past{background:#9DBFA9}
+  .nav-dots li.now{background:var(--accent);width:1.2rem;border-radius:999px}
+  body.on-hero{background:var(--hero-bg)}
+  .on-hero .stepnav{background:rgba(16,20,17,.96);border-top-color:#2A332C;box-shadow:none}
+  .on-hero .nav-label,.on-hero .nav-count{color:var(--hero-muted)}
+  .on-hero .nav-dots li{background:#2E3A31}
+  .on-hero .nav-dots li.now{background:var(--ev-d)}
+  .on-hero .nav-next{background:var(--ev-d);border-color:var(--ev-d);color:var(--hero-bg)}
+  .lede{max-width:40rem}
+  .note{color:var(--muted);font-size:.92rem;font-style:italic}
+
+  /* ---------- section 1: the save demo ---------- */
+  .savedemo{margin:2rem 0 1.4rem;display:flex;flex-direction:column;align-items:center;gap:.55rem}
+  .sd-card{
+    display:flex;align-items:center;gap:.85rem;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:.85rem 1rem;width:min(100%,23rem);
+    box-shadow:0 8px 22px rgba(27,33,28,.08);
+  }
+  .sd-name{font-weight:600;line-height:1.3}
+  .sd-meta{color:var(--muted);font-size:.88rem;margin-top:0 !important}
+  .fav{
+    margin-left:auto;cursor:pointer;flex:none;
+    width:2.9rem;height:2.9rem;border-radius:50%;
+    display:grid;place-items:center;
+    background:none;border:1.5px solid var(--line);
+    transition:background .2s ease,border-color .2s ease;
+  }
+  .fav:hover{border-color:#D1344B;background:#FDF0F2}
+  .fav svg{width:1.55rem;height:1.55rem;fill:transparent;stroke:#C42A41;stroke-width:1.8;stroke-linejoin:round;transition:fill .2s ease}
+  .fav[aria-pressed="true"] svg{fill:#D1344B;animation:heart .4s cubic-bezier(.2,1.6,.4,1)}
+  @keyframes heart{0%{transform:scale(.6)}100%{transform:scale(1)}}
+  .sd-count{font-size:.92rem;color:var(--muted)}
+  .sd-count strong{color:var(--ink)}
+  .sd-hint{font-size:.95rem;font-weight:500;color:var(--accent);margin-top:.2rem !important}
+
+  .strip{
+    list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;
+  }
+  .stage{
+    position:relative;
+    background:var(--card);border:1px solid var(--line);border-top:4px solid var(--pc);
+    border-radius:10px;padding:.85rem 1rem 1rem;
+    transition:opacity .25s ease,transform .25s ease,box-shadow .25s ease;
+  }
+  .stage strong{
+    display:block;font-family:var(--mono);font-size:.82rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--pc);margin-bottom:.25rem;
+  }
+  .stage span{display:block;color:var(--muted);font-size:.95rem;line-height:1.5}
+  .stage:not(:last-child)::after{
+    content:"";position:absolute;top:50%;right:-1.1rem;
+    width:.55rem;height:.55rem;border-top:2px solid #9AA394;border-right:2px solid #9AA394;
+    transform:translateY(-50%) rotate(45deg);
+  }
+  .strip.running .stage{opacity:.4}
+  .strip.running .stage.on{opacity:1;transform:translateY(-2px);box-shadow:0 6px 18px rgba(27,33,28,.12)}
+  .strip .stage.on span{color:var(--ink)}
+  .waiting{
+    margin-top:1rem !important;text-align:center;
+    font-family:var(--mono);font-size:.85rem;color:var(--muted);
+    transition:opacity .25s ease;
+  }
+  .strip.running ~ .waiting{opacity:.4}
+  .strip.running ~ .waiting.on{opacity:1;color:var(--accent)}
+  .closer{margin-top:2rem !important;max-width:40rem}
+
+  /* ---------- section 2: the bench ---------- */
+  .bench{
+    display:grid;grid-template-columns:minmax(0,1fr) 25rem;gap:1.5rem;
+    margin-top:1.8rem;align-items:start;
+  }
+  .composer{min-width:0;display:flex;flex-direction:column;gap:1rem}
+  .appcol{position:sticky;top:1.25rem;min-width:0}
+
+  .promptbox{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:.85rem 1rem 1rem;
+    box-shadow:0 8px 22px rgba(27,33,28,.06);
+  }
+  .pb-label{
+    font-family:var(--mono);font-size:.72rem;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;
+  }
+  .pb-text{font-size:1.02rem;line-height:1.75;margin-top:0 !important}
+  .pp{
+    border-radius:4px;padding:.08em .25em;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;
+    border-bottom:2px solid;
+  }
+  .pp-event{background:var(--ev-soft);border-color:var(--ev)}
+  .pp-logic{background:var(--lo-soft);border-color:var(--lo)}
+  .pp-response{background:var(--re-soft);border-color:var(--re)}
+  .pp.pending{background:transparent;border-bottom-style:dashed;color:var(--muted)}
+
+  .parts{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+  .part{
+    background:var(--card);border:1px solid var(--line);border-left:4px solid var(--line);
+    border-radius:10px;padding:.85rem 1rem;
+    transition:box-shadow .2s ease;
+  }
+  .part.is-active{border-left-color:var(--pc);box-shadow:0 8px 22px rgba(27,33,28,.09)}
+  .part.is-done{border-left-color:var(--pc)}
+  .part-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .6rem}
+  .part-chip{
+    font-family:var(--mono);font-size:.78rem;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--pc);
+  }
+  .part-q{font-weight:600}
+  .part-status{
+    margin-left:auto;font-family:var(--mono);font-size:.7rem;font-weight:500;
+    letter-spacing:.06em;text-transform:uppercase;
+    border-radius:999px;padding:.1rem .55rem;
+    background:var(--paper);color:var(--muted);border:1px solid var(--line);
+  }
+  .is-active .part-status{background:var(--pc);color:#fff;border-color:var(--pc)}
+  .is-done .part-status{background:var(--pc-soft);color:var(--pc);border-color:transparent}
+  .part-guess{margin-top:.45rem !important;font-size:.94rem;color:var(--muted)}
+  .part-guess b{font-weight:600;color:var(--ink)}
+  .part-try{margin-top:.55rem !important;font-size:.95rem;background:var(--paper);border-radius:8px;padding:.6rem .8rem}
+  .opts{border:0;margin-top:.8rem}
+  .opts legend{font-size:.92rem;font-weight:600;margin-bottom:.45rem}
+  .opt{
+    display:flex;align-items:center;gap:.65rem;cursor:pointer;
+    border:1.5px solid var(--line);border-radius:10px;
+    padding:.6rem .8rem;min-height:3rem;font-size:.97rem;line-height:1.4;
+    transition:border-color .15s ease,background .15s ease;
+  }
+  .opt+.opt{margin-top:.5rem}
+  .opt input{accent-color:var(--pc);width:1.1rem;height:1.1rem;flex:none}
+  .opt:hover{border-color:var(--pc)}
+  .opt.checked{border-color:var(--pc);background:var(--pc-soft)}
+  .send-row{display:flex;gap:.6rem;align-items:center;margin-top:.8rem}
+  .btn{
+    font:inherit;font-size:.95rem;font-weight:600;cursor:pointer;
+    border-radius:8px;padding:.55rem 1.2rem;min-height:2.75rem;
+  }
+  .btn-send{background:var(--accent);color:#fff;border:1.5px solid var(--accent)}
+  .btn-send:hover{background:#0A5530}
+  .btn-send:disabled{background:#B9C2B4;border-color:#B9C2B4;cursor:not-allowed}
+  .btn-quiet{background:none;border:0;color:var(--muted);text-decoration:underline;padding:.55rem .4rem}
+  .part-chosen{margin-top:.45rem !important;font-size:.95rem}
+  .btn-change{
+    font:inherit;font-size:.85rem;background:none;border:0;cursor:pointer;
+    color:var(--accent);text-decoration:underline;margin-left:.35rem;padding:.2rem;
+  }
+  .part-fb{
+    margin-top:.6rem !important;font-size:.95rem;
+    background:var(--pc-soft);border-radius:8px;padding:.65rem .85rem;
+  }
+  .part-fb:focus{outline:none}
+  .try{
+    font-family:var(--mono);font-size:.86rem;font-weight:600;cursor:pointer;
+    background:var(--card);color:var(--ink);
+    border:1.5px solid var(--ink);border-radius:6px;
+    padding:.05rem .45rem;margin:0 .1rem;
+  }
+  .try:hover{background:var(--ink);color:#fff}
+  .bench-done{
+    background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:.9rem 1rem;font-size:.97rem;
+  }
+
+  /* ---------- the generated app ---------- */
+  .appframe{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    box-shadow:0 14px 34px rgba(27,33,28,.14);
+  }
+  .a-bar{
+    display:flex;align-items:center;gap:.45rem;
+    padding:.5rem .75rem;background:#ECEEE8;border-bottom:1px solid var(--line);
+  }
+  .a-dot{width:10px;height:10px;border-radius:50%;background:#C9CEC4;flex:none}
+  .a-url{
+    flex:1;min-width:0;margin-left:.3rem;
+    font-family:var(--mono);font-size:.74rem;color:var(--muted);
+    background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.1rem .6rem;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .a-ver{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--accent);white-space:nowrap}
+  .a-ver.bump{animation:bump .5s ease}
+  @keyframes bump{40%{transform:scale(1.18)}}
+  .a-stage{position:relative}
+  .a-body{height:31rem;overflow-y:auto;overscroll-behavior:contain}
+  .a-building{
+    position:absolute;inset:0;display:none;
+    flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
+    background:rgba(255,255,255,.93);
+    font-family:var(--mono);font-size:.85rem;color:var(--muted);
+  }
+  .appframe.building .a-building{display:flex}
+  .skel{width:70%;height:.7rem;border-radius:6px;background:linear-gradient(90deg,#ECEEE8 0%,#F7F8F4 50%,#ECEEE8 100%);background-size:200% 100%;animation:shimmer 1s linear infinite}
+  .skel.s2{width:55%} .skel.s3{width:62%}
+  @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+
+  /* the recipe app has its own plain look, like a first draft from an AI */
+  .ra{padding:1rem 1.05rem 1.2rem;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:.95rem;line-height:1.45;color:#222}
+  .ra-head{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem}
+  .ra-title{font-size:1.15rem;font-weight:700}
+  .ra-total{font-size:.82rem;color:#6A6F68;margin-top:0 !important}
+  .ra-search{display:flex;gap:.45rem;align-items:center;margin:.75rem 0 .6rem;border-radius:9px}
+  .ra-search input{
+    flex:1;min-width:0;font:inherit;font-size:16px;
+    padding:.55rem .75rem;border:1px solid #C9CFC4;border-radius:8px;background:#fff;color:#222;
+  }
+  .ra-search input:focus{outline:2px solid #6C8DB8;outline-offset:0}
+  .ra-search input.flash{animation:inflash .7s ease}
+  @keyframes inflash{0%{background:#FFF4C2}100%{background:#fff}}
+  .ra-go{font:inherit;font-size:.72rem;padding:.15rem .45rem;border:1px solid #BBB;background:#EEE;color:#444;border-radius:3px;cursor:pointer}
+  .ra-btn{font:inherit;font-size:.92rem;font-weight:600;padding:.55rem .95rem;border:0;background:#2B3A55;color:#fff;border-radius:8px;cursor:pointer}
+  .ra-results{min-height:9rem;border-radius:9px}
+  .ra-count{font-size:.82rem;color:#6A6F68;margin:.1rem 0 .2rem}
+  .ra-list{list-style:none}
+  .ra-row{display:flex;gap:.75rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #EEF0EA}
+  .ra-row:last-child{border-bottom:0}
+  .plate{
+    width:2.3rem;height:2.3rem;border-radius:50%;flex:none;
+    background:radial-gradient(circle,var(--c) 0 50%,#FFFFFF 53% 100%);
+    border:1px solid #DDE1D8;box-shadow:0 1px 2px rgba(0,0,0,.08);
+  }
+  .ra-txt{min-width:0}
+  .ra-name{display:block;font-weight:600}
+  .ra-meta{display:block;font-size:.8rem;color:#6A6F68}
+  .ra mark{background:#FFE27A;color:inherit;border-radius:2px;padding:0 .08em}
+  .ra-empty{text-align:center;padding:1.3rem 1rem;background:#F5F6F2;border-radius:10px;margin:.4rem 0 .5rem}
+  .ra-empty p{font-weight:600}
+  .ra-clear{margin-top:.6rem;font:inherit;font-size:.9rem;font-weight:600;padding:.45rem .9rem;border:1.5px solid #2B3A55;color:#2B3A55;background:#fff;border-radius:8px;cursor:pointer}
+  .ra-sugg{font-size:.82rem;color:#6A6F68;margin-top:.15rem}
+  .pulse-event{animation:pulse-ev 1.4s ease}
+  .pulse-logic{animation:pulse-lo 1.4s ease}
+  .pulse-response{animation:pulse-re 1.4s ease}
+  @keyframes pulse-ev{0%,40%{box-shadow:0 0 0 3px var(--ev)}100%{box-shadow:0 0 0 3px rgba(21,88,176,0)}}
+  @keyframes pulse-lo{0%,40%{box-shadow:0 0 0 3px var(--lo)}100%{box-shadow:0 0 0 3px rgba(114,51,180,0)}}
+  @keyframes pulse-re{0%,40%{box-shadow:0 0 0 3px var(--re)}100%{box-shadow:0 0 0 3px rgba(154,91,0,0)}}
+
+  /* ---------- your turn ---------- */
+  .turn-prompt{margin:1rem 0 1.2rem;max-width:30rem}
+  .turn-prompt .pb-text{font-size:1.15rem}
+
+  /* ---------- practice ---------- */
+  .practice{padding-top:1.6rem}
+  .tight{padding-top:1.6rem}
+  .practice .bench{margin-top:0}
+
+  /* ---------- finish: the template and the course, side by side, equal weight ---------- */
+  .finish-grid{max-width:60rem;display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:stretch}
+  .fin-card{
+    display:flex;flex-direction:column;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:1.5rem 1.5rem 1.6rem;
+    box-shadow:0 8px 22px rgba(27,33,28,.06);
+  }
+  .fin-eyebrow{
+    font-family:var(--mono);font-size:.72rem;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  }
+  .fin-card h2{font-size:clamp(1.2rem,2.2vw,1.35rem);margin:.35rem 0 .75rem}
+  .fin-card p:not(.fin-eyebrow){margin-top:0}
+  .fin-card p.fin-p2{margin-top:.8rem}
+  .tpl-line{line-height:1.9}
+  .fin-action{margin-top:auto;padding-top:1.3rem;display:flex;align-items:center;gap:.8rem}
+  .fin-btn{
+    display:inline-flex;align-items:center;gap:.4rem;
+    font:inherit;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;
+    background:var(--accent);color:#fff;border:1.5px solid var(--accent);
+    border-radius:8px;padding:.55rem 1.2rem;min-height:2.75rem;
+  }
+  .fin-btn:hover{background:#0A5530;border-color:#0A5530}
+  .fin-btn-ghost{background:var(--card);color:var(--accent)}
+  .fin-btn-ghost:hover{background:var(--accent);color:#fff}
+  .copy-msg{font-size:.9rem;color:var(--accent)}
+  /* The course card is the same size as the template card, in reverse colors. */
+  .fin-card-dark{background:var(--hero-bg);border-color:var(--hero-bg);color:#C9D1C6;box-shadow:0 10px 26px rgba(16,20,17,.22)}
+  .fin-card-dark .fin-eyebrow{color:var(--ev-d)}
+  .fin-card-dark h2,.fin-card-dark strong{color:#fff}
+  .fin-card-dark .fin-btn{background:var(--ev-d);border-color:var(--ev-d);color:var(--hero-bg)}
+  .fin-card-dark .fin-btn:hover{background:#A6D5FF;border-color:#A6D5FF}
+  .fin-card-dark .fin-btn:focus-visible{outline-color:#fff}
+
+  /* ---------- tablet and phone ---------- */
+  @media (max-width:900px){
+    .bench{grid-template-columns:minmax(0,1fr) 21rem;gap:1.1rem}
+  }
+  @media (max-width:760px){
+    :root{--nav-h:4.25rem}
+    .section{padding:2.2rem 0 2rem}
+    .stepnav{grid-template-columns:auto 1fr auto;gap:.5rem}
+    .nav-btn{padding:.5rem .85rem}
+    .nav-title{display:none}
+    .finish-grid{grid-template-columns:1fr;gap:1rem}
+    .fin-card{padding:1.25rem 1.2rem 1.35rem}
+    .practice{padding-top:.4rem}
+    .tight{padding-top:1.2rem}
+    .strip{grid-template-columns:1fr;gap:1.1rem}
+    .stage:not(:last-child)::after{
+      top:auto;right:auto;bottom:-.95rem;left:50%;
+      transform:translateX(-50%) rotate(135deg);
+    }
+
+    /* The app comes first and stays in view while the prompt scrolls under it. */
+    .bench{grid-template-columns:1fr;gap:.9rem;margin-top:1.3rem}
+    .appcol{order:-1;position:static;margin:0 -1.25rem;padding:0 1rem}
+    .a-body{height:auto;max-height:none}
+    .btn-send{flex:1}
+  }
+  @media (max-width:760px) and (min-height:620px){
+    .appcol{
+      position:sticky;top:0;z-index:10;
+      background:var(--paper);padding:.6rem 1rem .7rem;
+      box-shadow:0 10px 14px -12px rgba(27,33,28,.35);
+    }
+    .a-body{height:clamp(14rem,40vh,21rem);height:clamp(14rem,40svh,21rem)}
+    .a-bar{padding:.35rem .65rem}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .screen.enter{animation:none}
+    .loop .node,.loop .wait{animation:none;opacity:1}
+    .stage,.waiting,.fav,.fav svg,.stepnav,.nav-dots li{transition:none}
+    .fav[aria-pressed="true"] svg{animation:none}
+    .skel,.a-ver.bump,.ra-search input.flash,.pulse-event,.pulse-logic,.pulse-response{animation:none}
+  }
+</style>
+</head>
+<body>
+<main id="main">
+<section class="screen hero" data-title="Start" aria-labelledby="h-title">
+  <div class="wrap">
+    <p class="eyebrow">NN/G</p>
+    <h1 id="h-title" tabindex="-1">Designing With Coding Tools: Event, Logic, Response</h1>
+    <p class="subtitle">How does code run, and how should you prompt for it?</p>
+
+    <svg class="loop" viewBox="0 0 320 300" role="img" aria-label="A loop: event, then logic, then response, then back to waiting.">
+      <circle class="ring" cx="160" cy="150" r="105"/>
+      <path class="arrow" d="M-6,-6 L6,0 L-6,6 Z" transform="translate(250.9,97.5) rotate(60)"/>
+      <path class="arrow" d="M-6,-6 L6,0 L-6,6 Z" transform="translate(160,255) rotate(180)"/>
+      <path class="arrow" d="M-6,-6 L6,0 L-6,6 Z" transform="translate(69.1,97.5) rotate(300)"/>
+      <g class="node n-ev" transform="translate(160,45)"><circle r="41"/><text y="5">Event</text></g>
+      <g class="node n-lo" transform="translate(250.9,202.5)"><circle r="41"/><text y="5">Logic</text></g>
+      <g class="node n-re" transform="translate(69.1,202.5)"><circle r="41"/><text y="5">Response</text></g>
+      <text class="wait" x="160" y="155">waiting</text>
+    </svg>
+  </div>
+</section>
+
+  <section class="screen section tight" data-title="How code runs" aria-labelledby="h-run" hidden>
+    <div class="wrap">
+      <h2 id="h-run" tabindex="-1">How does code run?</h2>
+      <p class="lede">Code that's running spends most of its time waiting. When something happens, it works through three parts in order. Then it goes back to waiting.</p>
+
+      <p class="lede">Imagine a recipe app. You can mark any recipe as a favorite.</p>
+
+      <div class="savedemo">
+        <div class="sd-card">
+          <span class="plate" style="--c:#F2D16B" aria-hidden="true"></span>
+          <div>
+            <p class="sd-name">Lemon Garlic Pasta</p>
+            <p class="sd-meta">25 min</p>
+          </div>
+          <button type="button" class="fav" id="sd-btn" aria-pressed="false" aria-label="Favorite">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5C12 20.5 4.5 16 2.4 11.4C1 8.2 2.9 4.5 6.6 4.5C8.8 4.5 10.2 5.7 12 7.5C13.8 5.7 15.2 4.5 17.4 4.5C21.1 4.5 23 8.2 21.6 11.4C19.5 16 12 20.5 12 20.5Z"/></svg>
+          </button>
+        </div>
+        <p class="sd-count">Favorites: <strong id="sd-count">3</strong></p>
+        <p class="sd-hint" id="sd-hint">Click the heart and watch the three parts below.</p>
+      </div>
+
+      <ol class="strip" id="strip" aria-live="polite">
+        <li class="stage" data-part="event"><strong>Event</strong><span>Something the program was waiting for happens, like a click or a keystroke.</span></li>
+        <li class="stage" data-part="logic"><strong>Logic</strong><span>Code you can't see runs. It checks things and makes decisions.</span></li>
+        <li class="stage" data-part="response"><strong>Response</strong><span>Something on the screen changes.</span></li>
+      </ol>
+      <p class="waiting" id="waiting">Waiting for the next event</p>
+
+      <p class="closer">Interaction design has always worked like this: when the user does something, the system does something back. Code splits that into three parts, and your prompts should too.</p>
+    </div>
+  </section>
+
+  <section class="screen section tight" id="turn" data-title="Your turn" aria-labelledby="h-turn" hidden>
+    <div class="wrap">
+      <h2 id="h-turn" tabindex="-1">Your turn! Fix a vague prompt</h2>
+      <p class="lede">When you ask an AI for an interaction, it has to write code for all three parts. Any part your prompt leaves out, the AI guesses.</p>
+      <p class="lede">Someone gave an AI this prompt for the recipe app:</p>
+      <div class="promptbox turn-prompt">
+        <p class="pb-label">Prompt</p>
+        <p class="pb-text">Add search to the recipe list.</p>
+      </div>
+      <p class="lede">That one sentence is vague, so the output will be full of AI guesses and assumptions. On the next step you'll fix this prompt one part at a time: event, logic, and response.</p>
+    </div>
+  </section>
+
+  <section class="screen section practice" id="fix" data-title="Fix the prompt" data-gate aria-labelledby="h-fix" hidden>
+    <div class="wrap-wide">
+      <h2 id="h-fix" class="visually-hidden" tabindex="-1">Fix the prompt</h2>
+
+      <div class="bench">
+        <div class="composer">
+          <div class="promptbox">
+            <p class="pb-label">Prompt</p>
+            <p class="pb-text" id="pb-text"></p>
+          </div>
+          <ol class="parts" id="parts"></ol>
+          <div class="bench-done" id="bench-done" hidden tabindex="-1">
+            <p><strong>Event, logic, and response are all specified!</strong> The AI no longer guesses, and the quality of the output has improved, great job!</p>
+            <p>Let's finish up with a template for your own prompts.</p>
+          </div>
+        </div>
+
+        <div class="appcol" id="appcol">
+          <div class="appframe" id="appframe">
+            <div class="a-bar">
+              <span class="a-dot" aria-hidden="true"></span><span class="a-dot" aria-hidden="true"></span><span class="a-dot" aria-hidden="true"></span>
+              <span class="a-url">recipe-box.html</span>
+              <span class="a-ver" id="a-ver">Version 1</span>
+            </div>
+            <div class="a-stage">
+              <div class="a-body" id="a-body" aria-label="The app the AI built" role="region"></div>
+              <div class="a-building" aria-hidden="true">
+                <span class="skel"></span><span class="skel s2"></span><span class="skel s3"></span>
+                <span>Building from your prompt…</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen section finish" id="finish" data-title="Next steps" aria-labelledby="h-use" hidden>
+    <div class="wrap finish-grid">
+      <div class="fin-card">
+        <p class="fin-eyebrow">Template</p>
+        <h2 id="h-use" tabindex="-1">Use it on your next prompt</h2>
+        <p class="tpl-line"><span class="pp pp-event">When the user ___,</span> <span class="pp pp-logic">the app should ___.</span> <span class="pp pp-response">Then show ___. If it finds nothing or something fails, show ___.</span></p>
+        <div class="fin-action">
+          <button type="button" class="fin-btn fin-btn-ghost" id="copy-tpl">Copy template</button>
+          <span class="copy-msg" id="copy-msg" role="status"></span>
+        </div>
+      </div>
+
+      <div class="fin-card fin-card-dark">
+        <p class="fin-eyebrow">The full course</p>
+        <h2 id="h-next">Learn to design in code with AI</h2>
+        <p>You just designed an interaction the way code runs it, which improves the quality of what you get from AI!</p>
+        <p class="fin-p2">In <strong>Using Coding Tools to Design with AI</strong>, you'll learn to take this technique further, using coding tools like the terminal and IDEs to design in code and build amazing interactive prototypes.</p>
+        <div class="fin-action">
+          <a class="fin-btn" id="cta" href="https://www.nngroup.com/contents/self-paced-courses/coding-tools-for-designers-building-prototypes-with-ai/">See the course <span aria-hidden="true">&#8594;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="stepnav" id="stepnav" aria-label="Lesson screens">
+  <button type="button" class="nav-btn nav-prev" id="nav-prev"><span aria-hidden="true">&#8592;</span> Back</button>
+  <div class="nav-mid">
+    <p class="nav-label" id="nav-label" aria-live="polite"></p>
+    <ol class="nav-dots" id="nav-dots" aria-hidden="true"></ol>
+  </div>
+  <button type="button" class="nav-btn nav-next" id="nav-next">Next <span aria-hidden="true">&#8594;</span></button>
+</nav>
+
+<div class="visually-hidden" role="status" id="announcer"></div>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const announce = msg => { const a = $('announcer'); a.textContent = ''; setTimeout(() => { a.textContent = msg; }, 60); };
+  const isPhone = () => window.matchMedia('(max-width:760px)').matches;
+
+  /* ---------- screens and the step nav ---------- */
+  const screens = [...document.querySelectorAll('.screen')];
+  let current = 0;
+  let practiceDone = false;
+  $('nav-dots').innerHTML = screens.map(() => '<li></li>').join('');
+  const dots = [...$('nav-dots').children];
+
+  function renderNav() {
+    const s = screens[current];
+    const gated = s.hasAttribute('data-gate') && !practiceDone;
+    $('nav-prev').hidden = current === 0;
+    $('nav-next').hidden = current === screens.length - 1;
+    $('nav-next').disabled = gated;
+    $('nav-next').innerHTML = current === 0
+      ? 'Start <span aria-hidden="true">&#8594;</span>'
+      : 'Next <span aria-hidden="true">&#8594;</span>';
+    $('nav-label').innerHTML = gated
+      ? '<span class="nav-gate">Fix all three parts to continue</span>'
+      : `<span class="nav-count">${current + 1} of ${screens.length}</span><span class="nav-title"> · ${esc(s.dataset.title)}</span>`;
+    dots.forEach((d, i) => { d.className = i < current ? 'past' : i === current ? 'now' : ''; });
+    document.body.classList.toggle('on-hero', current === 0);
+  }
+
+  function go(i) {
+    if (i < 0 || i >= screens.length || i === current) return;
+    screens[current].hidden = true;
+    current = i;
+    const s = screens[current];
+    s.hidden = false;
+    s.classList.remove('enter'); void s.offsetWidth; s.classList.add('enter');
+    window.scrollTo(0, 0);
+    renderNav();
+    const h = s.querySelector('h1, h2');
+    if (h) h.focus({preventScroll: true});
+  }
+
+  $('nav-prev').addEventListener('click', () => go(current - 1));
+  $('nav-next').addEventListener('click', () => go(current + 1));
+  renderNav();
+
+  /* ---------- section 1: the save demo ---------- */
+  const sd = {saved: false, count: 3, busy: false, runs: 0};
+  const strip = $('strip');
+  const stages = [...strip.querySelectorAll('.stage')];
+  const waitEl = $('waiting');
+  const sdBtn = $('sd-btn');
+
+  sdBtn.addEventListener('click', () => {
+    if (sd.busy) return;
+    sd.busy = true;
+    const saving = !sd.saved;
+    const next = saving ? sd.count + 1 : sd.count - 1;
+    const texts = saving ? [
+      'You clicked the heart.',
+      'Is this recipe a favorite already? No. So add it to your favorites and add one to the count.',
+      `The heart fills in, and the count shows ${next}.`
+    ] : [
+      'You clicked the heart again.',
+      'Is this recipe a favorite already? Yes. So take it out of your favorites and subtract one from the count.',
+      `The heart empties, and the count shows ${next}.`
+    ];
+    strip.classList.add('running');
+    stages.forEach(s => s.classList.remove('on'));
+    waitEl.classList.remove('on');
+    const step = reduce ? 0 : 1100;
+    stages.forEach((s, i) => setTimeout(() => {
+      s.querySelector('span').textContent = texts[i];
+      s.classList.add('on');
+      if (i === 2) {
+        sd.saved = saving; sd.count = next;
+        sdBtn.setAttribute('aria-pressed', String(saving));
+        $('sd-count').textContent = String(next);
+      }
+    }, i * step));
+    setTimeout(() => {
+      waitEl.classList.add('on');
+      sd.busy = false;
+      sd.runs++;
+      $('sd-hint').textContent = sd.runs === 1
+        ? 'Click it again. This time the logic makes a different decision.'
+        : 'Same event every time. The logic decides which response you get.';
+    }, 3 * step);
+  });
+
+  /* ---------- section 2: data ---------- */
+  const RECIPES = [
+    {name:'Lemon Garlic Pasta', min:25, ing:['spaghetti','lemon','garlic','parmesan'], c:'#F2D16B', popular:true},
+    {name:'Chicken Tikka Masala', min:50, ing:['chicken','yogurt','tomato','garam masala'], c:'#E07A3F', popular:true},
+    {name:'Black Bean Tacos', min:20, ing:['black beans','tortillas','lime','avocado'], c:'#5B6B3A'},
+    {name:'Mushroom Risotto', min:40, ing:['arborio rice','mushrooms','parmesan','thyme'], c:'#B89B72'},
+    {name:'Greek Salad', min:15, ing:['cucumber','tomato','feta','olives','lemon'], c:'#6FA35A'},
+    {name:'Pasta e Fagioli', min:45, ing:['ditalini','cannellini beans','tomato','rosemary'], c:'#C4573A'},
+    {name:'Shakshuka', min:30, ing:['eggs','tomato','peppers','cumin'], c:'#D2452F', popular:true},
+    {name:'Pad Thai', min:30, ing:['rice noodles','shrimp','peanuts','lime'], c:'#E3A54A'},
+    {name:'Tomato Basil Soup', min:35, ing:['tomato','basil','cream','garlic'], c:'#C93A2E'},
+    {name:'Banana Bread', min:70, ing:['bananas','flour','brown sugar','walnuts'], c:'#A86F3D'},
+    {name:'Chickpea Curry', min:35, ing:['chickpeas','coconut milk','spinach','ginger'], c:'#D9A23A'},
+    {name:'Lemon Dill Salmon', min:25, ing:['salmon','lemon','dill','butter'], c:'#E8927C'}
+  ];
+
+  const BASE_PROMPT = 'Add search to the recipe list.';
+
+  const PARTS = [
+    {
+      key:'event', label:'Event', q:'When does it run?',
+      legend:'Specify when the search runs:',
+      guess:'Only when the user clicks a small Go button. Pressing Enter does nothing.',
+      still:'Nothing comes back, because the logic is still the AI’s guess.',
+      options:[
+        {id:'type', label:'As the user types',
+          prompt:'Run the search as the user types in the search box.',
+          fb:'The Go button is gone, and the search runs as you type. Try {lemon} again.'},
+        {id:'submit', label:'When the user presses Enter or clicks Search',
+          prompt:'Run the search when the user presses Enter or clicks a Search button.',
+          fb:'Enter works now, and the button says Search. Try {lemon} again.'}
+      ]
+    },
+    {
+      key:'logic', label:'Logic', q:'What should the code do?',
+      legend:'Specify what the search matches:',
+      guess:'Only finds a recipe if you type its whole name exactly, capital letters included.',
+      still:'Then try a search with no match, like {pizza}. The page is blank with no message, because the response is still the AI’s guess.',
+      options:[
+        {id:'names', label:'Match recipe names, ignoring capital letters',
+          prompt:'Match what they typed against recipe names, ignoring capital letters.',
+          fb:'Now {lemon} finds the two recipes with lemon in their names.'},
+        {id:'ingredients', label:'Match names and ingredients, ignoring capital letters',
+          prompt:'Match what they typed against recipe names and ingredients, ignoring capital letters.',
+          fb:'Now {lemon} finds three recipes. Greek Salad has no lemon in its name, but the search checks ingredients too.'}
+      ]
+    },
+    {
+      key:'response', label:'Response', q:'What does the user see?',
+      legend:'Specify what the user sees:',
+      guess:'The list shows only the matches. If nothing matches, the page is blank with no message.',
+      still:'',
+      options:[
+        {id:'count', label:'A count of results, plus a message and a Clear button when nothing matches',
+          prompt:'Show the matching recipes and how many were found. If nothing matches, say “No recipes match” and show a button to clear the search.',
+          fb:'Try {pizza} again. Now the user knows nothing matched and has a way back to the full list.'},
+        {id:'highlight', label:'Highlighted matches, plus suggestions when nothing matches',
+          prompt:'Show the matching recipes with the matching words highlighted. If nothing matches, say so and suggest three popular recipes.',
+          fb:'Try {lemon}, then {pizza}. Matches are highlighted, and a search with no results suggests three recipes to try.'}
+      ]
+    }
+  ];
+
+  /* ---------- section 2: state ---------- */
+  const applied = {event:null, logic:null, response:null};
+  let active = 0;          // index of the part being edited, or -1
+  let pending = null;      // option chosen but not sent
+  let changing = false;    // editing a part that was already specified
+  let lastFb = -1;         // which part shows its feedback
+  let version = 1;
+  let query = '';          // what's in the app's search box
+  let ran = '';            // the search the app last ran
+  let everDone = false;
+  let busy = false;
+
+  const optionOf = (p, id) => p.options.find(o => o.id === id);
+  const chips = text => esc(text).replace(/\{(\w+)\}/g, (m, w) => `<button type="button" class="try" data-q="${w}" aria-label="Search the app for ${w}">${w}</button>`);
+
+  /* ---------- the prompt box ---------- */
+  function renderPrompt() {
+    let html = esc(BASE_PROMPT);
+    PARTS.forEach((p, i) => {
+      const isPending = i === active && pending && pending !== applied[p.key];
+      const id = isPending ? pending : applied[p.key];
+      if (!id) return;
+      html += ` <span class="pp pp-${p.key}${isPending ? ' pending' : ''}">${esc(optionOf(p, id).prompt)}</span>`;
+    });
+    $('pb-text').innerHTML = html;
+  }
+
+  /* ---------- the three parts ---------- */
+  function feedback(i) {
+    const p = PARTS[i];
+    let t = optionOf(p, applied[p.key]).fb;
+    const nextPart = PARTS[i + 1];
+    if (nextPart && !applied[nextPart.key] && p.still) t += ' ' + p.still;
+    return t;
+  }
+
+  function renderParts() {
+    $('parts').innerHTML = PARTS.map((p, i) => {
+      const isActive = i === active;
+      const isDone = !!applied[p.key] && !isActive;
+      const state = isActive ? 'active' : isDone ? 'done' : 'guess';
+      const status = isActive ? 'Your turn' : isDone ? 'Specified' : 'AI’s guess';
+      let body = '';
+      if (state === 'active' && i === 0 && version === 1) {
+        body += `<p class="part-try">First, try the app. Type {lemon} in the search box and press Enter. Nothing happens.</p>`.replace('{lemon}', chips('{lemon}'));
+      }
+      if (state === 'guess' || (state === 'active' && !changing)) {
+        body += `<p class="part-guess"><b>The AI guessed:</b> ${esc(p.guess)}</p>`;
+      }
+      if (state === 'active') {
+        body += `<fieldset class="opts"><legend>${esc(p.legend)}</legend>` +
+          p.options.map(o => `<label class="opt${pending === o.id ? ' checked' : ''}"><input type="radio" name="opt-${p.key}" value="${o.id}"${pending === o.id ? ' checked' : ''}><span>${esc(o.label)}</span></label>`).join('') +
+          `</fieldset><div class="send-row"><button type="button" class="btn btn-send" data-send${pending && pending !== applied[p.key] ? '' : ' disabled'}>Update prompt</button>${changing ? '<button type="button" class="btn btn-quiet" data-cancel>Cancel</button>' : ''}</div>`;
+      }
+      if (state === 'done') {
+        body += `<p class="part-chosen">You specified: <strong>${esc(optionOf(p, applied[p.key]).label)}</strong>${!changing ? `<button type="button" class="btn-change" data-change="${i}">Change<span class="visually-hidden"> the ${p.label.toLowerCase()}</span></button>` : ''}</p>`;
+        if (i === lastFb) body += `<p class="part-fb" tabindex="-1">${chips(feedback(i))}</p>`;
+      }
+      return `<li class="part is-${state}" data-part="${p.key}" data-i="${i}">
+        <div class="part-head"><span class="part-chip">${p.label}</span><span class="part-q">${esc(p.q)}</span><span class="part-status">${status}</span></div>
+        ${body}</li>`;
+    }).join('');
+  }
+
+  $('parts').addEventListener('change', e => {
+    if (e.target.type !== 'radio') return;
+    pending = e.target.value;
+    const li = e.target.closest('.part');
+    li.querySelectorAll('.opt').forEach(o => o.classList.toggle('checked', o.querySelector('input').checked));
+    li.querySelector('[data-send]').disabled = pending === applied[PARTS[active].key];
+    renderPrompt();
+  });
+
+  $('parts').addEventListener('click', e => {
+    if (e.target.closest('[data-send]')) return send();
+    if (e.target.closest('[data-cancel]')) {
+      // Go back to the next part that's still the AI's guess, if any.
+      active = PARTS.findIndex(x => !applied[x.key]);
+      pending = null; changing = false;
+      renderPrompt(); renderParts();
+      return;
+    }
+    const ch = e.target.closest('[data-change]');
+    if (ch && !busy) {
+      active = Number(ch.dataset.change);
+      pending = applied[PARTS[active].key];
+      changing = true;
+      lastFb = -1;
+      renderPrompt(); renderParts();
+      const first = $('parts').querySelector('.is-active input');
+      if (first) first.focus();
+    }
+  });
+
+  function send() {
+    if (busy || active < 0 || !pending) return;
+    const i = active;
+    const p = PARTS[i];
+    applied[p.key] = pending;
+    pending = null;
+    changing = false;
+    lastFb = i;
+    active = PARTS.findIndex(x => !applied[x.key]);
+    busy = true;
+    renderPrompt();
+    renderParts();
+    rebuild(i);
+  }
+
+  /* ---------- the generated app ---------- */
+  function rebuild(i) {
+    const frame = $('appframe');
+    frame.classList.add('building');
+    setTimeout(() => {
+      version++;
+      const ver = $('a-ver');
+      ver.textContent = 'Version ' + version;
+      ver.classList.remove('bump'); void ver.offsetWidth; ver.classList.add('bump');
+      if (applied.event === 'type') ran = query.trim();
+      buildApp();
+      frame.classList.remove('building');
+      pulse(i);
+      busy = false;
+
+      const fb = $('parts').querySelector('.part-fb');
+      announce(`Version ${version} of the app is ready. ${fb ? fb.textContent : ''}`);
+      scrollToStep(fb ? fb.closest('.part') : null);
+
+      if (!everDone && PARTS.every(x => applied[x.key])) {
+        everDone = true;
+        renderParts();
+        $('bench-done').hidden = false;
+        unlockBridge();
+      }
+    }, reduce ? 0 : 900);
+  }
+
+  function scrollToStep(el) {
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const bottom = window.innerHeight - $('stepnav').offsetHeight;
+    if (isPhone()) {
+      const app = $('appcol');
+      const stuck = getComputedStyle(app).position === 'sticky';
+      const top = stuck ? app.getBoundingClientRect().height + 10 : 10;
+      if (r.top < top || r.top > bottom * .8) {
+        window.scrollBy({top: r.top - top, behavior: reduce ? 'auto' : 'smooth'});
+      }
+    } else if (r.bottom > bottom || r.top < 0) {
+      window.scrollBy({top: r.bottom > bottom ? r.bottom - bottom + 16 : r.top - 16, behavior: reduce ? 'auto' : 'smooth'});
+    }
+  }
+
+  function pulse(i) {
+    const key = PARTS[i].key;
+    const target = key === 'event' ? $('ra-form') : $('ra-results');
+    if (!target) return;
+    target.classList.add('pulse-' + key);
+    setTimeout(() => target.classList.remove('pulse-' + key), 1500);
+  }
+
+  function buildApp() {
+    const ev = applied.event;
+    const btn = ev === null ? '<button type="submit" class="ra-go">Go</button>'
+      : ev === 'submit' ? '<button type="submit" class="ra-btn">Search</button>' : '';
+    $('a-body').innerHTML = `
+      <div class="ra">
+        <div class="ra-head"><p class="ra-title">Recipe Box</p><p class="ra-total">${RECIPES.length} recipes</p></div>
+        <form class="ra-search" id="ra-form" role="search" autocomplete="off">
+          <label class="visually-hidden" for="ra-input">Search recipes</label>
+          <input id="ra-input" type="text" inputmode="search" enterkeyhint="search" placeholder="Search recipes" autocapitalize="none" autocorrect="off" spellcheck="false">
+          ${btn}
+        </form>
+        <div class="ra-results" id="ra-results" aria-live="polite"></div>
+      </div>`;
+    const input = $('ra-input');
+    input.value = query;
+    input.addEventListener('input', () => {
+      query = input.value;
+      if (applied.event === 'type') run();
+    });
+    input.addEventListener('keydown', e => {
+      // The AI's guess only wired up the Go button.
+      if (e.key === 'Enter' && applied.event === null) e.preventDefault();
+    });
+    $('ra-form').addEventListener('submit', e => {
+      e.preventDefault();
+      if (applied.event !== 'type') run();
+    });
+    renderResults();
+  }
+
+  function run() { ran = query.trim(); renderResults(); }
+
+  function words(q) { return q.toLowerCase().split(/\s+/).filter(Boolean); }
+
+  function matches(r, q) {
+    if (!q) return true;
+    if (applied.logic === null) return r.name === q;
+    const hay = (applied.logic === 'ingredients' ? r.name + ' ' + r.ing.join(' ') : r.name).toLowerCase();
+    return words(q).every(w => hay.includes(w));
+  }
+
+  function hl(text, ws) {
+    const safe = esc(text);
+    if (!ws.length) return safe;
+    const re = new RegExp('(' + ws.map(w => esc(w).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'gi');
+    return safe.replace(re, '<mark>$1</mark>');
+  }
+
+  function row(r, ws) {
+    return `<li class="ra-row"><span class="plate" style="--c:${r.c}" aria-hidden="true"></span><span class="ra-txt"><span class="ra-name">${hl(r.name, ws)}</span><span class="ra-meta">${r.min} min · ${hl(r.ing.join(', '), ws)}</span></span></li>`;
+  }
+
+  function renderResults() {
+    const out = $('ra-results');
+    if (!out) return;
+    const q = ran;
+    const list = RECIPES.filter(r => matches(r, q));
+    const R = applied.response;
+    const ws = R === 'highlight' && q ? words(q) : [];
+    let html = '';
+    if (R === 'count' && q && list.length) html += `<p class="ra-count">${list.length} recipe${list.length === 1 ? '' : 's'} found</p>`;
+    if (list.length) {
+      html += '<ul class="ra-list">' + list.map(r => row(r, ws)).join('') + '</ul>';
+    } else if (R === 'count') {
+      html += `<div class="ra-empty"><p>No recipes match “${esc(q)}”.</p><button type="button" class="ra-clear" id="ra-clear">Clear search</button></div>`;
+    } else if (R === 'highlight') {
+      html += `<div class="ra-empty"><p>No recipes match “${esc(q)}”.</p><p class="ra-sugg">Try one of these popular recipes:</p></div>` +
+        '<ul class="ra-list">' + RECIPES.filter(r => r.popular).map(r => row(r, [])).join('') + '</ul>';
+    }
+    // The AI's guessed response shows nothing at all when nothing matches.
+    out.innerHTML = html;
+    const clear = $('ra-clear');
+    if (clear) clear.addEventListener('click', () => {
+      query = ''; $('ra-input').value = ''; run(); $('ra-input').focus();
+    });
+  }
+
+  /* Search-word buttons in the steps type the word and press Enter.
+     The AI's guessed version ignores Enter, so there nothing happens. */
+  document.addEventListener('click', e => {
+    const t = e.target.closest('.try');
+    if (!t || busy) return;
+    const input = $('ra-input');
+    if (!input) return;
+    query = t.dataset.q;
+    input.value = query;
+    if (applied.event !== null) run();
+    input.classList.remove('flash'); void input.offsetWidth; input.classList.add('flash');
+    $('a-body').scrollTop = 0;
+    if (isPhone() && getComputedStyle($('appcol')).position !== 'sticky') {
+      $('appcol').scrollIntoView({block: 'start', behavior: reduce ? 'auto' : 'smooth'});
+    }
+  });
+
+  /* ---------- section 3: copy the template ---------- */
+  const TEMPLATE = 'When the user ___, the app should ___. Then show ___. If it finds nothing or something fails, show ___.';
+  $('copy-tpl').addEventListener('click', async () => {
+    const msg = $('copy-msg');
+    try {
+      await navigator.clipboard.writeText(TEMPLATE);
+      msg.textContent = 'Copied.';
+    } catch (err) {
+      const ta = document.createElement('textarea');
+      ta.value = TEMPLATE; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+      ta.remove();
+      msg.textContent = ok ? 'Copied.' : 'Select the template above and copy it.';
+    }
+    setTimeout(() => { msg.textContent = ''; }, 3000);
+  });
+
+  /* ---------- finishing the practice opens the Next button ---------- */
+  function unlockBridge() {
+    practiceDone = true;
+    renderNav();
+  }
+
+  /* ---------- start ---------- */
+  renderPrompt();
+  renderParts();
+  buildApp();
+})();
+</script>
+</body>
+</html>
