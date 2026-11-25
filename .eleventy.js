@@ -12,6 +12,7 @@ module.exports = config => {
     config.addPassthroughCopy("brain-dump");
     config.addPassthroughCopy("terminal");
     config.addPassthroughCopy("event-logic-response");
+    config.addPassthroughCopy("learn-product-design");
     config.addPassthroughCopy("projects/interface-normalization");
     config.addPassthroughCopy('_redirects');
 
